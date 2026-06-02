@@ -174,10 +174,14 @@ p {
   font-size: 0.75rem;
   color: var(--color-text-muted);
   display: none;
+  line-height: 1.3;
 }
 
 @media (min-width: 640px) {
-  .navbar-v2 .logo .tagline { display: block; }
+  .navbar-v2 .logo .tagline {
+    display: block;
+    max-width: 160px;
+  }
 }
 
 .navbar-v2 .nav-menu {
