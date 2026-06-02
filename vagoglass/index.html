@@ -13,16 +13,16 @@
 <link rel="alternate" hreflang="en" href="/vagoglass/en/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="assets/brand/vagoglass-favicon.svg">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <header class="site-header">
   <div class="container nav">
-    <a href="/vagoglass/" class="brand">
-      <span><span class="brand-mark-line"></span>VAGOGLASS</span>
-      <small>by Glass Expert</small>
+    <a href="/vagoglass/" class="brand" aria-label="VAGOGLASS by Glass Expert">
+      <img src="assets/brand/vagoglass-lockup.svg" alt="VAGOGLASS" height="44">
     </a>
     <ul class="nav-links">
       <li><a href="#produse">Produse</a></li>
@@ -37,7 +37,15 @@
         <a href="/vagoglass/" class="active">RO</a>
         <a href="/vagoglass/en/">EN</a>
       </div>
-      <a href="#contact" class="btn btn-primary">Cere o ofertă</a>
+      <a href="#contact" class="btn btn-primary btn-cta">
+        <span class="btn-cta-label">Cere o ofertă</span>
+        <span class="btn-cta-icon" aria-hidden="true">→</span>
+      </a>
+      <button type="button" class="nav-toggle" aria-label="Meniu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
     </div>
   </div>
 </header>
@@ -525,5 +533,6 @@
 <script src="js/cookies.js" defer></script>
 <script src="js/track.js" defer></script>
 <script src="js/newsletter.js" defer></script>
+<script src="js/nav.js" defer></script>
 </body>
 </html>
