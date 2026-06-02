@@ -298,10 +298,10 @@ p {
   inset: 0;
   z-index: 1;
   background: linear-gradient(
-    to bottom,
-    rgba(10, 10, 10, 0.55) 0%,
-    rgba(10, 10, 10, 0.40) 60%,
-    rgba(10, 10, 10, 0.65) 100%
+    160deg,
+    rgba(0, 18, 75, 0.82) 0%,
+    rgba(0, 45, 130, 0.55) 45%,
+    rgba(0, 25, 90, 0.35) 100%
   );
 }
 
@@ -531,8 +531,48 @@ p {
 .card-v2 .card-icon {
   font-size: 2.5rem;
   margin-bottom: 1.25rem;
-  display: block;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 14px;
+  background: rgba(0, 102, 204, 0.10);
+  margin-left: auto;
+  margin-right: auto;
+}
+.card-v2 .card-icon svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  stroke: #0066CC;
+  stroke-width: 1.75;
+  fill: none;
+}
+.feature h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.feature h4 svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke: #0066CC;
+  stroke-width: 2;
+  fill: none;
+  flex-shrink: 0;
+}
+.prop-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.prop-card h3 svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke: #0066CC;
+  stroke-width: 2;
+  fill: none;
+  flex-shrink: 0;
 }
 
 .card-v2 h3 {

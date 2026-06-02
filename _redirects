@@ -1,11 +1,2 @@
-# Clean URLs
-/home    /    301
-/index   /    301
-
-# Old URLs → New
-/commercial  /commercial.html  301
-/hospitality /hospitality.html 301
-/healthcare  /healthcare.html  301
-/education   /education.html   301
-/products    /products.html    301
-/projects    /projects.html    301
+# No redirect rules needed.
+# Cloudflare Pages handles clean URLs automatically.
