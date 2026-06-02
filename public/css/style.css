@@ -4,21 +4,24 @@
    ==================================== */
 
 :root {
-    /* GLAS EXPERT DESIGN SYSTEM */
+    /* GLAS EXPERT USA BRANDING SYSTEM */
+    --dark-base: #1B1B1B;
     --primary: #1B3A6B;
-    --accent: #D4AF37;
+    --accent-bright: #00D4FF;
+    --accent-green: #00C884;
     --white: #FFFFFF;
     --text-dark: #1B3A6B;
     --text-light: #666666;
     --bg-light: #F9F9F9;
+    --bg-dark: #1B1B1B;
     --border-color: #E0E0E0;
     --success: #6FCF97;
 
-    /* SEGMENT COLORS */
-    --commercial: #0E7C86;
-    --hospitality: #B87333;
-    --healthcare: #6FCF97;
-    --education: #4B0082;
+    /* SEGMENT COLORS (USA Market Positioning) */
+    --commercial: #0099CC;
+    --hospitality: #FF6B35;
+    --healthcare: #00C884;
+    --education: #6C5CE7;
 
     /* TYPOGRAPHY */
     --font-headers: 'Poppins', 'Arial', sans-serif;
@@ -939,4 +942,175 @@ h1, h2, h3, h4, h5, h6 {
 
 .segment-education h2 {
     color: var(--education);
+}
+
+/* ===== IMAGE STYLING ===== */
+.hero-image,
+.segment-image,
+.product-image,
+.case-study-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-image {
+    max-width: 100%;
+    height: 400px;
+    object-fit: cover;
+    margin-bottom: 2rem;
+}
+
+.segment-image {
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.segment-image img,
+.hero-image {
+    border-radius: 10px;
+}
+
+.segment-image:hover,
+.product-image:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+}
+
+.image-placeholder {
+    background: linear-gradient(135deg, var(--bg-light) 0%, #f0f0f0 100%);
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--text-light);
+    font-size: 1rem;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== BRANDING ENHANCEMENTS ===== */
+.hero {
+    background: linear-gradient(135deg, var(--dark-base) 0%, var(--primary) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="glass" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="16" height="16" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23glass)"/></svg>');
+    opacity: 0.1;
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== PREMIUM BRANDING ACCENTS ===== */
+.btn-primary {
+    background: var(--accent-bright);
+    color: var(--dark-base);
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+}
+
+.btn-primary:hover {
+    background: var(--accent-green);
+    box-shadow: 0 6px 20px rgba(0, 200, 132, 0.4);
+    transform: translateY(-2px);
+}
+
+/* ===== SEGMENT HERO GRADIENTS ===== */
+.segment-hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.segment-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: 'radial-gradient(circle at top right, rgba(255,255,255,0.1), transparent)';
+    z-index: 0;
+}
+
+.segment-hero h1,
+.segment-hero p {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== RESPONSIVE IMAGE GRID ===== */
+.product-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.product-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* ===== ANIMATIONS (Futuristic) ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-content h1,
+.segment-hero h1 {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes glassShimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.product-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Mobile image optimization */
+@media (max-width: 768px) {
+    .hero-image {
+        height: 300px;
+    }
+
+    .segment-image {
+        max-width: 100%;
+    }
+
+    .product-showcase {
+        grid-template-columns: 1fr;
+    }
 }
