@@ -299,9 +299,9 @@ p {
   z-index: 1;
   background: linear-gradient(
     160deg,
-    rgba(0, 18, 75, 0.82) 0%,
-    rgba(0, 45, 130, 0.55) 45%,
-    rgba(0, 25, 90, 0.35) 100%
+    rgba(0, 10, 50, 0.62) 0%,
+    rgba(0, 20, 80, 0.28) 50%,
+    rgba(0, 10, 50, 0.18) 100%
   );
 }
 
@@ -315,7 +315,7 @@ p {
 .hero-v2 h1 {
   color: var(--color-white);
   margin-bottom: 1.25rem;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  text-shadow: 0 2px 32px rgba(0,0,0,0.65), 0 1px 8px rgba(0,0,0,0.50);
 }
 
 .hero-v2 .hero-subtitle {
