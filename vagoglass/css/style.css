@@ -436,6 +436,40 @@ h4 { font-size: 1.05rem; letter-spacing: 0.02em; text-transform: uppercase; colo
   border-radius: var(--radius); font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600;
 }
 
+/* ===== Cookie banner ===== */
+.cookie-banner {
+  position: fixed; bottom: 16px; left: 16px; right: 16px;
+  max-width: 720px; margin: 0 auto;
+  background: var(--steel-dark); color: white;
+  padding: 18px 22px; border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  z-index: 999; font-size: 0.88rem;
+  border: 1px solid rgba(0,163,196,0.15);
+  animation: cookieIn 280ms cubic-bezier(.2,.8,.2,1);
+}
+@keyframes cookieIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.cookie-banner.hide { animation: cookieOut 200ms ease forwards; }
+@keyframes cookieOut { to { opacity: 0; transform: translateY(20px); } }
+.cookie-banner-text { flex: 1; min-width: 260px; line-height: 1.5; color: rgba(255,255,255,0.85); }
+.cookie-banner-text strong { color: white; display: block; margin-bottom: 4px; font-size: 0.92rem; }
+.cookie-banner-text a { color: var(--cyan); border-bottom: 1px dashed rgba(0,163,196,0.4); }
+.cookie-banner-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.cookie-banner button {
+  padding: 10px 18px; border-radius: var(--radius);
+  font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none;
+  transition: all var(--t); font-family: inherit;
+}
+.cookie-btn-accept { background: var(--cyan); color: var(--steel-dark); }
+.cookie-btn-accept:hover { background: white; }
+.cookie-btn-reject { background: transparent; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2) !important; }
+.cookie-btn-reject:hover { color: white; border-color: rgba(255,255,255,0.4) !important; }
+@media (max-width: 560px) {
+  .cookie-banner { flex-direction: column; align-items: stretch; padding: 16px; bottom: 8px; left: 8px; right: 8px; }
+  .cookie-banner-actions { justify-content: stretch; }
+  .cookie-banner-actions button { flex: 1; }
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 960px) {
   .hero-grid, .case, .contact-grid { grid-template-columns: 1fr; gap: 32px; }
