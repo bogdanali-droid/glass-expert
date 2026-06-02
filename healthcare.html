@@ -40,9 +40,16 @@
         </div>
     </header>
 
-    <section class="segment-hero" style="background-image: linear-gradient(135deg, rgba(0,153,102,0.7) 0%, rgba(0,200,132,0.7) 100%), url('images/healthcare-hero.jpg'); background-size: cover; background-position: center; position: relative;">
-        <div class="container" style="position: relative; z-index: 2;">
-            <h1>Sustainable Glass, Healing Spaces</h1>
+    <section class="segment-hero" style="position: relative;">
+        <picture>
+            <source media="(min-width: 1200px)" srcset="images/healthcare-hero-1200w.jpg">
+            <source media="(min-width: 768px)" srcset="images/healthcare-hero-768w.jpg">
+            <source media="(min-width: 480px)" srcset="images/healthcare-hero-480w.jpg">
+            <img src="images/healthcare-hero.jpg" alt="Healthcare & Institutional Glass Solutions" style="width: 100%; height: auto; display: block;">
+        </picture>
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0,153,102,0.7) 0%, rgba(0,200,132,0.7) 100%);"></div>
+        <div class="container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; text-align: center; color: white; width: 90%;">
+            <h1 style="color: white; font-size: 3.5rem; margin-bottom: 1rem;">Sustainable Glass, Healing Spaces</h1>
             <p style="font-size: 1.3rem; margin-bottom: 2rem;">Medical-Grade Solutions. Environmental Leadership.</p>
             <p>FDA-compliant glass, LEED-certified systems, cleanroom specifications—build healing environments with precision engineering.</p>
         </div>

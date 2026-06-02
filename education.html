@@ -40,9 +40,16 @@
         </div>
     </header>
 
-    <section class="segment-hero" style="background-image: linear-gradient(135deg, rgba(90,75,184,0.7) 0%, rgba(108,92,231,0.7) 100%), url('images/education-hero.jpg'); background-size: cover; background-position: center; position: relative;">
-        <div class="container" style="position: relative; z-index: 2;">
-            <h1>Innovation in Every Classroom</h1>
+    <section class="segment-hero" style="position: relative;">
+        <picture>
+            <source media="(min-width: 1200px)" srcset="images/education-hero-1200w.jpg">
+            <source media="(min-width: 768px)" srcset="images/education-hero-768w.jpg">
+            <source media="(min-width: 480px)" srcset="images/education-hero-480w.jpg">
+            <img src="images/education-hero.jpg" alt="Education & Institutional Glass Solutions" style="width: 100%; height: auto; display: block;">
+        </picture>
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(90,75,184,0.7) 0%, rgba(108,92,231,0.7) 100%);"></div>
+        <div class="container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; text-align: center; color: white; width: 90%;">
+            <h1 style="color: white; font-size: 3.5rem; margin-bottom: 1rem;">Innovation in Every Classroom</h1>
             <p style="font-size: 1.3rem; margin-bottom: 2rem;">Durable. Sustainable. Inspiring.</p>
             <p>Glass solutions that foster learning, demonstrate environmental leadership, and build institutional pride for universities, K-12 schools, and research centers worldwide.</p>
         </div>

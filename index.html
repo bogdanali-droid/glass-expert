@@ -34,9 +34,15 @@
     </header>
 
     <!-- HERO SECTION -->
-    <section id="home" class="hero">
-        <!-- Background image -->
-        <div class="hero-background" style="background-image: linear-gradient(135deg, rgba(27,27,27,0.7) 0%, rgba(27,58,107,0.7) 100%), url('images/index-hero.jpg'); background-size: cover; background-position: center; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;"></div>
+    <section id="home" class="hero" style="position: relative;">
+        <!-- Responsive background image -->
+        <picture style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;">
+            <source media="(min-width: 1200px)" srcset="images/index-hero-1200w.jpg">
+            <source media="(min-width: 768px)" srcset="images/index-hero-768w.jpg">
+            <source media="(min-width: 480px)" srcset="images/index-hero-480w.jpg">
+            <img src="images/index-hero.jpg" alt="Premium Glass for American Architecture" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        </picture>
+        <div class="hero-background" style="background: linear-gradient(135deg, rgba(27,27,27,0.7) 0%, rgba(27,58,107,0.7) 100%); position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;"></div>
         <div class="hero-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(27,27,27,0.6) 0%, rgba(27,58,107,0.5) 100%); z-index: 1;"></div>
         <div class="hero-content" style="position: relative; z-index: 2;">
             <h1>Premium Glass for American Architecture</h1>

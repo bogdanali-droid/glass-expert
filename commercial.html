@@ -76,9 +76,16 @@
     </header>
 
     <!-- HERO -->
-    <section class="segment-hero" style="background-image: linear-gradient(135deg, rgba(0,153,204,0.7) 0%, rgba(0,102,153,0.7) 100%), url('images/commercial-hero.jpg'); background-size: cover; background-position: center; position: relative;">
-        <div class="container" style="position: relative; z-index: 2;">
-            <h1>Commercial Real Estate</h1>
+    <section class="segment-hero" style="position: relative;">
+        <picture>
+            <source media="(min-width: 1200px)" srcset="images/commercial-hero-1200w.jpg">
+            <source media="(min-width: 768px)" srcset="images/commercial-hero-768w.jpg">
+            <source media="(min-width: 480px)" srcset="images/commercial-hero-480w.jpg">
+            <img src="images/commercial-hero.jpg" alt="Commercial Real Estate Glass Solutions" style="width: 100%; height: auto; display: block;">
+        </picture>
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0,153,204,0.7) 0%, rgba(0,102,153,0.7) 100%);"></div>
+        <div class="container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; text-align: center; color: white; width: 90%;">
+            <h1 style="color: white; font-size: 3.5rem; margin-bottom: 1rem;">Commercial Real Estate</h1>
             <p style="font-size: 1.3rem; margin-bottom: 2rem;">Iconic Facades. Architectural Innovation. On Schedule.</p>
             <p>Curved glass, ceramic-printed facades, smart glass—engineered for commercial excellence. 4-6 week delivery. ASTM + EN certified.</p>
         </div>
