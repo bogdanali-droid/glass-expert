@@ -3,25 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glas Expert USA — Premium Architectural Glass</title>
-    <link rel="stylesheet" href="css/figma-redesign.css">
+    <title>Glass Expert USA | Premium Architectural Glass Supplier — New Jersey</title>
+    <meta name="description" content="Glass Expert USA delivers European-precision architectural glass to American projects. Curved glass, ceramic-printed, smart glass, low-E thermal. 4–6 week delivery. Serving architects, developers & facility managers nationwide. New Jersey based.">
+    <meta name="keywords" content="architectural glass USA, premium glass supplier USA, curved glass facades USA, ceramic printed glass, smart glass supplier, low-E glass USA, European glass manufacturer USA, glass supplier New Jersey, commercial glass USA, glass expert USA">
+    <meta property="og:title" content="Glass Expert USA | Premium European Architectural Glass">
+    <meta property="og:description" content="25+ years. 1,000+ projects. 30 countries. Now serving the US market from New Jersey. Trusted by Roland Garros, Therme, SKANSKA, ING, H&M.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://glassexpertusa.com/">
+    <meta property="og:image" content="https://glassexpertusa.com/images/og-home.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Glass Expert USA | Premium European Architectural Glass">
+    <meta name="twitter:description" content="European glass precision. American delivery speed. Curved, smart, ceramic-printed glass for US architects and developers.">
+    <link rel="stylesheet" href="css/redesign-v2.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <meta name="description" content="Glas Expert — European premium glass supplier for USA market. Curved glass, ceramic-printed, healthcare-grade. 4-6 weeks delivery.">
 </head>
 <body>
     <!-- HEADER & NAVIGATION -->
-    <header class="navbar">
+    <header class="navbar-v2">
         <div class="container">
             <div class="logo">
-                <img src="images/glas-expert-logo.png" alt="Glas Expert Logo" style="height: 50px; margin-bottom: 5px;">
-                <p class="tagline">European Quality. USA Speed.</p>
+                <img src="images/glas-expert-logo.png" alt="Glas Expert Logo" style="height: 40px;">
+                <p class="tagline">From Better to Best — 25+ Years of Glass Excellence</p>
             </div>
-            <nav class="nav-menu">
+            <nav class="nav-menu" id="nav-menu">
                 <a href="index.html">Home</a>
                 <a href="commercial.html">Commercial</a>
                 <a href="hospitality.html">Hospitality</a>
                 <a href="healthcare.html">Healthcare</a>
                 <a href="education.html">Education</a>
+                <a href="products.html">Products</a>
+                <a href="projects.html">Projects</a>
+                <a href="#versatika">Versatika</a>
                 <a href="#contact" class="btn-cta">Contact</a>
             </nav>
             <div class="hamburger" id="hamburger">
@@ -33,26 +45,33 @@
     </header>
 
     <!-- HERO SECTION -->
-    <section id="home" class="hero">
-        <!-- Background image -->
-        <div class="hero-background" style="background-image: linear-gradient(135deg, rgba(27,27,27,0.7) 0%, rgba(27,58,107,0.7) 100%), url('images/index-hero.jpg'); background-size: cover; background-position: center; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;"></div>
-        <div class="hero-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(27,27,27,0.6) 0%, rgba(27,58,107,0.5) 100%); z-index: 1;"></div>
-        <div class="hero-content" style="position: relative; z-index: 2;">
+    <section id="home" class="hero-v2">
+        <div class="hero-bg">
+            <picture>
+                <source media="(min-width: 1200px)" srcset="images/index-hero-1200w.jpg">
+                <source media="(min-width: 768px)" srcset="images/index-hero-768w.jpg">
+                <source media="(min-width: 480px)" srcset="images/index-hero-480w.jpg">
+                <img src="images/index-hero.jpg" alt="Premium Glass for American Architecture">
+            </picture>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content fade-in">
+            <p class="label-eyebrow" style="color: rgba(255,255,255,0.7);">From Better to Best &middot; 25+ Years of Glass Excellence</p>
             <h1>Premium Glass for American Architecture</h1>
-            <p class="hero-subtitle">Futuristic. Innovative. USA Market Leader.</p>
-            <p style="font-size: 1.1rem; margin: 1.5rem 0; opacity: 0.95;">Smart glass, ceramic-printed, curved, low-E thermal. European precision. American delivery.</p>
-            <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <button class="btn-primary" onclick="document.getElementById('selector').scrollIntoView({behavior: 'smooth'})">
+            <p class="hero-subtitle">Trusted by Roland Garros &middot; Therme &middot; SKANSKA &middot; ING &middot; H&amp;M</p>
+            <p class="hero-body">Smart glass, ceramic-printed, curved, low-E thermal. European precision. American delivery.</p>
+            <div class="hero-cta-group">
+                <button class="btn-v2-primary" onclick="document.getElementById('selector').scrollIntoView({behavior: 'smooth'})">
                     Find Your Glass
                 </button>
-                <button class="btn-secondary" style="background: rgba(255,255,255,0.2); color: var(--white); border-color: var(--white);" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                <button class="btn-v2-secondary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
                     Request Quote
                 </button>
             </div>
         </div>
-        <div class="hero-stats" style="position: relative; z-index: 2;">
+        <div class="hero-stats fade-in fade-in-delay-2">
             <div class="stat">
-                <h3>24</h3>
+                <h3>25+</h3>
                 <p>Years Excellence</p>
             </div>
             <div class="stat">
@@ -71,20 +90,25 @@
     </section>
 
     <!-- BRANDING SECTION -->
-    <section style="padding: 4rem 2rem; background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);">
+    <section class="section-v2">
         <div class="container">
-            <h2 style="text-align: center; color: var(--primary); margin-bottom: 2rem;">Why Glas Expert USA?</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0;">
-                <div style="padding: 2rem; background: white; border-radius: 10px; border-left: 4px solid var(--accent-bright); box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-                    <h3 style="color: var(--accent-bright); margin-bottom: 1rem;">⚡ Smart Glass Innovation</h3>
+            <div class="section-header fade-in">
+                <h2>Why Glas Expert USA?</h2>
+            </div>
+            <div class="grid-v2">
+                <div class="card-v2 fade-in fade-in-delay-1">
+                    <span class="card-icon">⚡</span>
+                    <h3>Smart Glass Innovation</h3>
                     <p>Electrochromic technology. On-demand transparency. Premium futuristic positioning for corporate HQs.</p>
                 </div>
-                <div style="padding: 2rem; background: white; border-radius: 10px; border-left: 4px solid var(--accent-green); box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-                    <h3 style="color: var(--accent-green); margin-bottom: 1rem;">🌱 Sustainable Solutions</h3>
+                <div class="card-v2 fade-in fade-in-delay-2">
+                    <span class="card-icon">🌱</span>
+                    <h3>Sustainable Solutions</h3>
                     <p>LEED-certified, low-E coatings, recycled materials. Environmental leadership built-in.</p>
                 </div>
-                <div style="padding: 2rem; background: white; border-radius: 10px; border-left: 4px solid var(--accent-bright); box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-                    <h3 style="color: var(--accent-bright); margin-bottom: 1rem;">🚀 Speed to Market</h3>
+                <div class="card-v2 fade-in fade-in-delay-3">
+                    <span class="card-icon">🚀</span>
+                    <h3>Speed to Market</h3>
                     <p>4-6 week delivery. In-house manufacturing. USA supply chain advantage.</p>
                 </div>
             </div>
@@ -92,25 +116,27 @@
     </section>
 
     <!-- VALUE PROPOSITIONS -->
-    <section class="value-props">
-        <div class="props-grid">
-            <div class="prop-card">
-                <h3>⚡ Speed</h3>
-                <p>4-6 weeks delivery vs competitor 8-12 weeks</p>
-            </div>
-            <div class="prop-card">
-                <h3>✓ Quality</h3>
-                <p>ASTM + EN certified European standards</p>
-            </div>
-            <div class="prop-card">
-                <h3>🚀 Innovation</h3>
-                <p>Curved glass + ceramic-printed + smart glass</p>
+    <section class="value-props section-v2-soft">
+        <div class="container">
+            <div class="props-grid" style="max-width:100%;padding-inline:0;">
+                <div class="prop-card fade-in">
+                    <h3>⚡ Speed</h3>
+                    <p>4-6 weeks delivery vs competitor 8-12 weeks</p>
+                </div>
+                <div class="prop-card fade-in fade-in-delay-1">
+                    <h3>&#10003; Quality</h3>
+                    <p>ASTM + EN certified European standards</p>
+                </div>
+                <div class="prop-card fade-in fade-in-delay-2">
+                    <h3>🚀 Innovation</h3>
+                    <p>Curved glass + ceramic-printed + smart glass</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- GLASS SELECTOR TOOL -->
-    <section id="selector" class="glass-selector">
+    <section id="selector" class="glass-selector section-v2">
         <div class="container">
             <h2>Find Your Perfect Glass</h2>
             <p class="section-subtitle">Select your needs and discover the ideal solution in 3 steps</p>
@@ -383,7 +409,7 @@
                     <p>Curved glass, ceramic-printed, custom colors. No design limits.</p>
                 </div>
                 <div class="feature">
-                    <h4>🌍 24 Years Excellence</h4>
+                    <h4>🌍 25+ Years Excellence</h4>
                     <p>1000+ projects. 30 countries. Global experience.</p>
                 </div>
                 <div class="feature">
@@ -392,6 +418,56 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- VERSATIKA SECTION -->
+    <section id="versatika" style="padding: 6rem 2rem; background: #0A0A0A; color: white;">
+      <div class="container">
+        <!-- Red Dot badge + titlu -->
+        <div style="text-align: center; margin-bottom: 3rem;">
+          <img src="https://versatika.com/wp-content/themes/versatika/img/red-dot-winner-2025-1.svg"
+               alt="Red Dot Award 2025" style="height: 80px; margin-bottom: 1.5rem;">
+          <h2 style="color: white; font-size: 2.5rem;">USA VERSATIKA&#8482;</h2>
+          <p style="color: #aaa; font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
+            Red Dot Award: Product Design 2025 &#8212; The Flush-to-Wall Door System
+          </p>
+        </div>
+        <!-- Specs grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin: 3rem 0;">
+          <div style="text-align: center; padding: 2rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+            <h3 style="color: #00D4FF; font-size: 2rem;">3.7m</h3>
+            <p style="color: #aaa;">Maximum Height</p>
+          </div>
+          <div style="text-align: center; padding: 2rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+            <h3 style="color: #00D4FF; font-size: 2rem;">120kg</h3>
+            <p style="color: #aaa;">Hinge Capacity</p>
+          </div>
+          <div style="text-align: center; padding: 2rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+            <h3 style="color: #00D4FF; font-size: 2rem;">250K+</h3>
+            <p style="color: #aaa;">Opening Cycles</p>
+          </div>
+          <div style="text-align: center; padding: 2rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+            <h3 style="color: #00D4FF; font-size: 2rem;">&#8734;</h3>
+            <p style="color: #aaa;">Finish Options</p>
+          </div>
+        </div>
+        <!-- Finishes -->
+        <div style="text-align: center; margin: 2rem 0;">
+          <p style="color: #aaa; margin-bottom: 1rem;">Available finishes:</p>
+          <p style="color: white;">Glass (clear/satin/colored) &middot; Mirror &middot; Copper Mesh &middot; Wood Veneer (Oak/Wenge/Ebony) &middot; Any RAL Color</p>
+        </div>
+        <!-- CTA -->
+        <div style="text-align: center; margin-top: 3rem;">
+          <a href="https://versatika.com" target="_blank"
+             style="display: inline-block; background: white; color: #0A0A0A; padding: 1rem 3rem; border-radius: 100px; font-weight: 700; text-decoration: none; margin-right: 1rem;">
+            View VERSATIKA Site
+          </a>
+          <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"
+                  style="display: inline-block; background: transparent; color: white; padding: 1rem 3rem; border-radius: 100px; font-weight: 700; border: 2px solid white; cursor: pointer;">
+            Request Quote
+          </button>
+        </div>
+      </div>
     </section>
 
     <!-- CONTACT FORM -->
@@ -455,34 +531,42 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="footer">
+    <footer class="footer-v2">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>Glas Expert</h4>
                     <p>European premium architectural glass supplier.</p>
                     <p class="footer-contact">
-                        📧 info@xglass.eu<br>
-                        🌐 xglass.eu<br>
-                        📍 Timişoara, Romania
+                        <a href="mailto:office.us@xglass.eu" style="color: inherit;">office.us@xglass.eu</a><br>
+                        <a href="tel:+16094088100" style="color: inherit;">+1-609-408-8100</a><br>
+                        <a href="https://xglass.eu" target="_blank" style="color: inherit;">xglass.eu</a>
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Offices</h4>
+                    <p class="footer-contact" style="font-size: 0.9rem; line-height: 1.8;">
+                        <strong>USA:</strong> New Jersey<br>
+                        <strong>DE:</strong> Neubiberg, M&uuml;nchen<br>
+                        <strong>RO:</strong> &Scedil;os. Olteni&tcedil;ei 202,<br>Pope&scedil;ti-Leordeni
                     </p>
                 </div>
                 <div class="footer-section">
                     <h4>Segments</h4>
                     <ul>
-                        <li><a href="#commercial">Commercial</a></li>
-                        <li><a href="#hospitality">Hospitality</a></li>
-                        <li><a href="#healthcare">Healthcare</a></li>
-                        <li><a href="#education">Education</a></li>
+                        <li><a href="commercial.html">Commercial</a></li>
+                        <li><a href="hospitality.html">Hospitality</a></li>
+                        <li><a href="healthcare.html">Healthcare</a></li>
+                        <li><a href="education.html">Education</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Information</h4>
+                    <h4>Products &amp; Projects</h4>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Projects</a></li>
-                        <li><a href="#">Certifications</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="#versatika">Versatika</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
             </div>
