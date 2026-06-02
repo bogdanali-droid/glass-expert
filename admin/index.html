@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login — VAGOGLASS</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --steel: #2B2F36;
+    --cyan: #00A3C4;
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --text: #1a1d22;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: linear-gradient(135deg, var(--steel) 0%, #1a1d22 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    padding: 1rem;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.3);
+  }
+  h1 { font-size: 1.4rem; margin-bottom: 0.25rem; color: var(--steel); }
+  .sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.75rem; }
+  label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.4rem; color: var(--steel); }
+  input[type="password"] {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.15s;
+  }
+  input[type="password"]:focus { outline: none; border-color: var(--cyan); }
+  button {
+    width: 100%;
+    margin-top: 1.25rem;
+    padding: 0.85rem;
+    background: var(--cyan);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  button:hover:not(:disabled) { background: #008aa6; }
+  button:disabled { opacity: 0.6; cursor: not-allowed; }
+  .error {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: #fee2e2;
+    color: #991b1b;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    display: none;
+  }
+  .error.show { display: block; }
+  .brand {
+    display: inline-block;
+    padding: 0.3rem 0.75rem;
+    background: var(--steel);
+    color: white;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <span class="brand">VAGOGLASS</span>
+  <h1>Admin Panel</h1>
+  <p class="sub">Introdu parola pentru a accesa modulele admin.</p>
+
+  <form id="loginForm">
+    <label for="password">Parolă</label>
+    <input type="password" id="password" name="password" required autofocus>
+    <button type="submit" id="submitBtn">Autentificare</button>
+    <div class="error" id="err"></div>
+  </form>
+</div>
+
+<script>
+const form = document.getElementById('loginForm');
+const err = document.getElementById('err');
+const btn = document.getElementById('submitBtn');
+
+(async () => {
+  try {
+    const r = await fetch('/api/admin/auth-check');
+    const data = await r.json();
+    if (data.authenticated) location.href = '/admin/dashboard.html';
+  } catch (_) {}
+})();
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  err.classList.remove('show');
+  btn.disabled = true;
+  btn.textContent = 'Se verifică...';
+  const password = document.getElementById('password').value;
+  try {
+    const r = await fetch('/api/admin/auth-check', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+    if (r.ok) {
+      location.href = '/admin/dashboard.html';
+      return;
+    }
+    const data = await r.json().catch(() => ({}));
+    err.textContent = data.error || 'Parolă incorectă';
+    err.classList.add('show');
+  } catch (e2) {
+    err.textContent = 'Eroare de reţea';
+    err.classList.add('show');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Autentificare';
+  }
+});
+</script>
+</body>
+</html>

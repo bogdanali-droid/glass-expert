@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="VG">
+  <defs>
+    <linearGradient id="vgP" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1D6FE5"></stop><stop offset="1" stop-color="#0E50C0"></stop>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="92" height="92" rx="24" fill="url(#vgP)"></rect>
+  <polygon points="10,10 44,10 18,44" fill="#ffffff" opacity="0.16"></polygon>
+  <text x="50" y="52" text-anchor="middle" dominant-baseline="central" font-family="Archivo,Arial,sans-serif" font-weight="800" font-size="40" letter-spacing="-1" fill="#fff">VG</text>
+</svg>

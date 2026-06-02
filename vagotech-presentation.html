@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAGOTECH by Glass Expert — Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .presentation {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .slide {
+            padding: 60px 50px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            page-break-after: always;
+            border-bottom: 1px solid #eee;
+        }
+
+        .slide-title {
+            color: #1a3a52;
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .slide-subtitle {
+            color: #2d5a7a;
+            font-size: 24px;
+            margin-bottom: 40px;
+        }
+
+        .slide h2 {
+            color: #1a3a52;
+            font-size: 32px;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #0066CC;
+            padding-bottom: 10px;
+        }
+
+        .slide h3 {
+            color: #2d5a7a;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .content-block {
+            margin-bottom: 20px;
+        }
+
+        .bullet-list {
+            margin-left: 20px;
+            list-style: none;
+        }
+
+        .bullet-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .bullet-list li:before {
+            content: "▪";
+            position: absolute;
+            left: 0;
+            color: #0066CC;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+
+        th {
+            background: #1a3a52;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .title-slide {
+            background: linear-gradient(135deg, #1a3a52 0%, #2d5a7a 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .title-slide .slide-title {
+            color: white;
+            font-size: 64px;
+            margin-bottom: 10px;
+        }
+
+        .title-slide .slide-subtitle {
+            color: #e0e0e0;
+            font-size: 28px;
+        }
+
+        .title-slide .footer {
+            margin-top: 60px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .highlight {
+            background: #fffacd;
+            padding: 20px;
+            border-left: 4px solid #0066CC;
+            margin: 20px 0;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .contact-info {
+            background: #f0f5fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .contact-info strong {
+            color: #1a3a52;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .presentation {
+                box-shadow: none;
+                margin: 0;
+                max-width: 100%;
+            }
+            .slide {
+                page-break-after: always;
+                box-shadow: none;
+                border: none;
+            }
+        }
+
+        .checkmark {
+            color: #0066CC;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide title-slide">
+            <h1 class="slide-title">VAGOTECH</h1>
+            <p class="slide-subtitle">Premium European Railway Glass Solutions</p>
+            <div class="footer">
+                <p>Glass Expert USA | New Jersey, USA</p>
+                <p>+1-609-408-8100 | office.us@xglass.eu | xglass.eu</p>
+                <p style="margin-top: 30px; font-style: italic;">June 2026</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Why VAGOTECH -->
+        <div class="slide">
+            <h2>Why VAGOTECH Exists</h2>
+
+            <h3>The Challenge</h3>
+            <ul class="bullet-list">
+                <li><strong>Safety:</strong> Modern fleet standards require EN 12288, EN 14752, EN 12600 compliance</li>
+                <li><strong>Durability:</strong> 25+ year lifecycle in extreme conditions (temperature, humidity, vibration)</li>
+                <li><strong>Transparency:</strong> Passenger visibility without sacrificing structural integrity</li>
+                <li><strong>Supply:</strong> Limited European manufacturers; most require 16+ week lead times</li>
+            </ul>
+
+            <h3>The VAGOTECH Answer</h3>
+            <p style="font-size: 16px; margin-top: 15px;">VAGOTECH is Glass Expert's dedicated railway glass solution—25+ years of European engineering, now available with US delivery in <strong>4-6 weeks</strong>.</p>
+        </div>
+
+        <!-- Slide 3: About Glass Expert -->
+        <div class="slide">
+            <h2>About Glass Expert</h2>
+
+            <h3>Pedigree</h3>
+            <ul class="bullet-list">
+                <li>25+ years of architectural & industrial glass engineering</li>
+                <li>Top 20 glass manufacturer in Europe</li>
+                <li>Headquarters: Timișoara, Romania + Neubiberg, Germany</li>
+                <li>ISO 9001 certified | EN compliance expertise</li>
+            </ul>
+
+            <h3>Proven Portfolio</h3>
+            <ul class="bullet-list">
+                <li>Roland Garros Paris (prestigious installations)</li>
+                <li>FUTURIUM Berlin (modern architecture)</li>
+                <li>Therme International (luxury hospitality)</li>
+                <li>SKANSKA, ING, H&M (corporate clients)</li>
+            </ul>
+
+            <h3>Why Glass Expert for Railways?</h3>
+            <p>We don't just supply glass—we engineer solutions. Our railway division brings European standards compliance, fleet-scale production capacity, and 1,000+ proven project references.</p>
+        </div>
+
+        <!-- Slide 4: Product Line -->
+        <div class="slide">
+            <h2>The VAGOTECH Product Line</h2>
+
+            <h3>1. Windshield Glass (Driver's Compartment)</h3>
+            <ul class="bullet-list">
+                <li>Anti-glare, high-visibility coating</li>
+                <li>Impact-resistant (EN 12600 Grade A)</li>
+                <li>Temperature range: -40°C to +70°C</li>
+                <li>Lead time: 3-4 weeks</li>
+            </ul>
+
+            <h3>2. Passenger Side Glass (Cabin Windows)</h3>
+            <ul class="bullet-list">
+                <li>Self-cleaning option (EVOCLEAN anti-microbial coating)</li>
+                <li>Tinted for passenger comfort & thermal regulation</li>
+                <li>Lightweight, reduces fuel consumption</li>
+            </ul>
+
+            <h3>3. Interior Cabin Panels</h3>
+            <ul class="bullet-list">
+                <li>EVOLAM laminated for safety</li>
+                <li>Sound-dampening properties</li>
+                <li>Easy maintenance, scratch-resistant</li>
+            </ul>
+
+            <h3>4. Custom Solutions</h3>
+            <ul class="bullet-list">
+                <li>Emergency exit windows | Sensor-integrated glass | Heritage-compliant designs</li>
+            </ul>
+        </div>
+
+        <!-- Slide 5: Technical Specs -->
+        <div class="slide">
+            <h2>Technical Specifications</h2>
+
+            <h3>European Standards Compliance</h3>
+            <table>
+                <tr>
+                    <th>Standard</th>
+                    <th>Purpose</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>EN 12288</td>
+                    <td>Safety glass in rail vehicles</td>
+                    <td><span class="checkmark">✓ Certified</span></td>
+                </tr>
+                <tr>
+                    <td>EN 14752</td>
+                    <td>Side window system requirements</td>
+                    <td><span class="checkmark">✓ Certified</span></td>
+                </tr>
+                <tr>
+                    <td>EN 12600</td>
+                    <td>Impact resistance testing</td>
+                    <td><span class="checkmark">✓ Grade A</span></td>
+                </tr>
+                <tr>
+                    <td>EN 13687</td>
+                    <td>Thermal properties</td>
+                    <td><span class="checkmark">✓ Verified</span></td>
+                </tr>
+            </table>
+
+            <h3>Material Options</h3>
+            <ul class="bullet-list">
+                <li><strong>EVOCLEAN:</strong> Self-cleaning, anti-microbial</li>
+                <li><strong>EVOLAM:</strong> Laminated, safety-optimized</li>
+                <li><strong>EVOLAM SMART:</strong> Smart glass (tinting control)</li>
+                <li><strong>EVOPRINT:</strong> Custom ceramic-printed designs</li>
+            </ul>
+
+            <h3>Performance Metrics</h3>
+            <ul class="bullet-list">
+                <li>Thermal resistance: U-value 1.2–1.8 W/m²K</li>
+                <li>Sound reduction: 30–40 dB (laminated)</li>
+                <li>Lifespan: 25+ years in field conditions</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Market Position -->
+        <div class="slide">
+            <h2>Market Position & Competitive Advantage</h2>
+
+            <h3>Why Choose VAGOTECH Over Competitors?</h3>
+            <table>
+                <tr>
+                    <th>Factor</th>
+                    <th>VAGOTECH</th>
+                    <th>Typical Competitor</th>
+                </tr>
+                <tr>
+                    <td><strong>Delivery Time</strong></td>
+                    <td>4-6 weeks</td>
+                    <td>12-16 weeks</td>
+                </tr>
+                <tr>
+                    <td><strong>European Support</strong></td>
+                    <td>Direct (Timișoara + Neubiberg)</td>
+                    <td>Indirect (Asian sourcing)</td>
+                </tr>
+                <tr>
+                    <td><strong>Customization</strong></td>
+                    <td>Rapid prototyping</td>
+                    <td>Standard modules only</td>
+                </tr>
+                <tr>
+                    <td><strong>Pricing</strong></td>
+                    <td>Competitive (direct mfg)</td>
+                    <td>Premium (distributor markup)</td>
+                </tr>
+                <tr>
+                    <td><strong>Compliance</strong></td>
+                    <td>EN-certified engineering</td>
+                    <td>Basic compliance</td>
+                </tr>
+            </table>
+
+            <h3>Target Markets</h3>
+            <div class="two-column">
+                <div>
+                    <strong>Romania (Primary)</strong>
+                    <ul class="bullet-list" style="margin-top: 10px;">
+                        <li>CFR Călători</li>
+                        <li>STB București</li>
+                        <li>Electroputere</li>
+                        <li>RATB, CTP</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>Eastern Europe (Secondary)</strong>
+                    <ul class="bullet-list" style="margin-top: 10px;">
+                        <li>Hungarian Railways (MÁV)</li>
+                        <li>Czech Railways (ČD)</li>
+                        <li>Polish operators (PKP)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Market Opportunity -->
+        <div class="slide">
+            <h2>Market Opportunity: Why Now?</h2>
+
+            <h3>European Rail Modernization Boom (2026-2032)</h3>
+            <ul class="bullet-list">
+                <li><strong>€50B+</strong> in EU rail modernization funding (Green Deal)</li>
+                <li><strong>40%</strong> of European trains are 25+ years old (fleet renewal cycle)</li>
+                <li><strong>Supply chain shift:</strong> Post-COVID, local sourcing preferred</li>
+                <li><strong>ESG demands:</strong> Sustainability standards for window suppliers</li>
+            </ul>
+
+            <h3>Romania Specific (Immediate Opportunity)</h3>
+            <ul class="bullet-list">
+                <li><strong>CFR Coradia Stream:</strong> 160 new trains (2026-2028, EU-funded)</li>
+                <li><strong>STB Tram Orders:</strong> 79+ new vehicles in procurement</li>
+                <li><strong>Electroputere Expansion:</strong> Domestic manufacturing growth</li>
+                <li><strong>Regional Operators:</strong> RATB, CTP fleet modernization</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Window of Opportunity:</strong> 2-3 years before competitors establish Romanian presence. CFR's 160-unit order = €1.6M+ window component contract.
+            </div>
+        </div>
+
+        <!-- Slide 8: Pricing & Logistics -->
+        <div class="slide">
+            <h2>Pricing & Delivery</h2>
+
+            <h3>Standard Packages (per vehicle)</h3>
+            <table>
+                <tr>
+                    <th>Vehicle Type</th>
+                    <th>Glass Package</th>
+                    <th>Unit Cost</th>
+                    <th>Lead Time</th>
+                </tr>
+                <tr>
+                    <td>Intercity Train (6 windows)</td>
+                    <td>EVOLAM standard</td>
+                    <td>€3,200–€4,100</td>
+                    <td>4-5 weeks</td>
+                </tr>
+                <tr>
+                    <td>Metro/Tram (8-12 windows)</td>
+                    <td>EVOLAM + EVOCLEAN</td>
+                    <td>€4,500–€6,200</td>
+                    <td>4-6 weeks</td>
+                </tr>
+                <tr>
+                    <td>Locomotive (4 windows)</td>
+                    <td>Windshield + cabin</td>
+                    <td>€5,800–€7,500</td>
+                    <td>3-4 weeks</td>
+                </tr>
+            </table>
+
+            <h3>Bulk Discounts & Payment Terms</h3>
+            <div class="two-column">
+                <div>
+                    <strong>Volume Discounts</strong>
+                    <ul class="bullet-list">
+                        <li>50+ units: <strong>8%</strong> off</li>
+                        <li>100+ units: <strong>12%</strong> off</li>
+                        <li>200+ units: <strong>15%</strong> off</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>Payment Schedule</strong>
+                    <ul class="bullet-list">
+                        <li>30% upon order</li>
+                        <li>50% at delivery</li>
+                        <li>20% at final sign-off</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Logistics</h3>
+            <ul class="bullet-list">
+                <li>Delivery: DDP (Delivered Duty Paid to your facility)</li>
+                <li>Packaging: Custom crating for rail transport</li>
+                <li>Insurance: Full coverage in transit</li>
+            </ul>
+        </div>
+
+        <!-- Slide 9: Next Steps & Contact -->
+        <div class="slide">
+            <h2>Next Steps for Decision Makers</h2>
+
+            <h3>Implementation Path</h3>
+            <ol style="margin-left: 20px; font-size: 16px;">
+                <li style="margin-bottom: 15px;"><strong>Technical Review:</strong> Schedule call with our engineering team for specifications & customization</li>
+                <li style="margin-bottom: 15px;"><strong>Sample Order:</strong> Test VAGOTECH on 2-5 vehicle samples for integration validation</li>
+                <li style="margin-bottom: 15px;"><strong>Pilot Program:</strong> Deploy on 10-20 vehicles in your fleet (2-3 month pilot timeline)</li>
+                <li style="margin-bottom: 15px;"><strong>Full Deployment:</strong> Scale to fleet-wide implementation with dedicated support</li>
+            </ol>
+
+            <h3 style="margin-top: 30px;">Contact Information</h3>
+            <div class="contact-info">
+                <p><strong>Glass Expert USA (VAGOTECH Division)</strong></p>
+                <p>Phone: <strong>+1-609-408-8100</strong></p>
+                <p>Email: <strong>office.us@xglass.eu</strong></p>
+                <p>Website: <strong>xglass.eu</strong></p>
+                <p style="margin-top: 15px; font-style: italic;">Romania liaison & parent company: Glas Expert SRL, Timișoara</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Closing -->
+        <div class="slide title-slide">
+            <h1 class="slide-title">From Better to Best</h1>
+            <p style="font-size: 18px; margin: 30px 0; opacity: 0.9;">Glass Expert's commitment to European railway operators:</p>
+            <ul class="bullet-list" style="color: white; font-size: 16px; margin: 20px auto; max-width: 500px;">
+                <li>Quality: European engineering standard</li>
+                <li>Speed: 4-6 week delivery (fastest in market)</li>
+                <li>Support: 25-year partnership mindset</li>
+                <li>Innovation: Smart glass, custom coatings, emerging tech</li>
+            </ul>
+            <p style="font-size: 20px; margin-top: 40px; font-weight: bold;">VAGOTECH: Your European Railway Glass Partner</p>
+            <p style="font-size: 16px; margin-top: 20px;">Let's modernize Europe's railways together.</p>
+        </div>
+    </div>
+
+    <script>
+        // Print to PDF: Ctrl+P or Cmd+P in any browser
+        console.log("To download as PDF: Press Ctrl+P (or Cmd+P on Mac) → Save as PDF");
+    </script>
+</body>
+</html>
