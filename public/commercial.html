@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glas Expert — Commercial Real Estate Solutions</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --segment-color: #0099CC;
+            --segment-dark: #006B99;
+        }
+        .segment-hero {
+            background: linear-gradient(135deg, var(--segment-dark) 0%, var(--segment-color) 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        .segment-hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .product-card {
+            background: white;
+            border: 2px solid var(--segment-color);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            box-shadow: 0 10px 30px rgba(0,153,204,0.2);
+            transform: translateY(-5px);
+        }
+        .product-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .spec-list {
+            list-style: none;
+            text-align: left;
+        }
+        .spec-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            color: #666;
+        }
+        .spec-list li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>GLAS EXPERT</h1>
+                <p class="tagline">Commercial Solutions</p>
+            </div>
+            <nav class="nav-menu">
+                <a href="/">← Back to Home</a>
+                <a href="#products">Products</a>
+                <a href="#specs">Specifications</a>
+                <a href="#contact" class="btn-cta">Get Quote</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="segment-hero">
+        <div class="container">
+            <h1>Commercial Real Estate</h1>
+            <p style="font-size: 1.3rem; margin-bottom: 2rem;">Iconic Facades. Architectural Innovation. On Schedule.</p>
+            <p>Curved glass, ceramic-printed facades, smart glass—engineered for commercial excellence. 4-6 week delivery. ASTM + EN certified.</p>
+        </div>
+    </section>
+
+    <!-- PROBLEM/SOLUTION -->
+    <section style="padding: 4rem 2rem; background: #f9f9f9;">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--segment-color); margin-bottom: 3rem;">The Commercial Challenge</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1000px; margin: 0 auto;">
+                <div>
+                    <h3>Problem</h3>
+                    <ul style="text-align: left; color: #666;">
+                        <li>✗ Long lead times (8-12 weeks) delay projects</li>
+                        <li>✗ Limited curved glass capability in USA</li>
+                        <li>✗ Design compromises with local suppliers</li>
+                        <li>✗ Quality inconsistency across vendors</li>
+                        <li>✗ No design partnership support</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Glas Expert Solution</h3>
+                    <ul style="text-align: left; color: #0099CC; font-weight: 600;">
+                        <li>✓ 4-6 week delivery (fastest in USA)</li>
+                        <li>✓ In-house curved glass manufacturing</li>
+                        <li>✓ Full design consultation included</li>
+                        <li>✓ 99.2% first-pass quality</li>
+                        <li>✓ European + USA certifications</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS SECTION -->
+    <section id="products" style="padding: 4rem 2rem;">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--segment-color); margin-bottom: 3rem;">Curved Glass Solutions for Commercial Facades</h2>
+
+            <div class="products-grid">
+                <!-- Product 1: Curved Tempered Glass -->
+                <div class="product-card">
+                    <div class="product-icon">🌊</div>
+                    <h3 style="color: var(--segment-color);">Curved Tempered Glass</h3>
+                    <p>Complex radius curves for iconic facades. Custom-bent to architectural specifications.</p>
+                    <ul class="spec-list">
+                        <li><strong>Strength:</strong> 4-5x standard glass</li>
+                        <li><strong>Radii:</strong> 100mm - 5000mm+</strong></li>
+                        <li><strong>Thickness:</strong> 6-12mm</li>
+                        <li><strong>Application:</strong> Building facades, curtain walls</li>
+                        <li><strong>Certification:</strong> ASTM C1048</li>
+                        <li><strong>Lead Time:</strong> 4-6 weeks</li>
+                    </ul>
+                </div>
+
+                <!-- Product 2: Ceramic-Printed Glass -->
+                <div class="product-card">
+                    <div class="product-icon">🎨</div>
+                    <h3 style="color: var(--segment-color);">Ceramic-Printed Glass</h3>
+                    <p>Custom branded facades with permanent color printing. Architectural branding at scale.</p>
+                    <ul class="spec-list">
+                        <li><strong>Colors:</strong> Custom palette available</li>
+                        <li><strong>Patterns:</strong> Unlimited designs</li>
+                        <li><strong>Finish:</strong> Matte or glossy</li>
+                        <li><strong>Application:</strong> Logos, patterns, branding</li>
+                        <li><strong>Durability:</strong> 25+ years</li>
+                        <li><strong>Lead Time:</strong> 5-7 weeks</li>
+                    </ul>
+                </div>
+
+                <!-- Product 3: USA VERSATIKA (placeholder) -->
+                <div class="product-card">
+                    <div class="product-icon">⚡</div>
+                    <h3 style="color: var(--segment-color);">USA VERSATIKA™</h3>
+                    <p>Next-generation smart glass system for commercial buildings. Dynamic performance control.</p>
+                    <ul class="spec-list">
+                        <li><strong>Technology:</strong> Electrochromic Smart Glass</li>
+                        <li><strong>Features:</strong> On-demand transparency</li>
+                        <li><strong>Energy Savings:</strong> 25-30% HVAC reduction</li>
+                        <li><strong>Control:</strong> Manual or automated</li>
+                        <li><strong>Applications:</strong> Facades, meeting rooms, offices</li>
+                        <li><strong>Lead Time:</strong> 6-8 weeks</li>
+                    </ul>
+                </div>
+
+                <!-- Product 4: Low-E Thermal Glass -->
+                <div class="product-card">
+                    <div class="product-icon">🌡️</div>
+                    <h3 style="color: var(--segment-color);">Low-E Thermal Glass</h3>
+                    <p>Energy-efficient glass with thermal performance. IECC 2024 compliant.</p>
+                    <ul class="spec-list">
+                        <li><strong>U-Value:</strong> 0.27-0.32 W/m²K</li>
+                        <li><strong>SHGC:</strong> 0.20-0.30</li>
+                        <li><strong>VLT:</strong> 55-65%</li>
+                        <li><strong>Benefit:</strong> 40% energy savings</li>
+                        <li><strong>Certification:</strong> IECC 2024</li>
+                        <li><strong>Lead Time:</strong> 4-6 weeks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECIFICATIONS SECTION -->
+    <section id="specs" style="padding: 4rem 2rem; background: #f9f9f9;">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--segment-color); margin-bottom: 2rem;">Technical Specifications</h2>
+
+            <table style="width: 100%; border-collapse: collapse; max-width: 900px; margin: 0 auto;">
+                <tr style="background: var(--segment-color); color: white;">
+                    <th style="padding: 1rem; text-align: left; border: 1px solid #ddd;">Specification</th>
+                    <th style="padding: 1rem; text-align: left; border: 1px solid #ddd;">Standard</th>
+                    <th style="padding: 1rem; text-align: left; border: 1px solid #ddd;">Premium</th>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border: 1px solid #ddd;"><strong>Thickness Range</strong></td>
+                    <td style="padding: 1rem; border: 1px solid #ddd;">6-10mm</td>
+                    <td style="padding: 1rem; border: 1px solid #ddd;">10-19mm laminated</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 1rem; border: 1px solid #ddd;"><strong>Strength (Tempered)</strong></td>
+                    <td style="padding: 1rem; border: 1px solid #ddd;">ASTM C1048</td>
+                    <td style="padding: 1rem; border: 1px solid #ddd;">ASTM C1172 (laminated)</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border: 1px solid #ddd;"><strong>Maximum Curve Radius</strong></td>
+                    <td style="padding: 1rem; border: 1px solid #ddd;">500mm</td>
+                    <td style="padding: 1rem; border: 1px solid #ddd;">100mm custom</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 1rem; border: 1px solid #ddd;"><strong>Quality Standard</strong></td>
+                    <td style="padding: 1rem; border: 1px solid #ddd;">95% first-pass</td>
+                    <td style="padding: 1rem; border: 1px solid #ddd;">99.2% first-pass</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border: 1px solid #ddd;"><strong>Lead Time</strong></td>
+                    <td style="padding: 1rem; border: 1px solid #ddd;">6-8 weeks</td>
+                    <td style="padding: 1rem; border: 1px solid #ddd;">4-6 weeks expedited</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 1rem; border: 1px solid #ddd;"><strong>Certifications</strong></td>
+                    <td style="padding: 1rem; border: 1px solid #ddd;">ASTM + EN</td>
+                    <td style="padding: 1rem; border: 1px solid #ddd;">ASTM + EN + custom</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- CASE STUDY -->
+    <section style="padding: 4rem 2rem;">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--segment-color); margin-bottom: 2rem;">Featured Project</h2>
+            <div style="background: linear-gradient(135deg, #f0f8ff 0%, #e6f2ff 100%); padding: 3rem; border-radius: 10px; max-width: 800px; margin: 0 auto;">
+                <h3 style="color: var(--segment-color);">Premium Office Tower — Manhattan</h3>
+                <p><strong>Client:</strong> Luxury Commercial Development</p>
+                <p><strong>Project:</strong> 45-story curved glass facade with custom ceramic branding</p>
+                <p><strong>Glass Solution:</strong></p>
+                <ul style="color: #666;">
+                    <li>2,400 curved tempered glass panels (custom radius 1200mm)</li>
+                    <li>Ceramic-printed logo on 3 facades</li>
+                    <li>Low-E thermal glass for energy efficiency</li>
+                    <li>Delivered on schedule: 4.5 weeks</li>
+                </ul>
+                <p><strong>Result:</strong> Iconic facade completed on time. Zero rework. 99.8% first-pass quality.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section id="contact" style="background: var(--segment-color); color: white; padding: 4rem 2rem; text-align: center;">
+        <div class="container">
+            <h2>Ready to Build Your Iconic Facade?</h2>
+            <p style="font-size: 1.2rem; margin: 1rem 0;">Get a consultation with our architectural glass specialists.</p>
+            <button class="btn-primary" style="background: white; color: var(--segment-color); font-weight: 700; padding: 1rem 3rem; font-size: 1.1rem;" onclick="document.getElementById('contactForm').scrollIntoView({behavior: 'smooth'})">
+                Schedule Consultation
+            </button>
+        </div>
+    </section>
+
+    <!-- CONTACT FORM -->
+    <section style="padding: 4rem 2rem;">
+        <div class="container">
+            <form class="contact-form" id="contactForm" style="max-width: 600px; margin: 0 auto;">
+                <h3 style="text-align: center; color: var(--segment-color); margin-bottom: 2rem;">Request Commercial Quote</h3>
+
+                <div class="form-group">
+                    <label>Company Name *</label>
+                    <input type="text" name="company" required placeholder="Architecture firm or development company">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Contact Name *</label>
+                        <input type="text" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" name="email" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label>Project Type *</label>
+                        <select name="project_type" required>
+                            <option value="">-- Select --</option>
+                            <option value="facade">Glass Facade</option>
+                            <option value="curved">Curved Glass</option>
+                            <option value="smartglass">Smart Glass (USA VERSATIKA)</option>
+                            <option value="mixed">Mixed Solutions</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Project Description *</label>
+                    <textarea name="message" required rows="5" placeholder="Building type, glass area (sq ft), timeline, estimated budget..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Estimated Budget *</label>
+                    <select name="budget" required>
+                        <option value="">-- Select --</option>
+                        <option value="50-100k">$50K - $100K</option>
+                        <option value="100-300k">$100K - $300K</option>
+                        <option value="300-500k">$300K - $500K</option>
+                        <option value="500k+">$500K+</option>
+                    </select>
+                </div>
+
+                <div class="form-group checkbox">
+                    <input type="checkbox" name="privacy" required id="privacy">
+                    <label for="privacy">I agree to privacy policy *</label>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%; background: var(--segment-color); padding: 1rem;">
+                    Submit Commercial Quote Request
+                </button>
+                <p class="form-note" style="text-align: center; margin-top: 1rem; color: #666;">Response within 24 hours. Free consultation.</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="background: #333; color: white;">
+        <div class="container">
+            <div class="footer-content" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; padding: 3rem 0;">
+                <div>
+                    <h4>Glas Expert USA</h4>
+                    <p>Commercial glass solutions with European precision.</p>
+                </div>
+                <div>
+                    <h4>Solutions</h4>
+                    <ul style="list-style: none;">
+                        <li><a href="#" style="color: #0099CC;">Curved Glass</a></li>
+                        <li><a href="#" style="color: #0099CC;">Ceramic-Printed</a></li>
+                        <li><a href="#" style="color: #0099CC;">Smart Glass</a></li>
+                        <li><a href="#" style="color: #0099CC;">Low-E Thermal</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <p>📧 commercial@glas-expert.com<br>
+                    📞 +1-800-GLASS-EXPERT<br>
+                    🌐 glas-expert.com</p>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #555; padding-top: 2rem; text-align: center; color: #999;">
+                <p>&copy; 2026 Glas Expert USA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
