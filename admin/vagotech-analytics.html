@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VAGOTECH Analytics Dashboard</title>
+    <title>Analytics Dashboard — Glass Expert &amp; VAGOTECH</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * {
@@ -213,12 +213,18 @@
 </head>
 <body>
     <div class="header">
-        <h1>VAGOTECH Analytics Dashboard</h1>
-        <p>Real-time visitor tracking and engagement metrics</p>
+        <h1>Analytics Dashboard</h1>
+        <p>Site-wide visitor tracking and engagement metrics — Glass Expert &amp; VAGOTECH</p>
     </div>
 
     <div class="container">
         <div class="button-group">
+            <label for="segment-select" style="align-self:center;font-weight:600;">Segment:</label>
+            <select id="segment-select" onchange="onSegmentChange()" style="padding:0.5rem 0.75rem;border-radius:6px;border:1px solid #ccc;font-size:0.95rem;">
+                <option value="all">All (consolidated)</option>
+                <option value="glassexpert">Glass Expert</option>
+                <option value="vagotech">VAGOTECH</option>
+            </select>
             <button class="btn-refresh" onclick="refreshData()">↻ Refresh Data</button>
             <button class="btn-logout" onclick="logout()">Logout</button>
         </div>
@@ -345,13 +351,21 @@
             return auth;
         }
 
+        // Currently selected segment filter (all | glassexpert | vagotech)
+        let currentSegment = 'all';
+
+        function onSegmentChange() {
+            currentSegment = document.getElementById('segment-select').value;
+            refreshData();
+        }
+
         // Fetch analytics data
         async function fetchAnalytics(type) {
             const auth = getAuthHeader();
             if (!auth) return null;
 
             try {
-                const response = await fetch(`/api/vagotech/analytics?type=${type}`, {
+                const response = await fetch(`/api/analytics/analytics?type=${type}&segment=${currentSegment}`, {
                     headers: { 'Authorization': 'Basic ' + auth }
                 });
 

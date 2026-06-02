@@ -137,7 +137,7 @@
                 return;
             }
 
-            fetch('/api/vagotech/delete', {
+            fetch('/api/analytics/delete', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ visitor_id: visitorId })
@@ -157,5 +157,7 @@
         }
     </script>
     <script src="js/script.js"></script>
+    <!-- Site-wide analytics tracking (segment auto-detected) -->
+    <script src="js/site-tracking.js"></script>
 </body>
 </html>
