@@ -565,8 +565,29 @@ p {
 .product-card .product-icon {
   font-size: 2.5rem;
   margin-bottom: 1.25rem;
-  display: block;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--accent-current, #0066CC) 10%, transparent);
+  margin-left: auto;
+  margin-right: auto;
+}
+.product-card .product-icon svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  stroke: var(--accent-current, #0066CC);
+  stroke-width: 1.75;
+  fill: none;
+}
+.selector-option .icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  fill: none;
 }
 
 .product-card h3 {

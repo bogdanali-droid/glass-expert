@@ -45,12 +45,7 @@
 
     <!-- HERO -->
     <section class="segment-hero" style="position: relative;">
-        <picture>
-            <source media="(min-width: 1200px)" srcset="images/commercial-hero-1200w.jpg">
-            <source media="(min-width: 768px)" srcset="images/commercial-hero-768w.jpg">
-            <source media="(min-width: 480px)" srcset="images/commercial-hero-480w.jpg">
-            <img src="images/commercial-hero.jpg" alt="Commercial Real Estate Glass Solutions" style="width: 100%; height: auto; display: block;">
-        </picture>
+        <img src="images/commercial-hero.jpg" alt="Commercial Real Estate Glass Solutions" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0,153,204,0.7) 0%, rgba(0,102,153,0.7) 100%);"></div>
         <div class="container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; text-align: center; color: white; width: 90%;">
             <h1 style="color: white; font-size: 3.5rem; margin-bottom: 1rem;">Commercial Real Estate</h1>
@@ -96,7 +91,7 @@
             <div class="products-grid">
                 <!-- Product 1: Curved Tempered Glass -->
                 <div class="product-card hover-lift glow-on-hover">
-                    <div class="product-icon">🌊</div>
+                    <div class="product-icon"><i data-feather="wind"></i></div>
                     <h3 style="color: var(--segment-color);">Curved Tempered Glass</h3>
                     <p>Complex radius curves for iconic facades. Custom-bent to architectural specifications.</p>
                     <ul class="spec-list">
@@ -111,7 +106,7 @@
 
                 <!-- Product 2: Ceramic-Printed Glass -->
                 <div class="product-card hover-lift glow-on-hover">
-                    <div class="product-icon">🎨</div>
+                    <div class="product-icon"><i data-feather="pen-tool"></i></div>
                     <h3 style="color: var(--segment-color);">Ceramic-Printed Glass</h3>
                     <p>Custom branded facades with permanent color printing. Architectural branding at scale.</p>
                     <ul class="spec-list">
@@ -126,7 +121,7 @@
 
                 <!-- Product 3: VERSATIKA -->
                 <div class="product-card hover-lift glow-on-hover">
-                    <div class="product-icon">⚡</div>
+                    <div class="product-icon"><i data-feather="zap"></i></div>
                     <h3 style="color: var(--segment-color);">VERSATIKA™ <span style="font-size:0.65rem;background:#E30613;color:white;padding:2px 7px;border-radius:4px;vertical-align:middle;font-weight:700;">Red Dot 2025</span></h3>
                     <p>Award-winning flush-to-wall door system. Seamless interiors, invisible hinges — for corporate HQs, offices, and executive spaces.</p>
                     <ul class="spec-list">
@@ -141,7 +136,7 @@
 
                 <!-- Product 4: Low-E Thermal Glass -->
                 <div class="product-card hover-lift glow-on-hover">
-                    <div class="product-icon">🌡️</div>
+                    <div class="product-icon"><i data-feather="thermometer"></i></div>
                     <h3 style="color: var(--segment-color);">Low-E Thermal Glass</h3>
                     <p>Energy-efficient glass with thermal performance. IECC 2024 compliant.</p>
                     <ul class="spec-list">
