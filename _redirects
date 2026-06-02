@@ -9,6 +9,3 @@
 /education   /education.html   301
 /products    /products.html    301
 /projects    /projects.html    301
-
-# 404 fallback
-/*  /index.html  200
