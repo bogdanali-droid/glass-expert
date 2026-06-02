@@ -959,11 +959,12 @@ p {
 .segment-image {
   border-radius: var(--radius-card);
   overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
 }
 
 .image-placeholder {
   border-radius: var(--radius-card);
-  height: 320px;
+  height: 420px;
   overflow: hidden;
   position: relative;
 }
@@ -972,6 +973,10 @@ p {
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.segment:hover .image-placeholder img {
+  transform: scale(1.08);
 }
 .image-placeholder span { display: none; }
 
