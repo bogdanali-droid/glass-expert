@@ -1,0 +1,456 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║        📋 OFFICIAL DELEGATION ORDERS — AXA IT CAMPUS DEPARTMENTS        ║
+║                                                                           ║
+║        From: @ana (COO)                                                  ║
+║        To: Department Leads (Formal Orders)                             ║
+║        Project: GLASS EXPERT Website Launch Sprint                      ║
+║        Timeline: 3 days (Jun 2-5, 2026)                                 ║
+║        Status: 🟢 ACTIVE DELEGATION                                     ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+───────────────────────────────────────────────────────────────────────────
+
+TO: @LUCIAN (Tech & DevOps Department Lead)
+FROM: @ana (COO)
+PRIORITY: P0 (CRITICAL PATH)
+DEADLINE: June 5, 23:59 UTC
+
+MISSION:
+Lead Tech & DevOps department to finish Glass Expert website frontend + 
+backend + deployment by June 5, 19:00 UTC.
+
+YOUR TEAM:
+├── @cosmin (Full-stack web developer) — Phase 1 + 2
+├── @alex (Mobile App Developer) — Phase 1B + 2
+├── @danbastan (Senior Platform & AI Engineer) — Phase 2 + 4
+└── @vlad (GitHub Power User & Repo Ops) — Phase 2 + 4
+
+PHASES YOU LEAD:
+
+🚀 PHASE 1 (Jun 2-3): CSS + Images Integration [2h]
+   Deliverables:
+   - All 5 HTML files with CSS linked (polish-enhancements.css)
+   - 17 images integrated (heroes, products, case studies)
+   - All responsive (480px / 768px / 1200px)
+   - No console errors
+   - 4 commits pushed to branch
+
+   Assigned to:
+   @cosmin — Primary implementation
+   @alex — Testing + cross-browser verification
+
+⚙️ PHASE 2 (Jun 3-4): Backend + APIs [3h]
+   Deliverables:
+   - POST /api/contact endpoint (form submission)
+   - GET/PATCH /api/leads endpoints (admin APIs)
+   - Email notification system (Sendgrid/Mailgun)
+   - Lead database schema + tracking
+   - All navigation working
+   - 3 commits pushed to branch
+
+   Assigned to:
+   @cosmin — Contact Form API
+   @danbastan — Database + Lead Tracking
+   @alex — Email integration
+   @vlad — Code review + navigation testing
+
+🌍 PHASE 4 (Jun 5): Deployment + DNS [2h]
+   Deliverables:
+   - Deployed to Cloudflare Pages
+   - Custom domain configured (pending Bogdan decision)
+   - SSL certificate active (green lock)
+   - Sentry + Google Analytics active
+   - DNS fully configured
+   - SEO metadata complete
+   - 4 commits pushed to branch
+
+   Assigned to:
+   @danbastan — Cloudflare deployment + monitoring
+   @vlad — DNS configuration + SEO optimization
+
+SUPPORT TEAM:
+- @irina (Design Lead) — Will review CSS/animations Jun 2-3
+- @adrian (QA Lead) — Will test your work Jun 3-4
+- @victoria (Marketing) — Will review copy/SEO Jun 3-4
+- @stefan (PM) — Available for coordination
+
+DOCUMENTATION:
+- Read: SPRINT-BY-DEPARTMENTS.md (full plan)
+- Reference: DELEGATION-ORDERS.md (technical details)
+- Templates: HTML-IMAGE-INTEGRATION-TEMPLATES.md (code)
+
+ESCALATION:
+- Blockers → DM me (@ana) directly
+- Critical issues (P0) → Notify me + Bogdan immediately
+- Need decisions → I escalate for you
+
+SUCCESS CRITERIA:
+✅ CSS working (no errors)
+✅ Images optimized (<200KB each)
+✅ APIs responding (200/400 codes)
+✅ Database storing leads
+✅ Emails sending correctly
+✅ Deployed to Cloudflare Pages
+✅ DNS + SSL active
+✅ Monitoring operational
+✅ Team sign-off by Jun 5, 18:00 UTC
+
+Let's ship this. Ready? 🚀
+
+───────────────────────────────────────────────────────────────────────────
+
+TO: @IRINA (Design & UX Department Lead)
+FROM: @ana (COO)
+PRIORITY: P1 (HIGH)
+DEADLINE: June 3, 23:59 UTC
+
+MISSION:
+Lead Design & UX department to verify CSS animations, visual consistency,
+and brand compliance during Phase 1 development.
+
+YOUR TEAM:
+├── @diana (UI/UX Designer)
+└── @marian (Visual & Graphic Designer)
+
+PHASE YOU LEAD:
+
+🎨 PHASE 1B (Jun 2-3): Design Review & Polish [1h parallel with Phase 1]
+   Deliverables:
+   - Design QA checklist (animations, colors, spacing)
+   - Visual consistency report (brand compliance)
+   - All CSS animations verified smooth (60fps)
+   - Color accuracy vs BRANDING-MANUAL-USA.md
+   - Image quality verification
+   - 2 reports + sign-off by Jun 3, 18:00 UTC
+
+   Assigned to:
+   @diana — CSS animations + UI verification
+   @marian — Image quality + visual hierarchy
+
+COORDINATION WITH TECH:
+- Review @cosmin's CSS implementation (daily)
+- Provide feedback on animations smoothness
+- Verify brand colors (#0099CC, #FF6B35, #00C884, #6C5CE7)
+- Test on mobile + desktop
+- Report any issues → I escalate to @lucian
+
+DOCUMENTATION:
+- Reference: BRANDING-MANUAL-USA.md (brand spec)
+- Output: DESIGN-QA-CHECKLIST.md + VISUAL-CONSISTENCY-REPORT.md
+
+SUCCESS CRITERIA:
+✅ Visual consistency verified
+✅ Animations smooth (60fps, no jank)
+✅ Mobile responsive confirmed
+✅ Brand guidelines 100% met
+✅ Design sign-off by Jun 3, 18:00 UTC
+
+Your sign-off is critical for go-live approval. Ready? 🎨
+
+───────────────────────────────────────────────────────────────────────────
+
+TO: @VICTORIA (Marketing & Strategy Department Lead)
+FROM: @ana (COO)
+PRIORITY: P1 (HIGH)
+DEADLINE: June 4, 23:59 UTC
+
+MISSION:
+Lead Marketing & Strategy department to verify copy quality, SEO optimization,
+and marketing effectiveness during Phase 2-3 development.
+
+YOUR TEAM:
+├── @andrei (Content Strategist)
+├── @mihai (Copywriter & Content)
+├── @elena (SEO & Content Strategist)
+├── @laura (Performance Marketing)
+├── @george (Google Ads / PPC)
+└── @emma (Account Director & Client Success)
+
+PHASE YOU LEAD:
+
+📱 PHASE 2B (Jun 3-4): Marketing Content Review [1h parallel with Phase 2]
+   Deliverables:
+   - Copy quality report (clarity, tone, effectiveness)
+   - Copyedit report (grammar, brand voice, no typos)
+   - SEO readiness report (titles, descriptions, keywords)
+   - CTA effectiveness verified
+   - 3 reports + sign-off by Jun 4, 18:00 UTC
+
+   Assigned to:
+   @andrei — Copy strategy review + CTA effectiveness
+   @mihai — Copyedit + grammar + brand voice
+   @elena — SEO metadata + keyword placement
+
+COORDINATION WITH TECH:
+- Review website copy on all 5 pages (index + 4 segments)
+- Verify messaging clarity + persuasiveness
+- Check headline hierarchy
+- Verify form labels clarity
+- Report issues → I escalate to @lucian
+
+COORDINATION WITH QA:
+- @adrian will test accessibility/readability
+- You provide content optimization feedback
+
+DOCUMENTATION:
+- Reference: BRANDING-MANUAL-USA.md (brand guidelines)
+- Output: COPY-QUALITY-REPORT.md + COPY-EDIT-REPORT.md + SEO-READINESS-REPORT.md
+
+SUCCESS CRITERIA:
+✅ Copy quality verified (clarity + persuasiveness)
+✅ All copyedit issues resolved
+✅ SEO metadata complete (titles + descriptions)
+✅ CTA effectiveness confirmed
+✅ Brand messaging aligned
+✅ Marketing sign-off by Jun 4, 18:00 UTC
+
+Your sign-off ensures marketing readiness for launch. Ready? 📱
+
+───────────────────────────────────────────────────────────────────────────
+
+TO: @ADRIAN (QA & Testing Department Lead)
+FROM: @ana (COO)
+PRIORITY: P1 (HIGH)
+DEADLINE: June 4, 23:59 UTC
+
+MISSION:
+Lead QA & Testing to perform comprehensive testing (responsive design,
+performance, accessibility, browser compatibility, visual QA) on all
+5 pages before deployment.
+
+YOUR TEAM:
+├── @adrian (Lead QA)
+├── @diana (UI/UX Support) — From Design team
+├── @alex (Frontend Testing) — From Tech team
+└── Support from all departments as needed
+
+PHASE YOU LEAD:
+
+✅ PHASE 3 (Jun 3-4): Testing & QA [3h comprehensive]
+
+   Task 3.1: Responsive Testing [1h]
+   □ Test all 5 pages at 480px, 768px, 1200px
+   □ Images scale proportionally (no stretched/squished)
+   □ Mobile nav functional (hamburger menu)
+   □ Forms readable on mobile
+   □ No horizontal scrolling
+   □ Create: RESPONSIVE-TESTING-MATRIX.md
+   □ Sign-off: Responsive design complete
+
+   Task 3.2: Lighthouse Audit [1h]
+   □ Run Lighthouse on each page (target >80)
+   □ Performance >80, Accessibility >90, SEO >90
+   □ Fix image optimization, CSS minification, etc.
+   □ Page load <2 seconds
+   □ Create: LIGHTHOUSE-AUDIT-RESULTS.md
+   □ Sign-off: Performance optimized
+
+   Task 3.3: Accessibility Audit [1h]
+   □ WAVE tool + Axe DevTools (zero critical issues)
+   □ Keyboard navigation complete (Tab through all)
+   □ Alt text on all images (descriptive)
+   □ Color contrast WCAG AA (4.5:1 minimum)
+   □ Screen reader testing (NVDA/VoiceOver)
+   □ Animations respect prefers-reduced-motion
+   □ Create: ACCESSIBILITY-AUDIT-RESULTS.md
+   □ Sign-off: WCAG AA compliant
+
+   Task 3.4: Browser Compatibility [30min]
+   □ Chrome, Firefox, Safari, Edge, Mobile Chrome, Mobile Safari
+   □ All pages load correctly
+   □ No console errors
+   □ Create: BROWSER-COMPATIBILITY-MATRIX.md
+   □ Sign-off: Cross-browser compatible
+
+   Task 3.5: Visual QA [30min]
+   □ Colors match brand spec (#0099CC, #FF6B35, #00C884, #6C5CE7)
+   □ Typography (Poppins headings, Inter body)
+   □ Spacing consistent, shadows enhance depth
+   □ Animations smooth (60fps — use DevTools Performance)
+   □ No layout shifts on image load
+   □ Create: VISUAL-QA-CHECKLIST.md
+   □ Sign-off: Visual design verified
+
+CRITICAL CHECKLIST:
+Before you sign off, verify ALL of these:
+
+□ HTML validates (W3C validator)
+□ CSS validates (no warnings)
+□ No console errors on ANY page
+□ All links work (no 404 errors)
+□ Images load correctly
+□ Colors match brand spec
+□ Typography hierarchy clear
+□ Responsive on all sizes
+□ Animations smooth (60fps)
+□ Premium aesthetic achieved
+□ Contact form submits
+□ Leads stored in database
+□ Emails sent correctly
+□ Navigation works (all pages)
+□ Mobile menu functional
+□ Lighthouse >80 (all categories)
+□ Page load <2s
+□ Images <200KB each
+□ No layout shifts
+□ WCAG AA compliant
+□ Keyboard navigation complete
+□ Screen reader compatible
+□ Reduced motion respected
+
+SUPPORT TEAM:
+- @diana (Design) — UI/UX issues
+- @alex (Tech) — Performance/technical issues
+- @lucian (Tech Lead) — Escalation
+- @irina (Design Lead) — Design conflicts
+
+DOCUMENTATION:
+- Reference: DEPLOYMENT-READINESS-CHECKLIST.md (comprehensive QA guide)
+- Reference: BRANDING-MANUAL-USA.md (brand spec)
+- Output: 5 detailed testing reports (responsive, lighthouse, accessibility, browser, visual)
+
+SUCCESS CRITERIA:
+✅ Responsive testing complete (all sizes)
+✅ Lighthouse >85 score (all pages)
+✅ WCAG AA accessibility certified
+✅ Cross-browser compatibility verified
+✅ Visual QA approved (brand spec)
+✅ Zero critical issues remaining
+✅ All 5 reports signed off
+✅ Team sign-off by Jun 4, 18:00 UTC
+
+Your QA is the gate for launch approval. No critical issues allowed. Ready? ✅
+
+───────────────────────────────────────────────────────────────────────────
+
+TO: @STEFAN (Project Management Department Lead)
+FROM: @ana (COO)
+PRIORITY: P2 (SUPPORT)
+DEADLINE: Ongoing (daily coordination)
+
+MISSION:
+Support project coordination, timeline tracking, and cross-department
+communication during Glass Expert sprint.
+
+YOUR TEAM:
+├── @daniela (Project Coordinator)
+├── @alina (Project Manager)
+└── @ana-pm (PM & Agent Optimizer)
+
+ACTIVITIES YOU SUPPORT:
+
+📋 Daily Coordination (09:00 UTC standup):
+   □ Collect status from @lucian, @irina, @victoria, @adrian
+   □ Track commits + deliverables
+   □ Identify blockers early
+   □ Update project dashboard
+   □ Ensure timeline adherence
+
+📊 Timeline Tracking:
+   □ Jun 2-3: Phase 1 (@lucian)
+   □ Jun 3-4: Phase 2 (@lucian) + Phase 2B (@victoria) + Review (@irina)
+   □ Jun 3-4: Phase 3 (@adrian)
+   □ Jun 5: Phase 4 (@lucian) + Go-live preparation
+   □ Jun 5, 18:00 UTC: Final verification checklist
+   □ Jun 5, 19:00 UTC: LAUNCH 🚀
+
+🎯 Blocker Mitigation:
+   □ When blockers arise → escalate to @ana immediately
+   □ Track resolution time
+   □ Ensure no cascading delays
+
+📞 Communication:
+   □ Daily standup coordination
+   □ Slack #glass-expert-dev channel management (if applicable)
+   □ Status reports to @ana
+   □ Escalation documentation
+
+SUCCESS CRITERIA:
+✅ Timeline maintained (no delays)
+✅ All blockers tracked + resolved <4 hours
+✅ Daily standups completed
+✅ Status reports accurate
+✅ Team communication clear
+✅ Go-live readiness verified
+
+You're the ops backbone. Keep us on track. Ready? 📋
+
+───────────────────────────────────────────────────────────────────────────
+
+SUMMARY OF DELEGATIONS:
+
+Department Lead     | Phases      | Critical Deadline | Sign-Off Needed
+────────────────────┼─────────────┼──────────────────┼─────────────────
+@lucian (Tech)      | 1, 2, 4     | Jun 5, 23:59 UTC | YES (Critical)
+@irina (Design)     | 1B, Review  | Jun 3, 23:59 UTC | YES (Critical)
+@victoria (Mktg)    | 2B, Content | Jun 4, 23:59 UTC | YES (Critical)
+@adrian (QA)        | 3, Testing  | Jun 4, 23:59 UTC | YES (Critical)
+@stefan (PM)        | Coord       | Ongoing          | NO (Support)
+
+───────────────────────────────────────────────────────────────────────────
+
+🚀 ACTIVATION STATUS:
+
+✅ DELEGATIONS COMPLETE
+✅ ALL DEPARTMENT LEADS BRIEFED
+✅ DOCUMENTATION PROVIDED
+✅ TIMELINE CLEAR
+✅ ESCALATION PATHS DEFINED
+✅ SUCCESS CRITERIA SET
+
+📅 SPRINT TIMELINE:
+
+Day 1 (Jun 2): Kickoff ← YOU ARE HERE
+Day 2 (Jun 3): Phase 1 + Review
+Day 3 (Jun 4): Phase 2-3 + Testing
+Day 4 (Jun 5): Phase 4 + Launch
+Day 5 (Jun 6): Monitoring
+
+───────────────────────────────────────────────────────────────────────────
+
+📞 ESCALATION STRUCTURE:
+
+Department Issue → Department Lead → @ana (COO) → Bogdan (if strategic)
+
+Quick Contact:
+- P0/Critical: DM @ana directly (immediate response)
+- P1/High: Report in daily standup
+- P2/Medium: Status update next standup
+- Blockers: Notify @ana + @stefan within 30 minutes
+
+───────────────────────────────────────────────────────────────────────────
+
+🎯 FINAL REMINDERS:
+
+1. DOCUMENTATION: All detailed tasks in SPRINT-BY-DEPARTMENTS.md
+2. TEMPLATES: Code templates in HTML-IMAGE-INTEGRATION-TEMPLATES.md
+3. STANDARDS: Brand spec in BRANDING-MANUAL-USA.md
+4. QA GUIDE: Comprehensive QA in DEPLOYMENT-READINESS-CHECKLIST.md
+5. COMMITS: Push to branch `claude/ecstatic-maxwell-uptlo` (both repos)
+
+✅ READY TO EXECUTE:
+
+All department leads have:
+- [ ] Read this delegation document
+- [ ] Understood their phase + deliverables
+- [ ] Know their team members
+- [ ] Understand success criteria
+- [ ] Know escalation path
+- [ ] Ready to commit
+
+───────────────────────────────────────────────────────────────────────────
+
+From: @ana (COO)
+Time: 2026-06-02, 17:00 UTC
+Status: 🟢 DEPARTMENTS DELEGATED & ACTIVATED
+
+Department leads: You have autonomy within your domains.
+I'm here for escalation + cross-department coordination.
+
+Let's build Glass Expert together. 🚀
+
+Questions? DM me.
+Let's execute! 💪
+
