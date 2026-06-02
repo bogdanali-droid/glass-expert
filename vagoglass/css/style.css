@@ -236,6 +236,68 @@ h4 { font-size: 1.05rem; letter-spacing: 0.02em; text-transform: uppercase; colo
 .cert-name { font-weight: 600; margin-top: 8px; color: white; }
 .cert-desc { font-size: 0.82rem; color: rgba(255,255,255,0.65); margin-top: 6px; }
 
+/* ===== Official documents — premium section ===== */
+.docs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.doc-card {
+  background: white; border: 1px solid var(--line); border-radius: var(--radius-lg);
+  overflow: hidden; transition: all var(--t);
+  display: flex; flex-direction: column;
+}
+.doc-card:hover { box-shadow: var(--shadow-lg); border-color: var(--cyan); transform: translateY(-4px); }
+.doc-preview {
+  aspect-ratio: 3/4; background: linear-gradient(135deg, #fafbfc 0%, #ecf0f5 100%);
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  padding: 32px; text-align: center; border-bottom: 1px solid var(--line);
+  position: relative; overflow: hidden;
+}
+.doc-preview::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(43,47,54,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(43,47,54,0.025) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.doc-stamp {
+  position: relative;
+  width: 80px; height: 80px; border-radius: 50%;
+  border: 2px solid var(--cyan-dark); color: var(--cyan-dark);
+  display: grid; place-items: center; font-family: var(--font-mono); font-weight: 700; font-size: 0.7rem;
+  text-align: center; line-height: 1.2; padding: 6px;
+  margin-bottom: 20px;
+}
+.doc-title-pdf {
+  position: relative;
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--steel); margin-bottom: 8px;
+}
+.doc-name-pdf {
+  position: relative;
+  font-weight: 800; font-size: 1.1rem; color: var(--steel-dark); line-height: 1.2;
+}
+.doc-meta-pdf {
+  position: relative;
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-soft); margin-top: 12px;
+}
+.doc-info { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+.doc-issuer { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan-dark); font-weight: 700; }
+.doc-issued-by { font-size: 0.85rem; color: var(--text-soft); margin-top: 4px; }
+.doc-info h3 { font-size: 1.05rem; margin: 12px 0 8px; }
+.doc-scope { font-size: 0.88rem; color: var(--text-soft); flex: 1; }
+.doc-row {
+  display: flex; justify-content: space-between;
+  padding: 12px 0; border-top: 1px solid var(--line); margin-top: 16px;
+  font-size: 0.78rem;
+}
+.doc-row dt { color: var(--text-soft); letter-spacing: 0.04em; }
+.doc-row dd { font-family: var(--font-mono); font-weight: 600; color: var(--steel-dark); }
+.legal-bar {
+  background: var(--steel-dark); color: rgba(255,255,255,0.7);
+  padding: 14px 0; font-size: 0.78rem; font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+}
+.legal-bar .container { display: flex; flex-wrap: wrap; gap: 8px 32px; justify-content: center; }
+.legal-bar span strong { color: var(--cyan); font-weight: 600; margin-right: 4px; }
+
 /* ===== Numbers section ===== */
 .numbers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
 .number-block { text-align: left; padding-right: 24px; }
@@ -278,6 +340,7 @@ h4 { font-size: 1.05rem; letter-spacing: 0.02em; text-transform: uppercase; colo
   .hero-grid, .case, .contact-grid { grid-template-columns: 1fr; gap: 32px; }
   .cards-3, .cards-5 { grid-template-columns: repeat(2, 1fr); }
   .compliance { grid-template-columns: repeat(2, 1fr); }
+  .docs { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
   .numbers { grid-template-columns: repeat(2, 1fr); }
   .number-block:nth-child(2) { border-right: 0; }
   .footer-grid { grid-template-columns: 1fr 1fr; }

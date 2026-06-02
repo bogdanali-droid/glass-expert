@@ -7,6 +7,11 @@
 | 02 iun 2026 | **Limbi site v1** | **RO + EN** ✅ confirmat |
 | 02 iun 2026 | **Focus comunicare CFR/Alstom Coradia** | ✅ confirmat „DA" — Alstom prioritate de cucerit (NU client încă) |
 | 02 iun 2026 | **Sponsor intern Glass Expert** | **Beatrice GRAMA** ✅ confirmat |
+| 02 iun 2026 | **Locație fabrică** | **Popești-Leordeni, Ilfov** (corectare — NU Timișoara). Avantaj geografic excelent: lângă București = proximitate maximă pentru CFR HQ, Atelierele Grivița, STB, Metrorex, Alstom RO HQ. |
+| 02 iun 2026 | **Logo VAGOGLASS** | **Wordmark declinat din xglas.eu** — sans-serif minimalist + linie de accent cyan. Co-branding „VAGOGLASS by Glass Expert". |
+| 02 iun 2026 | **Documente oficiale pe site** | DA — afișăm prominent **certificatele + autorizațiile** (AFER ATR, EN 15152, ISO 9001/14001/45001, etc.) ca trust elements. „Va cantari" (Bogdan). Cer Beatricei copiile PDF + numerele exacte pentru integrare imediată. |
+| 02 iun 2026 | **Foto produse site** | **Imagini extrase din catalogul CFR** (6 fișiere salvate în `vagoglass/assets/products/`) + Unsplash verificate ca fallback până vin foto profesionale de la fabrică. Bogdan confirmă pe email care e care (parbriz / lateral / interior / fabrică). |
+| 02 iun 2026 | **Logo-uri clienți pe site** | DA — folosim logo-uri reale (CFR, STB, Alstom, Electroputere VFU din Wikimedia + site oficial). Grivița + ICRL Brașov rămân wordmark (fără logo public). |
 
 ---
 
