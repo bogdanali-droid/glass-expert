@@ -1,24 +1,8 @@
 name = "glass-expert"
-main = "src/index.ts"
 compatibility_date = "2024-06-02"
-
-# Cloudflare Pages configuration
 pages_build_caching = true
 
-# Static site configuration
+# Static site in root directory
 [build]
-command = "echo 'Static site - no build required'"
-cwd = "./"
-watch_paths = ["public/**/*"]
-
-# Routes
-routes = [
-  { pattern = "/", path = "/public/index.html" },
-  { pattern = "/commercial", path = "/public/commercial.html" },
-  { pattern = "/hospitality", path = "/public/hospitality.html" },
-  { pattern = "/healthcare", path = "/public/healthcare.html" },
-  { pattern = "/education", path = "/public/education.html" },
-  { pattern = "/css/*", path = "/public/css/*" },
-  { pattern = "/js/*", path = "/public/js/*" },
-  { pattern = "/*", path = "/public/*" }
-]
+command = "echo 'Static HTML site'"
+watch_paths = ["*.html", "css/**", "js/**", "images/**"]
