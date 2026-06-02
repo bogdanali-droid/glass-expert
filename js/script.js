@@ -457,4 +457,9 @@ window.addEventListener('resize', () => {
     });
 }());
 
+// Initialize Feather Icons
+if (typeof feather !== 'undefined') {
+    feather.replace();
+}
+
 console.log('✓ Glas Expert USA website loaded');
