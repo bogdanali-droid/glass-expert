@@ -3,9 +3,23 @@
 | Data | Decizie | Răspuns Bogdan |
 |---|---|---|
 | 02 iun 2026 | **Nume brand** | VAGOGLASS (confirmat docx client) |
-| 02 iun 2026 | **Domeniu producție** | Rămânem pe **Cloudflare Pages subdomain** (`glass-expert.pages.dev` / `vagoglass.pages.dev` TBD) până se achiziționează domeniu propriu (`vagoglass.ro`). Build la `/vagoglass/` sau project Cloudflare separat. |
-| 02 iun 2026 | **Limbi site v1** | **RO + EN** (DE/PL în Faza 2) |
-| 02 iun 2026 | **Focus prioritar comunicare** | **CFR Călători + contractul Alstom Coradia Stream** (16 rame, 12 în serviciu, livrări 2026). Hero case study + lead magnet construite în jurul acestui contract. |
+| 02 iun 2026 | **Domeniu producție** | Rămânem pe **Cloudflare Pages subdomain** până achiziție domeniu propriu (`vagoglass.ro`). |
+| 02 iun 2026 | **Limbi site v1** | **RO + EN** ✅ confirmat |
+| 02 iun 2026 | **Focus comunicare CFR/Alstom Coradia** | ✅ confirmat „DA" — Alstom prioritate de cucerit (NU client încă) |
+| 02 iun 2026 | **Sponsor intern Glass Expert** | **Beatrice GRAMA** ✅ confirmat |
+
+---
+
+## 👥 Lista CORECTĂ clienți câștigați (confirmată Beatrice GRAMA, 02 iun 2026, 20:20)
+
+1. **CFR Călători** ✅
+2. **Atelierele CFR Grivița** ✅
+3. **Electroputere VFU Pașcani** ✅
+4. **ICRL Brașov** ✅ (Întreținere & Reparații Locomotive — *corectare* față de „SCRL Brașov" din docx)
+5. **STB** ✅ (rămâne din docx oficial — *verificare cerere Beatrice*)
+
+**Alstom = TARGET PRIORITAR (NU client încă)** — „cochetăm cu el"
+→ Strategia comunicare: poziționăm brand ca *credibil pentru standardul Alstom*, ca să facilităm conversia.
 
 ---
 

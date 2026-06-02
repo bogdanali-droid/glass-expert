@@ -35,17 +35,19 @@ Surse:
 
 ---
 
-## ✅ CLIENȚI REALI CÂȘTIGAȚI (nu prospecte!)
+## ✅ CLIENȚI REALI CÂȘTIGAȚI (confirmat Beatrice GRAMA, 02 iun 2026)
 
-Confirmat în docx: *„Glass Expert a dobandit in portofoliu clienti de referinta precum [...] castigand totodata contracte prin licitatii si procese de achizitii publice."*
+**Sponsor intern Glass Expert pentru proiect: Beatrice GRAMA.**
 
 1. **CFR Călători** ⭐ (operator național pasageri)
-2. **STB** ⭐ (transport urban București — tramvaie + autobuze)
+2. **Atelierele CFR Grivița** ⭐ (reparații vagoane CFR București)
 3. **Electroputere VFU Pașcani** ⭐ (modernizare vagoane PNRR)
-4. **Atelierele Grivița** ⭐ (reparații vagoane CFR București)
-5. **SCRL Brașov** ⭐ (Societatea Reparații Locomotive CFR Brașov)
+4. **ICRL Brașov** ⭐ (Întreținere & Reparații Locomotive) — *corectare față de „SCRL Brașov" din docx*
+5. **STB** ⭐ (transport urban București — tramvaie + autobuze) — *menținut din docx oficial; cerem confirmare Beatrice*
 
-→ **5 case studies posibile pe site** (cu confirmare client pentru detalii & fotografii). Asta răspunde la decizia #4 din STRATEGY-MASTER („refs feroviare reale") — **AVEM clienți reali**, doar lipsesc detalii publice.
+**Țintă prioritară (NU client încă):** **Alstom** — „cochetăm cu el". Strategia: poziționăm VAGOGLASS ca furnizor pre-aprobat pentru standard Alstom Coradia Stream (16 rame deja în RO).
+
+→ **5 case studies posibile pe site** (cu confirmare client pentru detalii & fotografii). **AVEM portofoliul real** — lipsesc doar detalii publice & fotografii.
 
 ---
 
