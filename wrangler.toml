@@ -1,8 +1,24 @@
 name = "glass-expert"
-compatibility_date = "2024-06-02"
+type = "javascript"
+compatibility_date = "2024-12-16"
 pages_build_caching = true
 
 # Static site in root directory
 [build]
 command = "echo 'Static HTML site'"
 watch_paths = ["*.html", "css/**", "js/**", "images/**"]
+
+# D1 Database Binding for VAGOTECH Analytics
+[[d1_databases]]
+binding = "VAGOTECH_DB"
+database_name = "vagotech_analytics"
+database_id = "YOUR_D1_DATABASE_ID"
+
+# Environment Variables
+[env.production.vars]
+ANALYTICS_ENABLED = "true"
+DATA_RETENTION_DAYS = "999999"
+
+# NOTE: Admin password stored in Cloudflare Secrets (not in this file)
+# Set in Cloudflare Dashboard > Settings > Environment Variables > Secrets
+# ADMIN_PASSWORD = your-secret-password-here (use Cloudflare UI, never commit to git)
