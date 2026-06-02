@@ -12,7 +12,7 @@ watch_paths = ["*.html", "css/**", "js/**", "images/**"]
 [[d1_databases]]
 binding = "VAGOTECH_DB"
 database_name = "vagotech_analytics"
-database_id = "YOUR_D1_DATABASE_ID"
+database_id = "e0d9934c-2e9e-4f9c-88b8-83bc679d16dc"
 
 # Environment Variables
 [env.production.vars]
