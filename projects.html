@@ -108,17 +108,22 @@
             display: none;
         }
         .project-img-placeholder {
-            height: 180px;
-            background: var(--project-bg, linear-gradient(135deg, #1a1a2e 0%, #16213e 100%));
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 200px;
             position: relative;
+            overflow: hidden;
+            background: #1a1a2e;
         }
-        .project-img-placeholder .project-icon {
-            font-size: 3rem;
-            opacity: 0.6;
+        .project-img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
         }
+        .project-card:hover .project-img-placeholder img {
+            transform: scale(1.05);
+        }
+        .project-img-placeholder .project-icon { display: none; }
         .project-category-pill {
             position: absolute;
             top: 1rem;
@@ -272,7 +277,7 @@
             <!-- 1. Roland Garros -->
             <div class="project-card cat-public" data-category="public">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">🎾</span>
+                    <img src="images/proj-roland-garros.jpg" alt="Roland Garros — Paris" loading="lazy">
                     <span class="project-category-pill">Public &amp; Cultural</span>
                 </div>
                 <div class="project-body">
@@ -287,7 +292,7 @@
             <!-- 2. FUTURIUM Berlin -->
             <div class="project-card cat-public" data-category="public">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">🏛️</span>
+                    <img src="images/proj-futurium.jpg" alt="FUTURIUM Berlin" loading="lazy">
                     <span class="project-category-pill">Public &amp; Cultural</span>
                 </div>
                 <div class="project-body">
@@ -302,7 +307,7 @@
             <!-- 3. L'Usine Saint Lazare -->
             <div class="project-card cat-hospitality" data-category="hospitality">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">✨</span>
+                    <img src="images/hospitality-hero.jpg" alt="L'Usine Saint Lazare — Paris" loading="lazy">
                     <span class="project-category-pill">Hospitality</span>
                 </div>
                 <div class="project-body">
@@ -317,7 +322,7 @@
             <!-- 4. L'Usine Opera -->
             <div class="project-card cat-hospitality" data-category="hospitality">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">🎭</span>
+                    <img src="images/modern-interior-1.jpg" alt="L'Usine Opera — Paris" loading="lazy">
                     <span class="project-category-pill">Hospitality</span>
                 </div>
                 <div class="project-body">
@@ -332,7 +337,7 @@
             <!-- 5. Therme ARC -->
             <div class="project-card cat-hospitality" data-category="hospitality">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">💆</span>
+                    <img src="images/proj-therme.jpg" alt="Therme ARC — Markdorf" loading="lazy">
                     <span class="project-category-pill">Hospitality</span>
                 </div>
                 <div class="project-body">
@@ -347,7 +352,7 @@
             <!-- 6. Therme București -->
             <div class="project-card cat-hospitality" data-category="hospitality">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">🌊</span>
+                    <img src="images/proj-therme.jpg" alt="Therme București" loading="lazy">
                     <span class="project-category-pill">Hospitality</span>
                 </div>
                 <div class="project-body">
@@ -362,7 +367,7 @@
             <!-- 7. Corinthia Grand Hotel du Boulevard -->
             <div class="project-card cat-hospitality" data-category="hospitality">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">🏨</span>
+                    <img src="images/proj-corinthia.webp" alt="Corinthia Grand Hôtel du Boulevard" loading="lazy">
                     <span class="project-category-pill">Hospitality</span>
                 </div>
                 <div class="project-body">
@@ -377,7 +382,7 @@
             <!-- 8. PINES -->
             <div class="project-card cat-residential" data-category="residential">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">🌲</span>
+                    <img src="images/modern-interior-1.jpg" alt="PINES — Bucharest" loading="lazy">
                     <span class="project-category-pill">Residential</span>
                 </div>
                 <div class="project-body">
@@ -392,7 +397,7 @@
             <!-- 9. Yunity Park -->
             <div class="project-card cat-commercial" data-category="commercial">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">🏙️</span>
+                    <img src="images/proj-yunity-park.jpg" alt="Yunity Park — Bucharest" loading="lazy">
                     <span class="project-category-pill">Commercial</span>
                 </div>
                 <div class="project-body">
@@ -407,7 +412,7 @@
             <!-- 10. Green Court SKANSKA -->
             <div class="project-card cat-commercial" data-category="commercial">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">🌿</span>
+                    <img src="images/proj-skanska.jpg" alt="Green Court SKANSKA" loading="lazy">
                     <span class="project-category-pill">Commercial</span>
                 </div>
                 <div class="project-body">
@@ -422,7 +427,7 @@
             <!-- 11. ING Crystal Tower -->
             <div class="project-card cat-commercial" data-category="commercial">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">💎</span>
+                    <img src="images/commercial-hero.jpg" alt="ING Crystal Tower — Bucharest" loading="lazy">
                     <span class="project-category-pill">Commercial</span>
                 </div>
                 <div class="project-body">
@@ -437,7 +442,7 @@
             <!-- 12. NUSCO Tower -->
             <div class="project-card cat-commercial" data-category="commercial">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">🏢</span>
+                    <img src="images/proj-yunity-park.jpg" alt="NUSCO Tower — Bucharest" loading="lazy">
                     <span class="project-category-pill">Commercial</span>
                 </div>
                 <div class="project-body">
@@ -452,7 +457,7 @@
             <!-- 13. LIDL HeadOffice -->
             <div class="project-card cat-commercial" data-category="commercial">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">🏬</span>
+                    <img src="images/proj-skanska.jpg" alt="LIDL Head Office" loading="lazy">
                     <span class="project-category-pill">Commercial</span>
                 </div>
                 <div class="project-body">
@@ -467,7 +472,7 @@
             <!-- 14. Sun Plaza -->
             <div class="project-card cat-retail" data-category="retail">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">☀️</span>
+                    <img src="images/modern-interior-1.jpg" alt="Sun Plaza — Bucharest" loading="lazy">
                     <span class="project-category-pill">Retail</span>
                 </div>
                 <div class="project-body">
@@ -482,7 +487,7 @@
             <!-- 15. H&M Unirea -->
             <div class="project-card cat-retail" data-category="retail">
                 <div class="project-img-placeholder">
-                    <span class="project-icon">🛍️</span>
+                    <img src="images/hospitality-hero.jpg" alt="H&amp;M Unirea Flagship" loading="lazy">
                     <span class="project-category-pill">Retail</span>
                 </div>
                 <div class="project-body">
