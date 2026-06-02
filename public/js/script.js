@@ -3,6 +3,102 @@
 // Main JavaScript
 // ====================================
 
+// GLASS SELECTOR TOOL STATE
+let selectorState = {
+    glass: null,
+    app: null,
+    perf: null,
+    currentStep: 1
+};
+
+const glassSpecs = {
+    tempered: {
+        name: 'Tempered Glass',
+        specs: ['4-5x stronger than annealed', 'Breaks into safe cubes', 'ASTM C1048 certified', 'Ideal for high-traffic areas']
+    },
+    laminated: {
+        name: 'Laminated Glass',
+        specs: ['Multiple layers with PVB interlayer', 'Stays intact when broken', 'ASTM C1172 certified', 'Excellent for safety and soundproofing']
+    },
+    curved: {
+        name: 'Curved Glass',
+        specs: ['Custom-bent architectural shapes', 'Rare manufacturing capability', 'Complex radius options', 'Premium architectural feature']
+    },
+    ceramic: {
+        name: 'Ceramic-Printed Glass',
+        specs: ['Screen-printed enamel design', 'Permanent custom colors/patterns', 'Fused at 700-800°C', 'Customizable branding']
+    }
+};
+
+function selectGlassType(type) {
+    selectorState.glass = type;
+    document.querySelectorAll('#step1 .selector-option').forEach(btn => btn.classList.remove('selected'));
+    event.target.closest('.selector-option').classList.add('selected');
+}
+
+function selectApplication(app) {
+    selectorState.app = app;
+    document.querySelectorAll('#step2 .selector-option').forEach(btn => btn.classList.remove('selected'));
+    event.target.closest('.selector-option').classList.add('selected');
+}
+
+function selectPerformance(perf) {
+    selectorState.perf = perf;
+    document.querySelectorAll('#step3 .selector-option').forEach(btn => btn.classList.remove('selected'));
+    event.target.closest('.selector-option').classList.add('selected');
+}
+
+function nextStep() {
+    if (selectorState.currentStep === 1 && !selectorState.glass) {
+        alert('Please select a glass type');
+        return;
+    }
+    if (selectorState.currentStep === 2 && !selectorState.app) {
+        alert('Please select an application');
+        return;
+    }
+    if (selectorState.currentStep === 3 && !selectorState.perf) {
+        alert('Please select a performance need');
+        return;
+    }
+
+    selectorState.currentStep++;
+    updateSelectorDisplay();
+}
+
+function prevStep() {
+    if (selectorState.currentStep > 1) {
+        selectorState.currentStep--;
+        updateSelectorDisplay();
+    }
+}
+
+function showResult() {
+    selectorState.currentStep = 4;
+    updateSelectorDisplay();
+    displayResult();
+}
+
+function updateSelectorDisplay() {
+    document.querySelectorAll('.selector-step').forEach(step => step.classList.remove('active'));
+    document.getElementById(`step${selectorState.currentStep}`).classList.add('active');
+}
+
+function displayResult() {
+    const specs = glassSpecs[selectorState.glass];
+    document.getElementById('resultTitle').textContent = specs.name;
+    document.getElementById('resultBadge').textContent = `Perfect for ${selectorState.app}`;
+
+    const specsList = document.getElementById('resultSpecs');
+    specsList.innerHTML = specs.specs.map(spec => `<li>✓ ${spec}</li>`).join('');
+
+    console.log('Glass Selection:', {
+        type: selectorState.glass,
+        application: selectorState.app,
+        performance: selectorState.perf
+    });
+}
+
 // HAMBURGER MENU
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.querySelector('.nav-menu');

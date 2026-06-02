@@ -4,14 +4,25 @@
    ==================================== */
 
 :root {
-    --primary-color: #667eea;
-    --secondary-color: #764ba2;
-    --text-dark: #2c3e50;
-    --text-light: #7f8c8d;
-    --bg-light: #f8f9fa;
-    --border-color: #ecf0f1;
-    --success: #27ae60;
-    --white: #ffffff;
+    /* GLAS EXPERT DESIGN SYSTEM */
+    --primary: #1B3A6B;
+    --accent: #D4AF37;
+    --white: #FFFFFF;
+    --text-dark: #1B3A6B;
+    --text-light: #666666;
+    --bg-light: #F9F9F9;
+    --border-color: #E0E0E0;
+    --success: #6FCF97;
+
+    /* SEGMENT COLORS */
+    --commercial: #0E7C86;
+    --hospitality: #B87333;
+    --healthcare: #6FCF97;
+    --education: #4B0082;
+
+    /* TYPOGRAPHY */
+    --font-headers: 'Poppins', 'Arial', sans-serif;
+    --font-body: 'Inter', 'Segoe UI', sans-serif;
 }
 
 * {
@@ -25,10 +36,16 @@ html {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: var(--font-body);
     line-height: 1.6;
     color: var(--text-dark);
     background-color: var(--white);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headers);
+    font-weight: 700;
+    color: var(--primary);
 }
 
 .container {
@@ -55,7 +72,7 @@ body {
 
 .logo h1 {
     font-size: 1.8rem;
-    color: var(--primary-color);
+    color: var(--primary);
     font-weight: 700;
     letter-spacing: 2px;
 }
@@ -81,11 +98,11 @@ body {
 }
 
 .nav-menu a:hover {
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
 .nav-menu .btn-cta {
-    background: var(--primary-color);
+    background: var(--primary);
     color: var(--white);
     padding: 0.75rem 1.5rem;
     border-radius: 5px;
@@ -93,7 +110,7 @@ body {
 }
 
 .nav-menu .btn-cta:hover {
-    background: var(--secondary-color);
+    background: var(--accent);
     transform: translateY(-2px);
 }
 
@@ -114,7 +131,7 @@ body {
 
 /* HERO SECTION */
 .hero {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
     color: var(--white);
     padding: 5rem 2rem;
     text-align: center;
@@ -175,12 +192,12 @@ body {
 }
 
 .btn-primary {
-    background: var(--primary-color);
+    background: var(--primary);
     color: var(--white);
 }
 
 .btn-primary:hover {
-    background: var(--secondary-color);
+    background: var(--accent);
     transform: translateY(-2px);
 }
 
@@ -191,12 +208,12 @@ body {
 
 .btn-secondary {
     background: var(--white);
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+    color: var(--primary);
+    border: 2px solid var(--primary);
 }
 
 .btn-secondary:hover {
-    background: var(--primary-color);
+    background: var(--primary);
     color: var(--white);
 }
 
@@ -210,7 +227,7 @@ body {
     font-size: 2.2rem;
     margin-bottom: 2rem;
     text-align: center;
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
 .segment-content {
@@ -274,7 +291,7 @@ body {
     font-style: italic;
     color: var(--text-light);
     padding: 1rem;
-    border-left: 4px solid var(--primary-color);
+    border-left: 4px solid var(--primary);
     margin: 1.5rem 0;
 }
 
@@ -288,7 +305,7 @@ body {
     font-size: 2.2rem;
     text-align: center;
     margin-bottom: 3rem;
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
 .features-grid {
@@ -330,7 +347,7 @@ body {
     font-size: 2.2rem;
     text-align: center;
     margin-bottom: 3rem;
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
 .contact-form {
@@ -374,7 +391,7 @@ body {
 .form-group textarea:focus,
 .form-group select:focus {
     outline: none;
-    border-color: var(--primary-color);
+    border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
@@ -439,7 +456,7 @@ body {
 }
 
 .footer-section a:hover {
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
 .footer-contact {
@@ -547,4 +564,270 @@ body {
 
 .segment {
     animation: slideUp 0.6s ease-out;
+}
+
+/* GLASS SELECTOR TOOL */
+.glass-selector {
+    background: var(--white);
+    padding: 4rem 2rem;
+    border-top: 3px solid var(--primary);
+}
+
+.glass-selector h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+}
+
+.selector-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.selector-steps {
+    background: var(--bg-light);
+    padding: 3rem;
+    border-radius: 10px;
+}
+
+.selector-step {
+    display: none;
+}
+
+.selector-step.active {
+    display: block;
+    animation: slideUp 0.4s ease;
+}
+
+.selector-step h3 {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 2rem;
+}
+
+.selector-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.selector-option {
+    background: var(--white);
+    border: 2px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.selector-option:hover {
+    border-color: var(--primary);
+    background: var(--bg-light);
+    transform: translateY(-3px);
+}
+
+.selector-option.selected {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--white);
+}
+
+.selector-option .icon {
+    font-size: 2.5rem;
+}
+
+.selector-option .label {
+    font-weight: 700;
+}
+
+.selector-option .desc {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.selector-nav {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn-next, .btn-back {
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-next {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.btn-next:hover {
+    background: var(--accent);
+    transform: translateX(3px);
+}
+
+.btn-back {
+    background: var(--white);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.btn-back:hover {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.result-card {
+    background: var(--white);
+    padding: 2rem;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.result-header h4 {
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
+.badge {
+    background: var(--accent);
+    color: var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.result-specs {
+    margin-bottom: 1.5rem;
+}
+
+.result-specs ul {
+    list-style: none;
+    margin-left: 0;
+}
+
+.result-specs li {
+    padding: 0.5rem 0;
+    color: var(--text-dark);
+}
+
+.result-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.info-box {
+    background: var(--bg-light);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.info-box h5 {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.info-box p {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* VALUE PROPOSITIONS */
+.value-props {
+    background: var(--primary);
+    padding: 3rem 2rem;
+    color: var(--white);
+}
+
+.props-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.prop-card {
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.prop-card h3 {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.prop-card p {
+    color: rgba(255,255,255,0.9);
+    font-size: 0.95rem;
+}
+
+/* SEGMENT-SPECIFIC COLORS */
+.segment-commercial {
+    border-left: 5px solid var(--commercial);
+}
+
+.segment-commercial h2 {
+    color: var(--commercial);
+}
+
+.segment-hospitality {
+    border-left: 5px solid var(--hospitality);
+}
+
+.segment-hospitality h2 {
+    color: var(--hospitality);
+}
+
+.segment-healthcare {
+    border-left: 5px solid var(--healthcare);
+}
+
+.segment-healthcare h2 {
+    color: var(--healthcare);
+}
+
+.segment-education {
+    border-left: 5px solid var(--education);
+}
+
+.segment-education h2 {
+    color: var(--education);
 }

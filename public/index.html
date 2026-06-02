@@ -34,12 +34,16 @@
     <!-- HERO SECTION -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <h2>Premium Glass for American Architecture</h2>
-            <p>24 years of European excellence. Now in USA.</p>
-            <p class="hero-subtitle">Curved Glass • Ceramic-Printed • Medical-Grade • Smart Glass</p>
-            <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
-                Request Quote
-            </button>
+            <h1>Premium Glass for American Architecture</h1>
+            <p class="hero-subtitle">European Innovation. American Speed. Architectural Impact.</p>
+            <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center;">
+                <button class="btn-primary" onclick="document.getElementById('selector').scrollIntoView({behavior: 'smooth'})">
+                    Find Your Glass
+                </button>
+                <button class="btn-secondary" style="background: rgba(255,255,255,0.2); color: var(--white); border-color: var(--white);" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
+                    Request Quote
+                </button>
+            </div>
         </div>
         <div class="hero-stats">
             <div class="stat">
@@ -56,13 +60,163 @@
             </div>
             <div class="stat">
                 <h3>4-6</h3>
-                <p>Week Delivery</p>
+                <p>Weeks Delivery</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALUE PROPOSITIONS -->
+    <section class="value-props">
+        <div class="props-grid">
+            <div class="prop-card">
+                <h3>⚡ Speed</h3>
+                <p>4-6 weeks delivery vs competitor 8-12 weeks</p>
+            </div>
+            <div class="prop-card">
+                <h3>✓ Quality</h3>
+                <p>ASTM + EN certified European standards</p>
+            </div>
+            <div class="prop-card">
+                <h3>🚀 Innovation</h3>
+                <p>Curved glass + ceramic-printed + smart glass</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GLASS SELECTOR TOOL -->
+    <section id="selector" class="glass-selector">
+        <div class="container">
+            <h2>Find Your Perfect Glass</h2>
+            <p class="section-subtitle">Select your needs and discover the ideal solution in 3 steps</p>
+
+            <div class="selector-container">
+                <div class="selector-steps">
+                    <!-- Step 1: Glass Type -->
+                    <div class="selector-step active" id="step1">
+                        <h3>1. Glass Type</h3>
+                        <div class="selector-options">
+                            <button class="selector-option" onclick="selectGlassType('tempered')">
+                                <span class="icon">⬜</span>
+                                <span class="label">Tempered</span>
+                                <span class="desc">4-5x stronger, safety</span>
+                            </button>
+                            <button class="selector-option" onclick="selectGlassType('laminated')">
+                                <span class="icon">📋</span>
+                                <span class="label">Laminated</span>
+                                <span class="desc">Stays intact when broken</span>
+                            </button>
+                            <button class="selector-option" onclick="selectGlassType('curved')">
+                                <span class="icon">🌊</span>
+                                <span class="label">Curved</span>
+                                <span class="desc">Custom architectural shapes</span>
+                            </button>
+                            <button class="selector-option" onclick="selectGlassType('ceramic')">
+                                <span class="icon">🎨</span>
+                                <span class="label">Ceramic-Printed</span>
+                                <span class="desc">Custom colors & patterns</span>
+                            </button>
+                        </div>
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <button class="btn-next" onclick="nextStep()">Next →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Application -->
+                    <div class="selector-step" id="step2">
+                        <h3>2. Application</h3>
+                        <div class="selector-options">
+                            <button class="selector-option" onclick="selectApplication('facade')">
+                                <span class="icon">🏢</span>
+                                <span class="label">Facade</span>
+                            </button>
+                            <button class="selector-option" onclick="selectApplication('interior')">
+                                <span class="icon">🪟</span>
+                                <span class="label">Interior</span>
+                            </button>
+                            <button class="selector-option" onclick="selectApplication('cleanroom')">
+                                <span class="icon">🔬</span>
+                                <span class="label">Cleanroom</span>
+                            </button>
+                            <button class="selector-option" onclick="selectApplication('design')">
+                                <span class="icon">✨</span>
+                                <span class="label">Design Feature</span>
+                            </button>
+                        </div>
+                        <div class="selector-nav">
+                            <button class="btn-back" onclick="prevStep()">← Back</button>
+                            <button class="btn-next" onclick="nextStep()">Next →</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Performance Need -->
+                    <div class="selector-step" id="step3">
+                        <h3>3. Performance Need</h3>
+                        <div class="selector-options">
+                            <button class="selector-option" onclick="selectPerformance('thermal')">
+                                <span class="icon">🌡️</span>
+                                <span class="label">Thermal</span>
+                                <span class="desc">Energy efficient</span>
+                            </button>
+                            <button class="selector-option" onclick="selectPerformance('acoustic')">
+                                <span class="icon">🔊</span>
+                                <span class="label">Acoustic</span>
+                                <span class="desc">Sound isolation</span>
+                            </button>
+                            <button class="selector-option" onclick="selectPerformance('impact')">
+                                <span class="icon">💪</span>
+                                <span class="label">Impact</span>
+                                <span class="desc">Safety resistant</span>
+                            </button>
+                            <button class="selector-option" onclick="selectPerformance('decorative')">
+                                <span class="icon">🎭</span>
+                                <span class="label">Decorative</span>
+                                <span class="desc">Design focused</span>
+                            </button>
+                        </div>
+                        <div class="selector-nav">
+                            <button class="btn-back" onclick="prevStep()">← Back</button>
+                            <button class="btn-next" onclick="showResult()">Show Solution →</button>
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="selector-step" id="step4">
+                        <h3>Your Perfect Glass Solution</h3>
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h4 id="resultTitle"></h4>
+                                <span id="resultBadge" class="badge"></span>
+                            </div>
+                            <div class="result-specs">
+                                <p><strong>Key Features:</strong></p>
+                                <ul id="resultSpecs"></ul>
+                            </div>
+                            <div class="result-info">
+                                <div class="info-box">
+                                    <h5>Lead Time</h5>
+                                    <p>4-6 weeks</p>
+                                </div>
+                                <div class="info-box">
+                                    <h5>Standard Thickness</h5>
+                                    <p>6-12mm</p>
+                                </div>
+                                <div class="info-box">
+                                    <h5>Certification</h5>
+                                    <p>ASTM + EN</p>
+                                </div>
+                            </div>
+                            <button class="btn-primary btn-large" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" style="width: 100%; margin-top: 1rem;">
+                                Get Quote for This Solution
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- SEGMENT 1: COMMERCIAL REAL ESTATE -->
-    <section id="commercial" class="segment">
+    <section id="commercial" class="segment segment-commercial">
         <div class="container">
             <h2>Commercial Real Estate</h2>
             <div class="segment-content">
@@ -92,7 +246,7 @@
     </section>
 
     <!-- SEGMENT 2: HOSPITALITY -->
-    <section id="hospitality" class="segment alternate">
+    <section id="hospitality" class="segment segment-hospitality alternate">
         <div class="container">
             <h2>Hospitality & Design</h2>
             <div class="segment-content">
@@ -122,7 +276,7 @@
     </section>
 
     <!-- SEGMENT 3: HEALTHCARE -->
-    <section id="healthcare" class="segment">
+    <section id="healthcare" class="segment segment-healthcare">
         <div class="container">
             <h2>Healthcare & Research</h2>
             <div class="segment-content">
@@ -152,7 +306,7 @@
     </section>
 
     <!-- SEGMENT 4: EDUCATION -->
-    <section id="education" class="segment alternate">
+    <section id="education" class="segment segment-education alternate">
         <div class="container">
             <h2>Education & Institutions</h2>
             <div class="segment-content">
