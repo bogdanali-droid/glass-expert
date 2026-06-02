@@ -1,16 +1,73 @@
 # 📂 Client Intel — extras din fișierele primite de la client (02 iun 2026)
 
-Surse: `VAGOGLASS-Catalog-CFR-v1.pdf` (catalog oficial) + `Clienti-CFR.ods` (listă clienți & concurenți).
+Surse:
+- `VAGOGLASS-Catalog-CFR-v1.pdf` (catalog oficial cu scrisoare CEO)
+- `Clienti-CFR.ods` (listă clienți & concurenți)
+- `Linia-de-business-VAGOGLASS.docx` (sumar business + cifre + plan 2026)
 
 ---
 
-## 🔥 DESCOPERIRE CRITICĂ — Numele brandului
+## 🔥 BRAND NAME — CONFIRMAT
 
-Brandul nu se cheamă „VAGOTECH" (cum apare în repo). **Catalogul oficial folosește 4 variante:**
+**Numele oficial este VAGOGLASS.** Confirmat fără ambiguitate de docx-ul „Linia de business VAGOGLASS":
 
-> **VAGOGLASS (VOVAG / URBAN GLASS / VAGOGLASS / GLASFER)**
+> *„VAGOGLASS este gama de produse dezvoltata de Glass Expert Contractor, destinata industriei transporturilor feroviare si de tramvai"*
 
-→ **Decizie urgentă Bogdan:** care e numele final? Recomandare @ana: **VAGOGLASS** (apare de 2 ori în titlu, sugerează preferința CEO). Trebuie aliniat tot repo-ul + redenumit `vagotech.html` → `vagoglass.html`.
+→ Acțiune: redenumire `vagotech.html` → `vagoglass.html`, replace „VAGOTECH" → „VAGOGLASS" în tot repo-ul.
+
+(Variantele VOVAG / URBAN GLASS / GLASFER din titlul catalog rămân ca *coduri interne / nume vechi*, NU brand client-facing.)
+
+---
+
+## 💰 BUSINESS — Cifre & traiectorie (din docx client)
+
+| An | Cifră de afaceri VAGOGLASS (€) |
+|---|---|
+| 2022 | 0 |
+| 2023 | 50.000 |
+| 2024 | 250.000 |
+| **2025e** | **450.000** |
+| **2026e** | **600.000** (+30%) |
+
+**Narativ confirmat:** *„gama VAGOGLASS a crescut de la 0 la o cifra de afaceri de ~400.000 euro/an in 2025. In ultimul an, majoritatea clientilor strategici si a contractelor prin licitatie publica au fost obtinute, marcand o etapa de consolidare rapida."*
+
+**Implicație branding:** povestea „from 0 to €450K in 3 years" este un asset puternic — *„the fastest-growing rail glass line in Romania"*.
+
+---
+
+## ✅ CLIENȚI REALI CÂȘTIGAȚI (nu prospecte!)
+
+Confirmat în docx: *„Glass Expert a dobandit in portofoliu clienti de referinta precum [...] castigand totodata contracte prin licitatii si procese de achizitii publice."*
+
+1. **CFR Călători** ⭐ (operator național pasageri)
+2. **STB** ⭐ (transport urban București — tramvaie + autobuze)
+3. **Electroputere VFU Pașcani** ⭐ (modernizare vagoane PNRR)
+4. **Atelierele Grivița** ⭐ (reparații vagoane CFR București)
+5. **SCRL Brașov** ⭐ (Societatea Reparații Locomotive CFR Brașov)
+
+→ **5 case studies posibile pe site** (cu confirmare client pentru detalii & fotografii). Asta răspunde la decizia #4 din STRATEGY-MASTER („refs feroviare reale") — **AVEM clienți reali**, doar lipsesc detalii publice.
+
+---
+
+## 🏛️ CERTIFICĂRI — confirmare AFER + standarde EU
+
+Docx confirmă explicit:
+
+> *„investitii in **certificari**, tehnologii dedicate si dezvoltarea unui portofoliu de produse conforme **cerintelor AFER si standardelor europene**"*
+
+→ AFER ATR există (sau în curs avansat). Standarde EU respectate. Decizia #3 din STRATEGY-MASTER se reduce la „cere numere & valabilități" (nu „avem sau nu").
+
+---
+
+## 📅 Plan 2026 declarat de client (3 piloni)
+
+1. **Extindere portofoliu produse certificate** pentru aplicații feroviare + tramvaie
+2. **Comunicare structurată + participare târguri** naționale & internaționale
+3. **Consolidare parteneriate** cu integratori + operatori RO + Europa Centrală & Est
+
+**Implicație directă pentru noi:** pilonul #2 este exact serviciul nostru. Mandate-ul agenției AXA IT pe VAGOGLASS este perfect aliniat cu strategia declarată de client.
+
+---
 
 ---
 

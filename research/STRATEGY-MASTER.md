@@ -8,17 +8,38 @@
 
 ---
 
-## 🔥 7 decizii care BLOCHEAZĂ tot — pentru Bogdan
+## ✅ UPDATE 02 iun 2026 — docx „Linia de business VAGOGLASS"
+
+Documentul client a clarificat 4 din 7 decizii anterioare:
+
+1. **Nume brand: VAGOGLASS** ✅ confirmat (nu mai sunt variante)
+2. **Refs feroviare:** AVEM 5 clienți câștigați — **CFR Călători, STB, Electroputere VFU Pașcani, Atelierele Grivița, SCRL Brașov**. Doar foto/detalii lipsesc.
+3. **Certificări AFER:** confirmate ca *„conforme cerințelor AFER și standardelor europene"* — rămâne doar cererea numerelor/valabilităților.
+4. **Cifre business:** 0 → €50K (2023) → €250K (2024) → €450K (2025e) → €600K (2026e, +30%). Asset narativ puternic.
+
+→ Vezi `research/client-intel/EXTRACTED-INTEL.md` pentru detalii.
+
+---
+
+## 🔥 Decizii rămase pentru Bogdan (3, nu 7)
 
 | # | Decizie | Recomandare @ana | De ce contează |
 |---|---|---|---|
-| 1 | **Numele brandului** | **VAGOGLASS** (din catalog oficial) | Catalogul folosește 4 variante (VAGOGLASS / VOVAG / URBAN GLASS / GLASFER); trebuie să alegem unul. Repo-ul actual zice „VAGOTECH" — incorect. |
-| 2 | **Domeniu** | `vagoglass.ro` (primar) + redirect din `.eu` dacă disponibil | Aliniat la nume, ușor RO-friendly. |
-| 3 | **Status certificări** | Cere clientului LISTA exactă (EN 15152, TSI LOC&PAS, IRIS/ISO 22163, AFER ATR, ISO 9001/14001/45001) cu numere & valabilitate | Fără IRIS = nu intri la Alstom/Siemens/Stadler. Fără AFER ATR = nu vinzi în RO. **Blocant strategic.** |
-| 4 | **Refs feroviare reale** | Cere clientului 2-3 case studies cu foto + nume client + an | Tot site-ul actual al xglas.eu nu pomenește rail. Avem ZERO portofoliu public credibil. |
-| 5 | **Limbi site v1** | RO + EN (DE/PL în faza 2 pentru export CEE) | OEM-urile mari (PESA Polonia, Škoda Cehia) cer DE/PL. |
-| 6 | **Buget IRIS + AFER** | Decizie pe 6-12 luni proces + costuri (€20-60K estimat) | Fără ele, brandul rămâne în segment „cumpărări mici fragmentate" CFR (cele din .ods) — exact ce face SMB Rail Parts azi. |
-| 7 | **Sponsor intern xglas** | Cere un contact rezident xglas (engineering + comercial) dedicat rail | Avem nevoie de validare tehnică pe spec + acces la fabrică pentru fotografie. |
+| 1 | **Domeniu** | `vagoglass.ro` (primar) + `.eu` dacă disponibil | Aliniat la nume, RO-friendly. |
+| 2 | **Limbi site v1** | RO + EN; DE/PL în Faza 2 pentru export CEE | OEM CEE (PESA Polonia, Škoda Cehia) cer DE/PL. |
+| 3 | **Sponsor intern Glass Expert** | Cere clientului 1 contact engineering + 1 comercial dedicați rail | Validare tehnică spec + acces fabrică pentru fotografie + confirmare detalii case studies. |
+
+---
+
+## 📋 Întrebări către client (Glass Expert Contractor)
+
+Lista exactă de cerut clientului (Cătălin Horomnea / responsabil rail):
+
+1. **Lista certificări cu numere & valabilitate** — AFER ATR, EN 15152, TSI LOC&PAS, IRIS/ISO 22163 (dacă există), ISO 9001/14001/45001, REACH/RoHS/CE.
+2. **Per fiecare client câștigat** (CFR Călători, STB, Electroputere VFU, Grivița, SCRL Brașov): tipul produsului livrat, volumul, anul, persoană de contact pentru endorsement, dacă putem cita public.
+3. **Fotografii** — fabrică Timișoara (producție, curbare, laminare, ceramic print), produse finite în vehicule reale.
+4. **Confirmare 2 sponsori interni** dedicați rail (engineering + comercial).
+5. **Plan participare târguri 2026** — care, când, cu ce buget (să aliniem comunicarea).
 
 ---
 
