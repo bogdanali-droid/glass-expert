@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Sitemap: https://glasspro.ai/sitemap.xml
+
+# Block admin/dev files
+Disallow: /SPRINT-BY-DEPARTMENTS.md
+Disallow: /DELEGATION-TO-DEPARTMENTS.txt
+Disallow: /AI-TEAM-AGENTS-ACTIVATED.txt
+Disallow: /SEO-COPY-STRATEGY.md
+Disallow: /BRAND-USA-GUIDE.md
+Disallow: /LAUNCH-CHECKLIST.md
