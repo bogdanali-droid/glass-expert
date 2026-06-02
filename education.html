@@ -3,75 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glas Expert — Education & Institutional Solutions</title>
-    <link rel="stylesheet" href="css/figma-redesign.css">
-    <link rel="stylesheet" href="css/polish-enhancements.css">
+    <title>Glas Expert — Education &amp; Institutional Solutions</title>
+    <link rel="stylesheet" href="css/redesign-v2.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <style>
-        :root { --segment-color: #6C5CE7; --segment-dark: #5A4BB8; }
-        .segment-hero { background: linear-gradient(135deg, var(--segment-dark) 0%, var(--segment-color) 100%); color: white; padding: 6rem 2rem; text-align: center; }
-        .segment-hero h1 { color: white; font-size: 3.5rem; margin-bottom: 1rem; }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 3rem 0; }
-        .product-card { background: white; border: 2px solid var(--segment-color); padding: 2rem; border-radius: 10px; transition: all 0.3s ease; }
-        .product-card:hover { box-shadow: 0 10px 30px rgba(108,92,231,0.2); transform: translateY(-5px); }
-        .product-icon { font-size: 3rem; margin-bottom: 1rem; }
-        .spec-list { list-style: none; text-align: left; }
-        .spec-list li { padding: 0.5rem 0; border-bottom: 1px solid #eee; color: #666; }
-        .spec-list li:last-child { border-bottom: none; }
-        .sustainability-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
-        .sustainability-badge { background: #f5f2ff; border-left: 4px solid var(--segment-color); padding: 1.5rem; border-radius: 5px; }
-        .sustainability-badge h4 { color: var(--segment-color); margin: 0 0 0.5rem 0; }
-        .sustainability-badge p { margin: 0; color: #666; font-size: 0.95rem; }
+        :root { --accent-current: #7C3AED; }
     </style>
 </head>
 <body>
-    <header class="navbar">
+    <header class="navbar-v2">
         <div class="container">
             <div class="logo">
-                <img src="images/glas-expert-logo.png" alt="Glas Expert Logo" style="height: 50px; margin-bottom: 5px;"><br/>
-                <p class="tagline">Education & Institutional Glass</p>
+                <img src="images/glas-expert-logo.png" alt="Glas Expert Logo" style="height: 40px;">
+                <p class="tagline">Education &amp; Institutional Glass</p>
             </div>
-            <nav class="nav-menu">
-                <a href="/">← Back to Home</a>
-                <a href="#products">Solutions</a>
-                <a href="#sustainability">Sustainability</a>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="commercial.html">Commercial</a>
+                <a href="hospitality.html">Hospitality</a>
+                <a href="healthcare.html">Healthcare</a>
+                <a href="education.html">Education</a>
+                <a href="products.html">Products</a>
+                <a href="projects.html">Projects</a>
+                <a href="index.html#versatika">Versatika</a>
                 <a href="#contact" class="btn-cta">Get Started</a>
             </nav>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
         </div>
     </header>
 
-    <section class="segment-hero" style="position: relative;">
+    <section class="segment-hero">
         <picture>
             <source media="(min-width: 1200px)" srcset="images/education-hero-1200w.jpg">
             <source media="(min-width: 768px)" srcset="images/education-hero-768w.jpg">
             <source media="(min-width: 480px)" srcset="images/education-hero-480w.jpg">
-            <img src="images/education-hero.jpg" alt="Education & Institutional Glass Solutions" style="width: 100%; height: auto; display: block;">
+            <img src="images/education-hero.jpg" alt="Education &amp; Institutional Glass Solutions" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
         </picture>
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(90,75,184,0.7) 0%, rgba(108,92,231,0.7) 100%);"></div>
-        <div class="container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; text-align: center; color: white; width: 90%;">
-            <h1 style="color: white; font-size: 3.5rem; margin-bottom: 1rem;">Innovation in Every Classroom</h1>
-            <p style="font-size: 1.3rem; margin-bottom: 2rem;">Durable. Sustainable. Inspiring.</p>
-            <p>Glass solutions that foster learning, demonstrate environmental leadership, and build institutional pride for universities, K-12 schools, and research centers worldwide.</p>
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(65,40,150,0.72) 0%,rgba(124,58,237,0.65) 100%);z-index:1;"></div>
+        <div class="container" style="position:relative;z-index:2;text-align:center;color:white;">
+            <h1>Innovation in Every Classroom</h1>
+            <p>Durable. Sustainable. Inspiring.</p>
+            <p style="margin-top:0.75rem;opacity:0.8;">Glass solutions that foster learning, demonstrate environmental leadership, and build institutional pride for universities, K-12 schools, and research centers worldwide.</p>
         </div>
     </section>
 
-    <section style="padding: 4rem 2rem;">
+    <section class="section-v2">
         <div class="container">
-            <h2 style="text-align: center; color: var(--segment-color); margin-bottom: 3rem;">Educational Excellence Philosophy</h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto; color: #666; font-size: 1.1rem;">
-                Glass shapes learning spaces. From laboratory windows to lecture hall partitions, we create transparent, safe, and sustainable environments where students thrive and innovation flourishes.
-            </p>
+            <div class="section-header fade-in">
+                <h2>Educational Excellence Philosophy</h2>
+                <p>Glass shapes learning spaces. From laboratory windows to lecture hall partitions, we create transparent, safe, and sustainable environments where students thrive and innovation flourishes.</p>
+            </div>
         </div>
     </section>
 
-    <section id="products" style="padding: 4rem 2rem; background: #f9f9f9;">
+    <section id="products" class="section-v2-soft">
         <div class="container">
-            <h2 style="text-align: center; color: var(--segment-color); margin-bottom: 3rem;">Glass Solutions for Educational Institutions</h2>
-
+            <div class="section-header fade-in">
+                <h2>Glass Solutions for Educational Institutions</h2>
+            </div>
             <div class="products-grid">
-                <div class="product-card hover-lift glow-on-hover">
+                <div class="product-card fade-in">
                     <div class="product-icon">🔬</div>
-                    <h3 style="color: var(--segment-color);">Laboratory Safety Glass</h3>
+                    <h3>Laboratory Safety Glass</h3>
                     <p>ASTM-certified safety glass for science labs, physics labs, chemistry facilities with impact and thermal resistance.</p>
                     <ul class="spec-list">
                         <li><strong>Certification:</strong> ASTM C1048, EN 12150</li>
@@ -81,9 +74,9 @@
                     </ul>
                 </div>
 
-                <div class="product-card hover-lift glow-on-hover">
+                <div class="product-card fade-in fade-in-delay-1">
                     <div class="product-icon">📚</div>
-                    <h3 style="color: var(--segment-color);">Library & Learning Spaces Glass</h3>
+                    <h3>Library &amp; Learning Spaces Glass</h3>
                     <p>Flexible glass partitioning for open learning spaces, collaborative zones, and study areas.</p>
                     <ul class="spec-list">
                         <li><strong>Acoustic Options:</strong> Soundproof configurations</li>
@@ -93,9 +86,9 @@
                     </ul>
                 </div>
 
-                <div class="product-card hover-lift glow-on-hover">
+                <div class="product-card fade-in fade-in-delay-2">
                     <div class="product-icon">🚪</div>
-                    <h3 style="color: var(--segment-color);">USA VERSATIKA™ Educational Doors</h3>
+                    <h3>USA VERSATIKA™ Educational Doors</h3>
                     <p>Seamless flush-to-wall doors for classrooms, offices, and administrative spaces with premium finishes.</p>
                     <ul class="spec-list">
                         <li><strong>Finishes:</strong> Tempered glass, frosted, wood veneer</li>
@@ -105,9 +98,9 @@
                     </ul>
                 </div>
 
-                <div class="product-card hover-lift glow-on-hover">
+                <div class="product-card fade-in fade-in-delay-3">
                     <div class="product-icon">🌱</div>
-                    <h3 style="color: var(--segment-color);">Sustainable Green Glass</h3>
+                    <h3>Sustainable Green Glass</h3>
                     <p>LEED-certified, low-E coated glass reducing energy consumption and demonstrating environmental leadership.</p>
                     <ul class="spec-list">
                         <li><strong>LEED Credits:</strong> EAc1 (renewable energy) eligible</li>
@@ -117,9 +110,9 @@
                     </ul>
                 </div>
 
-                <div class="product-card hover-lift glow-on-hover">
+                <div class="product-card fade-in">
                     <div class="product-icon">🎨</div>
-                    <h3 style="color: var(--segment-color);">Custom Ceramic-Printed Glass</h3>
+                    <h3>Custom Ceramic-Printed Glass</h3>
                     <p>Branded glass for institutional identity—logos, wayfinding, historic artwork permanent on glass.</p>
                     <ul class="spec-list">
                         <li><strong>Design Options:</strong> Full-color ceramic printing</li>
@@ -129,9 +122,9 @@
                     </ul>
                 </div>
 
-                <div class="product-card hover-lift glow-on-hover">
+                <div class="product-card fade-in fade-in-delay-1">
                     <div class="product-icon">🏛️</div>
-                    <h3 style="color: var(--segment-color);">Architectural Heritage Glass</h3>
+                    <h3>Architectural Heritage Glass</h3>
                     <p>Custom curved, shaped, and decorative glass for historic preservation and institutional prestige projects.</p>
                     <ul class="spec-list">
                         <li><strong>Capability:</strong> Complex custom shapes</li>
@@ -144,31 +137,33 @@
         </div>
     </section>
 
-    <section id="sustainability" style="padding: 4rem 2rem;">
+    <section id="sustainability" class="section-v2">
         <div class="container">
-            <h2 style="text-align: center; color: var(--segment-color); margin-bottom: 3rem;">Sustainability & Procurement Excellence</h2>
+            <div class="section-header fade-in">
+                <h2>Sustainability &amp; Procurement Excellence</h2>
+            </div>
             <div class="sustainability-grid">
-                <div class="sustainability-badge">
+                <div class="sustainability-badge fade-in">
                     <h4>LEED Gold/Platinum</h4>
                     <p>Materials satisfy EAc1 (renewable energy) and EQc8 (daylight)</p>
                 </div>
-                <div class="sustainability-badge">
+                <div class="sustainability-badge fade-in fade-in-delay-1">
                     <h4>Recycled Content</h4>
                     <p>30-50% post-consumer recycled glass in every product</p>
                 </div>
-                <div class="sustainability-badge">
+                <div class="sustainability-badge fade-in fade-in-delay-2">
                     <h4>State Procurement</h4>
                     <p>GSA, OFPP, state cooperative purchasing qualified</p>
                 </div>
-                <div class="sustainability-badge">
+                <div class="sustainability-badge fade-in fade-in-delay-3">
                     <h4>Durability Certified</h4>
                     <p>50+ year lifecycle (cost per year significantly lower)</p>
                 </div>
-                <div class="sustainability-badge">
+                <div class="sustainability-badge fade-in">
                     <h4>ISO 14001</h4>
                     <p>Environmental management system certified manufacturing</p>
                 </div>
-                <div class="sustainability-badge">
+                <div class="sustainability-badge fade-in fade-in-delay-1">
                     <h4>Carbon Neutral</h4>
                     <p>Low-E coating manufacturing with offset programs</p>
                 </div>
@@ -176,40 +171,42 @@
         </div>
     </section>
 
-    <section style="padding: 4rem 2rem;">
+    <section class="section-v2-soft">
         <div class="container">
-            <h2 style="text-align: center; color: var(--segment-color); margin-bottom: 2rem;">Featured Educational Project</h2>
-            <div class="case-study-card hover-lift" style="background: linear-gradient(135deg, #f5f2ff 0%, #ede9f9 100%); padding: 3rem; border-radius: 10px; max-width: 800px; margin: 0 auto; border-left: 5px solid var(--segment-color);">
-                <img src="images/education-case-study.jpg" alt="MIT Innovation Building — Glass Renovation" class="case-study-img" style="width: 100%; height: 220px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem;">
-                <h3 style="color: var(--segment-color);">MIT — Innovation Building Renovation</h3>
+            <div class="section-header fade-in">
+                <h2>Featured Educational Project</h2>
+            </div>
+            <div class="case-study-card hover-lift fade-in" style="background:#f5f2ff;padding:2.5rem;max-width:800px;margin:0 auto;border-left:4px solid var(--accent-current);">
+                <img src="images/education-case-study.jpg" alt="MIT Innovation Building — Glass Renovation" class="case-study-img" style="width:100%;height:220px;object-fit:cover;border-radius:12px;margin-bottom:1.5rem;">
+                <h3 style="color:var(--accent-current);">MIT — Innovation Building Renovation</h3>
                 <p><strong>Project Scope:</strong> Modernize 30,000 sq ft research facility with sustainable glass and open learning spaces</p>
                 <p><strong>Glass Solutions:</strong></p>
-                <ul style="color: #666;">
+                <ul style="color:#6B7280;margin-top:0.5rem;">
                     <li>LEED-certified low-E glass in 200+ windows (35% energy reduction)</li>
                     <li>Laboratory safety glass in 12 physics labs (ASTM C1048 certified)</li>
                     <li>USA VERSATIKA doors throughout facility (wood veneer finishes match institutional aesthetic)</li>
                     <li>Custom ceramic-printed glass with MIT logo in main atrium</li>
                     <li>Acoustic partitions in collaboration zones</li>
                 </ul>
-                <p><strong>Impact:</strong> Building achieved LEED Platinum certification, became institutional showcase, reinforced MIT's commitment to innovation and sustainability.</p>
+                <p style="margin-top:1rem;"><strong>Impact:</strong> Building achieved LEED Platinum certification, became institutional showcase, reinforced MIT's commitment to innovation and sustainability.</p>
             </div>
         </div>
     </section>
 
-    <section id="contact" style="background: var(--segment-color); color: white; padding: 4rem 2rem; text-align: center;">
+    <section id="contact" class="cta-section">
         <div class="container">
             <h2>Shape the Future of Education</h2>
-            <p style="font-size: 1.2rem; margin: 1rem 0;">Let's discuss how glass can inspire your institution's learning spaces.</p>
-            <button class="btn-primary" style="background: white; color: var(--segment-color); font-weight: 700; padding: 1rem 3rem; font-size: 1.1rem;" onclick="document.getElementById('contactForm').scrollIntoView({behavior: 'smooth'})">
+            <p>Let's discuss how glass can inspire your institution's learning spaces.</p>
+            <button class="btn-v2-primary" style="background:white;color:var(--accent-current);" onclick="document.getElementById('contactForm').scrollIntoView({behavior:'smooth'})">
                 Request Consultation
             </button>
         </div>
     </section>
 
-    <section style="padding: 4rem 2rem;">
+    <section class="section-v2">
         <div class="container">
-            <form class="contact-form" id="contactForm" style="max-width: 600px; margin: 0 auto;">
-                <h3 style="text-align: center; color: var(--segment-color); margin-bottom: 2rem;">Institutional Glass Inquiry</h3>
+            <form class="contact-form" id="contactForm">
+                <h3 style="text-align:center;margin-bottom:2rem;">Institutional Glass Inquiry</h3>
 
                 <div class="form-group">
                     <label>Educational Institution *</label>
@@ -248,31 +245,41 @@
                     <label for="privacy">I agree to privacy policy *</label>
                 </div>
 
-                <button type="submit" class="btn-primary" style="width: 100%; background: var(--segment-color); padding: 1rem;">
+                <button type="submit" class="btn-primary btn-large" style="width:100%;">
                     Request Consultation
                 </button>
-                <p class="form-note" style="text-align: center; margin-top: 1rem; color: #666;">Response within 24 hours.</p>
+                <p class="form-note">Response within 24 hours.</p>
             </form>
         </div>
     </section>
 
-    <footer class="footer" style="background: #333; color: white;">
-        <div class="container" style="padding: 3rem 0;">
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: center;">
-                <div>
+    <footer class="footer-v2">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
                     <h4>Glas Expert Education</h4>
                     <p>Glass solutions for inspiring learning spaces.</p>
                 </div>
-                <div>
+                <div class="footer-section">
                     <h4>Contact</h4>
-                    <p>📧 education@glas-expert.com<br>📞 +1-800-GLASS-EXPERT</p>
+                    <p class="footer-contact">
+                        <a href="mailto:office.us@xglass.eu" style="color: inherit;">office.us@xglass.eu</a><br>
+                        <a href="tel:+16094088100" style="color: inherit;">+1-609-408-8100</a><br>
+                        <strong>USA:</strong> New Jersey<br>
+                        <strong>DE:</strong> Neubiberg, M&uuml;nchen<br>
+                        <strong>RO:</strong> &Scedil;os. Olteni&tcedil;ei 202, Pope&scedil;ti-Leordeni
+                    </p>
                 </div>
-                <div>
+                <div class="footer-section">
                     <h4>Services</h4>
-                    <p>LEED certification • State procurement • Sustainability</p>
+                    <ul>
+                        <li><a href="#sustainability">LEED Certification</a></li>
+                        <li><a href="#sustainability">State Procurement</a></li>
+                        <li><a href="#products">Sustainability</a></li>
+                    </ul>
                 </div>
             </div>
-            <div style="border-top: 1px solid #555; padding-top: 2rem; text-align: center; color: #999; margin-top: 2rem;">
+            <div class="footer-bottom">
                 <p>&copy; 2026 Glas Expert USA. All rights reserved.</p>
             </div>
         </div>
