@@ -1,0 +1,13 @@
+{
+  "campaign_start": "2026-06-02T11:12:48.019887",
+  "total_prospects_phase_1": 5,
+  "responses": [],
+  "summary": {
+    "total_sent": 0,
+    "total_opened": 0,
+    "total_responded": 0,
+    "total_meetings_scheduled": 0,
+    "qualified_leads": 0,
+    "pipeline_value": 0
+  }
+}

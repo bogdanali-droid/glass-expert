@@ -33,43 +33,60 @@ const glassSpecs = {
 function selectGlassType(type) {
     selectorState.glass = type;
     document.querySelectorAll('#step1 .selector-option').forEach(btn => btn.classList.remove('selected'));
-    event.target.closest('.selector-option').classList.add('selected');
+    // Handle both direct click and nested element clicks
+    const button = event.target.closest('.selector-option');
+    if (button) {
+        button.classList.add('selected');
+        console.log('Glass type selected:', type);
+    }
 }
 
 function selectApplication(app) {
     selectorState.app = app;
     document.querySelectorAll('#step2 .selector-option').forEach(btn => btn.classList.remove('selected'));
-    event.target.closest('.selector-option').classList.add('selected');
+    // Handle both direct click and nested element clicks
+    const button = event.target.closest('.selector-option');
+    if (button) {
+        button.classList.add('selected');
+        console.log('Application selected:', app);
+    }
 }
 
 function selectPerformance(perf) {
     selectorState.perf = perf;
     document.querySelectorAll('#step3 .selector-option').forEach(btn => btn.classList.remove('selected'));
-    event.target.closest('.selector-option').classList.add('selected');
+    // Handle both direct click and nested element clicks
+    const button = event.target.closest('.selector-option');
+    if (button) {
+        button.classList.add('selected');
+        console.log('Performance need selected:', perf);
+    }
 }
 
 function nextStep() {
     if (selectorState.currentStep === 1 && !selectorState.glass) {
-        alert('Please select a glass type');
+        showValidationError('Please select a glass type');
         return;
     }
     if (selectorState.currentStep === 2 && !selectorState.app) {
-        alert('Please select an application');
+        showValidationError('Please select an application');
         return;
     }
     if (selectorState.currentStep === 3 && !selectorState.perf) {
-        alert('Please select a performance need');
+        showValidationError('Please select a performance need');
         return;
     }
 
     selectorState.currentStep++;
     updateSelectorDisplay();
+    console.log('Advanced to step:', selectorState.currentStep);
 }
 
 function prevStep() {
     if (selectorState.currentStep > 1) {
         selectorState.currentStep--;
         updateSelectorDisplay();
+        console.log('Returned to step:', selectorState.currentStep);
     }
 }
 
@@ -200,6 +217,27 @@ function showErrorMessage() {
     document.body.appendChild(message);
 }
 
+// VALIDATION ERROR MESSAGE (for selector validation)
+function showValidationError(message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'validation-error';
+    errorDiv.innerHTML = `
+        <div class="validation-content">
+            <p>⚠️ ${message}</p>
+        </div>
+    `;
+    document.body.appendChild(errorDiv);
+
+    // Auto-remove after 3 seconds
+    setTimeout(() => {
+        if (document.querySelector('.validation-error')) {
+            document.querySelector('.validation-error').remove();
+        }
+    }, 3000);
+
+    console.warn('Validation error:', message);
+}
+
 // ADD INLINE STYLES FOR MESSAGES
 const style = document.createElement('style');
 style.textContent = `
@@ -255,6 +293,42 @@ style.textContent = `
         .success-message, .error-message {
             right: 10px;
             left: 10px;
+            max-width: none;
+        }
+    }
+
+    /* Validation Error Styles */
+    .validation-error {
+        position: fixed;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+        max-width: 400px;
+        background: #FFF3CD;
+        border: 1px solid #FFE69C;
+        color: #856404;
+    }
+
+    .validation-content {
+        padding: 1rem 1.5rem;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .validation-content p {
+        margin: 0;
+        font-size: 0.95rem;
+    }
+
+    @media (max-width: 480px) {
+        .validation-error {
+            top: 70px;
+            left: 10px;
+            right: 10px;
+            transform: none;
             max-width: none;
         }
     }

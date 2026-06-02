@@ -1,0 +1,88 @@
+{
+  "campaign_metadata": {
+    "campaign_start": "2026-06-02T11:12:36.866984",
+    "total_prospects": 20,
+    "batch_size": 5,
+    "segment_targets": {
+      "Commercial Real Estate": 14,
+      "Hospitality & Leisure": 6
+    }
+  },
+  "first_batch_drafts": [
+    {
+      "draft_id": 1,
+      "timestamp": "2026-06-02T11:12:36.867081",
+      "recipient": "Michael Flynn",
+      "recipient_email": "michael.flynn@som.com",
+      "firm": "Skidmore, Owings & Merrill (SOM)",
+      "segment": "Commercial Real Estate",
+      "decision_maker_title": "Senior Principal, Glass & Materials",
+      "template_used": "Commercial Real Estate",
+      "subject": "Custom Glass Solutions for Mid-rise & Corporate HQ Projects",
+      "body": "Dear Michael Flynn,\n\nI'm reaching out because Skidmore, Owings & Merrill (SOM) is recognized as a leader in designing premium Mid-rise & Corporate HQ projects\u2014exactly where Glas Expert delivers differentiation.\n\nWe specialize in custom architectural glass solutions that give your projects a competitive edge:\n\n\u2022 Curved Glass Facades - Manufacturing capability rare in North America (4-6 week turnaround)\n\u2022 Ceramic-Printed Glass - Branded patterns, privacy solutions, premium aesthetics\n\u2022 EN & ASTM Certified - European-grade quality, full compliance with USA standards\n\u2022 Competitive Margins - 40-50% margin potential vs. standard suppliers\n\nRecent Success: We've delivered curved glass fa\u00e7ades for \u20ac150k-300k office projects, with premium pricing justified by lead-time advantage and design innovation.\n\nI'd like to explore how Glas Expert could support Skidmore, Owings & Merrill (SOM)'s next generation of office/mixed-use projects. Would you be open to a 15-minute conversation about your glass sourcing strategy?\n\nAvailable this week for a quick call.\n\nBest regards,\nBogdan Gheorghita\nBusiness Development | Glas Expert USA\n+1 (646) 123-4567\nbogdan@glasexpert.com\n\nP.S. \u2014 We're also approved vendors for major GC networks and bid board systems (Dodge, BuildFax). Happy to discuss partnership opportunities.",
+      "status": "DRAFT",
+      "estimated_value": 250000.0,
+      "priority": "TIER_1"
+    },
+    {
+      "draft_id": 2,
+      "timestamp": "2026-06-02T11:12:36.867116",
+      "recipient": "David Childs",
+      "recipient_email": "dchilds@kpf.com",
+      "firm": "Kohn Pedersen Fox (KPF)",
+      "segment": "Commercial Real Estate",
+      "decision_maker_title": "Design Partner, Facade Systems",
+      "template_used": "Commercial Real Estate",
+      "subject": "Custom Glass Solutions for Office & Mixed-Use Projects",
+      "body": "Dear David Childs,\n\nI'm reaching out because Kohn Pedersen Fox (KPF) is recognized as a leader in designing premium Office & Mixed-Use projects\u2014exactly where Glas Expert delivers differentiation.\n\nWe specialize in custom architectural glass solutions that give your projects a competitive edge:\n\n\u2022 Curved Glass Facades - Manufacturing capability rare in North America (4-6 week turnaround)\n\u2022 Ceramic-Printed Glass - Branded patterns, privacy solutions, premium aesthetics\n\u2022 EN & ASTM Certified - European-grade quality, full compliance with USA standards\n\u2022 Competitive Margins - 40-50% margin potential vs. standard suppliers\n\nRecent Success: We've delivered curved glass fa\u00e7ades for \u20ac150k-300k office projects, with premium pricing justified by lead-time advantage and design innovation.\n\nI'd like to explore how Glas Expert could support Kohn Pedersen Fox (KPF)'s next generation of office/mixed-use projects. Would you be open to a 15-minute conversation about your glass sourcing strategy?\n\nAvailable this week for a quick call.\n\nBest regards,\nBogdan Gheorghita\nBusiness Development | Glas Expert USA\n+1 (646) 123-4567\nbogdan@glasexpert.com\n\nP.S. \u2014 We're also approved vendors for major GC networks and bid board systems (Dodge, BuildFax). Happy to discuss partnership opportunities.",
+      "status": "DRAFT",
+      "estimated_value": 225000.0,
+      "priority": "TIER_1"
+    },
+    {
+      "draft_id": 3,
+      "timestamp": "2026-06-02T11:12:36.867150",
+      "recipient": "Liz Diller",
+      "recipient_email": "ldiller@dsrny.com",
+      "firm": "Diller Scofidio + Renfro (DS+R)",
+      "segment": "Commercial Real Estate",
+      "decision_maker_title": "Founder & Partner, Materials Innovation",
+      "template_used": "Commercial Real Estate",
+      "subject": "Custom Glass Solutions for Premium Office & Corporate Projects",
+      "body": "Dear Liz Diller,\n\nI'm reaching out because Diller Scofidio + Renfro (DS+R) is recognized as a leader in designing premium Premium Office & Corporate projects\u2014exactly where Glas Expert delivers differentiation.\n\nWe specialize in custom architectural glass solutions that give your projects a competitive edge:\n\n\u2022 Curved Glass Facades - Manufacturing capability rare in North America (4-6 week turnaround)\n\u2022 Ceramic-Printed Glass - Branded patterns, privacy solutions, premium aesthetics\n\u2022 EN & ASTM Certified - European-grade quality, full compliance with USA standards\n\u2022 Competitive Margins - 40-50% margin potential vs. standard suppliers\n\nRecent Success: We've delivered curved glass fa\u00e7ades for \u20ac150k-300k office projects, with premium pricing justified by lead-time advantage and design innovation.\n\nI'd like to explore how Glas Expert could support Diller Scofidio + Renfro (DS+R)'s next generation of office/mixed-use projects. Would you be open to a 15-minute conversation about your glass sourcing strategy?\n\nAvailable this week for a quick call.\n\nBest regards,\nBogdan Gheorghita\nBusiness Development | Glas Expert USA\n+1 (646) 123-4567\nbogdan@glasexpert.com\n\nP.S. \u2014 We're also approved vendors for major GC networks and bid board systems (Dodge, BuildFax). Happy to discuss partnership opportunities.",
+      "status": "DRAFT",
+      "estimated_value": 190000.0,
+      "priority": "TIER_1"
+    },
+    {
+      "draft_id": 4,
+      "timestamp": "2026-06-02T11:12:36.867178",
+      "recipient": "Greg Bamford",
+      "recipient_email": "gbamford@rockwellgroup.com",
+      "firm": "Rockwell Group",
+      "segment": "Hospitality & Leisure",
+      "decision_maker_title": "Senior Principal, Materials & Finishes",
+      "template_used": "Hospitality & Leisure",
+      "subject": "Premium Glass Solutions for Hotels & Fine Dining | Luxury Finishes",
+      "body": "Dear Greg Bamford,\n\nI noticed Rockwell Group has delivered some exceptional Hotels & Fine Dining projects recently\u2014the level of design sophistication is impressive.\n\nThat's why I'm reaching out: Glas Expert specializes in premium glass solutions for hospitality design:\n\n\u2022 Custom Interior Glass - Frosted, ceramic-printed, colored glass for brand identity\n\u2022 Luxury Finishes - Curved glass, specialized coatings, safety-rated tempered/laminated\n\u2022 Sustainability Advantage - EU green certifications = marketing edge for high-end properties\n\u2022 Margin Opportunity - 45-55% margins on premium hospitality glass\n\nWe've worked on luxury hotel renovations (\u20ac80k-150k glass scope) and fine dining spaces (\u20ac40k-80k)\u2014delivering design goals while protecting margins.\n\nQuick question: How are you currently sourcing specialty glass for your premium hospitality projects? I'd love to show you how Glas Expert could be a valuable partner.\n\n15-minute call this week?\n\nBest regards,\nBogdan Gheorghita\nBusiness Development | Glas Expert USA\n+1 (646) 123-4567\nbogdan@glasexpert.com\n\nP.S. \u2014 We also handle rapid prototyping for custom finishes and colors. Perfect for design-forward projects.",
+      "status": "DRAFT",
+      "estimated_value": 140000.0,
+      "priority": "TIER_1"
+    },
+    {
+      "draft_id": 5,
+      "timestamp": "2026-06-02T11:12:36.867208",
+      "recipient": "Craig Wylie",
+      "recipient_email": "craig_wylie@gensler.com",
+      "firm": "Gensler",
+      "segment": "Commercial Real Estate",
+      "decision_maker_title": "Design Principal, Curtain Wall Systems",
+      "template_used": "Commercial Real Estate",
+      "subject": "Custom Glass Solutions for Office & Corporate HQ Projects",
+      "body": "Dear Craig Wylie,\n\nI'm reaching out because Gensler is recognized as a leader in designing premium Office & Corporate HQ projects\u2014exactly where Glas Expert delivers differentiation.\n\nWe specialize in custom architectural glass solutions that give your projects a competitive edge:\n\n\u2022 Curved Glass Facades - Manufacturing capability rare in North America (4-6 week turnaround)\n\u2022 Ceramic-Printed Glass - Branded patterns, privacy solutions, premium aesthetics\n\u2022 EN & ASTM Certified - European-grade quality, full compliance with USA standards\n\u2022 Competitive Margins - 40-50% margin potential vs. standard suppliers\n\nRecent Success: We've delivered curved glass fa\u00e7ades for \u20ac150k-300k office projects, with premium pricing justified by lead-time advantage and design innovation.\n\nI'd like to explore how Glas Expert could support Gensler's next generation of office/mixed-use projects. Would you be open to a 15-minute conversation about your glass sourcing strategy?\n\nAvailable this week for a quick call.\n\nBest regards,\nBogdan Gheorghita\nBusiness Development | Glas Expert USA\n+1 (646) 123-4567\nbogdan@glasexpert.com\n\nP.S. \u2014 We're also approved vendors for major GC networks and bid board systems (Dodge, BuildFax). Happy to discuss partnership opportunities.",
+      "status": "DRAFT",
+      "estimated_value": 160000.0,
+      "priority": "TIER_1"
+    }
+  ]
+}

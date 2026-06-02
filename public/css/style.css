@@ -573,11 +573,37 @@ h1, h2, h3, h4, h5, h6 {
     border-top: 3px solid var(--primary);
 }
 
+/* Mobile padding adjustments */
+@media (max-width: 768px) {
+    .glass-selector {
+        padding: 3rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .glass-selector {
+        padding: 2rem 1rem;
+    }
+}
+
 .glass-selector h2 {
     font-size: 2.5rem;
     text-align: center;
     color: var(--primary);
     margin-bottom: 0.5rem;
+}
+
+/* Mobile responsive glass selector heading */
+@media (max-width: 768px) {
+    .glass-selector h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .glass-selector h2 {
+        font-size: 1.6rem;
+    }
 }
 
 .section-subtitle {
@@ -598,6 +624,20 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 10px;
 }
 
+/* Mobile responsive padding for selector steps */
+@media (max-width: 768px) {
+    .selector-steps {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .selector-steps {
+        padding: 1.5rem;
+        border-radius: 8px;
+    }
+}
+
 .selector-step {
     display: none;
 }
@@ -613,11 +653,27 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 2rem;
 }
 
+/* Mobile responsive heading */
+@media (max-width: 480px) {
+    .selector-step h3 {
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
 .selector-options {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 1.5rem;
     margin-bottom: 2rem;
+}
+
+/* Mobile breakpoint for selector options - 1 column on 480px and below */
+@media (max-width: 480px) {
+    .selector-options {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
 }
 
 .selector-option {
@@ -633,6 +689,21 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
     align-items: center;
     gap: 0.8rem;
+    min-height: 140px;
+    justify-content: center;
+}
+
+/* Optimize button size for mobile */
+@media (max-width: 480px) {
+    .selector-option {
+        padding: 1.25rem;
+        min-height: 120px;
+        font-size: 0.9rem;
+    }
+
+    .selector-option .icon {
+        font-size: 2rem;
+    }
 }
 
 .selector-option:hover {
@@ -664,6 +735,19 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     gap: 1rem;
     justify-content: center;
+}
+
+/* Mobile responsive button layout */
+@media (max-width: 480px) {
+    .selector-nav {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .btn-next, .btn-back {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+    }
 }
 
 .btn-next, .btn-back {
@@ -702,6 +786,18 @@ h1, h2, h3, h4, h5, h6 {
     border: 2px solid var(--primary);
     border-radius: 10px;
     margin-top: 2rem;
+}
+
+/* Mobile responsive result card */
+@media (max-width: 480px) {
+    .result-card {
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .result-header h4 {
+        font-size: 1.4rem;
+    }
 }
 
 .result-header {
@@ -746,6 +842,19 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     margin-bottom: 2rem;
+}
+
+/* Responsive info boxes - stack on smaller screens */
+@media (max-width: 768px) {
+    .result-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .result-info {
+        grid-template-columns: 1fr;
+    }
 }
 
 .info-box {
