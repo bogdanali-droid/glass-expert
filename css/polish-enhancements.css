@@ -1,0 +1,631 @@
+/* ====================================
+   GLASS EXPERT USA - VISUAL POLISH ENHANCEMENTS
+   Premium Animations, Shadows & Gradients
+   Production-Ready CSS
+   ==================================== */
+
+:root {
+  /* Enhanced shadow system */
+  --shadow-sm: 0 2px 8px rgba(27, 58, 107, 0.08);
+  --shadow-md: 0 8px 24px rgba(27, 58, 107, 0.12);
+  --shadow-lg: 0 16px 40px rgba(27, 58, 107, 0.16);
+  --shadow-xl: 0 24px 56px rgba(27, 58, 107, 0.20);
+
+  /* Glow effects */
+  --glow-bright: 0 0 20px rgba(0, 212, 255, 0.25);
+  --glow-green: 0 0 20px rgba(0, 200, 132, 0.25);
+  --glow-orange: 0 0 20px rgba(255, 107, 53, 0.25);
+  --glow-purple: 0 0 20px rgba(108, 92, 231, 0.25);
+
+  /* Accent colors */
+  --accent-bright: #00D4FF;
+  --accent-green: #00C884;
+  --accent-orange: #FF6B35;
+  --accent-purple: #6C5CE7;
+}
+
+/* ====================================
+   ANIMATIONS
+   ==================================== */
+
+/* Image reveal animation */
+@keyframes imageReveal {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.hero-img,
+.hero-bg-img,
+.case-study-img,
+.product-img {
+  animation: imageReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Glass blur effect */
+@keyframes glassBlur {
+  from {
+    backdrop-filter: blur(0px);
+    opacity: 0.8;
+  }
+  to {
+    backdrop-filter: blur(10px);
+    opacity: 1;
+  }
+}
+
+.glass-overlay,
+.hero-overlay {
+  backdrop-filter: blur(10px);
+  animation: glassBlur 0.6s ease-out;
+}
+
+/* Glow animation for accents */
+@keyframes accentGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.3),
+                 0 0 20px rgba(0, 212, 255, 0.1);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.6),
+                 0 0 40px rgba(0, 212, 255, 0.3);
+  }
+}
+
+.accent-glow {
+  animation: accentGlow 3s ease-in-out infinite;
+}
+
+/* Hover lift effect */
+@keyframes hoverLift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-8px);
+  }
+}
+
+.card-hover-lift:hover {
+  animation: hoverLift 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Segment fade-in */
+@keyframes segmentFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.segment {
+  animation: segmentFade 0.6s ease-out backwards;
+}
+
+.segment:nth-child(2) { animation-delay: 0.1s; }
+.segment:nth-child(3) { animation-delay: 0.2s; }
+.segment:nth-child(4) { animation-delay: 0.3s; }
+.segment:nth-child(5) { animation-delay: 0.4s; }
+
+/* Feature card reveal */
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.feature {
+  animation: cardReveal 0.5s ease-out;
+}
+
+.feature:nth-child(2) { animation-delay: 0.1s; }
+.feature:nth-child(3) { animation-delay: 0.2s; }
+.feature:nth-child(4) { animation-delay: 0.3s; }
+.feature:nth-child(5) { animation-delay: 0.4s; }
+.feature:nth-child(6) { animation-delay: 0.5s; }
+
+/* Button shimmer effect */
+@keyframes buttonShimmer {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(0, 212, 255, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 212, 255, 0);
+  }
+}
+
+.btn-primary:active {
+  animation: buttonShimmer 0.6s ease-out;
+}
+
+/* Shimmer slide effect */
+@keyframes shimmer-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.btn-cta::after {
+  animation: shimmer-slide 2s infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  33% {
+    transform: translateY(-30px) translateX(20px);
+  }
+  66% {
+    transform: translateY(30px) translateX(-20px);
+  }
+}
+
+/* Pulse effect */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* ====================================
+   SHADOW UTILITIES
+   ==================================== */
+
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+
+.glow-bright { box-shadow: var(--glow-bright); }
+.glow-green { box-shadow: var(--glow-green); }
+.glow-orange { box-shadow: var(--glow-orange); }
+.glow-purple { box-shadow: var(--glow-purple); }
+
+/* ====================================
+   BUTTON ENHANCEMENTS
+   ==================================== */
+
+.btn-primary, .btn-secondary {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-primary::before, .btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:active::before,
+.btn-secondary:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-primary:hover {
+  background: var(--accent-bright);
+  color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: var(--glow-bright);
+}
+
+.btn-secondary:hover {
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-cta {
+  position: relative;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.btn-cta::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+  animation: shimmer-slide 2s infinite;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ====================================
+   FORM ENHANCEMENTS
+   ==================================== */
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--accent-bright);
+  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.15),
+              inset 0 0 0 1px var(--accent-bright);
+  transition: all 0.3s ease;
+}
+
+.form-group select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--primary) 50%),
+    linear-gradient(135deg, var(--primary) 50%, transparent 50%);
+  background-position:
+    right 12px center,
+    right 7px center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 28px;
+}
+
+.form-group.checkbox input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--primary);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-group.checkbox input[type="checkbox"]:checked {
+  background: var(--accent-bright);
+  border-color: var(--accent-bright);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+/* ====================================
+   CARD & FEATURE ENHANCEMENTS
+   ==================================== */
+
+.feature {
+  overflow: hidden;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.feature:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+}
+
+.feature-image {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+  aspect-ratio: 1;
+  background: var(--bg-light);
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.feature:hover .product-img {
+  transform: scale(1.05);
+}
+
+.feature-content {
+  padding: 1.5rem;
+}
+
+.feature-tags {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.25);
+}
+
+/* ====================================
+   HERO SECTION ENHANCEMENTS
+   ==================================== */
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.6) contrast(1.1);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.accent-line {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-bright) 0%, transparent 100%);
+}
+
+/* ====================================
+   CASE STUDY ENHANCEMENTS
+   ==================================== */
+
+.case-study-img {
+  width: 100%;
+  border-radius: 10px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.case-study-img:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-4px);
+}
+
+.case-study-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+  padding: 1.5rem 0;
+  border-top: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.stat-item h5 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.stat-item p {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .case-study-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ====================================
+   SEGMENT-SPECIFIC STYLES
+   ==================================== */
+
+/* COMMERCIAL - Blue/Cyan */
+.segment-commercial {
+  border-left: 5px solid #0099CC;
+}
+
+.segment-commercial h2,
+.segment-commercial h3 {
+  color: #0066AA;
+}
+
+.segment-commercial .feature {
+  border-top: 3px solid #0099CC;
+}
+
+.segment-commercial .feature:hover {
+  box-shadow: 0 8px 25px rgba(0, 153, 204, 0.2);
+}
+
+/* HOSPITALITY - Orange/Gold */
+.segment-hospitality {
+  border-left: 5px solid #FF6B35;
+}
+
+.segment-hospitality h2,
+.segment-hospitality h3 {
+  color: #CC5220;
+}
+
+.segment-hospitality .feature {
+  border-top: 3px solid #FF6B35;
+}
+
+.segment-hospitality .feature:hover {
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.2);
+}
+
+.segment-hospitality .accent-glow {
+  text-shadow: 0 0 15px rgba(255, 107, 53, 0.4),
+               0 0 30px rgba(212, 175, 55, 0.2);
+}
+
+/* HEALTHCARE - Green */
+.segment-healthcare {
+  border-left: 5px solid #00C884;
+}
+
+.segment-healthcare h2,
+.segment-healthcare h3 {
+  color: #007755;
+}
+
+.segment-healthcare .feature {
+  border-top: 3px solid #00C884;
+}
+
+.segment-healthcare .feature:hover {
+  box-shadow: 0 8px 25px rgba(0, 200, 132, 0.2);
+}
+
+.segment-healthcare .accent-glow {
+  color: #00C884;
+  text-shadow: 0 0 15px rgba(0, 200, 132, 0.4);
+}
+
+/* EDUCATION - Purple */
+.segment-education {
+  border-left: 5px solid #6C5CE7;
+}
+
+.segment-education h2,
+.segment-education h3 {
+  color: #4B0082;
+}
+
+.segment-education .feature {
+  border-top: 3px solid #6C5CE7;
+}
+
+.segment-education .feature:hover {
+  box-shadow: 0 8px 25px rgba(108, 92, 231, 0.2);
+}
+
+.segment-education .accent-glow {
+  text-shadow: 0 0 15px rgba(108, 92, 231, 0.4),
+               0 0 30px rgba(108, 92, 231, 0.2);
+}
+
+/* ====================================
+   RESPONSIVE ENHANCEMENTS
+   ==================================== */
+
+@media (max-width: 768px) {
+  .feature {
+    animation: cardReveal 0.4s ease-out;
+  }
+
+  .segment {
+    animation: segmentFade 0.5s ease-out backwards;
+  }
+
+  .stat-item p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .feature {
+    animation: cardReveal 0.3s ease-out;
+  }
+
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* ====================================
+   ACCESSIBILITY & PERFORMANCE
+   ==================================== */
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  .badge {
+    border: 1px solid currentColor;
+  }
+
+  .feature {
+    border: 2px solid var(--primary);
+  }
+}
+
+/* Dark mode adjustment */
+@media (prefers-color-scheme: dark) {
+  .shadow-sm { box-shadow: 0 2px 8px rgba(0, 212, 255, 0.1); }
+  .shadow-md { box-shadow: 0 8px 24px rgba(0, 212, 255, 0.15); }
+  .shadow-lg { box-shadow: 0 16px 40px rgba(0, 212, 255, 0.2); }
+  .shadow-xl { box-shadow: 0 24px 56px rgba(0, 212, 255, 0.25); }
+}
+
+/* ====================================
+   UTILITY CLASSES
+   ==================================== */
+
+.text-accent-bright { color: var(--accent-bright); }
+.text-accent-green { color: var(--accent-green); }
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
