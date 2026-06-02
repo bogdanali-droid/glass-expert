@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 120" width="470" height="120" role="img" aria-label="VAGOGLASS by Glass Expert">
+  <g transform="translate(8,11) scale(0.98)">
+  <path d="M16 26 L50 52 L84 26" fill="none" stroke="#1D6FE5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"></path>
+  <path d="M16 34 L50 60 L84 34" fill="none" stroke="#1D6FE5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.61"></path>
+  <path d="M16 42 L50 68 L84 42" fill="none" stroke="#56CFE6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="1"></path>
+  <path d="M16 50 L50 76 L84 50" fill="none" stroke="#1D6FE5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.73"></path>
+  <path d="M16 58 L50 84 L84 58" fill="none" stroke="#1D6FE5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.79"></path>
+  </g>
+  <text x="126" y="62" font-family="Archivo,Arial,sans-serif" font-weight="700" font-size="46" letter-spacing="2" fill="#0B1016">VAGOGLASS</text>
+  <text x="128" y="90" font-family="Archivo,Arial,sans-serif" font-weight="500" font-size="12.5" letter-spacing="5" fill="#9DAAB6">BY GLASS EXPERT</text>
+</svg>

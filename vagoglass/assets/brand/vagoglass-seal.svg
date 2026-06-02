@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="VAGOGLASS — sigiliu">
+  <defs>
+    <path id="arcTop" d="M60 60 m-46 0 a46 46 0 1 1 92 0"></path>
+    <path id="arcBot" d="M60 60 m46 0 a46 46 0 1 1 -92 0"></path>
+  </defs>
+  <g fill="none" stroke="#0B1016">
+    <circle cx="60" cy="60" r="56" stroke-width="2.5"></circle>
+    <circle cx="60" cy="60" r="40" stroke-width="1.5" opacity="0.45"></circle>
+  </g>
+  <text font-family="Archivo,Arial,sans-serif" font-size="6.6" font-weight="600" letter-spacing="1.05" fill="#0B1016" text-anchor="middle">
+    <textPath href="#arcTop" startOffset="50%">VAGOGLASS · STICLĂ FEROVIARĂ</textPath>
+  </text>
+  <text font-family="Archivo,Arial,sans-serif" font-size="6.4" font-weight="500" letter-spacing="1.05" fill="#0B1016" opacity="0.7" text-anchor="middle">
+    <textPath href="#arcBot" startOffset="50%">AFER OT 73 · EST. 2022 · RO</textPath>
+  </text>
+  <path d="M45 48 L60 61 L75 48" fill="none" stroke="#1D6FE5" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M45 54.5 L60 67.5 L75 54.5" fill="none" stroke="#56CFE6" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M45 61 L60 74 L75 61" fill="none" stroke="#1D6FE5" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M45 67.5 L60 80.5 L75 67.5" fill="none" stroke="#1D6FE5" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
