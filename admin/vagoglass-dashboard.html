@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VAGOGLASS — Analytics Dashboard</title>
+
+  <!-- Inter Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+  <style>
+    :root {
+      --steel: #2B2F36;
+      --steel-dark: #1c1f24;
+      --cyan: #00A3C4;
+      --cyan-dark: #007a93;
+      --bg: #f4f6f8;
+      --card: #ffffff;
+      --text: #1c1f24;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* ----- Login overlay ----- */
+    .login-overlay {
+      position: fixed; inset: 0;
+      background: linear-gradient(135deg, var(--steel) 0%, var(--steel-dark) 100%);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+    }
+    .login-card {
+      background: white; padding: 2.5rem; border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      width: 100%; max-width: 380px;
+    }
+    .login-card h1 {
+      color: var(--steel); font-size: 1.5rem; margin-bottom: 0.5rem;
+    }
+    .login-card p { color: var(--muted); margin-bottom: 1.5rem; font-size: 0.9rem; }
+    .login-card input {
+      width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border);
+      border-radius: 8px; font-size: 1rem; font-family: inherit; margin-bottom: 1rem;
+    }
+    .login-card input:focus { outline: 2px solid var(--cyan); border-color: var(--cyan); }
+    .login-card button {
+      width: 100%; padding: 0.85rem; background: var(--cyan); color: white;
+      border: none; border-radius: 8px; font-size: 1rem; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+    }
+    .login-card button:hover { background: var(--cyan-dark); }
+    .login-error { color: #dc2626; font-size: 0.85rem; margin-top: 0.5rem; min-height: 1.2em; }
+
+    /* ----- Header ----- */
+    .header {
+      background: linear-gradient(135deg, var(--steel) 0%, var(--steel-dark) 100%);
+      color: white; padding: 1.25rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .header-brand { display: flex; align-items: center; gap: 0.75rem; }
+    .header-brand .dot { width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; }
+    .header h1 { font-size: 1.15rem; font-weight: 600; letter-spacing: 0.02em; }
+    .header-meta { font-size: 0.85rem; opacity: 0.7; }
+    .header button {
+      background: transparent; border: 1px solid rgba(255,255,255,0.3);
+      color: white; padding: 0.4rem 0.9rem; border-radius: 6px;
+      font-family: inherit; cursor: pointer; font-size: 0.85rem;
+    }
+    .header button:hover { background: rgba(255,255,255,0.1); }
+
+    /* ----- Layout ----- */
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    @media (max-width: 1100px) { .layout { grid-template-columns: 1fr; } }
+
+    .left-col, .right-col { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    /* ----- Card ----- */
+    .card {
+      background: var(--card); border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .card-header {
+      padding: 1rem 1.25rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .card-header h2 {
+      font-size: 0.95rem; font-weight: 600; color: var(--steel);
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .card-body { padding: 1.25rem; }
+
+    /* ----- Map ----- */
+    #map { width: 100%; height: 620px; }
+
+    /* ----- KPI grid ----- */
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+    }
+    .kpi {
+      background: var(--card); border: 1px solid var(--border);
+      border-left: 4px solid var(--cyan);
+      border-radius: 10px; padding: 1rem 1.25rem;
+    }
+    .kpi h3 {
+      font-size: 0.75rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.06em; font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .kpi .value {
+      font-size: 1.75rem; font-weight: 700; color: var(--steel);
+    }
+    .kpi .sub { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+
+    /* ----- Tables ----- */
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th, td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); }
+    th {
+      background: #fafbfc; font-weight: 600; color: var(--steel);
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; color: var(--cyan-dark); }
+    tr:last-child td { border-bottom: none; }
+
+    .empty { color: var(--muted); padding: 1rem; text-align: center; font-size: 0.85rem; }
+    .loading { color: var(--muted); padding: 1rem; text-align: center; font-style: italic; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+<!-- ---------- Login overlay ---------- -->
+<div class="login-overlay" id="login-overlay">
+  <form class="login-card" id="login-form">
+    <h1>VAGOGLASS Analytics</h1>
+    <p>Acces restricționat. Introdu parola de administrator.</p>
+    <input type="password" id="password-input" placeholder="Parolă" autocomplete="current-password" required />
+    <button type="submit">Autentificare</button>
+    <div class="login-error" id="login-error"></div>
+  </form>
+</div>
+
+<!-- ---------- Main ---------- -->
+<header class="header" style="display:none" id="main-header">
+  <div class="header-brand">
+    <span class="dot"></span>
+    <h1>VAGOGLASS — Analytics</h1>
+  </div>
+  <div style="display:flex; align-items:center; gap:1rem;">
+    <span class="header-meta" id="last-update">—</span>
+    <button id="refresh-btn" type="button">Reîncarcă</button>
+    <button id="logout-btn" type="button">Logout</button>
+  </div>
+</header>
+
+<main class="layout" id="main-layout" style="display:none">
+  <!-- ===== Coloana stânga: harta mondială ===== -->
+  <div class="left-col">
+    <div class="card">
+      <div class="card-header">
+        <h2>Vizitatori pe glob</h2>
+        <span class="header-meta" id="map-meta" style="color:var(--muted); font-size:0.8rem;">—</span>
+      </div>
+      <div id="map"></div>
+    </div>
+  </div>
+
+  <!-- ===== Coloana dreapta: KPI + tabele ===== -->
+  <div class="right-col">
+    <!-- KPI cards -->
+    <div class="kpi-grid">
+      <div class="kpi">
+        <h3>Total vizitatori</h3>
+        <div class="value" id="kpi-visitors">–</div>
+        <div class="sub" id="kpi-visitors-sub">unici</div>
+      </div>
+      <div class="kpi">
+        <h3>Page views azi</h3>
+        <div class="value" id="kpi-pv-today">–</div>
+        <div class="sub" id="kpi-pv-sub">evenimente totale</div>
+      </div>
+      <div class="kpi">
+        <h3>Durată medie sesiune</h3>
+        <div class="value" id="kpi-session">–</div>
+        <div class="sub">secunde / vizită</div>
+      </div>
+      <div class="kpi">
+        <h3>Top țară</h3>
+        <div class="value" id="kpi-country">–</div>
+        <div class="sub" id="kpi-country-sub">după vizitatori unici</div>
+      </div>
+    </div>
+
+    <!-- Top pages -->
+    <div class="card">
+      <div class="card-header"><h2>Top 10 pagini</h2></div>
+      <div class="card-body" style="padding:0">
+        <table id="table-pages">
+          <thead><tr><th>Pagină</th><th>Views</th><th>Unici</th></tr></thead>
+          <tbody><tr><td colspan="3" class="loading">Se încarcă…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Top products -->
+    <div class="card">
+      <div class="card-header"><h2>Top 10 produse click-uite</h2></div>
+      <div class="card-body" style="padding:0">
+        <table id="table-products">
+          <thead><tr><th>Produs</th><th>Clicks</th></tr></thead>
+          <tbody><tr><td colspan="2" class="loading">Se încarcă…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Top searches -->
+    <div class="card">
+      <div class="card-header"><h2>Top 5 căutări (search queries)</h2></div>
+      <div class="card-body" style="padding:0">
+        <table id="table-searches">
+          <thead><tr><th>Query</th><th>Count</th></tr></thead>
+          <tbody><tr><td colspan="2" class="loading">Se încarcă…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Top referrers -->
+    <div class="card">
+      <div class="card-header"><h2>Top 10 surse (referrer / utm_source)</h2></div>
+      <div class="card-body" style="padding:0">
+        <table id="table-referrers">
+          <thead><tr><th>Sursă</th><th>Count</th></tr></thead>
+          <tbody><tr><td colspan="2" class="loading">Se încarcă…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+/* ============================================================
+ * VAGOGLASS Dashboard — logic
+ * ============================================================
+ * Auth: Basic Auth peste fetch (compatibil cu /api/analytics/analytics)
+ *       parola e stocată în localStorage ca base64 'admin:<pwd>'.
+ * Date: pull paralel pentru summary | pages | products | geo |
+ *       searches | referrers (segment=vagoglass).
+ * Map:  Leaflet + MarkerCluster, marker per oraș, popup cu count.
+ * ============================================================ */
+
+const SEGMENT = 'vagoglass';
+const AUTH_KEY = 'vagoglass_admin_auth';
+const API_BASE = '/api/analytics/analytics';
+
+// ---------- Auth ----------
+function getAuth() { return localStorage.getItem(AUTH_KEY); }
+function setAuth(pwd) { localStorage.setItem(AUTH_KEY, btoa('admin:' + pwd)); }
+function clearAuth() { localStorage.removeItem(AUTH_KEY); }
+
+async function apiGet(type) {
+  const auth = getAuth();
+  if (!auth) throw new Error('No auth');
+  const r = await fetch(`${API_BASE}?type=${type}&segment=${SEGMENT}`, {
+    headers: { 'Authorization': 'Basic ' + auth }
+  });
+  if (r.status === 401 || r.status === 403) {
+    clearAuth();
+    throw new Error('Auth failed');
+  }
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return r.json();
+}
+
+// ---------- Login flow ----------
+const loginOverlay = document.getElementById('login-overlay');
+const loginForm    = document.getElementById('login-form');
+const loginError   = document.getElementById('login-error');
+const passwordInput = document.getElementById('password-input');
+
+function showApp() {
+  loginOverlay.style.display = 'none';
+  document.getElementById('main-header').style.display = 'flex';
+  document.getElementById('main-layout').style.display = 'grid';
+}
+function showLogin(msg) {
+  loginOverlay.style.display = 'flex';
+  document.getElementById('main-header').style.display = 'none';
+  document.getElementById('main-layout').style.display = 'none';
+  loginError.textContent = msg || '';
+  passwordInput.value = '';
+  passwordInput.focus();
+}
+
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const pwd = passwordInput.value.trim();
+  if (!pwd) return;
+  setAuth(pwd);
+  try {
+    await apiGet('summary'); // probe
+    showApp();
+    loadAll();
+  } catch (err) {
+    clearAuth();
+    showLogin('Parolă incorectă sau eroare de server.');
+  }
+});
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+  clearAuth();
+  showLogin('Te-ai deconectat.');
+});
+document.getElementById('refresh-btn').addEventListener('click', () => loadAll());
+
+// ---------- Map ----------
+let map, clusterLayer;
+function initMap() {
+  if (map) return;
+  map = L.map('map', { worldCopyJump: true }).setView([30, 10], 2);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 18
+  }).addTo(map);
+  clusterLayer = L.markerClusterGroup();
+  map.addLayer(clusterLayer);
+}
+
+function renderMap(cities) {
+  initMap();
+  clusterLayer.clearLayers();
+  let totalVisits = 0, plotted = 0;
+  (cities || []).forEach(c => {
+    totalVisits += c.visits || 0;
+    if (typeof c.latitude !== 'number' || typeof c.longitude !== 'number') return;
+    const marker = L.marker([c.latitude, c.longitude]);
+    marker.bindPopup(
+      `<strong>${escapeHtml(c.city || '?')}</strong><br>` +
+      `${escapeHtml(c.country || '')}<br>` +
+      `<b>${c.visits}</b> evenimente · <b>${c.unique_visitors}</b> vizitatori unici`
+    );
+    clusterLayer.addLayer(marker);
+    plotted++;
+  });
+  document.getElementById('map-meta').textContent =
+    `${plotted} orașe · ${totalVisits} evenimente`;
+}
+
+// ---------- Helpers ----------
+function escapeHtml(s) {
+  if (s === null || s === undefined) return '';
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  })[c]);
+}
+function setTable(id, rows, columns, emptyMsg) {
+  const tbody = document.querySelector('#' + id + ' tbody');
+  if (!rows || rows.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="${columns.length}" class="empty">${emptyMsg || 'Nu sunt date.'}</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = rows.map(r => {
+    return '<tr>' + columns.map(col => {
+      const v = typeof col.get === 'function' ? col.get(r) : r[col.key];
+      const cls = col.num ? ' class="num"' : '';
+      return `<td${cls}>${escapeHtml(v)}</td>`;
+    }).join('') + '</tr>';
+  }).join('');
+}
+
+// ---------- Load all ----------
+async function loadAll() {
+  document.getElementById('last-update').textContent = 'Se încarcă…';
+  try {
+    const [summary, pages, products, geo, searches, referrers] = await Promise.all([
+      apiGet('summary'),
+      apiGet('pages'),
+      apiGet('products'),
+      apiGet('geo'),
+      apiGet('searches'),
+      apiGet('referrers')
+    ]);
+
+    // KPI
+    const s = summary.summary || {};
+    document.getElementById('kpi-visitors').textContent = s.unique_visitors ?? '0';
+    document.getElementById('kpi-visitors-sub').textContent = `${s.total_visitors ?? 0} total`;
+    document.getElementById('kpi-pv-today').textContent = s.total_events ?? '0';
+    document.getElementById('kpi-session').textContent = (s.avg_visits_per_user ?? '0');
+
+    const topC = (geo.top_countries && geo.top_countries[0]) || null;
+    document.getElementById('kpi-country').textContent = topC ? (topC.country || '–') : '–';
+    document.getElementById('kpi-country-sub').textContent = topC
+      ? `${topC.unique_visitors} vizitatori unici` : 'fără date';
+
+    // Map
+    renderMap(geo.cities || []);
+
+    // Pages
+    setTable('table-pages',
+      (pages.pages || []).slice(0, 10),
+      [
+        { key: 'page_path' },
+        { key: 'total_views', num: true },
+        { key: 'unique_visitors', num: true }
+      ],
+      'Nu sunt vizite înregistrate.'
+    );
+
+    // Products
+    setTable('table-products',
+      (products.products || []).slice(0, 10),
+      [
+        { key: 'product_name' },
+        { key: 'total_clicks', num: true }
+      ],
+      'Nu sunt click-uri pe produse.'
+    );
+
+    // Searches
+    setTable('table-searches',
+      (searches.searches || []).slice(0, 5),
+      [
+        { key: 'search_query' },
+        { key: 'count', num: true }
+      ],
+      'Nu sunt căutări înregistrate.'
+    );
+
+    // Referrers
+    setTable('table-referrers',
+      (referrers.referrers || []).slice(0, 10),
+      [
+        { key: 'source' },
+        { key: 'count', num: true }
+      ],
+      'Nu sunt referrer-i înregistrați.'
+    );
+
+    document.getElementById('last-update').textContent =
+      'Actualizat: ' + new Date().toLocaleTimeString('ro-RO');
+  } catch (err) {
+    console.error(err);
+    if (!getAuth()) {
+      showLogin('Sesiunea a expirat. Reintră în cont.');
+    } else {
+      document.getElementById('last-update').textContent = 'Eroare la încărcare.';
+    }
+  }
+}
+
+// ---------- Bootstrap ----------
+(function () {
+  if (getAuth()) {
+    showApp();
+    loadAll();
+  } else {
+    showLogin();
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Library — VAGOGLASS Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --steel: #2B2F36;
+    --cyan: #00A3C4;
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --text: #1a1d22;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --danger: #dc2626;
+    --success: #059669;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  header {
+    background: var(--steel);
+    color: white;
+    padding: 1.1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  header h1 { font-size: 1.05rem; font-weight: 600; display: flex; align-items: center; gap: 0.75rem; }
+  .brand-pill {
+    display: inline-block;
+    padding: 0.25rem 0.7rem;
+    background: var(--cyan);
+    color: white;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .header-actions { display: flex; gap: 0.5rem; }
+  .header-actions a, .header-actions button {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+  .header-actions a:hover, .header-actions button:hover { background: rgba(255,255,255,0.1); }
+
+  main { max-width: 1300px; margin: 0 auto; padding: 2rem; }
+
+  .tabs { display: flex; gap: 0.25rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .tab {
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+  .tab:hover { color: var(--steel); }
+  .tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+
+  .dropzone {
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    background: var(--card);
+    margin-bottom: 1.5rem;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .dropzone.drag { border-color: var(--cyan); background: #ecfeff; }
+  .dropzone p { color: var(--muted); margin-bottom: 0.5rem; }
+  .dropzone strong { color: var(--steel); }
+  .dropzone input[type=file] { display: none; }
+  .dropzone-btn {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--cyan);
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .toolbar { display: flex; gap: 0.5rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; }
+  .toolbar input[type="text"] {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    min-width: 240px;
+  }
+  .count { color: var(--muted); font-size: 0.85rem; margin-left: auto; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.15s;
+  }
+  .card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+  .thumb {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #f1f3f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .meta { padding: 0.75rem 0.9rem; font-size: 0.8rem; display: flex; flex-direction: column; gap: 0.3rem; flex: 1; }
+  .meta .fn { font-weight: 600; color: var(--steel); word-break: break-all; font-size: 0.78rem; }
+  .meta .dim { color: var(--muted); font-size: 0.72rem; }
+  .meta .alt { color: var(--muted); font-size: 0.72rem; font-style: italic; min-height: 1em; }
+  .actions {
+    display: flex;
+    gap: 0.3rem;
+    padding: 0.6rem 0.9rem;
+    border-top: 1px solid var(--border);
+    background: #fafbfc;
+  }
+  .actions button {
+    flex: 1;
+    padding: 0.35rem 0.4rem;
+    font-size: 0.72rem;
+    border: 1px solid var(--border);
+    background: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--steel);
+    font-weight: 500;
+  }
+  .actions button:hover { border-color: var(--cyan); color: var(--cyan); }
+  .actions .del:hover { border-color: var(--danger); color: var(--danger); }
+
+  .empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+  }
+
+  /* Modal */
+  .modal-bg {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 1rem;
+  }
+  .modal-bg.show { display: flex; }
+  .modal {
+    background: white;
+    border-radius: 12px;
+    padding: 1.75rem;
+    width: 100%;
+    max-width: 460px;
+  }
+  .modal h3 { margin-bottom: 1rem; color: var(--steel); }
+  .modal label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.3rem; color: var(--steel); margin-top: 0.75rem; }
+  .modal input, .modal textarea {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.9rem;
+  }
+  .modal textarea { resize: vertical; min-height: 60px; }
+  .modal-actions { display: flex; gap: 0.5rem; margin-top: 1.5rem; justify-content: flex-end; }
+  .modal-actions button {
+    padding: 0.55rem 1.1rem;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: white;
+    font-weight: 500;
+  }
+  .modal-actions .primary {
+    background: var(--cyan);
+    color: white;
+    border-color: var(--cyan);
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    padding: 0.85rem 1.25rem;
+    background: var(--steel);
+    color: white;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    z-index: 200;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.2s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast.error { background: var(--danger); }
+  .toast.success { background: var(--success); }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="brand-pill">VAGOGLASS</span> Media Library</h1>
+  <div class="header-actions">
+    <a href="/admin/dashboard.html">Dashboard</a>
+    <button onclick="logout()">Logout</button>
+  </div>
+</header>
+
+<main>
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-cat="trains">Trenuri</button>
+    <button class="tab" data-cat="logos">Logo-uri</button>
+    <button class="tab" data-cat="certifications">Certificate</button>
+    <button class="tab" data-cat="products">Produse</button>
+    <button class="tab" data-cat="other">Altele</button>
+  </div>
+
+  <div class="dropzone" id="dropzone">
+    <p><strong>Trage imagini aici</strong> sau apasă pentru a selecta</p>
+    <p>Categorie curentă: <strong id="dz-cat">trains</strong> &middot; max 10 MB &middot; doar image/*</p>
+    <span class="dropzone-btn">Selectează fişiere</span>
+    <input type="file" id="fileInput" multiple accept="image/*">
+  </div>
+
+  <div class="toolbar">
+    <input type="text" id="search" placeholder="Caută după nume fişier...">
+    <span class="count" id="count">0 fişiere</span>
+  </div>
+
+  <div class="grid" id="grid"></div>
+</main>
+
+<!-- Edit Alt modal -->
+<div class="modal-bg" id="altModal">
+  <div class="modal">
+    <h3>Editează alt text</h3>
+    <div style="font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem;" id="altFilename"></div>
+    <label>Alt text RO</label>
+    <textarea id="altRo"></textarea>
+    <label>Alt text EN</label>
+    <textarea id="altEn"></textarea>
+    <div class="modal-actions">
+      <button onclick="closeAlt()">Anulează</button>
+      <button class="primary" onclick="saveAlt()">Salvează</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<input type="file" id="replaceInput" accept="image/*" style="display:none">
+
+<script>
+let currentCategory = 'trains';
+let items = [];
+let editingFilename = null;
+let replaceTargetFilename = null;
+
+const grid = document.getElementById('grid');
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+const dzCat = document.getElementById('dz-cat');
+const searchInput = document.getElementById('search');
+const countEl = document.getElementById('count');
+const toast = document.getElementById('toast');
+const replaceInput = document.getElementById('replaceInput');
+
+(async () => {
+  try {
+    const r = await fetch('/api/admin/auth-check');
+    const data = await r.json();
+    if (!data.authenticated) { location.href = '/admin/index.html'; return; }
+  } catch (_) { location.href = '/admin/index.html'; return; }
+  await loadCategory(currentCategory);
+})();
+
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCategory = btn.dataset.cat;
+    dzCat.textContent = currentCategory;
+    loadCategory(currentCategory);
+  });
+});
+
+searchInput.addEventListener('input', render);
+
+dropzone.addEventListener('click', () => fileInput.click());
+['dragenter', 'dragover'].forEach(ev => dropzone.addEventListener(ev, e => {
+  e.preventDefault(); dropzone.classList.add('drag');
+}));
+['dragleave', 'drop'].forEach(ev => dropzone.addEventListener(ev, e => {
+  e.preventDefault(); dropzone.classList.remove('drag');
+}));
+dropzone.addEventListener('drop', e => {
+  const files = Array.from(e.dataTransfer.files || []);
+  uploadFiles(files);
+});
+fileInput.addEventListener('change', () => {
+  uploadFiles(Array.from(fileInput.files || []));
+  fileInput.value = '';
+});
+
+async function loadCategory(cat) {
+  grid.innerHTML = '<div class="empty">Se încarcă...</div>';
+  try {
+    const r = await fetch(`/api/admin/media/list?category=${encodeURIComponent(cat)}&per_page=200`);
+    if (r.status === 401) { location.href = '/admin/index.html'; return; }
+    const data = await r.json();
+    items = data.items || [];
+    render();
+  } catch (e) {
+    grid.innerHTML = '<div class="empty">Eroare la încărcare</div>';
+  }
+}
+
+function render() {
+  const q = searchInput.value.trim().toLowerCase();
+  const filtered = q ? items.filter(i => i.filename.toLowerCase().includes(q)) : items;
+  countEl.textContent = `${filtered.length} fişier${filtered.length === 1 ? '' : 'e'}`;
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="empty">Niciun fişier în această categorie.</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(it => {
+    const sizeKb = it.size_bytes ? (it.size_bytes / 1024).toFixed(0) + ' KB' : '';
+    const dim = (it.width && it.height) ? `${it.width}×${it.height}` : '';
+    const dimLine = [dim, sizeKb].filter(Boolean).join(' &middot; ');
+    const alt = (it.alt_text_ro || it.alt_text_en || '(fără alt text)');
+    const safeAlt = alt.replace(/</g, '&lt;');
+    const safeFn = it.filename.replace(/"/g, '&quot;');
+    return `
+      <div class="card">
+        <div class="thumb"><img src="${it.url}" alt="" loading="lazy"></div>
+        <div class="meta">
+          <div class="fn" title="${safeFn}">${it.filename}</div>
+          <div class="dim">${dimLine || '&nbsp;'}</div>
+          <div class="alt">${safeAlt}</div>
+        </div>
+        <div class="actions">
+          <button onclick="openAlt('${safeFn}')">Alt</button>
+          <button onclick="triggerReplace('${safeFn}')">Replace</button>
+          <button class="del" onclick="confirmDelete('${safeFn}')">Delete</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function uploadFiles(files) {
+  if (!files.length) return;
+  const imgs = files.filter(f => f.type && f.type.startsWith('image/'));
+  if (!imgs.length) { showToast('Doar fişiere image/*', 'error'); return; }
+  let ok = 0, fail = 0;
+  for (const f of imgs) {
+    if (f.size > 10 * 1024 * 1024) {
+      showToast(`${f.name} depăşeşte 10 MB`, 'error');
+      fail++; continue;
+    }
+    const fd = new FormData();
+    fd.append('file', f);
+    fd.append('category', currentCategory);
+    try {
+      const r = await fetch('/api/admin/media/upload', { method: 'POST', body: fd });
+      if (r.ok) ok++;
+      else {
+        const data = await r.json().catch(() => ({}));
+        showToast(`${f.name}: ${data.error || 'eroare'}`, 'error');
+        fail++;
+      }
+    } catch (_) { fail++; }
+  }
+  if (ok) showToast(`${ok} fişier${ok === 1 ? '' : 'e'} încărcat${ok === 1 ? '' : 'e'}`, 'success');
+  await loadCategory(currentCategory);
+}
+
+function triggerReplace(filename) {
+  replaceTargetFilename = filename;
+  replaceInput.value = '';
+  replaceInput.click();
+}
+replaceInput.addEventListener('change', async () => {
+  const f = replaceInput.files && replaceInput.files[0];
+  if (!f || !replaceTargetFilename) return;
+  if (!f.type.startsWith('image/')) { showToast('Doar image/*', 'error'); return; }
+  if (f.size > 10 * 1024 * 1024) { showToast('Depăşeşte 10 MB', 'error'); return; }
+  const fd = new FormData();
+  fd.append('file', f);
+  fd.append('filename', replaceTargetFilename);
+  try {
+    const r = await fetch('/api/admin/media/replace', { method: 'POST', body: fd });
+    if (r.ok) { showToast('Imagine înlocuită', 'success'); await loadCategory(currentCategory); }
+    else { const d = await r.json().catch(() => ({})); showToast(d.error || 'Eroare', 'error'); }
+  } catch (_) { showToast('Eroare reţea', 'error'); }
+  replaceTargetFilename = null;
+});
+
+async function confirmDelete(filename) {
+  if (!confirm(`Şterge ${filename}?\n\nFişierul va fi marcat ca şters şi eliminat din R2.`)) return;
+  try {
+    const r = await fetch('/api/admin/media/delete', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filename }),
+    });
+    if (r.ok) { showToast('Şters', 'success'); await loadCategory(currentCategory); }
+    else { const d = await r.json().catch(() => ({})); showToast(d.error || 'Eroare', 'error'); }
+  } catch (_) { showToast('Eroare reţea', 'error'); }
+}
+
+function openAlt(filename) {
+  editingFilename = filename;
+  const item = items.find(i => i.filename === filename);
+  document.getElementById('altFilename').textContent = filename;
+  document.getElementById('altRo').value = (item && item.alt_text_ro) || '';
+  document.getElementById('altEn').value = (item && item.alt_text_en) || '';
+  document.getElementById('altModal').classList.add('show');
+}
+function closeAlt() {
+  document.getElementById('altModal').classList.remove('show');
+  editingFilename = null;
+}
+async function saveAlt() {
+  if (!editingFilename) return;
+  const payload = {
+    filename: editingFilename,
+    alt_text_ro: document.getElementById('altRo').value,
+    alt_text_en: document.getElementById('altEn').value,
+  };
+  try {
+    const r = await fetch('/api/admin/media/alt', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (r.ok) { showToast('Alt text salvat', 'success'); closeAlt(); await loadCategory(currentCategory); }
+    else { const d = await r.json().catch(() => ({})); showToast(d.error || 'Eroare', 'error'); }
+  } catch (_) { showToast('Eroare reţea', 'error'); }
+}
+
+let toastTimer = null;
+function showToast(msg, kind) {
+  toast.textContent = msg;
+  toast.className = 'toast show' + (kind ? ' ' + kind : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+async function logout() {
+  try { await fetch('/api/admin/auth-check', { method: 'DELETE' }); } catch (_) {}
+  location.href = '/admin/index.html';
+}
+</script>
+</body>
+</html>

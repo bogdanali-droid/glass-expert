@@ -6,7 +6,7 @@
  * Requires: Basic Auth (username: admin, password: from Cloudflare Secrets ADMIN_PASSWORD)
  */
 
-const VALID_SEGMENTS = ['glassexpert', 'vagotech'];
+const VALID_SEGMENTS = ['glassexpert', 'vagotech', 'vagoglass'];
 
 function segmentFilter(segment) {
     // Returns { clause, params } for an optional segment WHERE fragment.
@@ -107,6 +107,63 @@ export async function onRequest(context) {
             `).bind(...f.params).all();
 
             data.pages = pages.results || [];
+        }
+
+        // --- VAGOGLASS extension: geo / search / utm / overview ---
+        // type=geo  -> cities list cu coordonate + count (pentru harta Leaflet)
+        // type=searches -> top search queries
+        // type=referrers -> top referrers (utm_source / domeniu)
+        if (type === 'geo') {
+            const cities = await db.prepare(`
+                SELECT country, city,
+                       AVG(latitude) as latitude,
+                       AVG(longitude) as longitude,
+                       COUNT(*) as visits,
+                       COUNT(DISTINCT visitor_id) as unique_visitors
+                FROM analytics_events
+                WHERE city IS NOT NULL
+                  AND latitude IS NOT NULL
+                  AND longitude IS NOT NULL${f.clause}
+                GROUP BY country, city
+                ORDER BY visits DESC
+                LIMIT 500
+            `).bind(...f.params).all();
+            data.cities = cities.results || [];
+
+            const topCountry = await db.prepare(`
+                SELECT country, COUNT(DISTINCT visitor_id) as unique_visitors
+                FROM analytics_events
+                WHERE country IS NOT NULL${f.clause}
+                GROUP BY country
+                ORDER BY unique_visitors DESC
+                LIMIT 10
+            `).bind(...f.params).all();
+            data.top_countries = topCountry.results || [];
+        }
+
+        if (type === 'searches') {
+            const searches = await db.prepare(`
+                SELECT search_query, COUNT(*) as count
+                FROM analytics_events
+                WHERE search_query IS NOT NULL
+                  AND search_query != ''${f.clause}
+                GROUP BY search_query
+                ORDER BY count DESC
+                LIMIT 20
+            `).bind(...f.params).all();
+            data.searches = searches.results || [];
+        }
+
+        if (type === 'referrers') {
+            const refs = await db.prepare(`
+                SELECT COALESCE(utm_source, referrer) as source, COUNT(*) as count
+                FROM analytics_events
+                WHERE (utm_source IS NOT NULL OR referrer IS NOT NULL)${f.clause}
+                GROUP BY source
+                ORDER BY count DESC
+                LIMIT 20
+            `).bind(...f.params).all();
+            data.referrers = refs.results || [];
         }
 
         if (type === 'events') {

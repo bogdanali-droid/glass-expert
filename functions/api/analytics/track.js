@@ -2,17 +2,29 @@
  * Site-wide Analytics Tracking Endpoint
  * POST /api/analytics/track
  *
- * Tracks visitor events: page views, product clicks, form submissions, page exits.
- * Segmented by `segment` field (glassexpert | vagotech).
+ * Tracks visitor events: page views, product clicks, form submissions, page exits,
+ * scroll depth, search queries.
+ * Segmented by `segment` field (glassexpert | vagotech | vagoglass).
  * Requires: consent check before processing.
  * Returns: { success: boolean, visitor_id: string }
+ *
+ * VAGOGLASS extension:
+ *   - acceptă segment `vagoglass`
+ *   - extrage geo (country/city/lat/lng) din headerele Cloudflare
+ *   - persistă utm_*, search_query, section_id
  */
 
-const VALID_SEGMENTS = ['glassexpert', 'vagotech'];
+const VALID_SEGMENTS = ['glassexpert', 'vagotech', 'vagoglass'];
 
 function normalizeSegment(segment) {
     const s = segment ? String(segment).toLowerCase().trim() : 'glassexpert';
     return VALID_SEGMENTS.includes(s) ? s : 'glassexpert';
+}
+
+// Helper: trunchiere defensivă pentru câmpuri text
+function clip(value, max) {
+    if (value === null || value === undefined) return null;
+    return String(value).substring(0, max);
 }
 
 export async function onRequest(context) {
@@ -34,7 +46,13 @@ export async function onRequest(context) {
             data = JSON.parse(txt);
         }
 
-        const { visitor_id, event_type, product_name, page_path, duration_seconds, device_type, referrer, consent, segment } = data;
+        const {
+            visitor_id, event_type, product_name, page_path,
+            duration_seconds, device_type, referrer, consent, segment,
+            // câmpuri noi (opționale)
+            search_query, section_id, utm_source, utm_medium, utm_campaign,
+            device_resolution
+        } = data;
 
         if (!visitor_id || !event_type || !page_path) {
             return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
@@ -45,30 +63,70 @@ export async function onRequest(context) {
         }
 
         const seg = normalizeSegment(segment);
-        const cleanProduct = product_name ? String(product_name).substring(0, 100) : null;
-        const cleanPage = String(page_path).substring(0, 255);
-        const cleanType = String(event_type).substring(0, 50);
-        const cleanDevice = device_type ? String(device_type).substring(0, 50) : 'unknown';
-        const cleanReferrer = referrer ? String(referrer).substring(0, 255) : null;
+        const cleanProduct = clip(product_name, 100);
+        const cleanPage = clip(page_path, 255);
+        const cleanType = clip(event_type, 50);
+        const cleanDevice = clip(device_type, 50) || 'unknown';
+        const cleanReferrer = clip(referrer, 255);
 
-        // Record visitor if new
+        // --- Geo enrichment via Cloudflare ---
+        // Headerele și `request.cf` sunt disponibile când rulează pe edge.
+        // În dev local pot lipsi; tratăm defensiv.
+        const cf = request.cf || {};
+        const country = clip(
+            request.headers.get('CF-IPCountry') || cf.country || null, 2
+        );
+        const city = clip(
+            request.headers.get('CF-IPCity') || cf.city || null, 100
+        );
+        const latitude = (typeof cf.latitude !== 'undefined' && cf.latitude !== null)
+            ? parseFloat(cf.latitude) : null;
+        const longitude = (typeof cf.longitude !== 'undefined' && cf.longitude !== null)
+            ? parseFloat(cf.longitude) : null;
+
+        // UTM + extras
+        const cleanSearchQuery = clip(search_query, 255);
+        const cleanSectionId = clip(section_id, 100);
+        const cleanUtmSource = clip(utm_source, 100);
+        const cleanUtmMedium = clip(utm_medium, 100);
+        const cleanUtmCampaign = clip(utm_campaign, 100);
+        const cleanResolution = clip(device_resolution, 20);
+
+        // --- Visitor (insert dacă nou) ---
         await db.prepare(`
-            INSERT OR IGNORE INTO analytics_visitors (visitor_id, segment, consent_given, consent_given_at)
-            VALUES (?, ?, 1, CURRENT_TIMESTAMP)
-        `).bind(visitor_id, seg).run();
+            INSERT OR IGNORE INTO analytics_visitors
+              (visitor_id, segment, consent_given, consent_given_at, country, city, device_resolution, device_type, referrer)
+            VALUES (?, ?, 1, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?)
+        `).bind(
+            visitor_id, seg, country, city, cleanResolution, cleanDevice, cleanReferrer
+        ).run();
 
-        // Update last_visit for existing visitor
+        // Update last_visit + geo (dacă lipsea)
         await db.prepare(`
             UPDATE analytics_visitors
-            SET last_visit = CURRENT_TIMESTAMP, total_visits = total_visits + 1
+            SET last_visit = CURRENT_TIMESTAMP,
+                total_visits = total_visits + 1,
+                country = COALESCE(country, ?),
+                city = COALESCE(city, ?),
+                device_resolution = COALESCE(device_resolution, ?)
             WHERE visitor_id = ?
-        `).bind(visitor_id).run();
+        `).bind(country, city, cleanResolution, visitor_id).run();
 
-        // Record event
+        // --- Event row ---
         await db.prepare(`
-            INSERT INTO analytics_events (visitor_id, segment, event_type, product_name, page_path, duration_seconds, device_type, referrer)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        `).bind(visitor_id, seg, cleanType, cleanProduct, cleanPage, duration_seconds || 0, cleanDevice, cleanReferrer).run();
+            INSERT INTO analytics_events
+              (visitor_id, segment, event_type, product_name, page_path,
+               duration_seconds, device_type, referrer,
+               country, city, latitude, longitude,
+               search_query, section_id, utm_source, utm_medium, utm_campaign)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `).bind(
+            visitor_id, seg, cleanType, cleanProduct, cleanPage,
+            duration_seconds || 0, cleanDevice, cleanReferrer,
+            country, city, latitude, longitude,
+            cleanSearchQuery, cleanSectionId,
+            cleanUtmSource, cleanUtmMedium, cleanUtmCampaign
+        ).run();
 
         // Update product metrics if product_click
         if (cleanType === 'product_click' && cleanProduct) {

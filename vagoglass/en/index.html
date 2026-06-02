@@ -388,6 +388,39 @@
   </div>
 </section>
 
+<section class="section section-paper" id="newsletter">
+  <div class="container">
+    <div class="newsletter-card">
+      <div class="newsletter-head">
+        <span class="eyebrow">VAGOGLASS Newsletter</span>
+        <h2>Get monthly insights on PNRR rail procurement + VAGOGLASS news.</h2>
+        <p class="lead">SEAP procurement data, closed deals, new certifications, rail glass line updates. No spam — one email per month.</p>
+      </div>
+      <form class="newsletter-form" data-newsletter-form data-source="homepage" novalidate>
+        <div class="newsletter-row">
+          <input type="email" name="email" placeholder="email@company.com" required autocomplete="email">
+          <input type="text" name="name" placeholder="Name (optional)" autocomplete="name">
+        </div>
+        <div class="newsletter-row">
+          <input type="text" name="company" placeholder="Company (optional)" autocomplete="organization">
+          <select name="segment_interest" aria-label="Main interest">
+            <option value="all">All segments</option>
+            <option value="tren">Train (CFR, passenger coaches)</option>
+            <option value="tramvai">Tram (municipal operators)</option>
+            <option value="metrou">Metro (Metrorex)</option>
+          </select>
+        </div>
+        <label class="newsletter-consent">
+          <input type="checkbox" name="consent_marketing" required>
+          <span>I agree to receive emails from VAGOGLASS per the <a href="/privacy.html">GDPR policy</a>. I can unsubscribe at any time.</span>
+        </label>
+        <button type="submit" class="btn btn-primary">Subscribe →</button>
+        <div class="newsletter-status" data-newsletter-status role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
 <section class="section section-dark" id="contact">
   <div class="container contact-grid">
     <div class="contact-info">
@@ -490,5 +523,7 @@
 </footer>
 
 <script src="../js/cookies.js" defer></script>
+<script src="../js/track.js" defer></script>
+<script src="../js/newsletter.js" defer></script>
 </body>
 </html>

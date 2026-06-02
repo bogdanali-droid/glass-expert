@@ -490,3 +490,72 @@ h4 { font-size: 1.05rem; letter-spacing: 0.02em; text-transform: uppercase; colo
   .trust-grid { grid-template-columns: 1fr; }
   .case { padding: 32px 24px; }
 }
+
+/* ============================================================
+   Newsletter module (added 02.06.2026 — @cosmin/@lucian)
+   ============================================================ */
+.newsletter-card {
+  max-width: 760px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 48px 40px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(15,23,42,0.04);
+}
+.newsletter-head { text-align: left; margin-bottom: 28px; }
+.newsletter-head h2 { font-size: clamp(1.4rem, 2.2vw, 1.85rem); line-height: 1.25; margin: 8px 0 12px; }
+.newsletter-head .lead { margin: 0; }
+.newsletter-form { display: flex; flex-direction: column; gap: 14px; }
+.newsletter-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.newsletter-form input[type="email"],
+.newsletter-form input[type="text"],
+.newsletter-form select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 0.97rem;
+  font-family: inherit;
+  background: #fff;
+  color: #111827;
+  transition: border-color .15s, box-shadow .15s;
+}
+.newsletter-form input:focus,
+.newsletter-form select:focus {
+  outline: none;
+  border-color: var(--cyan, #0891b2);
+  box-shadow: 0 0 0 3px rgba(8,145,178,0.15);
+}
+.newsletter-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+.newsletter-consent input[type="checkbox"] {
+  margin-top: 3px;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--cyan, #0891b2);
+}
+.newsletter-consent a { color: var(--cyan-dark, #0e7490); text-decoration: underline; }
+.newsletter-form .btn { align-self: flex-start; margin-top: 4px; }
+.newsletter-status {
+  display: none;
+  margin-top: 8px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.newsletter-status--success { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+.newsletter-status--error   { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.newsletter-status--info    { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+@media (max-width: 640px) {
+  .newsletter-card { padding: 32px 22px; }
+  .newsletter-row { grid-template-columns: 1fr; }
+}

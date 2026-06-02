@@ -22,3 +22,9 @@ DATA_RETENTION_DAYS = "999999"
 # NOTE: Admin password stored in Cloudflare Secrets (not in this file)
 # Set in Cloudflare Dashboard > Settings > Environment Variables > Secrets
 # ADMIN_PASSWORD = your-secret-password-here (use Cloudflare UI, never commit to git)
+
+# R2 Bucket for VAGOGLASS media (uploads through admin)
+[[r2_buckets]]
+binding = "VAGOGLASS_MEDIA"
+bucket_name = "vagoglass-media"
+preview_bucket_name = "vagoglass-media-preview"
