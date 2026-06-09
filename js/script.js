@@ -378,4 +378,88 @@ window.addEventListener('resize', () => {
     }
 });
 
+// ============================================================
+// REDESIGN V2 — SCROLL ANIMATIONS (Intersection Observer)
+// Fades in elements with class .fade-in when they enter viewport
+// ============================================================
+
+(function initScrollAnimations() {
+    'use strict';
+
+    if (!('IntersectionObserver' in window)) {
+        // Fallback: just make everything visible
+        document.querySelectorAll('.fade-in').forEach(function(el) {
+            el.classList.add('visible');
+        });
+        return;
+    }
+
+    var fadeObserver = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -48px 0px'
+    });
+
+    // Observe all .fade-in elements
+    document.querySelectorAll('.fade-in').forEach(function(el) {
+        fadeObserver.observe(el);
+    });
+
+    // Also observe elements added dynamically (re-scan on DOMContentLoaded)
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.fade-in:not([data-observed])').forEach(function(el) {
+                el.setAttribute('data-observed', '1');
+                fadeObserver.observe(el);
+            });
+        });
+    }
+}());
+
+// REDESIGN V2 — HAMBURGER MENU (navbar-v2)
+(function initNavbarV2() {
+    'use strict';
+
+    var hamburger = document.getElementById('hamburger');
+    var navMenuV2 = document.getElementById('nav-menu');
+
+    if (!hamburger || !navMenuV2) return;
+
+    hamburger.addEventListener('click', function() {
+        var isOpen = navMenuV2.classList.contains('open');
+        if (isOpen) {
+            navMenuV2.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+        } else {
+            navMenuV2.classList.add('open');
+            hamburger.setAttribute('aria-expanded', 'true');
+        }
+    });
+
+    // Close menu when a nav link is clicked (mobile)
+    navMenuV2.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+            navMenuV2.classList.remove('open');
+        });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+        if (!hamburger.contains(e.target) && !navMenuV2.contains(e.target)) {
+            navMenuV2.classList.remove('open');
+        }
+    });
+}());
+
+// Initialize Feather Icons
+if (typeof feather !== 'undefined') {
+    feather.replace();
+}
+
 console.log('✓ Glas Expert USA website loaded');

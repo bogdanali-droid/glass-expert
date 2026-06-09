@@ -1,1 +1,2 @@
-/* /public/index.html 200
+# No redirect rules needed.
+# Cloudflare Pages handles clean URLs automatically.

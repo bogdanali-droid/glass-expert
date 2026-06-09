@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glas Expert USA — Projects Portfolio</title>
+    <link rel="stylesheet" href="css/redesign-v2.css">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <meta name="description" content="1,000+ projects across 30 countries — Roland Garros, Therme, Corinthia, SKANSKA, ING and more. Real projects by Glas Expert / xglass.eu.">
+    <style>
+        .projects-hero {
+            background: linear-gradient(135deg, #0A0A0A 0%, #111827 60%, #1f2937 100%);
+            color: white;
+            padding: 7rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .projects-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 60%, rgba(0,212,255,0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .projects-hero h1 {
+            color: white;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+        }
+        .projects-hero .stats-row {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        .stat-item { text-align: center; }
+        .stat-item .stat-num {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #00D4FF;
+            line-height: 1;
+        }
+        .stat-item .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 0.25rem;
+        }
+        .filter-bar {
+            background: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            color: #555;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #0066FF;
+            border-color: #0066FF;
+            color: white;
+        }
+        .projects-section {
+            padding: 4rem 2rem;
+            background: #f9f9fb;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.75rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        @media (max-width: 900px) {
+            .projects-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 580px) {
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+        .project-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+        }
+        .project-card.hidden {
+            display: none;
+        }
+        .project-img-placeholder {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            background: #1a1a2e;
+        }
+        .project-img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .project-card:hover .project-img-placeholder img {
+            transform: scale(1.05);
+        }
+        .project-img-placeholder .project-icon { display: none; }
+        .project-category-pill {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .project-body {
+            padding: 1.5rem;
+        }
+        .project-location {
+            font-size: 0.8rem;
+            color: #999;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .project-body h3 {
+            font-size: 1.1rem;
+            color: #111;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        .project-body p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+        .projects-cta {
+            background: linear-gradient(135deg, #0A0A0A 0%, #111 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+        .projects-cta h2 { color: white; font-size: 2rem; margin-bottom: 1rem; }
+        .projects-cta p { color: #aaa; font-size: 1.1rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .btn-blue {
+            display: inline-block;
+            background: #0066FF;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+        .btn-blue:hover { background: #0040CC; }
+        .btn-outline-light {
+            display: inline-block;
+            background: transparent;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 2px solid rgba(255,255,255,0.3);
+            margin-left: 1rem;
+            transition: border-color 0.2s ease, background 0.2s ease;
+        }
+        .btn-outline-light:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+        }
+        @media (max-width: 600px) {
+            .btn-outline-light { margin-left: 0; margin-top: 1rem; }
+        }
+
+        /* Category color themes */
+        .cat-hospitality { --project-bg: linear-gradient(135deg, #1a0a00 0%, #3d1a00 100%); }
+        .cat-commercial { --project-bg: linear-gradient(135deg, #00051a 0%, #001a4d 100%); }
+        .cat-retail { --project-bg: linear-gradient(135deg, #0a001a 0%, #200040 100%); }
+        .cat-residential { --project-bg: linear-gradient(135deg, #001a0a 0%, #00330f 100%); }
+        .cat-public { --project-bg: linear-gradient(135deg, #1a0a00 0%, #4d2600 100%); }
+    </style>
+</head>
+<body>
+    <!-- HEADER & NAVIGATION -->
+    <header class="navbar-v2">
+        <div class="container">
+            <div class="logo">
+                <img src="images/glas-expert-logo.png" alt="Glas Expert Logo" style="height: 40px;">
+                <p class="tagline">Projects Portfolio</p>
+            </div>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="commercial.html">Commercial</a>
+                <a href="hospitality.html">Hospitality</a>
+                <a href="healthcare.html">Healthcare</a>
+                <a href="education.html">Education</a>
+                <a href="products.html">Products</a>
+                <a href="projects.html" style="font-weight:700;">Projects</a>
+                <a href="vagotech.html" style="color: #1a3a52; font-weight: 600;">VAGOTECH</a>
+                <a href="index.html#versatika">Versatika</a>
+                <a href="index.html#contact" class="btn-cta">Contact</a>
+            </nav>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="projects-hero">
+        <div class="container">
+            <p style="color: rgba(255,255,255,0.45); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem;">xglass.eu &mdash; Real Projects, Real References</p>
+            <h1>1,000+ Projects.<br>30 Countries. 25 Years.</h1>
+            <p style="color: rgba(255,255,255,0.65); font-size: 1.15rem; max-width: 650px; margin: 1rem auto 0;">From Paris to Bucharest, from iconic sports venues to luxury hospitality — our glass is part of the world&rsquo;s most ambitious architectural projects.</p>
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="stat-num">1,000+</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">30</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">25+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">5</div>
+                    <div class="stat-label">Continents</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterProjects('all')">All Projects</button>
+        <button class="filter-btn" onclick="filterProjects('hospitality')">Hospitality</button>
+        <button class="filter-btn" onclick="filterProjects('commercial')">Commercial</button>
+        <button class="filter-btn" onclick="filterProjects('retail')">Retail</button>
+        <button class="filter-btn" onclick="filterProjects('residential')">Residential</button>
+        <button class="filter-btn" onclick="filterProjects('public')">Public &amp; Cultural</button>
+    </div>
+
+    <!-- PROJECTS GRID -->
+    <section class="projects-section">
+        <div class="projects-grid" id="projectsGrid">
+
+            <!-- 1. Roland Garros -->
+            <div class="project-card cat-public" data-category="public">
+                <div class="project-img-placeholder">
+                    <img src="images/proj-roland-garros.jpg" alt="Roland Garros — Paris" loading="lazy">
+                    <span class="project-category-pill">Public &amp; Cultural</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Paris, France
+                    </div>
+                    <h3>Roland Garros</h3>
+                    <p>Architectural glass solutions for one of the world's most iconic tennis venues. Premium glazing for spectator areas, VIP lounges, and architectural features at the home of the French Open.</p>
+                </div>
+            </div>
+
+            <!-- 2. FUTURIUM Berlin -->
+            <div class="project-card cat-public" data-category="public">
+                <div class="project-img-placeholder">
+                    <img src="images/proj-futurium.jpg" alt="FUTURIUM Berlin" loading="lazy">
+                    <span class="project-category-pill">Public &amp; Cultural</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Berlin, Germany
+                    </div>
+                    <h3>FUTURIUM &mdash; Haus der Zukunft</h3>
+                    <p>The Future Museum on Berlin's Spree River. Custom architectural glass for this landmark public institution dedicated to the future of humanity — where design innovation meets glass engineering at its finest.</p>
+                </div>
+            </div>
+
+            <!-- 3. L'Usine Saint Lazare -->
+            <div class="project-card cat-hospitality" data-category="hospitality">
+                <div class="project-img-placeholder">
+                    <img src="images/hospitality-hero.jpg" alt="L'Usine Saint Lazare — Paris" loading="lazy">
+                    <span class="project-category-pill">Hospitality</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Paris, France
+                    </div>
+                    <h3>L&rsquo;Usine Saint Lazare</h3>
+                    <p>Premium spa and wellness center in Paris. Bespoke glass solutions for luxury treatment areas, private spaces, and the signature architectural interiors that define this high-end wellness destination.</p>
+                </div>
+            </div>
+
+            <!-- 4. L'Usine Opera -->
+            <div class="project-card cat-hospitality" data-category="hospitality">
+                <div class="project-img-placeholder">
+                    <img src="images/modern-interior-1.jpg" alt="L'Usine Opera — Paris" loading="lazy">
+                    <span class="project-category-pill">Hospitality</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Paris, France
+                    </div>
+                    <h3>L&rsquo;Usine Opera</h3>
+                    <p>Exclusive spa in a restored 18th-century Haussmann building near the Paris Opera. Precision glass installations that honor the historic architecture while delivering contemporary luxury wellness experiences.</p>
+                </div>
+            </div>
+
+            <!-- 5. Therme ARC -->
+            <div class="project-card cat-hospitality" data-category="hospitality">
+                <div class="project-img-placeholder">
+                    <img src="images/proj-therme.jpg" alt="Therme ARC — Markdorf" loading="lazy">
+                    <span class="project-category-pill">Hospitality</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Markdorf, Germany
+                    </div>
+                    <h3>Therme ARC</h3>
+                    <p>Professional wellness and thermal bath facility in southern Germany. Specialized glass for pool areas, steam rooms, saunas, and exterior facades — engineered for humid, high-temperature environments.</p>
+                </div>
+            </div>
+
+            <!-- 6. Therme București -->
+            <div class="project-card cat-hospitality" data-category="hospitality">
+                <div class="project-img-placeholder">
+                    <img src="images/proj-therme.jpg" alt="Therme București" loading="lazy">
+                    <span class="project-category-pill">Hospitality</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Bucharest, Romania
+                    </div>
+                    <h3>Therme Bucure&#537;ti</h3>
+                    <p>The largest thermal and wellness complex in Europe. Extensive glass installations across the massive resort complex — from transparent pool enclosures to architectural facades spanning this record-setting entertainment destination.</p>
+                </div>
+            </div>
+
+            <!-- 7. Corinthia Grand Hotel du Boulevard -->
+            <div class="project-card cat-hospitality" data-category="hospitality">
+                <div class="project-img-placeholder">
+                    <img src="images/proj-corinthia.webp" alt="Corinthia Grand Hôtel du Boulevard" loading="lazy">
+                    <span class="project-category-pill">Hospitality</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Bucharest, Romania
+                    </div>
+                    <h3>Corinthia Grand H&ocirc;tel du Boulevard</h3>
+                    <p>Belle &Eacute;poque luxury hotel revival in central Bucharest. Heritage-sensitive glass restorations and bespoke new installations blending seamlessly with the iconic 19th-century architecture of this landmark property.</p>
+                </div>
+            </div>
+
+            <!-- 8. PINES -->
+            <div class="project-card cat-residential" data-category="residential">
+                <div class="project-img-placeholder">
+                    <img src="images/proj-pines.jpg" alt="PINES — Bucharest" loading="lazy">
+                    <span class="project-category-pill">Residential</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Bucharest, Romania
+                    </div>
+                    <h3>PINES</h3>
+                    <p>Contemporary architectural residential masterpiece. Exceptional glass facades and interior glass systems that set a new benchmark for premium residential development in Bucharest — where nature and architecture meet.</p>
+                </div>
+            </div>
+
+            <!-- 9. Yunity Park -->
+            <div class="project-card cat-commercial" data-category="commercial">
+                <div class="project-img-placeholder">
+                    <img src="images/proj-yunity-park.jpg" alt="Yunity Park — Bucharest" loading="lazy">
+                    <span class="project-category-pill">Commercial</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Bucharest, Romania
+                    </div>
+                    <h3>Yunity Park</h3>
+                    <p>Mixed-use urban development showcasing innovative glass design. Architectural glazing solutions for facades, public spaces, and interior systems that exemplify contemporary urban design philosophy.</p>
+                </div>
+            </div>
+
+            <!-- 10. Green Court SKANSKA -->
+            <div class="project-card cat-commercial" data-category="commercial">
+                <div class="project-img-placeholder">
+                    <img src="images/proj-skanska.jpg" alt="Green Court SKANSKA" loading="lazy">
+                    <span class="project-category-pill">Commercial</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Bucharest, Romania (Floreasca)
+                    </div>
+                    <h3>Green Court SKANSKA</h3>
+                    <p>Class A office complex developed by SKANSKA in Floreasca, Bucharest. Sustainable high-performance glass facades meeting the highest international green building standards for this landmark corporate campus.</p>
+                </div>
+            </div>
+
+            <!-- 11. ING Crystal Tower -->
+            <div class="project-card cat-commercial" data-category="commercial">
+                <div class="project-img-placeholder">
+                    <img src="images/commercial-hero.jpg" alt="ING Crystal Tower — Bucharest" loading="lazy">
+                    <span class="project-category-pill">Commercial</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Bucharest, Romania
+                    </div>
+                    <h3>ING Crystal Tower</h3>
+                    <p>Landmark corporate tower with helipad, defining Bucharest's modern skyline. Full glass facade system for this iconic ING Bank headquarters — precision engineering and optical clarity at every floor.</p>
+                </div>
+            </div>
+
+            <!-- 12. NUSCO Tower -->
+            <div class="project-card cat-commercial" data-category="commercial">
+                <div class="project-img-placeholder">
+                    <img src="images/proj-nusco.jpg" alt="NUSCO Tower — Bucharest" loading="lazy">
+                    <span class="project-category-pill">Commercial</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Bucharest, Romania
+                    </div>
+                    <h3>NUSCO Tower</h3>
+                    <p>18-story, 17,000m&sup2; premium office tower designed by Westfourth Architecture. Comprehensive architectural glass package — from high-performance facades to interior glazing systems across this major commercial landmark.</p>
+                </div>
+            </div>
+
+            <!-- 13. LIDL HeadOffice -->
+            <div class="project-card cat-commercial" data-category="commercial">
+                <div class="project-img-placeholder">
+                    <img src="images/proj-lidl.jpg" alt="LIDL Head Office" loading="lazy">
+                    <span class="project-category-pill">Commercial</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Romania
+                    </div>
+                    <h3>LIDL Head Office</h3>
+                    <p>Romanian headquarters for the German retail giant LIDL. Corporate glass facades and interior systems designed to reflect the brand's German precision and efficiency — delivered to the highest international specification.</p>
+                </div>
+            </div>
+
+            <!-- 14. Sun Plaza -->
+            <div class="project-card cat-retail" data-category="retail">
+                <div class="project-img-placeholder">
+                    <img src="images/proj-sun-plaza.jpg" alt="Sun Plaza — Bucharest" loading="lazy">
+                    <span class="project-category-pill">Retail</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Bucharest, Romania
+                    </div>
+                    <h3>Sun Plaza</h3>
+                    <p>Major shopping center in Bucharest serving millions of visitors annually. Large-scale glass installations for atrium roofing, facades, and retail frontages — combining transparency, safety, and architectural statement.</p>
+                </div>
+            </div>
+
+            <!-- 15. H&M Unirea -->
+            <div class="project-card cat-retail" data-category="retail">
+                <div class="project-img-placeholder">
+                    <img src="images/proj-hm.jpg" alt="H&amp;M Unirea Flagship" loading="lazy">
+                    <span class="project-category-pill">Retail</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-location">
+                        <span>&#128205;</span> Bucharest, Romania
+                    </div>
+                    <h3>H&amp;M Unirea &mdash; Flagship Store</h3>
+                    <p>4,282m&sup2; flagship retail installation in Unirea Shopping Center — one of the largest H&amp;M stores in the region. Custom retail glass solutions designed to maximize transparency, visual merchandising, and the premium brand experience.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="projects-cta">
+        <div class="container">
+            <h2>Your Project Could Be Next</h2>
+            <p>25 years of proven delivery. Whether it's a 4,000m&sup2; flagship store or a landmark tower, we bring European precision to your American vision.</p>
+            <div>
+                <a href="index.html#contact" class="btn-blue">Start Your Project</a>
+                <a href="products.html" class="btn-outline-light">View Products</a>
+            </div>
+            <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.5;">
+                <a href="tel:+16094088100" style="color: white;">+1-609-408-8100</a> &nbsp;&middot;&nbsp;
+                <a href="mailto:office.us@xglass.eu" style="color: white;">office.us@xglass.eu</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-v2">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Glas Expert</h4>
+                    <p>European premium architectural glass supplier.</p>
+                    <p class="footer-contact">
+                        <a href="mailto:office.us@xglass.eu" style="color: inherit;">office.us@xglass.eu</a><br>
+                        <a href="tel:+16094088100" style="color: inherit;">+1-609-408-8100</a><br>
+                        <a href="https://xglass.eu" target="_blank" style="color: inherit;">xglass.eu</a>
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Offices</h4>
+                    <p class="footer-contact" style="font-size: 0.9rem; line-height: 1.8;">
+                        <strong>USA:</strong> New Jersey<br>
+                        <strong>DE:</strong> Neubiberg, M&uuml;nchen<br>
+                        <strong>RO:</strong> &Scedil;os. Olteni&tcedil;ei 202,<br>Pope&scedil;ti-Leordeni
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Project Categories</h4>
+                    <ul>
+                        <li><a href="#" onclick="filterProjects('hospitality');return false;">Hospitality</a></li>
+                        <li><a href="#" onclick="filterProjects('commercial');return false;">Commercial</a></li>
+                        <li><a href="#" onclick="filterProjects('retail');return false;">Retail</a></li>
+                        <li><a href="#" onclick="filterProjects('public');return false;">Public &amp; Cultural</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="products.html">Products Range</a></li>
+                        <li><a href="index.html#versatika">Versatika</a></li>
+                        <li><a href="index.html#contact">Request Quote</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Glas Expert. All rights reserved. | <a href="#">Privacy Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        function filterProjects(category) {
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter cards
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+    <!-- Site-wide analytics tracking (segment auto-detected) -->
+    <script src="js/site-tracking.js"></script>
+</body>
+</html>

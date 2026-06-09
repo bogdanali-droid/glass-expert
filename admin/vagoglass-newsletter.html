@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newsletter Admin — VAGOGLASS</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: system-ui,-apple-system,'Segoe UI',sans-serif; background:#f9fafb; color:#111827; }
+  .header { background: linear-gradient(135deg, #0e7490 0%, #0891b2 100%); color:#fff; padding:1.75rem 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  .header h1 { font-size:1.5rem; margin-bottom:.25rem; }
+  .header p { opacity:.9; font-size:.92rem; }
+  .container { max-width:1400px; margin:0 auto; padding:2rem; }
+
+  .stats { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin-bottom:2rem; }
+  .stat { background:#fff; padding:1.25rem 1.5rem; border-radius:10px; box-shadow:0 1px 3px rgba(0,0,0,0.06); border-left:4px solid #0891b2; }
+  .stat h3 { font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:#6b7280; margin-bottom:.4rem; font-weight:600; }
+  .stat .value { font-size:1.85rem; font-weight:700; color:#0f172a; }
+
+  .toolbar { display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; margin-bottom:1.25rem; }
+  .toolbar select, .toolbar input { padding:.55rem .75rem; border:1px solid #d1d5db; border-radius:8px; font-size:.92rem; font-family:inherit; background:#fff; }
+  .btn { padding:.6rem 1.1rem; background:#0891b2; color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:.92rem; font-weight:600; transition:background .15s; }
+  .btn:hover { background:#0e7490; }
+  .btn--secondary { background:#fff; color:#0891b2; border:1px solid #0891b2; }
+  .btn--secondary:hover { background:#f0f9ff; }
+  .btn--danger { background:#dc2626; }
+  .btn--danger:hover { background:#b91c1c; }
+
+  .panel { background:#fff; border-radius:12px; padding:1.5rem; box-shadow:0 1px 3px rgba(0,0,0,0.06); margin-bottom:1.5rem; }
+  .panel h2 { font-size:1.1rem; margin-bottom:1rem; color:#0f172a; }
+
+  table { width:100%; border-collapse: collapse; font-size:.9rem; }
+  th, td { text-align:left; padding:.7rem .6rem; border-bottom:1px solid #e5e7eb; }
+  th { background:#f8fafc; font-weight:600; color:#475569; font-size:.78rem; text-transform:uppercase; letter-spacing:.04em; }
+  tr:hover td { background:#fafbfc; }
+  .badge { display:inline-block; padding:.18rem .55rem; border-radius:99px; font-size:.72rem; font-weight:600; }
+  .badge--ok { background:#ecfdf5; color:#065f46; }
+  .badge--pending { background:#fef3c7; color:#92400e; }
+  .badge--seg { background:#e0f2fe; color:#075985; }
+
+  .composer { display:none; }
+  .composer.active { display:block; }
+  .composer label { display:block; font-size:.85rem; font-weight:600; color:#374151; margin:.75rem 0 .35rem; }
+  .composer input[type="text"], .composer select, .composer textarea {
+    width:100%; padding:.65rem .85rem; border:1px solid #d1d5db; border-radius:8px; font-size:.95rem; font-family:inherit; background:#fff;
+  }
+  .composer textarea { min-height: 260px; font-family: 'SF Mono', Menlo, monospace; font-size:.85rem; }
+  .composer-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .composer-actions { display:flex; gap:.75rem; margin-top:1.25rem; flex-wrap:wrap; }
+
+  .alert { padding:.85rem 1rem; border-radius:8px; margin:.75rem 0; font-size:.9rem; }
+  .alert--success { background:#ecfdf5; color:#065f46; border:1px solid #a7f3d0; }
+  .alert--error { background:#fef2f2; color:#991b1b; border:1px solid #fecaca; }
+  .alert--info { background:#f1f5f9; color:#475569; border:1px solid #e2e8f0; }
+
+  .empty { text-align:center; padding:3rem 1rem; color:#9ca3af; }
+  .pager { display:flex; gap:.5rem; align-items:center; margin-top:1rem; justify-content:flex-end; }
+  .pager button { padding:.45rem .85rem; border:1px solid #d1d5db; background:#fff; border-radius:6px; cursor:pointer; font-size:.85rem; }
+  .pager button:disabled { opacity:.5; cursor:not-allowed; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Newsletter Admin — VAGOGLASS</h1>
+  <p>Gestionează abonații și trimite campanii. Bazat pe Cloudflare D1 + Brevo.</p>
+</div>
+
+<div class="container">
+
+  <div class="stats" id="stats">
+    <div class="stat"><h3>Total abonați</h3><div class="value" id="stat-total">—</div></div>
+    <div class="stat"><h3>Confirmați</h3><div class="value" id="stat-confirmed">—</div></div>
+    <div class="stat"><h3>Pending</h3><div class="value" id="stat-pending">—</div></div>
+    <div class="stat"><h3>Dezabonați</h3><div class="value" id="stat-unsub">—</div></div>
+  </div>
+
+  <div id="alert-area"></div>
+
+  <div class="panel">
+    <div class="toolbar">
+      <label for="filter-seg">Segment:</label>
+      <select id="filter-seg" onchange="loadSubs()">
+        <option value="all">Toate</option>
+        <option value="tren">Tren</option>
+        <option value="tramvai">Tramvai</option>
+        <option value="metrou">Metrou</option>
+      </select>
+      <label for="filter-confirmed">Status:</label>
+      <select id="filter-confirmed" onchange="loadSubs()">
+        <option value="any">Toți</option>
+        <option value="1">Doar confirmați</option>
+        <option value="0">Doar pending</option>
+      </select>
+      <button class="btn" onclick="loadSubs()">Refresh</button>
+      <button class="btn btn--secondary" onclick="toggleComposer()" style="margin-left:auto">Compose campaign →</button>
+    </div>
+
+    <table id="subs-table">
+      <thead>
+        <tr>
+          <th>Email</th><th>Nume</th><th>Companie</th><th>Interes</th><th>Lang</th><th>Status</th><th>Abonare</th><th>Last send</th>
+        </tr>
+      </thead>
+      <tbody id="subs-body">
+        <tr><td colspan="8" class="empty">Loading…</td></tr>
+      </tbody>
+    </table>
+
+    <div class="pager">
+      <span id="pager-info" style="font-size:.85rem;color:#6b7280"></span>
+      <button id="prev-btn" onclick="changePage(-1)">← Prev</button>
+      <button id="next-btn" onclick="changePage(1)">Next →</button>
+    </div>
+  </div>
+
+  <div class="panel composer" id="composer">
+    <h2>Compose campaign</h2>
+    <div class="alert alert--info">
+      Footerul cu link de dezabonare se adaugă automat. Folosește HTML simplu (h2, p, a, ul). Trimiterea e secvențială prin Brevo.
+    </div>
+
+    <div class="composer-row">
+      <div>
+        <label for="c-subject">Subject *</label>
+        <input type="text" id="c-subject" placeholder="VAGOGLASS — analize PNRR mai 2026">
+      </div>
+      <div>
+        <label for="c-lang">Limbă</label>
+        <select id="c-lang">
+          <option value="ro">Română</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="composer-row">
+      <div>
+        <label for="c-seg">Segment filter</label>
+        <select id="c-seg">
+          <option value="all">Toți (all + segment specific)</option>
+          <option value="tren">Tren</option>
+          <option value="tramvai">Tramvai</option>
+          <option value="metrou">Metrou</option>
+        </select>
+      </div>
+      <div>
+        <label>Target estimat</label>
+        <div id="c-target" style="padding:.65rem 0;font-weight:600;color:#0891b2">— (apasă „Estimează")</div>
+      </div>
+    </div>
+
+    <label for="c-body">Body HTML *</label>
+    <textarea id="c-body" placeholder="&lt;h2&gt;Analize PNRR — mai 2026&lt;/h2&gt;&#10;&lt;p&gt;Anul acesta au fost atribuite contracte de...&lt;/p&gt;"></textarea>
+
+    <div class="composer-actions">
+      <button class="btn btn--secondary" onclick="estimateTarget()">Estimează target</button>
+      <button class="btn" onclick="sendCampaign()">Trimite campanie</button>
+      <button class="btn btn--secondary" onclick="toggleComposer()">Anulează</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let adminAuth = null;
+let currentPage = 1;
+const PAGE_SIZE = 50;
+let totalSubs = 0;
+
+function login() {
+  const pwd = prompt('Enter admin password:');
+  if (!pwd) return null;
+  const auth = btoa('admin:' + pwd);
+  localStorage.setItem('vagoglass_admin_auth', auth);
+  adminAuth = auth;
+  return auth;
+}
+function getAuth() {
+  if (adminAuth) return adminAuth;
+  const stored = localStorage.getItem('vagoglass_admin_auth');
+  if (stored) { adminAuth = stored; return stored; }
+  return login();
+}
+function clearAuth() { adminAuth = null; localStorage.removeItem('vagoglass_admin_auth'); }
+
+function showAlert(type, msg) {
+  const area = document.getElementById('alert-area');
+  area.innerHTML = `<div class="alert alert--${type}">${msg}</div>`;
+  if (type === 'success' || type === 'info') {
+    setTimeout(() => { if (area.firstChild) area.innerHTML = ''; }, 6000);
+  }
+}
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+
+async function api(path, opts = {}) {
+  const auth = getAuth();
+  if (!auth) throw new Error('not authenticated');
+  const resp = await fetch(path, {
+    ...opts,
+    headers: {
+      ...(opts.headers || {}),
+      'Authorization': 'Basic ' + auth,
+      ...(opts.body ? { 'Content-Type': 'application/json' } : {})
+    }
+  });
+  if (resp.status === 401 || resp.status === 403) {
+    clearAuth();
+    login();
+    throw new Error('auth failed');
+  }
+  return resp;
+}
+
+async function loadSubs() {
+  const seg = document.getElementById('filter-seg').value;
+  const conf = document.getElementById('filter-confirmed').value;
+  try {
+    const resp = await api(`/api/newsletter/list?segment=${seg}&confirmed=${conf}&page=${currentPage}&page_size=${PAGE_SIZE}`);
+    if (!resp.ok) {
+      showAlert('error', 'Failed to load: HTTP ' + resp.status);
+      return;
+    }
+    const data = await resp.json();
+    totalSubs = data.total || 0;
+    renderStats(data.stats || {});
+    renderTable(data.subscribers || []);
+    renderPager();
+  } catch (e) {
+    showAlert('error', 'Network error: ' + e.message);
+  }
+}
+
+function renderStats(stats) {
+  document.getElementById('stat-total').textContent = stats.total_all ?? 0;
+  document.getElementById('stat-confirmed').textContent = stats.confirmed_count ?? 0;
+  document.getElementById('stat-pending').textContent = stats.pending_count ?? 0;
+  document.getElementById('stat-unsub').textContent = stats.unsubscribed_count ?? 0;
+}
+
+function renderTable(rows) {
+  const tbody = document.getElementById('subs-body');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="8" class="empty">No subscribers found.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td>${escapeHtml(r.email)}</td>
+      <td>${escapeHtml(r.name || '')}</td>
+      <td>${escapeHtml(r.company || '')}</td>
+      <td><span class="badge badge--seg">${escapeHtml(r.segment_interest || 'all')}</span></td>
+      <td>${escapeHtml(r.language || 'ro')}</td>
+      <td>${r.confirmed ? '<span class="badge badge--ok">Confirmed</span>' : '<span class="badge badge--pending">Pending</span>'}</td>
+      <td>${escapeHtml((r.subscribed_at || '').replace('T', ' ').slice(0, 16))}</td>
+      <td>${escapeHtml((r.last_email_sent_at || '—').replace('T', ' ').slice(0, 16))}</td>
+    </tr>
+  `).join('');
+}
+
+function renderPager() {
+  const totalPages = Math.max(1, Math.ceil(totalSubs / PAGE_SIZE));
+  document.getElementById('pager-info').textContent = `Pagina ${currentPage} din ${totalPages} (${totalSubs} total în filtrul curent)`;
+  document.getElementById('prev-btn').disabled = currentPage <= 1;
+  document.getElementById('next-btn').disabled = currentPage >= totalPages;
+}
+function changePage(delta) {
+  currentPage = Math.max(1, currentPage + delta);
+  loadSubs();
+}
+
+function toggleComposer() {
+  document.getElementById('composer').classList.toggle('active');
+}
+
+async function estimateTarget() {
+  const subject = document.getElementById('c-subject').value.trim() || 'estimate';
+  const body = document.getElementById('c-body').value.trim() || '<p>estimate</p>';
+  const seg = document.getElementById('c-seg').value;
+  const lang = document.getElementById('c-lang').value;
+  try {
+    const resp = await api('/api/newsletter/send-campaign', {
+      method: 'POST',
+      body: JSON.stringify({ subject, body_html: body, segment_filter: seg, language: lang, dry_run: true })
+    });
+    const data = await resp.json();
+    if (resp.ok && data.success) {
+      document.getElementById('c-target').textContent = `${data.target_count} destinatari (${data.language}, segment: ${data.segment_filter})`;
+    } else {
+      showAlert('error', 'Estimate failed: ' + (data.error || 'unknown'));
+    }
+  } catch (e) {
+    showAlert('error', 'Estimate error: ' + e.message);
+  }
+}
+
+async function sendCampaign() {
+  const subject = document.getElementById('c-subject').value.trim();
+  const body = document.getElementById('c-body').value.trim();
+  const seg = document.getElementById('c-seg').value;
+  const lang = document.getElementById('c-lang').value;
+  if (!subject || !body) {
+    showAlert('error', 'Subject și body sunt obligatorii.');
+    return;
+  }
+  if (!confirm(`Confirmi trimiterea campaniei „${subject}" către segment=${seg}, lang=${lang}?`)) return;
+  showAlert('info', 'Se trimite… nu închide tab-ul.');
+  try {
+    const resp = await api('/api/newsletter/send-campaign', {
+      method: 'POST',
+      body: JSON.stringify({ subject, body_html: body, segment_filter: seg, language: lang })
+    });
+    const data = await resp.json();
+    if (resp.ok && data.success) {
+      showAlert('success', `Campanie #${data.campaign_id} trimisă: ${data.sent_count}/${data.target_count} succese, ${data.errors_count} erori.`);
+      document.getElementById('c-subject').value = '';
+      document.getElementById('c-body').value = '';
+      loadSubs();
+    } else {
+      showAlert('error', 'Send failed: ' + (data.error || data.details || 'unknown'));
+    }
+  } catch (e) {
+    showAlert('error', 'Send error: ' + e.message);
+  }
+}
+
+// Init
+if (!getAuth()) {
+  document.body.innerHTML = '<div style="padding:3rem;text-align:center;font-family:system-ui">Autentificare anulată. <a href="javascript:location.reload()">Reîncearcă</a>.</div>';
+} else {
+  loadSubs();
+  // Auto-refresh stats every 60s
+  setInterval(loadSubs, 60000);
+}
+</script>
+</body>
+</html>

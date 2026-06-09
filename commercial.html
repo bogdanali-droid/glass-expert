@@ -3,81 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glas Expert — Commercial Real Estate Solutions</title>
-    <link rel="stylesheet" href="css/figma-redesign.css">
+    <title>Curved Glass Facades & Commercial Glass USA | Glass Expert USA</title>
+    <meta name="description" content="Custom curved glass facades, high-rise glazing systems, and ceramic-printed architectural glass for commercial real estate in the USA. European-engineered. 4–6 week lead times. Request a quote from our New Jersey team.">
+    <meta name="keywords" content="curved glass facades USA, commercial glass supplier USA, architectural glass commercial buildings, high-rise glass glazing USA, glass curtain wall USA, ceramic printed glass facades, custom commercial glass New Jersey, office building glass supplier, glass facade developer USA, structural glazing USA">
+    <meta property="og:title" content="Curved Glass Facades for Commercial Real Estate USA | Glass Expert">
+    <meta property="og:description" content="From curtain walls to curved corner glazing — Glass Expert delivers precision commercial glass for US developers and architects. Trusted by SKANSKA and ING Group.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://glassexpertusa.com/commercial.html">
+    <meta property="og:image" content="https://glassexpertusa.com/images/og-commercial.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Curved Glass Facades for Commercial Real Estate USA | Glass Expert">
+    <meta name="twitter:description" content="Custom curved glass facades, high-rise glazing, ceramic-printed curtain walls. European precision. 4–6 week US delivery. New Jersey.">
+    <link rel="stylesheet" href="css/redesign-v2.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <style>
-        :root {
-            --segment-color: #0099CC;
-            --segment-dark: #006B99;
-        }
-        .segment-hero {
-            background: linear-gradient(135deg, var(--segment-dark) 0%, var(--segment-color) 100%);
-            color: white;
-            padding: 6rem 2rem;
-            text-align: center;
-        }
-        .segment-hero h1 {
-            color: white;
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-        .product-card {
-            background: white;
-            border: 2px solid var(--segment-color);
-            padding: 2rem;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-        .product-card:hover {
-            box-shadow: 0 10px 30px rgba(0,153,204,0.2);
-            transform: translateY(-5px);
-        }
-        .product-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        .spec-list {
-            list-style: none;
-            text-align: left;
-        }
-        .spec-list li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #eee;
-            color: #666;
-        }
-        .spec-list li:last-child {
-            border-bottom: none;
-        }
+        :root { --accent-current: #0066FF; }
     </style>
 </head>
 <body>
     <!-- HEADER -->
-    <header class="navbar">
+    <header class="navbar-v2">
         <div class="container">
             <div class="logo">
-                <img src="images/glas-expert-logo.png" alt="Glas Expert Logo" style="height: 50px; margin-bottom: 5px;"><br/>
+                <img src="images/glas-expert-logo.png" alt="Glas Expert Logo" style="height: 40px;">
                 <p class="tagline">Commercial Solutions</p>
             </div>
-            <nav class="nav-menu">
-                <a href="/">← Back to Home</a>
-                <a href="#products">Products</a>
-                <a href="#specs">Specifications</a>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="commercial.html">Commercial</a>
+                <a href="hospitality.html">Hospitality</a>
+                <a href="healthcare.html">Healthcare</a>
+                <a href="education.html">Education</a>
+                <a href="products.html">Products</a>
+                <a href="projects.html">Projects</a>
+                <a href="vagotech.html" style="color: #1a3a52; font-weight: 600;">VAGOTECH</a>
+                <a href="index.html#versatika">Versatika</a>
                 <a href="#contact" class="btn-cta">Get Quote</a>
             </nav>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
         </div>
     </header>
 
     <!-- HERO -->
-    <section class="segment-hero" style="background-image: linear-gradient(135deg, rgba(0,153,204,0.7) 0%, rgba(0,102,153,0.7) 100%), url('images/commercial-hero.jpg'); background-size: cover; background-position: center; position: relative;">
-        <div class="container" style="position: relative; z-index: 2;">
-            <h1>Commercial Real Estate</h1>
+    <section class="segment-hero" style="position: relative;">
+        <img src="images/commercial-hero.jpg" alt="Commercial Real Estate Glass Solutions" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0,60,140,0.55) 0%, rgba(0,40,100,0.30) 100%); z-index:1;"></div>
+        <div class="container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; text-align: center; color: white; width: 90%;">
+            <h1 style="color: white; font-size: 3.5rem; margin-bottom: 1rem;">Commercial Real Estate</h1>
             <p style="font-size: 1.3rem; margin-bottom: 2rem;">Iconic Facades. Architectural Innovation. On Schedule.</p>
             <p>Curved glass, ceramic-printed facades, smart glass—engineered for commercial excellence. 4-6 week delivery. ASTM + EN certified.</p>
         </div>
@@ -119,8 +91,8 @@
 
             <div class="products-grid">
                 <!-- Product 1: Curved Tempered Glass -->
-                <div class="product-card">
-                    <div class="product-icon">🌊</div>
+                <div class="product-card hover-lift glow-on-hover">
+                    <div class="product-icon"><i data-feather="wind"></i></div>
                     <h3 style="color: var(--segment-color);">Curved Tempered Glass</h3>
                     <p>Complex radius curves for iconic facades. Custom-bent to architectural specifications.</p>
                     <ul class="spec-list">
@@ -134,8 +106,8 @@
                 </div>
 
                 <!-- Product 2: Ceramic-Printed Glass -->
-                <div class="product-card">
-                    <div class="product-icon">🎨</div>
+                <div class="product-card hover-lift glow-on-hover">
+                    <div class="product-icon"><i data-feather="pen-tool"></i></div>
                     <h3 style="color: var(--segment-color);">Ceramic-Printed Glass</h3>
                     <p>Custom branded facades with permanent color printing. Architectural branding at scale.</p>
                     <ul class="spec-list">
@@ -148,24 +120,24 @@
                     </ul>
                 </div>
 
-                <!-- Product 3: USA VERSATIKA (placeholder) -->
-                <div class="product-card">
-                    <div class="product-icon">⚡</div>
-                    <h3 style="color: var(--segment-color);">USA VERSATIKA™</h3>
-                    <p>Next-generation smart glass system for commercial buildings. Dynamic performance control.</p>
+                <!-- Product 3: VERSATIKA -->
+                <div class="product-card hover-lift glow-on-hover">
+                    <div class="product-icon"><i data-feather="zap"></i></div>
+                    <h3 style="color: var(--segment-color);">VERSATIKA™ <span style="font-size:0.65rem;background:#E30613;color:white;padding:2px 7px;border-radius:4px;vertical-align:middle;font-weight:700;">Red Dot 2025</span></h3>
+                    <p>Award-winning flush-to-wall door system. Seamless interiors, invisible hinges — for corporate HQs, offices, and executive spaces.</p>
                     <ul class="spec-list">
-                        <li><strong>Technology:</strong> Electrochromic Smart Glass</li>
-                        <li><strong>Features:</strong> On-demand transparency</li>
-                        <li><strong>Energy Savings:</strong> 25-30% HVAC reduction</li>
-                        <li><strong>Control:</strong> Manual or automated</li>
-                        <li><strong>Applications:</strong> Facades, meeting rooms, offices</li>
+                        <li><strong>Award:</strong> Red Dot Design Award 2025</li>
+                        <li><strong>Height:</strong> Up to 3.7 meters</li>
+                        <li><strong>Hinges:</strong> SIMONSWERK TECTUS 3D precision</li>
+                        <li><strong>Finishes:</strong> Glass, mirror, copper mesh, wood veneer</li>
+                        <li><strong>Applications:</strong> Offices, lobbies, executive spaces</li>
                         <li><strong>Lead Time:</strong> 6-8 weeks</li>
                     </ul>
                 </div>
 
                 <!-- Product 4: Low-E Thermal Glass -->
-                <div class="product-card">
-                    <div class="product-icon">🌡️</div>
+                <div class="product-card hover-lift glow-on-hover">
+                    <div class="product-icon"><i data-feather="thermometer"></i></div>
                     <h3 style="color: var(--segment-color);">Low-E Thermal Glass</h3>
                     <p>Energy-efficient glass with thermal performance. IECC 2024 compliant.</p>
                     <ul class="spec-list">
@@ -230,18 +202,19 @@
     <section style="padding: 4rem 2rem;">
         <div class="container">
             <h2 style="text-align: center; color: var(--segment-color); margin-bottom: 2rem;">Featured Project</h2>
-            <div style="background: linear-gradient(135deg, #f0f8ff 0%, #e6f2ff 100%); padding: 3rem; border-radius: 10px; max-width: 800px; margin: 0 auto;">
-                <h3 style="color: var(--segment-color);">Premium Office Tower — Manhattan</h3>
-                <p><strong>Client:</strong> Luxury Commercial Development</p>
-                <p><strong>Project:</strong> 45-story curved glass facade with custom ceramic branding</p>
+            <div class="case-study-card hover-lift" style="background: linear-gradient(135deg, #f0f8ff 0%, #e6f2ff 100%); padding: 3rem; border-radius: 10px; max-width: 800px; margin: 0 auto; border-left: 5px solid var(--segment-color);">
+                <img src="images/proj-futurium.jpg" alt="FUTURIUM Berlin — Glass Architecture" class="case-study-img" style="width: 100%; height: 220px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem;">
+                <h3 style="color: var(--segment-color);">FUTURIUM — Berlin, Germany</h3>
+                <p><strong>Client:</strong> FUTURIUM — Germany's House of Futures</p>
+                <p><strong>Project:</strong> Premium architectural glass for a landmark cultural institution with complex facade requirements</p>
                 <p><strong>Glass Solution:</strong></p>
                 <ul style="color: #666;">
-                    <li>2,400 curved tempered glass panels (custom radius 1200mm)</li>
-                    <li>Ceramic-printed logo on 3 facades</li>
-                    <li>Low-E thermal glass for energy efficiency</li>
-                    <li>Delivered on schedule: 4.5 weeks</li>
+                    <li>Custom curved tempered glass panels for signature facade elements</li>
+                    <li>Ceramic-printed glass with custom architectural patterns</li>
+                    <li>High-performance Low-E thermal glass throughout</li>
+                    <li>ASTM + EN dual-certified for international specification compliance</li>
                 </ul>
-                <p><strong>Result:</strong> Iconic facade completed on time. Zero rework. 99.8% first-pass quality.</p>
+                <p><strong>Result:</strong> Iconic facade delivered on schedule. European precision engineering proved on a world-class landmark — the same quality now available for US projects in 4-6 weeks.</p>
             </div>
         </div>
     </section>
@@ -290,7 +263,7 @@
                             <option value="">-- Select --</option>
                             <option value="facade">Glass Facade</option>
                             <option value="curved">Curved Glass</option>
-                            <option value="smartglass">Smart Glass (USA VERSATIKA)</option>
+                            <option value="smartglass">VERSATIKA Flush-to-Wall Doors</option>
                             <option value="mixed">Mixed Solutions</option>
                         </select>
                     </div>
@@ -326,35 +299,41 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="footer" style="background: #333; color: white;">
+    <footer class="footer-v2">
         <div class="container">
-            <div class="footer-content" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; padding: 3rem 0;">
-                <div>
+            <div class="footer-content">
+                <div class="footer-section">
                     <h4>Glas Expert USA</h4>
                     <p>Commercial glass solutions with European precision.</p>
                 </div>
-                <div>
+                <div class="footer-section">
                     <h4>Solutions</h4>
-                    <ul style="list-style: none;">
-                        <li><a href="#" style="color: #0099CC;">Curved Glass</a></li>
-                        <li><a href="#" style="color: #0099CC;">Ceramic-Printed</a></li>
-                        <li><a href="#" style="color: #0099CC;">Smart Glass</a></li>
-                        <li><a href="#" style="color: #0099CC;">Low-E Thermal</a></li>
+                    <ul>
+                        <li><a href="#products">Curved Glass</a></li>
+                        <li><a href="#products">Ceramic-Printed</a></li>
+                        <li><a href="#products">Smart Glass</a></li>
+                        <li><a href="#products">Low-E Thermal</a></li>
                     </ul>
                 </div>
-                <div>
+                <div class="footer-section">
                     <h4>Contact</h4>
-                    <p>📧 commercial@glas-expert.com<br>
-                    📞 +1-800-GLASS-EXPERT<br>
-                    🌐 glas-expert.com</p>
+                    <p class="footer-contact">
+                        <a href="mailto:office.us@xglass.eu" style="color: inherit;">office.us@xglass.eu</a><br>
+                        <a href="tel:+16094088100" style="color: inherit;">+1-609-408-8100</a><br>
+                        <strong>USA:</strong> New Jersey<br>
+                        <strong>DE:</strong> Neubiberg, M&uuml;nchen<br>
+                        <strong>RO:</strong> &Scedil;os. Olteni&tcedil;ei 202, Pope&scedil;ti-Leordeni
+                    </p>
                 </div>
             </div>
-            <div style="border-top: 1px solid #555; padding-top: 2rem; text-align: center; color: #999;">
+            <div class="footer-bottom">
                 <p>&copy; 2026 Glas Expert USA. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script src="js/script.js"></script>
+    <!-- Site-wide analytics tracking (segment auto-detected) -->
+    <script src="js/site-tracking.js"></script>
 </body>
 </html>

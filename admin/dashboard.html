@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — VAGOGLASS</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --steel: #2B2F36;
+    --cyan: #00A3C4;
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --text: #1a1d22;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  header {
+    background: var(--steel);
+    color: white;
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header h1 { font-size: 1.1rem; font-weight: 600; }
+  .logout {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+  }
+  .logout:hover { background: rgba(255,255,255,0.1); }
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+  main > h2 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    color: var(--steel);
+  }
+  main > p { color: var(--muted); margin-bottom: 2.5rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .module {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  }
+  .module:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+    border-color: var(--cyan);
+  }
+  .module-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--cyan);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .module h3 { font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--steel); }
+  .module p { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+  .brand-pill {
+    display: inline-block;
+    padding: 0.25rem 0.7rem;
+    background: var(--cyan);
+    color: white;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="brand-pill">VAGOGLASS</span> &nbsp; Admin Dashboard</h1>
+  <button class="logout" onclick="logout()">Logout</button>
+</header>
+<main>
+  <h2>Bun venit</h2>
+  <p>Alege un modul administrativ pentru a continua.</p>
+
+  <div class="grid">
+    <a class="module" href="/admin/vagotech-analytics.html">
+      <div class="module-icon">A</div>
+      <h3>Analytics</h3>
+      <p>Trafic site, vizualizări produse, evenimente VAGOTECH & Glass Expert.</p>
+    </a>
+    <a class="module" href="/admin/vagoglass-media.html">
+      <div class="module-icon">M</div>
+      <h3>Media Library</h3>
+      <p>Upload, replace şi delete imagini VAGOGLASS (Cloudflare R2).</p>
+    </a>
+    <a class="module" href="/admin/newsletter.html">
+      <div class="module-icon">N</div>
+      <h3>Newsletter</h3>
+      <p>Listă abonaţi, campanii email, export CSV.</p>
+    </a>
+  </div>
+</main>
+
+<script>
+(async () => {
+  try {
+    const r = await fetch('/api/admin/auth-check');
+    const data = await r.json();
+    if (!data.authenticated) location.href = '/admin/index.html';
+  } catch (_) { location.href = '/admin/index.html'; }
+})();
+
+async function logout() {
+  try { await fetch('/api/admin/auth-check', { method: 'DELETE' }); } catch (_) {}
+  location.href = '/admin/index.html';
+}
+</script>
+</body>
+</html>

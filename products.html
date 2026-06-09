@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glas Expert USA — Full Product Range</title>
+    <link rel="stylesheet" href="css/redesign-v2.css">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <meta name="description" content="Complete range of premium architectural glass: EVOPRINT, EVOLAM, EVODUR, EVOKERAM, EVOTOP, EVOCLEAN, EVOTECH — 25+ years of glass innovation.">
+    <style>
+        .products-hero {
+            background: linear-gradient(135deg, #0A0A0A 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            padding: 7rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .products-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 60% 40%, rgba(0,212,255,0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .products-hero h1 {
+            color: white;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+        }
+        .products-hero p {
+            color: rgba(255,255,255,0.75);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+        }
+        .hero-accent {
+            display: inline-block;
+            background: linear-gradient(90deg, #00D4FF, #0066FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .product-families {
+            padding: 5rem 2rem;
+            background: #f8f9fa;
+        }
+        .family-title {
+            text-align: center;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 0.5rem;
+        }
+        .family-heading {
+            text-align: center;
+            font-size: 2rem;
+            color: #111;
+            margin-bottom: 0.75rem;
+        }
+        .family-intro {
+            text-align: center;
+            color: #666;
+            max-width: 650px;
+            margin: 0 auto 3.5rem;
+        }
+        .products-full-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.75rem;
+            margin-top: 2rem;
+        }
+        .product-full-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid #e8e8e8;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-full-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.10);
+        }
+        .product-full-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--card-accent, #0066FF);
+        }
+        .product-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 50px;
+            background: var(--badge-bg, #e8f0fe);
+            color: var(--badge-color, #0066FF);
+            margin-bottom: 1rem;
+        }
+        .product-full-card h3 {
+            font-size: 1.2rem;
+            color: #111;
+            margin-bottom: 0.4rem;
+        }
+        .product-subtitle {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 0.75rem;
+            font-style: italic;
+        }
+        .product-full-card p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .product-applications {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .product-applications li {
+            font-size: 0.875rem;
+            color: #666;
+            padding: 0.25rem 0;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+        .product-applications li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--card-accent, #0066FF);
+            font-size: 0.75rem;
+        }
+        .innovative-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #FF4F00;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .section-divider {
+            padding: 4rem 2rem;
+            background: #0A0A0A;
+            color: white;
+            text-align: center;
+        }
+        .section-divider h2 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .section-divider p {
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .cta-products {
+            background: linear-gradient(135deg, #0066FF 0%, #0040CC 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+        .cta-products h2 { color: white; font-size: 2.2rem; margin-bottom: 1rem; }
+        .cta-products p { color: rgba(255,255,255,0.85); font-size: 1.1rem; margin-bottom: 2rem; }
+        .btn-white {
+            display: inline-block;
+            background: white;
+            color: #0066FF;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+        .btn-outline-white {
+            display: inline-block;
+            background: transparent;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1rem;
+            border: 2px solid white;
+            margin-left: 1rem;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .btn-outline-white:hover {
+            background: white;
+            color: #0066FF;
+        }
+        @media (max-width: 600px) {
+            .btn-outline-white { margin-left: 0; margin-top: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER & NAVIGATION -->
+    <header class="navbar-v2">
+        <div class="container">
+            <div class="logo">
+                <img src="images/glas-expert-logo.png" alt="Glas Expert Logo" style="height: 40px;">
+                <p class="tagline">Product Range</p>
+            </div>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="commercial.html">Commercial</a>
+                <a href="hospitality.html">Hospitality</a>
+                <a href="healthcare.html">Healthcare</a>
+                <a href="education.html">Education</a>
+                <a href="products.html" style="font-weight:700;">Products</a>
+                <a href="projects.html">Projects</a>
+                <a href="vagotech.html" style="color: #1a3a52; font-weight: 600;">VAGOTECH</a>
+                <a href="index.html#versatika">Versatika</a>
+                <a href="index.html#contact" class="btn-cta">Contact</a>
+            </nav>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="products-hero">
+        <div class="container">
+            <p style="color: rgba(255,255,255,0.55); font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem;">xglass.eu &mdash; Engineered in Europe &middot; Delivered to USA</p>
+            <h1>25+ Years of Glass Innovation<br><span class="hero-accent">From Better to Best</span></h1>
+            <p>14 proprietary glass technologies. Every product engineered for precision, durability, and architectural excellence. Used in 1,000+ projects across 30 countries.</p>
+            <div style="display: flex; gap: 2rem; justify-content: center; margin-top: 3rem; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 800; color: #00D4FF;">14</div>
+                    <div style="color: #aaa; font-size: 0.9rem;">Product Lines</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 800; color: #00D4FF;">25+</div>
+                    <div style="color: #aaa; font-size: 0.9rem;">Years R&amp;D</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 800; color: #00D4FF;">1,000+</div>
+                    <div style="color: #aaa; font-size: 0.9rem;">Projects Delivered</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; font-weight: 800; color: #00D4FF;">30</div>
+                    <div style="color: #aaa; font-size: 0.9rem;">Countries</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRINTED GLASS -->
+    <section class="product-families">
+        <div class="container">
+            <p class="family-title">Printed &amp; Decorative</p>
+            <h2 class="family-heading">EVOPRINT Family</h2>
+            <p class="family-intro">Digital ceramic printing technology fused directly into glass for permanent, high-resolution architectural graphics and colors.</p>
+
+            <div class="products-full-grid">
+                <!-- EVOPRINT -->
+                <div class="product-full-card" style="--card-accent: #E30613;">
+                    <span class="product-badge" style="--badge-bg: #fde8e8; --badge-color: #E30613;">EVOPRINT</span>
+                    <h3>EVOPRINT</h3>
+                    <p class="product-subtitle">Ceramic-Printed Glass</p>
+                    <p>Advanced digital printing technology that applies ceramic inks directly onto glass and fires them at high temperatures. The result is a permanent, UV-stable, scratch-resistant image that becomes part of the glass itself — not a film or coating.</p>
+                    <ul class="product-applications">
+                        <li>Architectural facades and curtain walls</li>
+                        <li>Interior partitions and feature walls</li>
+                        <li>Branded corporate spaces</li>
+                        <li>Decorative panels and art glass</li>
+                        <li>Spandrel glass and sun shading</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LAMINATED GLASS -->
+    <section class="section-divider">
+        <h2>EVOLAM Family</h2>
+        <p>Multi-layer laminated glass systems — from standard safety glass to curved architectural masterpieces and smart switchable glass.</p>
+    </section>
+
+    <section class="product-families" style="padding-top: 3rem;">
+        <div class="container">
+            <div class="products-full-grid">
+
+                <!-- EVOLAM -->
+                <div class="product-full-card" style="--card-accent: #0066FF;">
+                    <span class="product-badge" style="--badge-bg: #e8f0fe; --badge-color: #0066FF;">EVOLAM</span>
+                    <h3>EVOLAM</h3>
+                    <p class="product-subtitle">Laminated Safety Glass</p>
+                    <p>Two or more glass layers bonded with a PVB or EVA interlayer. When broken, fragments are held in place by the interlayer, drastically reducing injury risk. Meets the highest safety standards for public and high-traffic environments.</p>
+                    <ul class="product-applications">
+                        <li>Overhead glazing and skylights</li>
+                        <li>Facades and curtain walls</li>
+                        <li>Shopfronts and public spaces</li>
+                        <li>Balustrades and staircases</li>
+                        <li>Acoustic barriers</li>
+                    </ul>
+                </div>
+
+                <!-- EVOLAM T -->
+                <div class="product-full-card" style="--card-accent: #0066FF;">
+                    <span class="product-badge" style="--badge-bg: #e8f0fe; --badge-color: #0066FF;">EVOLAM T</span>
+                    <h3>EVOLAM T</h3>
+                    <p class="product-subtitle">Tempered Laminated Glass</p>
+                    <p>Combines the strength of tempered glass with the safety of lamination. Each layer is thermally tempered before lamination, delivering superior impact resistance while maintaining the structural integrity of laminated glass.</p>
+                    <ul class="product-applications">
+                        <li>High-performance facades</li>
+                        <li>Security glazing</li>
+                        <li>Hurricane and storm protection</li>
+                        <li>Floors and walkways</li>
+                        <li>Structural glazing applications</li>
+                    </ul>
+                </div>
+
+                <!-- EVOLAM K -->
+                <div class="product-full-card" style="--card-accent: #6C5CE7;">
+                    <span class="product-badge" style="--badge-bg: #f0eeff; --badge-color: #6C5CE7;">EVOLAM K</span>
+                    <h3>EVOLAM K</h3>
+                    <p class="product-subtitle">Colored Film Laminated Glass</p>
+                    <p>Laminated glass with colored PVB interlayers that create vibrant, translucent color effects. The color is embedded within the glass structure — it cannot fade, peel, or scratch. Available in a full spectrum of colors and transparencies.</p>
+                    <ul class="product-applications">
+                        <li>Designer partitions and feature walls</li>
+                        <li>Colored facades and canopies</li>
+                        <li>Hospitality and retail interiors</li>
+                        <li>Branded architectural elements</li>
+                        <li>Artistic installations</li>
+                    </ul>
+                </div>
+
+                <!-- EVOLAM DESIGN -->
+                <div class="product-full-card" style="--card-accent: #FF6B35;">
+                    <span class="product-badge" style="--badge-bg: #fff0eb; --badge-color: #FF6B35;">EVOLAM DESIGN</span>
+                    <h3>EVOLAM DESIGN</h3>
+                    <p class="product-subtitle">Insert Laminated Glass</p>
+                    <p>Unique decorative elements — fabrics, metals, botanicals, woven materials, or custom inserts — are encapsulated between glass layers. Creates one-of-a-kind glass panels that function as architectural art.</p>
+                    <ul class="product-applications">
+                        <li>Luxury hotel lobbies and suites</li>
+                        <li>High-end retail and showrooms</li>
+                        <li>Corporate headquarters</li>
+                        <li>Bespoke residential projects</li>
+                        <li>Museum and gallery installations</li>
+                    </ul>
+                </div>
+
+                <!-- EVOLAM CONTOUR -->
+                <div class="product-full-card" style="--card-accent: #00B87A;">
+                    <span class="product-badge" style="--badge-bg: #e6fff5; --badge-color: #00B87A;">EVOLAM CONTOUR</span>
+                    <h3>EVOLAM CONTOUR</h3>
+                    <p class="product-subtitle">Curved Laminated Glass</p>
+                    <p>Laminated glass bent to custom curves and contours. Both layers are formed simultaneously, ensuring perfect alignment and optical clarity. Enables dramatic architectural shapes without compromising safety performance.</p>
+                    <ul class="product-applications">
+                        <li>Curved facades and bay windows</li>
+                        <li>Architectural canopies and atriums</li>
+                        <li>Cylindrical and freeform structures</li>
+                        <li>Luxury interiors with curved walls</li>
+                        <li>Custom bespoke architectural projects</li>
+                    </ul>
+                </div>
+
+                <!-- EVOLAM SMART -->
+                <div class="product-full-card" style="--card-accent: #00D4FF; position: relative;">
+                    <div class="innovative-badge">Most Innovative</div>
+                    <span class="product-badge" style="--badge-bg: #e0faff; --badge-color: #00A8CC;">EVOLAM SMART</span>
+                    <h3>EVOLAM SMART</h3>
+                    <p class="product-subtitle">Smart Switchable Glass</p>
+                    <p>Revolutionary PDLC (Polymer Dispersed Liquid Crystal) technology laminated between glass layers. A simple electrical signal instantly switches the glass from fully transparent to fully opaque — on demand, without blinds or curtains. Energy efficient, architecturally pure.</p>
+                    <ul class="product-applications">
+                        <li>Corporate boardrooms and meeting rooms</li>
+                        <li>Hospital patient privacy</li>
+                        <li>Hotel spa and bathroom glass</li>
+                        <li>Retail window displays</li>
+                        <li>Smart home privacy glass</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TEMPERED GLASS -->
+    <section class="section-divider">
+        <h2>EVODUR Family</h2>
+        <p>Thermally processed glass with exceptional strength — from full tempered safety glass to semi-tempered structural glazing.</p>
+    </section>
+
+    <section class="product-families" style="padding-top: 3rem;">
+        <div class="container">
+            <div class="products-full-grid">
+
+                <!-- EVODUR ESG -->
+                <div class="product-full-card" style="--card-accent: #E30613;">
+                    <span class="product-badge" style="--badge-bg: #fde8e8; --badge-color: #E30613;">EVODUR ESG</span>
+                    <h3>EVODUR ESG</h3>
+                    <p class="product-subtitle">Tempered Safety Glass</p>
+                    <p>Float glass heated to 650&deg;C then rapidly quenched creates compressive stresses that give tempered glass 4-5x the mechanical strength of standard glass. When broken, it shatters into small, blunt fragments — dramatically reducing injury risk. Compliant with EN 12150 and ASTM C1048.</p>
+                    <ul class="product-applications">
+                        <li>Facades, curtain walls, and shopfronts</li>
+                        <li>Internal partitions and doors</li>
+                        <li>Balustrades and railings</li>
+                        <li>Furniture glass (tabletops, shelves)</li>
+                        <li>Automotive and transportation</li>
+                    </ul>
+                </div>
+
+                <!-- EVODUR TVG -->
+                <div class="product-full-card" style="--card-accent: #E30613;">
+                    <span class="product-badge" style="--badge-bg: #fde8e8; --badge-color: #E30613;">EVODUR TVG</span>
+                    <h3>EVODUR TVG</h3>
+                    <p class="product-subtitle">Semi-Tempered Glass (Heat Strengthened)</p>
+                    <p>Heat-strengthened glass processed at lower temperatures than full tempering. Provides approximately twice the strength of annealed glass while breaking into larger fragments — ideal when fragments must remain in place after breakage. Required for structural glazing and laminated applications.</p>
+                    <ul class="product-applications">
+                        <li>Structural glazing and glass fins</li>
+                        <li>Overhead glazing substrates</li>
+                        <li>Lamination base for facades</li>
+                        <li>Large-format architectural panels</li>
+                        <li>Point-fixed glazing systems</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CERAMIC ENAMELED GLASS -->
+    <section class="section-divider">
+        <h2>EVOKERAM Family</h2>
+        <p>Ceramic enamel applied and fired onto glass — permanent color and opacity for architectural cladding and spandrel applications.</p>
+    </section>
+
+    <section class="product-families" style="padding-top: 3rem;">
+        <div class="container">
+            <div class="products-full-grid">
+
+                <!-- EVOKERAM R -->
+                <div class="product-full-card" style="--card-accent: #FF6B35;">
+                    <span class="product-badge" style="--badge-bg: #fff0eb; --badge-color: #FF6B35;">EVOKERAM R</span>
+                    <h3>EVOKERAM R</h3>
+                    <p class="product-subtitle">Ceramic Enameled Glass — Roller Applied</p>
+                    <p>Ceramic enamel applied via precision rollers for perfectly uniform opaque coverage, then fired to create a permanent bond with the glass surface. Ideal for large spandrel panels requiring consistent color across an entire facade.</p>
+                    <ul class="product-applications">
+                        <li>Spandrel panels in curtain wall systems</li>
+                        <li>Facade cladding and rainscreen</li>
+                        <li>Opaque architectural glazing</li>
+                        <li>Solar control facades</li>
+                        <li>Interior wall cladding</li>
+                    </ul>
+                </div>
+
+                <!-- EVOKERAM S -->
+                <div class="product-full-card" style="--card-accent: #FF6B35;">
+                    <span class="product-badge" style="--badge-bg: #fff0eb; --badge-color: #FF6B35;">EVOKERAM S</span>
+                    <h3>EVOKERAM S</h3>
+                    <p class="product-subtitle">Ceramic Screen-Printed Glass</p>
+                    <p>Ceramic paste applied through precision silk-screen printing, enabling complex patterns, gradients, and designs to be permanently fused onto glass. Combines decorative flexibility with the durability of ceramic enamel — patterns rated for 25+ years of exterior exposure.</p>
+                    <ul class="product-applications">
+                        <li>Patterned facade elements</li>
+                        <li>Gradient frit and shading patterns</li>
+                        <li>Decorative architectural glass</li>
+                        <li>Privacy screens with design patterns</li>
+                        <li>Custom branding and wayfinding</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FUNCTIONAL GLASS -->
+    <section class="section-divider">
+        <h2>Functional Performance Glass</h2>
+        <p>Specialized coatings and treatments that solve real-world problems — from furniture scratch resistance to self-cleaning exteriors and smart electrical transmission.</p>
+    </section>
+
+    <section class="product-families" style="padding-top: 3rem;">
+        <div class="container">
+            <div class="products-full-grid">
+
+                <!-- EVOTOP -->
+                <div class="product-full-card" style="--card-accent: #6C5CE7;">
+                    <span class="product-badge" style="--badge-bg: #f0eeff; --badge-color: #6C5CE7;">EVOTOP</span>
+                    <h3>EVOTOP</h3>
+                    <p class="product-subtitle">Anti-Scratch Glass</p>
+                    <p>Specialized hardness coating applied to glass surfaces used in furniture and high-contact applications. Dramatically increases surface resistance to scratches, abrasion, and everyday wear — extending the aesthetic life of glass furniture and table tops without compromising clarity or touch.</p>
+                    <ul class="product-applications">
+                        <li>Glass table tops and desks</li>
+                        <li>Furniture shelving and cabinets</li>
+                        <li>Retail display cases</li>
+                        <li>High-traffic countertops</li>
+                        <li>Luxury residential and hotel furniture</li>
+                    </ul>
+                </div>
+
+                <!-- EVOCLEAN -->
+                <div class="product-full-card" style="--card-accent: #00B87A;">
+                    <span class="product-badge" style="--badge-bg: #e6fff5; --badge-color: #00B87A;">EVOCLEAN</span>
+                    <h3>EVOCLEAN</h3>
+                    <p class="product-subtitle">Self-Cleaning Glass</p>
+                    <p>Photocatalytic and hydrophilic coating that uses UV light to break down organic dirt, then allows rain water to sheet off and carry particles away — leaving glass clean. The anti-calcification properties prevent mineral deposits, dramatically reducing maintenance costs for exterior glazing.</p>
+                    <ul class="product-applications">
+                        <li>High-rise facade glass (hard to clean)</li>
+                        <li>Skylights and canopies</li>
+                        <li>Solar panels protective glass</li>
+                        <li>Greenhouse glazing</li>
+                        <li>Sustainable building certification projects</li>
+                    </ul>
+                </div>
+
+                <!-- EVOTECH -->
+                <div class="product-full-card" style="--card-accent: #0066FF;">
+                    <span class="product-badge" style="--badge-bg: #e8f0fe; --badge-color: #0066FF;">EVOTECH</span>
+                    <h3>EVOTECH</h3>
+                    <p class="product-subtitle">Industrial / Electrical Command Glass</p>
+                    <p>Conductive coatings applied to glass enable electrical current transmission directly through the glass surface. Enables glass to function as a heating element, antenna, touch interface, or part of a smart building control system — without visible wiring.</p>
+                    <ul class="product-applications">
+                        <li>Heated glass (anti-frost, anti-condensation)</li>
+                        <li>Touch-sensitive glass interfaces</li>
+                        <li>Smart building energy management</li>
+                        <li>Industrial process glazing</li>
+                        <li>Integrated antenna systems</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-products">
+        <div class="container">
+            <h2>Ready to Specify Your Glass?</h2>
+            <p>Our technical team will help you select the right product for your project — from specs to delivery.</p>
+            <div>
+                <a href="index.html#contact" class="btn-white">Request a Quote</a>
+                <a href="projects.html" class="btn-outline-white">View Our Projects</a>
+            </div>
+            <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.7;">
+                <a href="tel:+16094088100" style="color: white;">+1-609-408-8100</a> &nbsp;&middot;&nbsp;
+                <a href="mailto:office.us@xglass.eu" style="color: white;">office.us@xglass.eu</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-v2">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Glas Expert</h4>
+                    <p>European premium architectural glass supplier.</p>
+                    <p class="footer-contact">
+                        <a href="mailto:office.us@xglass.eu" style="color: inherit;">office.us@xglass.eu</a><br>
+                        <a href="tel:+16094088100" style="color: inherit;">+1-609-408-8100</a><br>
+                        <a href="https://xglass.eu" target="_blank" style="color: inherit;">xglass.eu</a>
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Offices</h4>
+                    <p class="footer-contact" style="font-size: 0.9rem; line-height: 1.8;">
+                        <strong>USA:</strong> New Jersey<br>
+                        <strong>DE:</strong> Neubiberg, M&uuml;nchen<br>
+                        <strong>RO:</strong> &Scedil;os. Olteni&tcedil;ei 202,<br>Pope&scedil;ti-Leordeni
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="#evoprint">EVOPRINT</a></li>
+                        <li><a href="#evolam">EVOLAM Family</a></li>
+                        <li><a href="#evodur">EVODUR</a></li>
+                        <li><a href="#evokeram">EVOKERAM</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="projects.html">Projects Portfolio</a></li>
+                        <li><a href="index.html#versatika">Versatika</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Glas Expert. All rights reserved. | <a href="#">Privacy Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <!-- Site-wide analytics tracking (segment auto-detected) -->
+    <script src="js/site-tracking.js"></script>
+</body>
+</html>

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard — Glass Expert &amp; VAGOTECH</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+            background: #f9fafb;
+            color: #111827;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a3a52 0%, #2d5a7a 100%);
+            color: white;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid #1a3a52;
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a3a52;
+        }
+
+        .stat-card .subtext {
+            font-size: 0.85rem;
+            color: #9ca3af;
+            margin-top: 0.5rem;
+        }
+
+        .chart-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .chart-section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #111827;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+
+        .table-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        .table-section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #111827;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #f3f4f6;
+        }
+
+        th {
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            color: #6b7280;
+            font-size: 0.9rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.95rem;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        button {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .btn-refresh {
+            background: #1a3a52;
+            color: white;
+        }
+
+        .btn-refresh:hover {
+            background: #2d5a7a;
+        }
+
+        .btn-logout {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-logout:hover {
+            background: #dc2626;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #7f1d1d;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #dc2626;
+        }
+
+        .refresh-time {
+            font-size: 0.85rem;
+            color: #9ca3af;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-container {
+                height: 250px;
+            }
+
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Analytics Dashboard</h1>
+        <p>Site-wide visitor tracking and engagement metrics — Glass Expert &amp; VAGOTECH</p>
+    </div>
+
+    <div class="container">
+        <div class="button-group">
+            <label for="segment-select" style="align-self:center;font-weight:600;">Segment:</label>
+            <select id="segment-select" onchange="onSegmentChange()" style="padding:0.5rem 0.75rem;border-radius:6px;border:1px solid #ccc;font-size:0.95rem;">
+                <option value="all">All (consolidated)</option>
+                <option value="glassexpert">Glass Expert</option>
+                <option value="vagotech">VAGOTECH</option>
+            </select>
+            <button class="btn-refresh" onclick="refreshData()">↻ Refresh Data</button>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+        </div>
+
+        <div id="error-container"></div>
+
+        <!-- Summary Stats -->
+        <div class="grid">
+            <div class="stat-card">
+                <h3>Total Visitors (Last 30 Days)</h3>
+                <div class="value" id="stat-visitors">-</div>
+                <div class="subtext">Unique visitor IDs</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Events</h3>
+                <div class="value" id="stat-events">-</div>
+                <div class="subtext">Page views, clicks, exits</div>
+            </div>
+            <div class="stat-card">
+                <h3>Avg Visits per User</h3>
+                <div class="value" id="stat-avg-visits">-</div>
+                <div class="subtext">Return visitor rate</div>
+            </div>
+            <div class="stat-card">
+                <h3>Last Activity</h3>
+                <div class="value" id="stat-last-event" style="font-size: 1rem;">-</div>
+                <div class="subtext">Latest event timestamp</div>
+            </div>
+        </div>
+
+        <!-- Product Metrics -->
+        <div class="chart-section">
+            <h2>Top Products by Clicks</h2>
+            <div class="chart-container">
+                <canvas id="productChart"></canvas>
+            </div>
+            <div class="table-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Total Clicks</th>
+                            <th>Total Views</th>
+                            <th>Last Clicked</th>
+                        </tr>
+                    </thead>
+                    <tbody id="product-table-body">
+                        <tr><td colspan="4" class="loading">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Page Metrics -->
+        <div class="chart-section">
+            <h2>Top Pages by Views</h2>
+            <div class="chart-container">
+                <canvas id="pageChart"></canvas>
+            </div>
+            <div class="table-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Page Path</th>
+                            <th>Total Views</th>
+                            <th>Unique Visitors</th>
+                            <th>Avg Duration (sec)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="page-table-body">
+                        <tr><td colspan="4" class="loading">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Recent Events -->
+        <div class="table-section">
+            <h2>Recent Events (Last 100)</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Event Type</th>
+                            <th>Product / Page</th>
+                            <th>Device</th>
+                            <th>Duration (sec)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="events-table-body">
+                        <tr><td colspan="5" class="loading">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="refresh-time">Last refreshed: <span id="refresh-timestamp">Never</span></div>
+        </div>
+    </div>
+
+    <script>
+        let productChart = null;
+        let pageChart = null;
+        let adminPassword = null;
+
+        // Basic Auth login
+        function login() {
+            const password = prompt('Enter admin password:');
+            if (!password) return;
+
+            const auth = btoa('admin:' + password);
+            localStorage.setItem('vagotech_admin_auth', auth);
+            adminPassword = auth;
+            refreshData();
+        }
+
+        // Get auth header
+        function getAuthHeader() {
+            let auth = localStorage.getItem('vagotech_admin_auth');
+            if (!auth) {
+                login();
+                return;
+            }
+            adminPassword = auth;
+            return auth;
+        }
+
+        // Currently selected segment filter (all | glassexpert | vagotech)
+        let currentSegment = 'all';
+
+        function onSegmentChange() {
+            currentSegment = document.getElementById('segment-select').value;
+            refreshData();
+        }
+
+        // Fetch analytics data
+        async function fetchAnalytics(type) {
+            const auth = getAuthHeader();
+            if (!auth) return null;
+
+            try {
+                const response = await fetch(`/api/analytics/analytics?type=${type}&segment=${currentSegment}`, {
+                    headers: { 'Authorization': 'Basic ' + auth }
+                });
+
+                if (response.status === 401 || response.status === 403) {
+                    localStorage.removeItem('vagotech_admin_auth');
+                    login();
+                    return null;
+                }
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                return await response.json();
+            } catch (error) {
+                showError('Failed to fetch analytics: ' + error.message);
+                return null;
+            }
+        }
+
+        // Show error
+        function showError(message) {
+            const container = document.getElementById('error-container');
+            container.innerHTML = `<div class="error">${message}</div>`;
+            setTimeout(() => { container.innerHTML = ''; }, 5000);
+        }
+
+        // Update summary stats
+        async function updateSummary() {
+            const data = await fetchAnalytics('summary');
+            if (!data || !data.summary) return;
+
+            const s = data.summary;
+            document.getElementById('stat-visitors').textContent = s.total_visitors || '0';
+            document.getElementById('stat-events').textContent = s.total_events || '0';
+            document.getElementById('stat-avg-visits').textContent = (s.avg_visits_per_user || '0');
+            document.getElementById('stat-last-event').textContent = s.last_event_time ? new Date(s.last_event_time).toLocaleString() : 'No events';
+        }
+
+        // Update product metrics
+        async function updateProducts() {
+            const data = await fetchAnalytics('products');
+            if (!data || !data.products) return;
+
+            const products = data.products || [];
+
+            // Update table
+            const tbody = document.getElementById('product-table-body');
+            if (products.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="loading">No product data yet</td></tr>';
+            } else {
+                tbody.innerHTML = products.map(p => `
+                    <tr>
+                        <td>${p.product_name || 'Unknown'}</td>
+                        <td>${p.total_clicks || 0}</td>
+                        <td>${p.total_views || 0}</td>
+                        <td>${p.last_clicked ? new Date(p.last_clicked).toLocaleString() : 'Never'}</td>
+                    </tr>
+                `).join('');
+            }
+
+            // Update chart
+            const labels = products.slice(0, 8).map(p => p.product_name || 'Unknown');
+            const clicks = products.slice(0, 8).map(p => p.total_clicks || 0);
+
+            if (productChart) productChart.destroy();
+            const ctx = document.getElementById('productChart').getContext('2d');
+            productChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Clicks',
+                        data: clicks,
+                        backgroundColor: '#1a3a52',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+
+        // Update page metrics
+        async function updatePages() {
+            const data = await fetchAnalytics('pages');
+            if (!data || !data.pages) return;
+
+            const pages = data.pages || [];
+
+            // Update table
+            const tbody = document.getElementById('page-table-body');
+            if (pages.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="loading">No page data yet</td></tr>';
+            } else {
+                tbody.innerHTML = pages.map(p => `
+                    <tr>
+                        <td>${p.page_path}</td>
+                        <td>${p.total_views || 0}</td>
+                        <td>${p.unique_visitors || 0}</td>
+                        <td>${p.avg_duration_seconds || 0}</td>
+                    </tr>
+                `).join('');
+            }
+
+            // Update chart
+            const labels = pages.slice(0, 8).map(p => p.page_path);
+            const views = pages.slice(0, 8).map(p => p.total_views || 0);
+
+            if (pageChart) pageChart.destroy();
+            const ctx = document.getElementById('pageChart').getContext('2d');
+            pageChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Page Views',
+                        data: views,
+                        borderColor: '#1a3a52',
+                        backgroundColor: 'rgba(26, 58, 82, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+
+        // Update recent events
+        async function updateEvents() {
+            const data = await fetchAnalytics('events');
+            if (!data || !data.recent_events) return;
+
+            const events = data.recent_events || [];
+            const tbody = document.getElementById('events-table-body');
+
+            if (events.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="loading">No events yet</td></tr>';
+            } else {
+                tbody.innerHTML = events.map(e => `
+                    <tr>
+                        <td>${new Date(e.timestamp).toLocaleString()}</td>
+                        <td>${e.event_type}</td>
+                        <td>${e.product_name || e.page_path || '-'}</td>
+                        <td>${e.device_type || 'Unknown'}</td>
+                        <td>${e.duration_seconds || 0}</td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // Refresh all data
+        async function refreshData() {
+            document.getElementById('refresh-timestamp').textContent = new Date().toLocaleTimeString();
+            await Promise.all([
+                updateSummary(),
+                updateProducts(),
+                updatePages(),
+                updateEvents()
+            ]);
+        }
+
+        // Logout
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('vagotech_admin_auth');
+                location.reload();
+            }
+        }
+
+        // Check auth and load
+        window.addEventListener('load', () => {
+            const auth = localStorage.getItem('vagotech_admin_auth');
+            if (!auth) {
+                login();
+            } else {
+                adminPassword = auth;
+                refreshData();
+                // Auto-refresh every 30 seconds
+                setInterval(refreshData, 30000);
+            }
+        });
+    </script>
+</body>
+</html>
