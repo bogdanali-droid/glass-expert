@@ -532,3 +532,85 @@ Goal: own the technical, long-tail queries a rail engineer or buyer types while 
 - **Partner & ecosystem links:** cross-link from xglass.eu and versatika.com to vagotech.html; co-marketing with any OEM/distributor partners as they sign.
 - **Tender/RFI footprint:** ensure VAGOTECH is registered as a qualified supplier in relevant e-procurement platforms (SEAP/SICAP in RO and equivalents in target markets) — this is both a sales channel and a credibility/backlink signal.
 - **Guardrail:** no link-buying / PBNs. For a brand selling on trust to engineers, only legitimate industry, press and partner links — quality over quantity.
+
+---
+
+## 6. ACTION PLAN — first 90 days
+
+Phased on purpose: **Foundation (W1–4) -> Activation (W5–8) -> Scale (W9–12).** Owners assume a small team; one person can hold multiple roles. Budgets are *incremental media/tool* spend at the **Standard tier** (people time excluded).
+
+| Week | Action | Owner | KPI | Est. budget |
+|------|--------|-------|-----|:-----------:|
+| **W1** | Validate prerequisites: EN 45545 status, ICP priority (private OEM/export first), correct all claims (drop "US delivery"). Stand up GA4 + Ads conversion tracking. | CMO + Glas Expert tech | EN 45545 answer documented; tracking live | €0–€100 (tools) |
+| **W1** | Build named ABM list (RO operators+OEMs from research; start DE/RS/BG/HU/MD). Set up LinkedIn company page + Sales Navigator. | Sales/Marketing | 50+ named contacts; page live | €80 (Sales Nav) |
+| **W2** | Produce core assets: 1-page capability/spec sheet, sample/test-panel offer one-pager, email sequences loaded into tool. | Marketing | 3 assets done; sequences live | €40 (email tool) |
+| **W2** | vagotech.html CRO: sticky CTA + short form + trust row + 3 anchored sections. | Web/Dev | Form live; events firing | €0 (in-house) |
+| **W3** | Launch Sequence B (operators) + Sequence C (OEMs) to first 40–60 contacts. Begin LinkedIn posts (Post 1–2) + personal InMail (10–15). | Sales | Emails sent; reply rate ≥5% | €0 |
+| **W4** | Publish Pillar Article 1 (standards guide) + Article 2. Submit supplier listings (UNIFE/AFER/SEAP). Posts 3–4. | Marketing | 2 articles live; 3+ listings | €0 |
+| **W5** | Launch Google Ads: Brand + 1 niche ad group (EN) + retargeting. Continue outbound batch 2 (next 40–60). Post 5 + 2 new posts. | Marketing/Sales | First qualified form fill / sample request | €200 (ads) |
+| **W6** | First discovery/technical calls from inbound + outbound replies. Ship first sample/test panel(s). Article 3. | Sales + Glas Expert tech | ≥3 calls booked; ≥1 sample shipped | €150 (ads) |
+| **W7** | Add RO ad group + (optional) LinkedIn lead-gen ad. Outbound batch 3 (export markets DE/RS/BG). Trade-press pitch (Article 1 as contributed piece). | Marketing | 1 media pitch sent; export outreach live | €250 (ads) |
+| **W8** | Mid-point review: reply rates, calls, samples, CPL. Double down on best channel, cut the weakest. Article 4. | CMO | Review deck; ≥6 calls cumulative | €100 (ads) |
+| **W9** | Scale winning outbound segment; add DE ad group if RO/EN show intent. Nurture inbound via Sequence A. | Sales | ≥2 active opportunities (sample → quote) | €250 (ads) |
+| **W10** | Case/proof content from first sample wins (with permission). Article 5. Continue LinkedIn cadence. | Marketing | 1 proof asset; pipeline value tracked | €150 (ads) |
+| **W11** | Event/association touch (1 targeted): supplier-day, webinar, or trade-show listing. Refresh ABM with new programs. | Marketing/Sales | 1 event/listing; 10+ new accounts | €150–€400 (event) |
+| **W12** | 90-day review: pipeline (€), qualified opps, samples → quotes, CAC by channel. Recommend next-quarter budget/allocation. | CMO | Review deck + Q2 plan; ≥1 quote issued | €100 (ads) |
+
+**Cumulative incremental media/tool spend (Standard tier, 90 days):** ~€2,000–€2,400, i.e. well inside the Standard monthly band averaged over the quarter (front-loaded fixed assets, then steady media).
+
+**North-star outcomes by Day 90 (realistic for a new division):**
+- 120–180 contacts reached (email + InMail)
+- 8–12 qualified technical calls
+- 3–6 sample/test panels shipped
+- 1–3 active opportunities in the sample → quote stage
+- 5 pillar articles live + supplier listings + LinkedIn presence established
+
+> Note: in rail, a *quote* in 90 days is a strong result; *signed contracts* (especially public) land over 6–18 months. The 90-day job is pipeline + spec-in + credibility, not closed revenue.
+
+---
+
+## 7. RECOMMENDED TOTAL BUDGET
+
+Three tiers. People/agency time is **not** included (assumes Glas Expert resources or a fractional marketer); figures are media + tools + content production.
+
+### Option 1 — Lean (€500–€1,500/month)
+- **Allocation:** outbound + LinkedIn organic 70% (tools + light content), Google Ads brand-only 15%, content 15%.
+- **What you get:** email sequences running, LinkedIn page + manual InMail, 1–2 articles/month, brand-search defense. Sample/test-panel offer drives most conversion.
+- **Best for:** validating demand before committing. Slow but capital-efficient.
+- **ROI logic:** with avg OEM opportunity €200K–€400K (recurring) and tram/coach packages €150K–€650K, a **single** sample-to-contract over 6–12 months returns the entire annual spend many times over. At this tier, breakeven needs essentially **one** modest OEM win in year one. Expected: 1–2 quotes by month 6, low absolute lead volume.
+
+### Option 2 — Standard (€2,000–€5,000/month) — **RECOMMENDED for a new division**
+- **Allocation (≈ mix in §1.3):** LinkedIn ABM/InMail/ads 35%, outbound 30%, SEO/content 20%, Google Ads 10%, trade/events 5%.
+- **What you get:** full multi-channel motion in §6 — proper ABM, 2 articles/month, RO+DE ad coverage or LinkedIn lead-gen, conversion tracking, retargeting, 1 event/quarter.
+- **Best for:** a serious launch that builds pipeline across RO + export within two quarters.
+- **ROI logic:** target 8–12 qualified calls and 3–6 samples per quarter. Converting **one** Tier-1/OEM opportunity (€200K–€650K+) within 6–12 months yields a **>10–40x** return on a year of spend (~€24K–€60K). Even a single mid-tier coach/tram package covers multiple years of marketing. This is the balanced risk/return choice.
+
+### Option 3 — Aggressive (€5,000+/month)
+- **Allocation:** add a fractional/agency content+ABM resource, paid LinkedIn lead-gen at scale, RO+DE+EN ad coverage, dedicated language landing pages, 2 events/quarter, PR retainer for trade press.
+- **What you get:** market-leading share-of-voice in CEE rail glazing, faster pipeline build, multi-market export push simultaneously.
+- **Best for:** if the client wants to capture the modernization window quickly and treat VAGOTECH as a strategic growth bet.
+- **ROI logic:** larger pipeline (target 15–20 calls/quarter, 8–10 samples), shorter time-to-first-quote, and parallel export traction. Against contract values up to €1.6M (CFR-scale) and recurring OEM supply, even a partial public-tender win or 2–3 OEM contracts in year one returns multiples of a ~€60K–€90K+ annual spend. Higher fixed cost = needs disciplined channel cutting (§6 W8/W12 reviews) to avoid waste.
+
+### Budget recommendation summary
+
+| | Lean | **Standard (rec.)** | Aggressive |
+|--|:----:|:------------------:|:----------:|
+| Monthly | €500–€1,500 | **€2,000–€5,000** | €5,000+ |
+| Primary engine | Outbound + organic | ABM + outbound + content | All channels + agency/PR |
+| Time to first quote | ~6 months | ~3–4 months | ~2–3 months |
+| Risk | Low spend, slow | Balanced | Higher spend, fastest |
+| Breakeven (yr 1) | 1 modest OEM win | 1 Tier-1/OEM win | 2–3 wins / partial tender |
+
+> **My recommendation:** start at **Standard**, front-load the Foundation assets (§6 W1–4), and run the W8 + W12 reviews to reallocate toward whatever channel produces qualified calls. Gate Google Ads behind conversion tracking, and gate everything behind the **EN 45545 validation** in W1.
+
+---
+
+## Appendix — Facts used (all real, from project sources)
+
+- **Products:** Windscreen glass (EN 15152), Passenger side & door glass (EN 15153 / EN 12600), Interior & partition glass (EN 12600), Custom rail solutions. Lead time 6–8 weeks standard, 8–12 custom.
+- **Pedigree:** Glas Expert — 25+ years, Top 20 glass processor in Europe, in-house tempering/lamination/curving; Red Dot Award 2025 (VERSATIKA); references: Roland Garros, FUTURIUM Berlin, Therme, SKANSKA, ING, H&M.
+- **Market context:** CFR Calatori (Coradia Stream EMUs, Traxx), STB (Astra Imperio trams), OEMs Electroputere VFU Pascani & Astra Vagoane Arad; target markets RO, MD, HU, DE, USA, RS, BG.
+- **Contact:** +1-609-408-8100 · office.us@xglass.eu · xglass.eu · landing page vagotech.html.
+- **Corrections vs older internal docs:** standards are EN 15152 / 15153 / 12600 (not EN 12288/14752); EN 45545 (fire/smoke) flagged as must-validate; delivery advantage is **European proximity (Timisoara)**, not US shipping.
+
+*Prepared by Victoria, CMO — AXA IT. Reflection-loop v2. For Glas Expert / VAGOTECH.*
