@@ -69,6 +69,22 @@
         .vagotech-story { background: #f8f9fa; padding: 3rem 0; }
         .vagotech-story h2 { margin-bottom: 1.5rem; }
         .vagotech-story p { color: #6B7280; line-height: 1.8; margin-bottom: 1rem; }
+
+        /* Language switcher */
+        .lang-toggle {
+            background: transparent;
+            border: 1.5px solid rgba(255,255,255,0.5);
+            color: white;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.06em;
+            transition: background 0.2s, border-color 0.2s;
+            margin-left: 0.5rem;
+        }
+        .lang-toggle:hover { background: rgba(255,255,255,0.12); border-color: white; }
     </style>
 </head>
 <body data-segment="vagotech">
@@ -80,12 +96,13 @@
                 <p class="tagline">Railway Glass Solutions</p>
             </div>
             <nav class="nav-menu" id="nav-menu">
-                <a href="index.html">Home</a>
-                <a href="#products">Products</a>
-                <a href="#compliance">Compliance</a>
-                <a href="#credentials">About</a>
-                <a href="#vagotechForm" class="btn-cta">Request Specs</a>
+                <a href="index.html" data-i18n="nav.home">Home</a>
+                <a href="#products" data-i18n="nav.products">Products</a>
+                <a href="#compliance" data-i18n="nav.compliance">Compliance</a>
+                <a href="#credentials" data-i18n="nav.about">About</a>
+                <a href="#vagotechForm" class="btn-cta" data-i18n="nav.cta">Request Specs</a>
             </nav>
+            <button class="lang-toggle" id="langToggle" onclick="vagotechI18n.toggle()" aria-label="Switch language / Schimbă limba">RO</button>
             <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
         </div>
     </header>
@@ -97,34 +114,34 @@
         </div>
         <div class="hero-overlay" style="background: linear-gradient(135deg, rgba(26,58,82,0.70) 0%, rgba(26,58,82,0.35) 100%);"></div>
         <div class="hero-content fade-in">
-            <p class="label-eyebrow" style="color: rgba(255,255,255,0.75);">EN 15152 · EN 15153 · EN 12600 · EN 45545</p>
-            <h1>VAGOTECH — Railway & Tramway Glass</h1>
-            <p class="hero-subtitle">Certified. Precision-Engineered. Delivered in 4–6 Weeks.</p>
-            <p class="hero-body">Rail-grade glass for CFR, STB, Electroputere and Astra Vagoane — engineered to European safety standards, manufactured in-house, and delivered on a schedule your fleet planners can rely on. 25+ years of glass engineering from one of Europe's Top 20 processors.</p>
+            <p class="label-eyebrow" style="color: rgba(255,255,255,0.75);" data-i18n="hero.eyebrow">EN 15152 · EN 15153 · EN 12600 · EN 45545</p>
+            <h1 data-i18n="hero.h1">VAGOTECH — Railway & Tramway Glass</h1>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">Certified. Precision-Engineered. Delivered in 4–6 Weeks.</p>
+            <p class="hero-body" data-i18n="hero.body">Rail-grade glass for CFR, STB, Electroputere and Astra Vagoane — engineered to European safety standards, manufactured in-house, and delivered on a schedule your fleet planners can rely on. 25+ years of glass engineering from one of Europe's Top 20 processors.</p>
             <div class="hero-cta-group">
-                <button class="btn-v2-primary" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">
+                <button class="btn-v2-primary" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})" data-i18n="hero.btn.explore">
                     Explore Solutions
                 </button>
-                <button class="btn-v2-secondary" onclick="document.getElementById('vagotechForm').scrollIntoView({behavior: 'smooth'})">
+                <button class="btn-v2-secondary" onclick="document.getElementById('vagotechForm').scrollIntoView({behavior: 'smooth'})" data-i18n="hero.btn.request">
                     Request Specifications
                 </button>
             </div>
             <div class="hero-stats">
                 <div class="stat">
                     <h3>4–6</h3>
-                    <p>Weeks delivery</p>
+                    <p data-i18n="hero.stat.weeks">Weeks delivery</p>
                 </div>
                 <div class="stat">
                     <h3>25+</h3>
-                    <p>Years engineering</p>
+                    <p data-i18n="hero.stat.years">Years engineering</p>
                 </div>
                 <div class="stat">
                     <h3>Top 20</h3>
-                    <p>EU glass processor</p>
+                    <p data-i18n="hero.stat.top20">EU glass processor</p>
                 </div>
                 <div class="stat">
                     <h3>EN 45545</h3>
-                    <p>Fire & smoke compliant builds</p>
+                    <p data-i18n="hero.stat.en45545">Fire & smoke compliant builds</p>
                 </div>
             </div>
         </div>
@@ -136,23 +153,23 @@
             <div class="strip-inner">
                 <div class="adv-item">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    EN 15152 Windscreens
+                    <span data-i18n="strip.en15152">EN 15152 Windscreens</span>
                 </div>
                 <div class="adv-item">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    EN 15153 Side & Door Glass
+                    <span data-i18n="strip.en15153">EN 15153 Side & Door Glass</span>
                 </div>
                 <div class="adv-item">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    EN 12600 Impact Safety
+                    <span data-i18n="strip.en12600">EN 12600 Impact Safety</span>
                 </div>
                 <div class="adv-item">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    EN 45545 Fire & Smoke
+                    <span data-i18n="strip.en45545">EN 45545 Fire & Smoke</span>
                 </div>
                 <div class="adv-item">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    In-house tempering & lamination
+                    <span data-i18n="strip.inhouse">In-house tempering & lamination</span>
                 </div>
             </div>
         </div>
@@ -162,17 +179,17 @@
     <section id="story" class="vagotech-story">
         <div class="container">
             <div class="section-header fade-in">
-                <h2>The VAGOTECH Story</h2>
-                <p>European-Engineered Glass for a Railway Network in Full Modernization</p>
+                <h2 data-i18n="story.h2">The VAGOTECH Story</h2>
+                <p data-i18n="story.subtitle">European-Engineered Glass for a Railway Network in Full Modernization</p>
             </div>
             <div style="max-width: 850px; margin: 0 auto;">
-                <p style="font-size: 1.05rem;">VAGOTECH is the railway and tramway division of <strong>Glas Expert</strong> &mdash; a European architectural glass manufacturer with 25+ years of experience and a place among the Top 20 glass processors in Europe. The same precision engineering proven on landmark projects across the continent is now focused on a single mission: supplying certified rail-grade glass to the region's modernizing fleet operators.</p>
+                <p style="font-size: 1.05rem;" data-i18n-html="story.p1">VAGOTECH is the railway and tramway division of <strong>Glas Expert</strong> &mdash; a European architectural glass manufacturer with 25+ years of experience and a place among the Top 20 glass processors in Europe. The same precision engineering proven on landmark projects across the continent is now focused on a single mission: supplying certified rail-grade glass to the region's modernizing fleet operators.</p>
 
-                <p><strong>Why now.</strong> Romania's rail network is in the middle of its largest modernization in decades. CFR C&#259;l&#259;tori is introducing new Alstom Coradia Stream electric trainsets and Traxx locomotives. Bucharest's STB has deployed new trams and has contracted dozens more. Hungary's MÁV is replacing aging EMU fleets. New rolling stock and refurbishment programmes across 7 countries all share one requirement: certified, dimensionally exact glass delivered on a dependable schedule.</p>
+                <p data-i18n-html="story.p2"><strong>Why now.</strong> Romania's rail network is in the middle of its largest modernization in decades. CFR C&#259;l&#259;tori is introducing new Alstom Coradia Stream electric trainsets and Traxx locomotives. Bucharest's STB has deployed new trams and has contracted dozens more. Hungary's MÁV is replacing aging EMU fleets. New rolling stock and refurbishment programmes across 7 countries all share one requirement: certified, dimensionally exact glass delivered on a dependable schedule.</p>
 
-                <p><strong>The challenge operators face.</strong> Rail glass must survive thermal cycling, vibration, impact and decades of daily duty &mdash; while meeting non-negotiable European standards: EN&nbsp;15152 for windscreens, EN&nbsp;15153 for side and door glass, EN&nbsp;12600 for impact performance, and &mdash; critically for EU tendering &mdash; EN&nbsp;45545 for fire and smoke behaviour. A single certification gap or a slipped delivery can hold an entire vehicle in the workshop. Operators need a partner that treats glass as a precision component, not a commodity.</p>
+                <p data-i18n-html="story.p3"><strong>The challenge operators face.</strong> Rail glass must survive thermal cycling, vibration, impact and decades of daily duty &mdash; while meeting non-negotiable European standards: EN&nbsp;15152 for windscreens, EN&nbsp;15153 for side and door glass, EN&nbsp;12600 for impact performance, and &mdash; critically for EU tendering &mdash; EN&nbsp;45545 for fire and smoke behaviour. A single certification gap or a slipped delivery can hold an entire vehicle in the workshop. Operators need a partner that treats glass as a precision component, not a commodity.</p>
 
-                <p><strong>The VAGOTECH advantage.</strong> In-house tempering, lamination, curved shaping and custom edge work mean no outsourcing and no compromises. We engineer to exact OEM and operator specifications, document full compliance including EN&nbsp;45545, and deliver in 4–6 weeks &mdash; against the industry standard of 12–16 weeks from larger European suppliers. European quality, regional proximity, single-supplier accountability.</p>
+                <p data-i18n-html="story.p4"><strong>The VAGOTECH advantage.</strong> In-house tempering, lamination, curved shaping and custom edge work mean no outsourcing and no compromises. We engineer to exact OEM and operator specifications, document full compliance including EN&nbsp;45545, and deliver in 4–6 weeks &mdash; against the industry standard of 12–16 weeks from larger European suppliers. European quality, regional proximity, single-supplier accountability.</p>
             </div>
         </div>
     </section>
@@ -181,24 +198,24 @@
     <section class="section-v2">
         <div class="container">
             <div class="section-header fade-in">
-                <h2>Why VAGOTECH Exists</h2>
-                <p>Serving the railway modernization programmes driving today's demand</p>
+                <h2 data-i18n="market.h2">Why VAGOTECH Exists</h2>
+                <p data-i18n="market.subtitle">Serving the railway modernization programmes driving today's demand</p>
             </div>
             <div class="grid-v2">
                 <div class="card-v2 fade-in fade-in-delay-1">
                     <span class="card-icon"><i data-feather="target"></i></span>
-                    <h3>CFR Fleet Renewal</h3>
-                    <p>CFR C&#259;l&#259;tori is introducing Alstom Coradia Stream EMUs and Traxx locomotives under EU-funded PNRR programmes. 139+ wagons in active refurbishment cycles create sustained demand for certified replacement glazing on existing fleets.</p>
+                    <h3 data-i18n="market.cfr.h3">CFR Fleet Renewal</h3>
+                    <p data-i18n-html="market.cfr.p">CFR C&#259;l&#259;tori is introducing Alstom Coradia Stream EMUs and Traxx locomotives under EU-funded PNRR programmes. 139+ wagons in active refurbishment cycles create sustained demand for precision replacement glazing on existing fleets.</p>
                 </div>
                 <div class="card-v2 fade-in fade-in-delay-2">
                     <span class="card-icon"><i data-feather="trello"></i></span>
-                    <h3>STB & Urban Transit</h3>
-                    <p>Bucharest's STB has contracted new 36-metre trams and runs a 323-tram V3A-M refurbishment programme. Budapest, Belgrade and Sofia operate parallel urban transit modernization. Each vehicle needs side, door and windscreen glass on a reliable schedule.</p>
+                    <h3 data-i18n="market.stb.h3">STB & Urban Transit</h3>
+                    <p data-i18n-html="market.stb.p">Bucharest's STB has contracted new 36-metre trams and runs a 323-tram V3A-M refurbishment programme. Budapest, Belgrade and Sofia operate parallel urban transit modernization. Each vehicle needs side, door and windscreen glass on a reliable schedule.</p>
                 </div>
                 <div class="card-v2 fade-in fade-in-delay-3">
                     <span class="card-icon"><i data-feather="layers"></i></span>
-                    <h3>Domestic OEM Supply</h3>
-                    <p>Romanian builders Electroputere VFU Pa&#537;cani and Astra Vagoane Arad assemble rolling stock for domestic and export markets. OEMs need a glass partner with full EN certification, in-house production and fast lead times. VAGOTECH is purpose-built for that role.</p>
+                    <h3 data-i18n="market.oem.h3">Domestic OEM Supply</h3>
+                    <p data-i18n-html="market.oem.p">Romanian builders Electroputere VFU Pa&#537;cani and Astra Vagoane Arad assemble rolling stock for domestic and export markets. OEMs need a glass partner with full EN documentation, in-house production and fast lead times. VAGOTECH is purpose-built for that role.</p>
                 </div>
             </div>
         </div>
@@ -208,8 +225,8 @@
     <section id="products" class="section-v2-soft">
         <div class="container">
             <div class="section-header fade-in">
-                <h2>VAGOTECH Product Solutions</h2>
-                <p>Purpose-built glass for every railway application — engineered to EN standards and delivered on schedule.</p>
+                <h2 data-i18n="products.h2">VAGOTECH Product Solutions</h2>
+                <p data-i18n="products.subtitle">Purpose-built glass for every railway application — engineered to EN standards and delivered on schedule.</p>
             </div>
             <div class="products-grid">
                 <div class="product-card fade-in">
@@ -217,16 +234,16 @@
                     <div class="product-card-caption">Photo: Wikimedia Commons / CC BY-SA 4.0</div>
                     <div class="product-card-body">
                     <div class="product-icon"><i data-feather="maximize"></i></div>
-                    <h3>Windscreen Glass</h3>
-                    <p><strong>The challenge:</strong> Driver cab windscreens on locomotives and EMUs need crystal clarity, must withstand temperature extremes, resist high-energy impacts from ballast and debris, and hold structural integrity across decades of service.</p>
-                    <p><strong>VAGOTECH solution:</strong> Laminated, heat-strengthened glass engineered to EN&nbsp;15152. Custom curvature to OEM cab geometry. Optional heating layer for de-icing, UV-protective and acoustic interlayers. EN&nbsp;45545 fire & smoke compliant builds available.</p>
+                    <h3 data-i18n="prod.ws.h3">Windscreen Glass</h3>
+                    <p data-i18n-html="prod.ws.challenge"><strong>The challenge:</strong> Driver cab windscreens on locomotives and EMUs need crystal clarity, must withstand temperature extremes, resist high-energy impacts from ballast and debris, and hold structural integrity across decades of service.</p>
+                    <p data-i18n-html="prod.ws.solution"><strong>VAGOTECH solution:</strong> Laminated, heat-strengthened glass engineered to EN&nbsp;15152. Custom curvature to OEM cab geometry. Optional heating layer for de-icing, UV-protective and acoustic interlayers. EN&nbsp;45545 fire & smoke compliant builds available.</p>
                     <ul class="spec-list">
-                        <li><strong>Standard:</strong> EN&nbsp;15152 (rail windscreens) + EN&nbsp;45545</li>
-                        <li><strong>Type:</strong> Laminated + heat-strengthened</li>
-                        <li><strong>Options:</strong> Heated / de-icing layer</li>
-                        <li><strong>Impact:</strong> High-energy ballast impact resistant</li>
-                        <li><strong>Acoustic:</strong> Noise-reduction interlayer</li>
-                        <li><strong>Lead Time:</strong> 4–6 weeks standard</li>
+                        <li data-i18n-html="prod.ws.spec1"><strong>Standard:</strong> EN&nbsp;15152 (rail windscreens) + EN&nbsp;45545</li>
+                        <li data-i18n-html="prod.ws.spec2"><strong>Type:</strong> Laminated + heat-strengthened</li>
+                        <li data-i18n-html="prod.ws.spec3"><strong>Options:</strong> Heated / de-icing layer</li>
+                        <li data-i18n-html="prod.ws.spec4"><strong>Impact:</strong> High-energy ballast impact resistant</li>
+                        <li data-i18n-html="prod.ws.spec5"><strong>Acoustic:</strong> Noise-reduction interlayer</li>
+                        <li data-i18n-html="prod.ws.spec6"><strong>Lead Time:</strong> 4–6 weeks standard</li>
                     </ul>
                     </div>
                 </div>
@@ -236,16 +253,16 @@
                     <div class="product-card-caption">Photo: Wikimedia Commons / CC BY 2.0</div>
                     <div class="product-card-body">
                     <div class="product-icon"><i data-feather="layers"></i></div>
-                    <h3>Passenger Side &amp; Door Glass</h3>
-                    <p><strong>The challenge:</strong> Passenger and door windows face constant thermal cycling and vibration while carrying comfort and safety expectations — clarity, noise reduction, and certified impact behaviour. Trams and coaches run these windows for decades.</p>
-                    <p><strong>VAGOTECH solution:</strong> Tempered or laminated glazing to EN&nbsp;15153 and EN&nbsp;12600 impact class. EN&nbsp;45545 compliant builds available where required for EU tendering. Custom dimensions, curves and angles for any car type.</p>
+                    <h3 data-i18n="prod.sd.h3">Passenger Side &amp; Door Glass</h3>
+                    <p data-i18n-html="prod.sd.challenge"><strong>The challenge:</strong> Passenger and door windows face constant thermal cycling and vibration while carrying comfort and safety expectations — clarity, noise reduction, and certified impact behaviour. Trams and coaches run these windows for decades.</p>
+                    <p data-i18n-html="prod.sd.solution"><strong>VAGOTECH solution:</strong> Tempered or laminated glazing to EN&nbsp;15153 and EN&nbsp;12600 impact class. EN&nbsp;45545 compliant builds available where required for EU tendering. Custom dimensions, curves and angles for any car type.</p>
                     <ul class="spec-list">
-                        <li><strong>Standard:</strong> EN&nbsp;15153 + EN&nbsp;12600 + EN&nbsp;45545</li>
-                        <li><strong>Type:</strong> Tempered or laminated</li>
-                        <li><strong>Dimensions:</strong> Custom curves and angles</li>
-                        <li><strong>Acoustic:</strong> Noise-reduction interlayer</li>
-                        <li><strong>Coatings:</strong> Easy-clean / low-maintenance</li>
-                        <li><strong>Lead Time:</strong> 4–6 weeks standard</li>
+                        <li data-i18n-html="prod.sd.spec1"><strong>Standard:</strong> EN&nbsp;15153 + EN&nbsp;12600 + EN&nbsp;45545</li>
+                        <li data-i18n-html="prod.sd.spec2"><strong>Type:</strong> Tempered or laminated</li>
+                        <li data-i18n-html="prod.sd.spec3"><strong>Dimensions:</strong> Custom curves and angles</li>
+                        <li data-i18n-html="prod.sd.spec4"><strong>Acoustic:</strong> Noise-reduction interlayer</li>
+                        <li data-i18n-html="prod.sd.spec5"><strong>Coatings:</strong> Easy-clean / low-maintenance</li>
+                        <li data-i18n-html="prod.sd.spec6"><strong>Lead Time:</strong> 4–6 weeks standard</li>
                     </ul>
                     </div>
                 </div>
@@ -255,16 +272,16 @@
                     <div class="product-card-caption">Photo: Wikimedia Commons / CC BY-SA 4.0</div>
                     <div class="product-card-body">
                     <div class="product-icon"><i data-feather="home"></i></div>
-                    <h3>Interior &amp; Partition Glass</h3>
-                    <p><strong>The challenge:</strong> Interior partitions, crew screens and emergency windows need certified impact resistance, durability and low maintenance — while meeting fire and smoke requirements that are increasingly enforced across EU rolling stock.</p>
-                    <p><strong>VAGOTECH solution:</strong> Tempered or laminated interior glass to EN&nbsp;12600 impact classification and EN&nbsp;45545 fire behaviour. Clear, frosted or tinted finishes. Anti-scratch coatings. Lightweight builds for vehicle efficiency.</p>
+                    <h3 data-i18n="prod.int.h3">Interior &amp; Partition Glass</h3>
+                    <p data-i18n-html="prod.int.challenge"><strong>The challenge:</strong> Interior partitions, crew screens and emergency windows need certified impact resistance, durability and low maintenance — while meeting fire and smoke requirements that are increasingly enforced across EU rolling stock.</p>
+                    <p data-i18n-html="prod.int.solution"><strong>VAGOTECH solution:</strong> Tempered or laminated interior glass to EN&nbsp;12600 impact classification and EN&nbsp;45545 fire behaviour. Clear, frosted or tinted finishes. Anti-scratch coatings. Lightweight builds for vehicle efficiency.</p>
                     <ul class="spec-list">
-                        <li><strong>Standard:</strong> EN&nbsp;12600 + EN&nbsp;45545 (fire & smoke)</li>
-                        <li><strong>Finishes:</strong> Clear, frosted, tinted</li>
-                        <li><strong>Impact:</strong> Classified safety behaviour</li>
-                        <li><strong>Coatings:</strong> Anti-scratch, easy-clean</li>
-                        <li><strong>Weight:</strong> Optimised for vehicle efficiency</li>
-                        <li><strong>Lead Time:</strong> 4–6 weeks standard</li>
+                        <li data-i18n-html="prod.int.spec1"><strong>Standard:</strong> EN&nbsp;12600 + EN&nbsp;45545 (fire & smoke)</li>
+                        <li data-i18n-html="prod.int.spec2"><strong>Finishes:</strong> Clear, frosted, tinted</li>
+                        <li data-i18n-html="prod.int.spec3"><strong>Impact:</strong> Classified safety behaviour</li>
+                        <li data-i18n-html="prod.int.spec4"><strong>Coatings:</strong> Anti-scratch, easy-clean</li>
+                        <li data-i18n-html="prod.int.spec5"><strong>Weight:</strong> Optimised for vehicle efficiency</li>
+                        <li data-i18n-html="prod.int.spec6"><strong>Lead Time:</strong> 4–6 weeks standard</li>
                     </ul>
                     </div>
                 </div>
@@ -274,16 +291,16 @@
                     <div class="product-card-caption">Photo: Wikimedia Commons / CC BY-SA 2.0</div>
                     <div class="product-card-body">
                     <div class="product-icon"><i data-feather="settings"></i></div>
-                    <h3>Custom Rail Solutions</h3>
-                    <p><strong>The challenge:</strong> Specialised applications — roof glazing, observation windows, emergency exits, curved destination panels — each with unique geometry and OEM specifications, often under tight refurbishment budgets and timelines.</p>
-                    <p><strong>VAGOTECH solution:</strong> Full engineering consultation from drawing to delivery. Any shape, size or build. Documented testing and compliance including EN&nbsp;45545 where applicable. Dedicated project management for fleet-scale orders.</p>
+                    <h3 data-i18n="prod.cust.h3">Custom Rail Solutions</h3>
+                    <p data-i18n-html="prod.cust.challenge"><strong>The challenge:</strong> Specialised applications — roof glazing, observation windows, emergency exits, curved destination panels — each with unique geometry and OEM specifications, often under tight refurbishment budgets and timelines.</p>
+                    <p data-i18n-html="prod.cust.solution"><strong>VAGOTECH solution:</strong> Full engineering consultation from drawing to delivery. Any shape, size or build. Documented testing and compliance including EN&nbsp;45545 where applicable. Dedicated project management for fleet-scale orders.</p>
                     <ul class="spec-list">
-                        <li><strong>Engineering:</strong> Design to OEM / operator specs</li>
-                        <li><strong>Builds:</strong> Tempered, laminated, curved, coated</li>
-                        <li><strong>Compliance:</strong> Full EN documentation incl. 45545</li>
-                        <li><strong>Expertise:</strong> 25+ years glass engineering</li>
-                        <li><strong>Capacity:</strong> Fleet-scale orders accommodated</li>
-                        <li><strong>Lead Time:</strong> 5–8 weeks custom projects</li>
+                        <li data-i18n-html="prod.cust.spec1"><strong>Engineering:</strong> Design to OEM / operator specs</li>
+                        <li data-i18n-html="prod.cust.spec2"><strong>Builds:</strong> Tempered, laminated, curved, coated</li>
+                        <li data-i18n-html="prod.cust.spec3"><strong>Compliance:</strong> Full EN documentation incl. 45545</li>
+                        <li data-i18n-html="prod.cust.spec4"><strong>Expertise:</strong> 25+ years glass engineering</li>
+                        <li data-i18n-html="prod.cust.spec5"><strong>Capacity:</strong> Fleet-scale orders accommodated</li>
+                        <li data-i18n-html="prod.cust.spec6"><strong>Lead Time:</strong> 5–8 weeks custom projects</li>
                     </ul>
                     </div>
                 </div>
@@ -295,72 +312,72 @@
     <section class="section-v2">
         <div class="container">
             <div class="section-header fade-in">
-                <h2>Why VAGOTECH Over Larger Suppliers?</h2>
-                <p>Speed, compliance, and proximity — the three things that matter when a vehicle is in the workshop</p>
+                <h2 data-i18n="comp.h2">Why VAGOTECH Over Larger Suppliers?</h2>
+                <p data-i18n="comp.subtitle">Speed, compliance, and proximity — the three things that matter when a vehicle is in the workshop</p>
             </div>
             <div style="overflow-x: auto; margin-top: 1rem;">
                 <table class="comparison-table">
                     <thead>
                         <tr>
-                            <th>Criteria</th>
-                            <th style="background:#0d2e42;">Large EU Suppliers</th>
-                            <th style="background:#0d2e42;">Specialist Distributors</th>
+                            <th data-i18n="comp.th.criteria">Criteria</th>
+                            <th style="background:#0d2e42;" data-i18n="comp.th.large">Large EU Suppliers</th>
+                            <th style="background:#0d2e42;" data-i18n="comp.th.dist">Specialist Distributors</th>
                             <th style="background:#059669;">VAGOTECH</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Delivery lead time</strong></td>
-                            <td>12–16 weeks</td>
-                            <td>10–14 weeks</td>
-                            <td class="vagotech-col">4–6 weeks ✓</td>
+                            <td><strong data-i18n="comp.row1.label">Delivery lead time</strong></td>
+                            <td data-i18n="comp.row1.large">12–16 weeks</td>
+                            <td data-i18n="comp.row1.dist">10–14 weeks</td>
+                            <td class="vagotech-col" data-i18n="comp.row1.vago">4–6 weeks ✓</td>
                         </tr>
                         <tr>
-                            <td><strong>EN 45545 (fire & smoke)</strong></td>
+                            <td><strong data-i18n="comp.row2.label">EN 45545 (fire & smoke)</strong></td>
                             <td class="check">✓</td>
                             <td class="check">✓</td>
-                            <td class="vagotech-col">✓ Compliant builds</td>
+                            <td class="vagotech-col" data-i18n="comp.row2.vago">✓ Compliant builds</td>
                         </tr>
                         <tr>
-                            <td><strong>EN 15152 / 15153 / 12600</strong></td>
+                            <td><strong data-i18n="comp.row3.label">EN 15152 / 15153 / 12600</strong></td>
                             <td class="check">✓</td>
                             <td class="check">✓</td>
-                            <td class="vagotech-col">✓ Compliant builds</td>
+                            <td class="vagotech-col" data-i18n="comp.row3.vago">✓ Compliant builds</td>
                         </tr>
                         <tr>
-                            <td><strong>In-house tempering & lamination</strong></td>
+                            <td><strong data-i18n="comp.row4.label">In-house tempering & lamination</strong></td>
                             <td class="check">✓</td>
-                            <td class="partial">Partial</td>
-                            <td class="vagotech-col">✓ Full in-house</td>
+                            <td class="partial" data-i18n="comp.row4.dist">Partial</td>
+                            <td class="vagotech-col" data-i18n="comp.row4.vago">✓ Full in-house</td>
                         </tr>
                         <tr>
-                            <td><strong>Custom curvature & geometry</strong></td>
+                            <td><strong data-i18n="comp.row5.label">Custom curvature & geometry</strong></td>
                             <td class="check">✓</td>
-                            <td class="partial">Limited</td>
-                            <td class="vagotech-col">✓ Any geometry</td>
+                            <td class="partial" data-i18n="comp.row5.dist">Limited</td>
+                            <td class="vagotech-col" data-i18n="comp.row5.vago">✓ Any geometry</td>
                         </tr>
                         <tr>
-                            <td><strong>Regional proximity (RO/HU/RS/BG)</strong></td>
-                            <td class="cross">✗ UK / FR</td>
-                            <td class="cross">✗ SE / UK</td>
-                            <td class="vagotech-col">✓ Timișoara, Romania</td>
+                            <td><strong data-i18n="comp.row6.label">Regional proximity (RO/HU/RS/BG)</strong></td>
+                            <td class="cross" data-i18n="comp.row6.large">✗ UK / FR</td>
+                            <td class="cross" data-i18n="comp.row6.dist">✗ SE / UK</td>
+                            <td class="vagotech-col" data-i18n-html="comp.row6.vago">✓ Timișoara, Romania</td>
                         </tr>
                         <tr>
-                            <td><strong>Minimum order flexibility</strong></td>
-                            <td class="cross">High minimums</td>
-                            <td class="partial">Medium</td>
-                            <td class="vagotech-col">✓ Pilot orders accepted</td>
+                            <td><strong data-i18n="comp.row7.label">Minimum order flexibility</strong></td>
+                            <td class="cross" data-i18n="comp.row7.large">High minimums</td>
+                            <td class="partial" data-i18n="comp.row7.dist">Medium</td>
+                            <td class="vagotech-col" data-i18n="comp.row7.vago">✓ Pilot orders accepted</td>
                         </tr>
                         <tr>
-                            <td><strong>Single supplier accountability</strong></td>
-                            <td class="partial">Distributor network</td>
-                            <td class="partial">Distributor network</td>
-                            <td class="vagotech-col">✓ Direct manufacturer</td>
+                            <td><strong data-i18n="comp.row8.label">Single supplier accountability</strong></td>
+                            <td class="partial" data-i18n="comp.row8.large">Distributor network</td>
+                            <td class="partial" data-i18n="comp.row8.dist">Distributor network</td>
+                            <td class="vagotech-col" data-i18n="comp.row8.vago">✓ Direct manufacturer</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <p style="color: #9ca3af; font-size: 0.82rem; margin-top: 1rem; text-align: center;">Comparison reflects typical industry lead times and supply-chain characteristics; individual projects vary. VAGOTECH glass is engineered to European (EN) railway standards. For North American projects, applicable standards (e.g. APTA, 49 CFR) are addressed per project specification. Confirm compliance documentation at inquiry.</p>
+            <p style="color: #9ca3af; font-size: 0.82rem; margin-top: 1rem; text-align: center;" data-i18n="comp.disclaimer">Comparison reflects typical industry lead times and supply-chain characteristics; individual projects vary. VAGOTECH glass is engineered to European (EN) railway standards. For North American projects, applicable standards (e.g. APTA, 49 CFR) are addressed per project specification. Confirm compliance documentation at inquiry.</p>
         </div>
     </section>
 
@@ -368,40 +385,40 @@
     <section id="credentials" class="section-v2-soft">
         <div class="container">
             <div class="section-header fade-in">
-                <h2>The Glas Expert Pedigree Behind VAGOTECH</h2>
-                <p>25+ Years. Top 20 in Europe. Award-Winning Engineering — Now Applied to Rail.</p>
+                <h2 data-i18n="cred.h2">The Glas Expert Pedigree Behind VAGOTECH</h2>
+                <p data-i18n="cred.subtitle">25+ Years. Top 20 in Europe. Award-Winning Engineering — Now Applied to Rail.</p>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto 2.5rem;">
                 <div class="hover-lift fade-in" style="background: white; padding: 2rem; border-radius: 12px; border-left: 4px solid var(--accent-current); box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
                     <img src="images/versatika-award.png" alt="VERSATIKA — Red Dot Award 2025" style="width: 100%; height: 180px; object-fit: contain; background:#f3f4f6; border-radius: 8px; margin-bottom: 1.5rem;">
-                    <h3 style="color: var(--accent-current); margin-bottom: 1rem;">Red Dot Award 2025</h3>
-                    <p style="color: #6B7280; font-size: 0.95rem; line-height: 1.6;">Glas Expert's VERSATIKA system won the Red Dot Award 2025 for product design. The engineering discipline that earns international design recognition is the same that defines every VAGOTECH rail component — precision first, no compromise.</p>
+                    <h3 style="color: var(--accent-current); margin-bottom: 1rem;" data-i18n="cred.reddot.h3">Red Dot Award 2025</h3>
+                    <p style="color: #6B7280; font-size: 0.95rem; line-height: 1.6;" data-i18n="cred.reddot.p">Glas Expert's VERSATIKA system won the Red Dot Award 2025 for product design. The engineering discipline that earns international design recognition is the same that defines every VAGOTECH rail component — precision first, no compromise.</p>
                 </div>
 
                 <div class="hover-lift fade-in" style="background: white; padding: 2rem; border-radius: 12px; border-left: 4px solid var(--accent-current); box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
                     <img src="images/proj-roland-garros.jpg" alt="Glas Expert international portfolio" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem;">
-                    <h3 style="color: var(--accent-current); margin-bottom: 1rem;">Proven on Landmark Projects</h3>
-                    <p style="color: #6B7280; font-size: 0.95rem; line-height: 1.6;">From Roland Garros Paris to FUTURIUM Berlin, Therme, SKANSKA and ING — Glas Expert glass performs where tolerances are tightest. VAGOTECH brings that same in-house tempering, lamination and curving capability to rolling stock.</p>
+                    <h3 style="color: var(--accent-current); margin-bottom: 1rem;" data-i18n="cred.projects.h3">Proven on Landmark Projects</h3>
+                    <p style="color: #6B7280; font-size: 0.95rem; line-height: 1.6;" data-i18n="cred.projects.p">From Roland Garros Paris to FUTURIUM Berlin, Therme, SKANSKA and ING — Glas Expert glass performs where tolerances are tightest. VAGOTECH brings that same in-house tempering, lamination and curving capability to rolling stock.</p>
                 </div>
             </div>
 
             <div style="max-width: 900px; margin: 0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1.25rem; text-align:center;">
                 <div class="fade-in" style="background:white;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
                     <div style="font-size:2rem;font-weight:800;color:var(--accent-current);">25+</div>
-                    <p style="color:#6b7280;font-size:0.9rem;margin:0;">Years of glass engineering</p>
+                    <p style="color:#6b7280;font-size:0.9rem;margin:0;" data-i18n="cred.stat1">Years of glass engineering</p>
                 </div>
                 <div class="fade-in" style="background:white;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
                     <div style="font-size:2rem;font-weight:800;color:var(--accent-current);">Top&nbsp;20</div>
-                    <p style="color:#6b7280;font-size:0.9rem;margin:0;">Glass processor in Europe</p>
+                    <p style="color:#6b7280;font-size:0.9rem;margin:0;" data-i18n="cred.stat2">Glass processor in Europe</p>
                 </div>
                 <div class="fade-in" style="background:white;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
                     <div style="font-size:2rem;font-weight:800;color:var(--accent-current);">4–6 Wks</div>
-                    <p style="color:#6b7280;font-size:0.9rem;margin:0;">Delivery (vs. 12–16 industry avg.)</p>
+                    <p style="color:#6b7280;font-size:0.9rem;margin:0;" data-i18n="cred.stat3">Delivery (vs. 12–16 industry avg.)</p>
                 </div>
                 <div class="fade-in" style="background:white;border-radius:12px;padding:1.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
                     <div style="font-size:2rem;font-weight:800;color:var(--accent-current);">4 EN</div>
-                    <p style="color:#6b7280;font-size:0.9rem;margin:0;">Rail standards incl. 45545</p>
+                    <p style="color:#6b7280;font-size:0.9rem;margin:0;" data-i18n="cred.stat4">Rail standards incl. 45545</p>
                 </div>
             </div>
         </div>
@@ -411,34 +428,34 @@
     <section id="compliance" class="section-v2-soft">
         <div class="container">
             <div class="section-header fade-in">
-                <h2>Engineering &amp; Compliance</h2>
-                <p>All VAGOTECH glass is engineered and documented to the standards that matter for EU railway tendering</p>
+                <h2 data-i18n="compl.h2">Engineering &amp; Compliance</h2>
+                <p data-i18n="compl.subtitle">All VAGOTECH glass is engineered and documented to the standards that matter for EU railway tendering</p>
             </div>
             <div class="sustainability-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
                 <div class="sustainability-badge fade-in">
                     <h4>EN 15152</h4>
-                    <p>Glass for driver-cab windscreens on rail vehicles</p>
+                    <p data-i18n="compl.en15152.p">Glass for driver-cab windscreens on rail vehicles</p>
                 </div>
                 <div class="sustainability-badge fade-in fade-in-delay-1">
                     <h4>EN 15153</h4>
-                    <p>Glass for windows and doors on rail vehicles</p>
+                    <p data-i18n="compl.en15153.p">Glass for windows and doors on rail vehicles</p>
                 </div>
                 <div class="sustainability-badge fade-in fade-in-delay-2">
                     <h4>EN 12600</h4>
-                    <p>Pendulum impact test &amp; safety classification</p>
+                    <p data-i18n="compl.en12600.p">Pendulum impact test &amp; safety classification</p>
                 </div>
                 <div class="en45545-badge fade-in fade-in-delay-3">
-                    <span class="badge-label">EU Tendering Prerequisite</span>
+                    <span class="badge-label" data-i18n="compl.en45545.label">EU Tendering Prerequisite</span>
                     <h4>EN 45545</h4>
-                    <p>Fire behaviour &amp; smoke toxicity — required for EU rail operator tenders</p>
+                    <p data-i18n="compl.en45545.p">Fire behaviour &amp; smoke toxicity — required for EU rail operator tenders</p>
                 </div>
                 <div class="sustainability-badge fade-in">
-                    <h4>Thermal Testing</h4>
-                    <p>Temperature cycling and thermal shock resistance for rail duty cycles</p>
+                    <h4 data-i18n="compl.thermal.h4">Thermal Testing</h4>
+                    <p data-i18n="compl.thermal.p">Temperature cycling and thermal shock resistance for rail duty cycles</p>
                 </div>
                 <div class="sustainability-badge fade-in fade-in-delay-1">
-                    <h4>Acoustic Performance</h4>
-                    <p>Noise-reduction interlayers — passenger comfort and EN acoustic targets</p>
+                    <h4 data-i18n="compl.acoustic.h4">Acoustic Performance</h4>
+                    <p data-i18n="compl.acoustic.p">Noise-reduction interlayers — passenger comfort and EN acoustic targets</p>
                 </div>
             </div>
         </div>
@@ -447,9 +464,9 @@
     <!-- CTA STRIP -->
     <section id="contact" class="cta-section">
         <div class="container">
-            <h2>Ready to Source Certified Rail Glass?</h2>
-            <p>Tell us your vehicle type and glass application — we'll respond with a specification and lead time within 24 hours.</p>
-            <button class="btn-v2-primary" style="background:white;color:var(--accent-current);" onclick="document.getElementById('vagotechForm').scrollIntoView({behavior:'smooth'})">
+            <h2 data-i18n="cta.h2">Ready to Source Certified Rail Glass?</h2>
+            <p data-i18n="cta.p">Tell us your vehicle type and glass application — we'll respond with a specification and lead time within 24 hours.</p>
+            <button class="btn-v2-primary" style="background:white;color:var(--accent-current);" onclick="document.getElementById('vagotechForm').scrollIntoView({behavior:'smooth'})" data-i18n="cta.btn">
                 Request Technical Consultation
             </button>
         </div>
@@ -459,51 +476,51 @@
     <section class="section-v2">
         <div class="container">
             <form class="contact-form" id="vagotechForm" novalidate>
-                <h3 style="text-align:center;margin-bottom:0.5rem;">VAGOTECH Inquiry</h3>
-                <p style="text-align:center;color:#6b7280;margin-bottom:2rem;font-size:0.95rem;">We respond within 24 hours &bull; <strong>USA:</strong> <a href="tel:+16094088100" style="color:var(--accent-current);">+1-609-408-8100</a> &bull; <a href="mailto:office.us@xglass.eu" style="color:var(--accent-current);">office.us@xglass.eu</a></p>
+                <h3 style="text-align:center;margin-bottom:0.5rem;" data-i18n="form.h3">VAGOTECH Inquiry</h3>
+                <p style="text-align:center;color:#6b7280;margin-bottom:2rem;font-size:0.95rem;"><span data-i18n="form.subtitle">We respond within 24 hours</span> &bull; <strong>USA:</strong> <a href="tel:+16094088100" style="color:var(--accent-current);">+1-609-408-8100</a> &bull; <a href="mailto:office.us@xglass.eu" style="color:var(--accent-current);">office.us@xglass.eu</a></p>
 
                 <div class="form-group">
-                    <label>Organization *</label>
-                    <input type="text" name="company" required placeholder="CFR, STB, Electroputere, OEM, or operator name">
+                    <label data-i18n="form.org.label">Organization *</label>
+                    <input type="text" name="company" required placeholder="CFR, STB, Electroputere, OEM, or operator name" data-i18n-placeholder="form.org.placeholder">
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Contact Name *</label>
+                        <label data-i18n="form.name.label">Contact Name *</label>
                         <input type="text" name="name" required>
                     </div>
                     <div class="form-group">
-                        <label>Email *</label>
+                        <label data-i18n="form.email.label">Email *</label>
                         <input type="email" name="email" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Phone</label>
-                        <input type="tel" name="phone" placeholder="Optional but recommended">
+                        <label data-i18n="form.phone.label">Phone</label>
+                        <input type="tel" name="phone" placeholder="Optional but recommended" data-i18n-placeholder="form.phone.placeholder">
                     </div>
                     <div class="form-group">
-                        <label>Application *</label>
+                        <label data-i18n="form.app.label">Application *</label>
                         <select name="application" required>
-                            <option value="">-- Select --</option>
-                            <option value="windscreen">Windscreen glass (EN 15152)</option>
-                            <option value="side-door">Side &amp; door glass (EN 15153)</option>
-                            <option value="interior">Interior &amp; partitions (EN 12600)</option>
-                            <option value="custom">Custom / multiple applications</option>
+                            <option value="" data-i18n="form.app.select">-- Select --</option>
+                            <option value="windscreen" data-i18n="form.app.windscreen">Windscreen glass (EN 15152)</option>
+                            <option value="side-door" data-i18n="form.app.sidedoor">Side &amp; door glass (EN 15153)</option>
+                            <option value="interior" data-i18n="form.app.interior">Interior &amp; partitions (EN 12600)</option>
+                            <option value="custom" data-i18n="form.app.custom">Custom / multiple applications</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Glass Requirements *</label>
-                    <textarea name="message" required rows="5" placeholder="Vehicle type (locomotive, EMU, tram, wagon), glass application, approx. dimensions or drawing reference, vehicle count, EN 45545 requirement (yes/no), target delivery timeline..."></textarea>
+                    <label data-i18n="form.req.label">Glass Requirements *</label>
+                    <textarea name="message" required rows="5" placeholder="Vehicle type (locomotive, EMU, tram, wagon), glass application, approx. dimensions or drawing reference, vehicle count, EN 45545 requirement (yes/no), target delivery timeline..." data-i18n-placeholder="form.req.placeholder"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label>Estimated Order Volume *</label>
+                    <label data-i18n="form.vol.label">Estimated Order Volume *</label>
                     <select name="budget" required>
-                        <option value="">-- Select --</option>
+                        <option value="" data-i18n="form.vol.select">-- Select --</option>
                         <option value="under-50k">Under €50K</option>
                         <option value="50-100k">€50K – €100K</option>
                         <option value="100-250k">€100K – €250K</option>
@@ -514,10 +531,10 @@
 
                 <div class="form-group checkbox">
                     <input type="checkbox" name="privacy" required id="privacy">
-                    <label for="privacy">I agree to the <a href="privacy.html" style="color:var(--accent-current);">privacy policy</a> and data handling *</label>
+                    <label for="privacy" data-i18n-html="form.privacy">I have read and acknowledge the <a href="privacy.html" style="color:var(--accent-current);">privacy policy</a> and data handling *</label>
                 </div>
 
-                <button type="submit" class="btn-v2-primary" style="width:100%;" id="vagotechSubmitBtn">
+                <button type="submit" class="btn-v2-primary" style="width:100%;" id="vagotechSubmitBtn" data-i18n="form.submit">
                     Request Consultation
                 </button>
                 <p class="form-note" style="text-align:center;margin-top:1rem;color:#6b7280;">
@@ -531,17 +548,17 @@
     <section class="section-v2-soft">
         <div class="container">
             <div class="section-header fade-in">
-                <h2>VAGOTECH Resources</h2>
-                <p>Technical presentation and contact list for your procurement process</p>
+                <h2 data-i18n="res.h2">VAGOTECH Resources</h2>
+                <p data-i18n="res.subtitle">Technical presentation and contact list for your procurement process</p>
             </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 800px; margin: 0 auto;">
                 <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); text-align: center; border-top: 3px solid var(--accent-current);">
                     <div style="color: var(--accent-current); margin-bottom: 1rem;">
                         <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
                     </div>
-                    <h3 style="margin-bottom: 0.5rem; color: #1a3a52;">VAGOTECH Presentation</h3>
-                    <p style="color: #6B7280; font-size: 0.9rem; margin-bottom: 1.5rem;">10-slide technical presentation for client meetings and procurement teams. Print to PDF directly from browser.</p>
-                    <a href="vagotech-presentation.html" target="_blank" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--accent-current); color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">
+                    <h3 style="margin-bottom: 0.5rem; color: #1a3a52;" data-i18n="res.pres.h3">VAGOTECH Presentation</h3>
+                    <p style="color: #6B7280; font-size: 0.9rem; margin-bottom: 1.5rem;" data-i18n="res.pres.p">10-slide technical presentation for client meetings and procurement teams. Print to PDF directly from browser.</p>
+                    <a href="vagotech-presentation.html" target="_blank" style="display: inline-block; padding: 0.75rem 1.5rem; background: var(--accent-current); color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 0.9rem;" data-i18n="res.pres.btn">
                         Open Presentation
                     </a>
                 </div>
@@ -555,9 +572,9 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>VAGOTECH</h4>
-                    <p>Railway and tramway glass solutions by Glas Expert — European engineering for rail excellence.</p>
-                    <p style="margin-top:0.75rem;font-size:0.85rem;color:#6b7280;">From Better to Best.</p>
+                    <h4 data-i18n="footer.vagotech.h4">VAGOTECH</h4>
+                    <p data-i18n="footer.vagotech.p">Railway and tramway glass solutions by Glas Expert — European engineering for rail excellence.</p>
+                    <p style="margin-top:0.75rem;font-size:0.85rem;color:#6b7280;" data-i18n="footer.tagline">From Better to Best.</p>
                 </div>
                 <div class="footer-section">
                     <h4>Contact</h4>
@@ -571,24 +588,25 @@
                     </p>
                 </div>
                 <div class="footer-section">
-                    <h4>Solutions</h4>
+                    <h4 data-i18n="footer.solutions.h4">Solutions</h4>
                     <ul>
-                        <li><a href="#products">Windscreen Glass</a></li>
-                        <li><a href="#products">Side &amp; Door Glass</a></li>
-                        <li><a href="#products">Interior &amp; Partitions</a></li>
-                        <li><a href="#products">Custom Rail Solutions</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="#products" data-i18n="footer.sol.ws">Windscreen Glass</a></li>
+                        <li><a href="#products" data-i18n="footer.sol.sd">Side &amp; Door Glass</a></li>
+                        <li><a href="#products" data-i18n="footer.sol.int">Interior &amp; Partitions</a></li>
+                        <li><a href="#products" data-i18n="footer.sol.cust">Custom Rail Solutions</a></li>
+                        <li><a href="privacy.html" data-i18n="footer.sol.privacy">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 VAGOTECH by Glas Expert. All rights reserved. &nbsp;|&nbsp; EN 15152 &nbsp;·&nbsp; EN 15153 &nbsp;·&nbsp; EN 12600 &nbsp;·&nbsp; EN 45545</p>
+                <p data-i18n="footer.copyright">&copy; 2026 VAGOTECH by Glas Expert. All rights reserved. &nbsp;|&nbsp; EN 15152 &nbsp;·&nbsp; EN 15153 &nbsp;·&nbsp; EN 12600 &nbsp;·&nbsp; EN 45545</p>
             </div>
         </div>
     </footer>
 
     <script src="js/script.js"></script>
     <script src="js/vagotech-tracking.js"></script>
+    <script src="js/vagotech-i18n.js"></script>
     <script>
     // VAGOTECH contact form — sends to /api/contact, falls back to mailto
     (function () {
