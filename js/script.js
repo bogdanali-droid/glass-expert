@@ -151,70 +151,114 @@ if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Collect form data
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+
+        // Collect form data (use optional chaining so missing fields don't throw)
         const formData = {
-            company: document.querySelector('input[name="company"]').value,
-            name: document.querySelector('input[name="name"]').value,
-            email: document.querySelector('input[name="email"]').value,
-            phone: document.querySelector('input[name="phone"]').value,
-            segment: document.querySelector('select[name="segment"]').value,
-            message: document.querySelector('textarea[name="message"]').value,
-            budget: document.querySelector('select[name="budget"]').value,
-            timestamp: new Date().toISOString()
+            company: contactForm.querySelector('input[name="company"]')?.value || '',
+            name: contactForm.querySelector('input[name="name"]')?.value || '',
+            email: contactForm.querySelector('input[name="email"]')?.value || '',
+            phone: contactForm.querySelector('input[name="phone"]')?.value || '',
+            segment: contactForm.querySelector('select[name="segment"]')?.value || '',
+            message: contactForm.querySelector('textarea[name="message"]')?.value || '',
+            budget: contactForm.querySelector('select[name="budget"]')?.value || ''
         };
 
+        // Loading state — disable button + show progress, store label to restore
+        const originalLabel = submitBtn ? submitBtn.textContent : '';
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.dataset.loading = 'true';
+            submitBtn.textContent = 'Sending…';
+        }
+
         try {
-            // Log to console (for development)
-            console.log('Form submitted:', formData);
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
 
-            // TODO: Integrate with backend service
-            // Options: Formspree, EmailJS, Firebase, custom API
+            let result = {};
+            try {
+                result = await response.json();
+            } catch (_) {
+                // Non-JSON response (e.g. proxy/HTML error page)
+            }
 
-            // Show success message
-            showSuccessMessage();
-
-            // Reset form
-            contactForm.reset();
+            if (response.ok && result.success) {
+                showSuccessMessage(result.message);
+                contactForm.reset();
+            } else {
+                showErrorMessage(result.message);
+            }
         } catch (error) {
+            // Network failure / offline
             console.error('Form submission error:', error);
             showErrorMessage();
+        } finally {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                delete submitBtn.dataset.loading;
+                submitBtn.textContent = originalLabel;
+            }
         }
     });
 }
 
+// Small helper: escape text injected into message markup
+function escapeMessageHtml(value) {
+    const div = document.createElement('div');
+    div.textContent = value == null ? '' : String(value);
+    return div.innerHTML;
+}
+
 // SUCCESS MESSAGE
-function showSuccessMessage() {
+function showSuccessMessage(customMessage) {
+    const text = customMessage
+        ? escapeMessageHtml(customMessage)
+        : "Thank you! We'll respond within 24 hours.";
     const message = document.createElement('div');
     message.className = 'success-message';
     message.innerHTML = `
         <div class="message-content">
             <h3>✓ Quote Request Submitted</h3>
-            <p>Thank you! We'll respond within 24 hours.</p>
+            <p>${text}</p>
             <button onclick="this.parentElement.parentElement.remove()">Close</button>
         </div>
     `;
     document.body.appendChild(message);
 
-    // Auto-remove after 5 seconds
+    // Auto-remove after 6 seconds
     setTimeout(() => {
         if (document.querySelector('.success-message')) {
             document.querySelector('.success-message').remove();
         }
-    }, 5000);
+    }, 6000);
 }
 
 // ERROR MESSAGE
-function showErrorMessage() {
+function showErrorMessage(customMessage) {
+    const text = customMessage
+        ? escapeMessageHtml(customMessage)
+        : 'Something went wrong. Please try again or call +1-609-408-8100.';
     const message = document.createElement('div');
     message.className = 'error-message';
     message.innerHTML = `
         <div class="message-content">
             <h3>✗ Submission Error</h3>
-            <p>Something went wrong. Please try again or contact us directly.</p>
+            <p>${text}</p>
             <button onclick="this.parentElement.parentElement.remove()">Close</button>
         </div>
     `;
     document.body.appendChild(message);
+
+    // Auto-remove after 8 seconds
+    setTimeout(() => {
+        if (document.querySelector('.error-message')) {
+            document.querySelector('.error-message').remove();
+        }
+    }, 8000);
 }
 
 // VALIDATION ERROR MESSAGE (for selector validation)
@@ -295,6 +339,16 @@ style.textContent = `
             left: 10px;
             max-width: none;
         }
+    }
+
+    /* Submit button loading state */
+    button[type="submit"][data-loading="true"] {
+        opacity: 0.7;
+        cursor: progress;
+        position: relative;
+    }
+    button[type="submit"]:disabled {
+        cursor: not-allowed;
     }
 
     /* Validation Error Styles */

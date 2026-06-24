@@ -63,7 +63,27 @@ CREATE TABLE IF NOT EXISTS analytics_page_metrics (
     UNIQUE(segment, page_path)
 );
 
+-- Contact form / quote request leads (captured by /api/contact)
+CREATE TABLE IF NOT EXISTS contact_leads (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    company TEXT,
+    phone TEXT,
+    segment TEXT,            -- commercial | hospitality | healthcare | education | other
+    budget TEXT,             -- 30-50k | 50-100k | 100-300k | 300k+
+    message TEXT,
+    status TEXT DEFAULT 'new',       -- new | contacted | qualified | won | lost
+    email_sent BOOLEAN DEFAULT 0,    -- 1 once the office notification email was delivered
+    source TEXT DEFAULT 'website',
+    user_agent TEXT,
+    ip_country TEXT,         -- from CF-IPCountry header
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Indices for performance
+CREATE INDEX IF NOT EXISTS idx_lead_status ON contact_leads(status);
+CREATE INDEX IF NOT EXISTS idx_lead_created ON contact_leads(created_at);
 CREATE INDEX IF NOT EXISTS idx_visitor_id ON analytics_visitors(visitor_id);
 CREATE INDEX IF NOT EXISTS idx_visitor_segment ON analytics_visitors(segment);
 CREATE INDEX IF NOT EXISTS idx_event_visitor ON analytics_events(visitor_id);
