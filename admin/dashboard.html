@@ -616,3 +616,629 @@
                     </div>
                 </div>
             </section>
+
+            <!-- ============================================================
+                 TAB 2 — MARKET ANALYSIS
+                 ============================================================ -->
+            <section class="panel" id="panel-market">
+                <div class="panel-head">
+                    <div>
+                        <h2>Market Analysis</h2>
+                        <p>Railway glass opportunity sizing across target markets. Fleet modernization cycle 2026–2030.</p>
+                    </div>
+                    <span class="badge badge-gold">Total addressable: €3.55M Y1</span>
+                </div>
+
+                <div class="stat-grid" id="market-cards"></div>
+
+                <div class="card">
+                    <div class="card-head"><h3>Potential Revenue by Country (Year 1)</h3><span class="meta">EUR, estimated window contract value</span></div>
+                    <div class="card-body"><div class="barchart" id="revenue-chart"></div></div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem" class="market-split">
+                    <div class="card">
+                        <div class="card-head"><h3>Pipeline by Tier</h3><span class="meta">Opportunity distribution</span></div>
+                        <div class="card-body">
+                            <div class="donut-wrap">
+                                <div class="donut" id="tier-donut">
+                                    <div class="center"><div class="big" id="donut-total">€3.55M</div><div class="small">total pipeline</div></div>
+                                </div>
+                                <div class="legend" id="tier-legend"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-head"><h3>Opportunity Matrix</h3><span class="meta">Deal size × close probability</span></div>
+                        <div class="card-body">
+                            <div class="matrix">
+                                <div class="axis-y" style="grid-row:span 1"></div>
+                                <div class="axis-x">Low prob.</div><div class="axis-x">Medium</div><div class="axis-x">High prob.</div>
+
+                                <div class="axis-y">€1M+</div>
+                                <div class="matrix-cell cool"><span class="matrix-tag">Watch</span><span class="matrix-co">—</span></div>
+                                <div class="matrix-cell warm"><span class="matrix-tag">Nurture</span><span class="matrix-co">CFR Călători</span></div>
+                                <div class="matrix-cell hot"><span class="matrix-tag">Priority</span><span class="matrix-co">STB Astra Imperio</span></div>
+
+                                <div class="axis-y">€300K–€1M</div>
+                                <div class="matrix-cell cool"><span class="matrix-tag">Watch</span><span class="matrix-co">RATB</span></div>
+                                <div class="matrix-cell warm"><span class="matrix-tag">Nurture</span><span class="matrix-co">Electroputere OEM</span></div>
+                                <div class="matrix-cell hot"><span class="matrix-tag">Priority</span><span class="matrix-co">Astra Vagoane</span></div>
+
+                                <div class="axis-y">&lt;€300K</div>
+                                <div class="matrix-cell cool"><span class="matrix-tag">Watch</span><span class="matrix-co">STPT, FMTC</span></div>
+                                <div class="matrix-cell warm"><span class="matrix-tag">Nurture</span><span class="matrix-co">CTP Timișoara</span></div>
+                                <div class="matrix-cell warm"><span class="matrix-tag">Nurture</span><span class="matrix-co">CTP Cluj</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 TAB 3 — PRICING TOOL
+                 ============================================================ -->
+            <section class="panel" id="panel-pricing">
+                <div class="panel-head">
+                    <div>
+                        <h2>Pricing Tool</h2>
+                        <p>Interactive estimate generator. EN-certified railway glass · 4–6 week delivery.</p>
+                    </div>
+                </div>
+
+                <div class="price-layout">
+                    <div class="card">
+                        <div class="card-head"><h3>Configure Estimate</h3></div>
+                        <div class="card-body">
+                            <div class="price-form">
+                                <div class="field">
+                                    <label>Glass Type</label>
+                                    <div class="seg-toggle">
+                                        <button class="seg-btn active" data-glass="windscreen" onclick="selectGlass(this)">Windscreen<small>EVOLAM laminated</small></button>
+                                        <button class="seg-btn" data-glass="side" onclick="selectGlass(this)">Side Window<small>EVODUR tempered</small></button>
+                                        <button class="seg-btn" data-glass="door" onclick="selectGlass(this)">Door Glass<small>EVOLAM SMART</small></button>
+                                        <button class="seg-btn" data-glass="interior" onclick="selectGlass(this)">Interior / Partition<small>EVOPRINT</small></button>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Dimensions (mm)</label>
+                                    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:0.5rem;align-items:center">
+                                        <input type="number" id="p-width" value="1200" min="100" max="4000" oninput="recalc()" placeholder="Width">
+                                        <span style="color:var(--text-faint);font-weight:700">×</span>
+                                        <input type="number" id="p-height" value="900" min="100" max="3000" oninput="recalc()" placeholder="Height">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Quantity (units)</label>
+                                    <input type="number" id="p-qty" value="160" min="1" max="100000" oninput="recalc()">
+                                </div>
+                                <div class="field">
+                                    <label>Destination Country</label>
+                                    <select id="p-country" onchange="recalc()">
+                                        <option value="RO" data-ship="0">Romania (base)</option>
+                                        <option value="DE" data-ship="0.04">Germany (+4% logistics)</option>
+                                        <option value="FR" data-ship="0.05">France (+5% logistics)</option>
+                                        <option value="PL" data-ship="0.03">Poland (+3% logistics)</option>
+                                        <option value="US" data-ship="0.11">United States (+11% freight)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quote-panel">
+                        <h3>Estimate</h3>
+                        <div class="quote-line"><span>Product</span><span id="q-product">EVOLAM Windscreen</span></div>
+                        <div class="quote-line"><span>Unit area</span><span id="q-area">1.08 m²</span></div>
+                        <div class="quote-line"><span>Unit price</span><span id="q-unit">€0</span></div>
+                        <div class="quote-line"><span>Quantity</span><span id="q-qty">160</span></div>
+                        <div class="quote-line"><span>Volume discount</span><span id="q-discount">0%</span></div>
+                        <div class="quote-line"><span>Logistics</span><span id="q-ship">€0</span></div>
+                        <div class="quote-total"><span class="lbl">Estimated total</span><span class="amt" id="q-total">€0</span></div>
+                        <div class="quote-range" id="q-range">range —</div>
+                        <button class="btn btn-gold" style="width:100%;justify-content:center;margin-top:1.25rem" onclick="generateQuote()">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                            Generate Quote
+                        </button>
+                        <p class="quote-note">Indicative only. Final pricing subject to technical review, EN 12288 / EN 14752 spec validation and volume confirmation.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top:1.5rem">
+                    <div class="card-head"><h3>Price Reference — Per Unit (1 m², base)</h3><span class="meta">Volume tiers reduce unit cost up to 18%</span></div>
+                    <div class="table-wrap">
+                        <table class="price-table">
+                            <thead><tr><th>Product</th><th>Glass Type</th><th>Low</th><th>Mid</th><th>High</th><th>Lead Time</th></tr></thead>
+                            <tbody id="price-ref-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 TAB 4 — CAMPAIGNS
+                 ============================================================ -->
+            <section class="panel" id="panel-campaigns">
+                <div class="panel-head">
+                    <div>
+                        <h2>Email Campaigns</h2>
+                        <p>Outreach status across railway operator segments. Templates from VAGOTECH playbook.</p>
+                    </div>
+                    <button class="btn btn-gold" onclick="toast('Campaign launcher would open here','ok')">
+                        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+                        New Campaign
+                    </button>
+                </div>
+
+                <div class="stat-grid">
+                    <div class="stat"><div class="label">Emails Sent</div><div class="value">312</div><div class="delta up">▲ 48 this week</div></div>
+                    <div class="stat"><div class="label">Avg Open Rate</div><div class="value">41%</div><div class="delta up">▲ 6pts vs benchmark</div></div>
+                    <div class="stat"><div class="label">Responses</div><div class="value">27</div><div class="delta up">▲ 8.7% reply rate</div></div>
+                    <div class="stat"><div class="label">Meetings Booked</div><div class="value">9</div><div class="delta flat">3 Tier-1 accounts</div></div>
+                </div>
+
+                <div class="campaign-grid" id="campaign-grid"></div>
+
+                <div class="card">
+                    <div class="card-head"><h3>Available Templates</h3><span class="meta">4 segments · EN-spec messaging</span></div>
+                    <div class="card-body" id="template-list"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</div>
+
+<!-- ===================== MODAL ===================== -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+        <div class="modal-head">
+            <h3 id="modal-title">Details</h3>
+            <button class="btn-icon" onclick="closeModal()" aria-label="Close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
+        <div class="modal-foot" id="modal-foot">
+            <button class="btn btn-ghost" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== TOASTS ===================== -->
+<div class="toast-stack" id="toast-stack"></div>
+
+<script>
+/* ============================================================
+   DATA — sourced from VAGOTECH_CLIENT_LEADS_ROMANIA.md (June 2026)
+   Replace with live /api fetch once docs/vagotech-leads-database.md
+   is published by @bianca and wired to a D1 endpoint.
+   ============================================================ */
+const LEADS = [
+    { company:'CFR Călători S.A.', type:'National Railway', country:'Romania', contact:'Eduard Deleanu', role:'Chief Technical Officer', email:'procurement@cfr.ro', phone:'+40-21-3121000', opportunity:1600000, priority:'HIGH', status:'contacted', project:'Coradia Stream Modernization — 160 trains', intel:'Window supplier still being evaluated. Decision Q3 2026. Maintenance budget €180M/yr.' },
+    { company:'STB București', type:'Public Transit', country:'Romania', contact:'Mihai Georgescu', role:'General Manager', email:'procurement@stb.ro', phone:'+40-21-6335000', opportunity:650000, priority:'HIGH', status:'contacted', project:'63× Astra Imperio tram deployment', intel:'Anti-glare + sound-dampening spec (EVOLAM candidate). Local suppliers preferred. €85M order budget.' },
+    { company:'Electroputere VFU Pașcani', type:'OEM Manufacturer', country:'Romania', contact:'Teodor Lucian', role:'Commercial Director', email:'sales@electroputere.ro', phone:'+40-235-417171', opportunity:400000, priority:'HIGH', status:'qualified', project:'OEM supply — Astra Imperio platform', intel:'8–12 window units per tram. Single-supplier contracts preferred. 480+ units/yr potential.' },
+    { company:'Astra Vagoane Arad S.A.', type:'OEM Manufacturer', country:'Romania', contact:'Adrian Marinescu', role:'Commercial', email:'adrian.marinescu@astra-vagoane.ro', phone:'+40-257-280000', opportunity:300000, priority:'HIGH', status:'new', project:'Coradia Stream subcontracting (CFR bodies)', intel:'30–50 cars/year. Glass window packages for passenger coaches.' },
+    { company:'RATB București', type:'Public Transit', country:'Romania', contact:'Nicolae Micu', role:'General Manager', email:'nicolae.micu@ratb.ro', phone:'+40-21-4056000', opportunity:250000, priority:'MEDIUM', status:'new', project:'Fleet renewal 2026–2030', intel:'1,200+ ageing vehicles. Initial pilot opportunity.' },
+    { company:'CTP Cluj-Napoca', type:'Regional Transit', country:'Romania', contact:'Ionel Badea', role:'Director', email:'ionel.badea@ctp-cluj.ro', phone:'+40-264-593800', opportunity:200000, priority:'MEDIUM', status:'new', project:'Modernization 2027–2030', intel:'200+ trams, some 30+ years old. Pilot phase.' },
+    { company:'CTP Timișoara', type:'Regional Transit', country:'Romania', contact:'Iorin Morar', role:'Director', email:'director@ctp-timisoara.ro', phone:'+40-256-410255', opportunity:100000, priority:'MEDIUM', status:'new', project:'Modernization phase', intel:'60 trams + 120 buses.' },
+    { company:'FMTC Craiova', type:'Local Transit', country:'Romania', contact:'Ion Mătase', role:'Director', email:'director@fmtc-craiova.ro', phone:'+40-251-410500', opportunity:70000, priority:'LOW', status:'new', project:'Tram modernization', intel:'40 trams.' },
+    { company:'STPT Pitești', type:'Regional Transit', country:'Romania', contact:'Liviu Chițanu', role:'Director', email:'contact@stpt-pitesti.ro', phone:'+40-248-213500', opportunity:50000, priority:'LOW', status:'new', project:'Fleet upgrade', intel:'25 trams + buses.' },
+    { company:'Meridian Trenuri', type:'Private Operator', country:'Romania', contact:'Costinel Bănescu', role:'Operator', email:'contact@meridian-trenuri.ro', phone:'+40-268-336800', opportunity:40000, priority:'LOW', status:'new', project:'Tourist / heritage railways', intel:'Growing niche segment.' },
+    { company:'Alstom Deutschland', type:'OEM Manufacturer', country:'Germany', contact:'Procurement Desk', role:'Supplier Relations', email:'rail.procurement@alstom.com', phone:'+49-30-000000', opportunity:520000, priority:'HIGH', status:'new', project:'Coradia platform glass sourcing (EU)', intel:'Astra Imperio developed with Alstom Belfort. Cross-border OEM expansion target.' },
+    { company:'PKP Intercity', type:'National Railway', country:'Poland', contact:'Procurement Office', role:'Fleet Procurement', email:'przetargi@intercity.pl', phone:'+48-22-4749000', opportunity:380000, priority:'MEDIUM', status:'new', project:'Regional fleet modernization', intel:'Large EU-funded modernization cycle 2026–2029.' }
+];
+
+/* Per-unit price ranges (EUR, 1 m² base) by glass type */
+const PRICE_REF = {
+    windscreen: { label:'EVOLAM Windscreen',     product:'EVOLAM',       low:420, mid:560, high:740, lead:'4–6 weeks' },
+    side:       { label:'EVODUR Side Window',    product:'EVODUR',       low:180, mid:240, high:320, lead:'4–5 weeks' },
+    door:       { label:'EVOLAM SMART Door',     product:'EVOLAM SMART', low:520, mid:680, high:910, lead:'5–6 weeks' },
+    interior:   { label:'EVOPRINT Interior',     product:'EVOPRINT',     low:140, mid:200, high:280, lead:'3–5 weeks' }
+};
+
+/* Market sizing per country (EUR Y1) — aggregated from lead pipeline */
+const MARKET = [
+    { country:'Romania',  flag:'🇷🇴', value:3260000, operators:10, note:'Coradia Stream + Astra Imperio core market' },
+    { country:'Germany',  flag:'🇩🇪', value:520000,  operators:1,  note:'Alstom OEM cross-border supply' },
+    { country:'Poland',   flag:'🇵🇱', value:380000,  operators:1,  note:'EU-funded regional modernization' }
+];
+
+const TIERS = [
+    { name:'Tier 1 (€1M+)',     value:2250000, color:'#1a3a52' },
+    { name:'Tier 2 (€300K–1M)', value:950000,  color:'#c8a24b' },
+    { name:'Tier 3 (<€300K)',   value:350000,  color:'#2d6cb5' }
+];
+
+const CAMPAIGNS = [
+    { name:'CFR Coradia Stream', seg:'National Railway', sent:42, open:52, reply:7, status:'active' },
+    { name:'STB Tram Modernization', seg:'Public Transit', sent:38, open:46, reply:6, status:'active' },
+    { name:'OEM Supplier Outreach', seg:'Manufacturers', sent:64, open:38, reply:9, status:'active' },
+    { name:'Regional Transit Pilot', seg:'Regional Transit', sent:88, open:31, reply:4, status:'scheduled' }
+];
+
+const TEMPLATES = [
+    { name:'Coradia Stream Introduction', desc:'Tier-1 national railway · EN 12288 windshield focus', uses:42 },
+    { name:'Astra Imperio Tram Spec', desc:'Anti-glare + sound-dampening EVOLAM pitch', uses:38 },
+    { name:'OEM Single-Supplier Offer', desc:'Volume OEM supply · 4–6 week delivery advantage', uses:64 },
+    { name:'Regional Modernization Pilot', desc:'5–10 unit pilot order · low-commitment entry', uses:88 }
+];
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+const $ = (id) => document.getElementById(id);
+const eur = (n) => '€' + Number(n).toLocaleString('en-US');
+const eurK = (n) => n >= 1000000 ? '€' + (n/1000000).toFixed(2) + 'M' : '€' + Math.round(n/1000) + 'K';
+function esc(s){ const d=document.createElement('div'); d.textContent = s==null?'':String(s); return d.innerHTML; }
+
+const STATUS_BADGE = { new:'badge-blue', contacted:'badge-amber', qualified:'badge-green' };
+const PRIORITY_BADGE = { HIGH:'badge-red', MEDIUM:'badge-amber', LOW:'badge-gray' };
+
+function toast(msg, type){
+    const el = document.createElement('div');
+    el.className = 'toast' + (type==='ok' ? ' ok' : '');
+    el.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>' + esc(msg);
+    $('toast-stack').appendChild(el);
+    setTimeout(() => { el.style.opacity='0'; el.style.transform='translateX(20px)'; el.style.transition='all .25s'; setTimeout(()=>el.remove(),250); }, 3200);
+}
+
+/* ============================================================
+   TAB NAVIGATION
+   ============================================================ */
+const TAB_TITLES = { leads:'Leads Database', market:'Market Analysis', pricing:'Pricing Tool', campaigns:'Campaigns' };
+function switchTab(tab){
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    $('panel-' + tab).classList.add('active');
+    document.querySelector('.nav-item[data-tab="'+tab+'"]').classList.add('active');
+    $('page-title').textContent = TAB_TITLES[tab];
+    toggleSidebar(false);
+    if (tab === 'market') animateBars();
+    if (tab === 'pricing') recalc();
+}
+function toggleSidebar(open){
+    const sb = $('sidebar'), bd = $('backdrop');
+    if (open === undefined) open = !sb.classList.contains('open');
+    sb.classList.toggle('open', open);
+    bd.classList.toggle('show', open);
+}
+
+/* ============================================================
+   TAB 1 — LEADS
+   ============================================================ */
+// Mutable copy so "Mark as Contacted" persists during the session.
+let leadState = LEADS.map((l, i) => ({ ...l, _id: i }));
+
+function populateFilters(){
+    const countries = [...new Set(leadState.map(l => l.country))].sort();
+    const types = [...new Set(leadState.map(l => l.type))].sort();
+    $('f-country').insertAdjacentHTML('beforeend', countries.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join(''));
+    $('f-type').insertAdjacentHTML('beforeend', types.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join(''));
+}
+
+function getFilteredLeads(){
+    const q = $('f-search').value.trim().toLowerCase();
+    const country = $('f-country').value;
+    const priority = $('f-priority').value;
+    const type = $('f-type').value;
+    const status = $('f-status').value;
+    return leadState.filter(l => {
+        if (country && l.country !== country) return false;
+        if (priority && l.priority !== priority) return false;
+        if (type && l.type !== type) return false;
+        if (status && l.status !== status) return false;
+        if (q && !(l.company.toLowerCase().includes(q) || l.contact.toLowerCase().includes(q))) return false;
+        return true;
+    });
+}
+
+function renderLeads(){
+    const rows = getFilteredLeads();
+    const tbody = $('leads-tbody');
+    if (!rows.length){
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:2.5rem;color:var(--text-faint)">No leads match the current filters.</td></tr>';
+    } else {
+        tbody.innerHTML = rows.map(l => `
+            <tr>
+                <td>
+                    <div class="cell-company">${esc(l.company)}</div>
+                    <div class="cell-sub">${esc(l.type)}</div>
+                </td>
+                <td>${esc(l.country)}</td>
+                <td>
+                    <div>${esc(l.contact)}</div>
+                    <div class="cell-sub">${esc(l.role)}</div>
+                </td>
+                <td><a href="mailto:${esc(l.email)}" style="color:var(--blue)">${esc(l.email)}</a></td>
+                <td><strong style="color:var(--navy)">${eurK(l.opportunity)}</strong></td>
+                <td><span class="badge ${PRIORITY_BADGE[l.priority]}"><span class="dot"></span>${esc(l.priority)}</span></td>
+                <td><span class="badge ${STATUS_BADGE[l.status]}" id="st-${l._id}">${esc(l.status)}</span></td>
+                <td>
+                    <div class="row-actions">
+                        <button class="btn btn-ghost btn-sm" onclick="sendEmail(${l._id})" title="Send Email">
+                            <svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+                        </button>
+                        <button class="btn btn-ghost btn-sm" onclick="markContacted(${l._id})" title="Mark as Contacted">
+                            <svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+                        </button>
+                        <button class="btn btn-ghost btn-sm" onclick="viewDetails(${l._id})" title="View Details">
+                            <svg class="ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        </button>
+                    </div>
+                </td>
+            </tr>`).join('');
+    }
+    $('leads-count').textContent = rows.length + ' of ' + leadState.length + ' leads';
+    updateKPIs();
+}
+
+function updateKPIs(){
+    const total = leadState.length;
+    const pipeline = leadState.reduce((s,l) => s + l.opportunity, 0);
+    const high = leadState.filter(l => l.priority === 'HIGH').length;
+    const contacted = leadState.filter(l => l.status === 'contacted' || l.status === 'qualified').length;
+    $('kpi-total').textContent = total;
+    $('kpi-pipeline').textContent = eurK(pipeline);
+    $('kpi-high').textContent = high;
+    $('kpi-contacted').textContent = contacted;
+}
+
+function sendEmail(id){
+    const l = leadState.find(x => x._id === id);
+    const subject = encodeURIComponent('VAGOTECH — Premium European Railway Glass for ' + l.company);
+    const body = encodeURIComponent('Dear ' + l.contact + ',\n\nGlass Expert USA is introducing VAGOTECH — railway glass engineered to EN 12288 / EN 14752 / EN 12600, with 4–6 week delivery.\n\nFor your project (' + l.project + '), VAGOTECH offers EN-certified engineering, 25+ years of experience and direct technical support from our Timișoara and New Jersey teams.\n\nCould we schedule a 30-minute technical briefing?\n\nBest regards,\nVAGOTECH Sales — Glass Expert USA\n+1-609-408-8100 · office.us@xglass.eu');
+    window.location.href = 'mailto:' + l.email + '?subject=' + subject + '&body=' + body;
+    toast('Opening email to ' + l.contact, 'ok');
+}
+
+function markContacted(id){
+    const l = leadState.find(x => x._id === id);
+    if (l.status === 'new') { l.status = 'contacted'; toast(l.company + ' marked as contacted', 'ok'); }
+    else if (l.status === 'contacted') { l.status = 'qualified'; toast(l.company + ' marked as qualified', 'ok'); }
+    else { toast(l.company + ' is already ' + l.status); }
+    renderLeads();
+}
+
+function viewDetails(id){
+    const l = leadState.find(x => x._id === id);
+    $('modal-title').textContent = l.company;
+    $('modal-body').innerHTML = `
+        <div style="margin-bottom:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
+            <span class="badge ${PRIORITY_BADGE[l.priority]}"><span class="dot"></span>${esc(l.priority)} priority</span>
+            <span class="badge ${STATUS_BADGE[l.status]}">${esc(l.status)}</span>
+            <span class="badge badge-gold">${eurK(l.opportunity)} opportunity</span>
+        </div>
+        <dl class="detail-grid">
+            <dt>Type</dt><dd>${esc(l.type)}</dd>
+            <dt>Country</dt><dd>${esc(l.country)}</dd>
+            <dt>Contact</dt><dd>${esc(l.contact)} — ${esc(l.role)}</dd>
+            <dt>Email</dt><dd><a href="mailto:${esc(l.email)}" style="color:var(--blue)">${esc(l.email)}</a></dd>
+            <dt>Phone</dt><dd>${esc(l.phone)}</dd>
+            <dt>Project</dt><dd>${esc(l.project)}</dd>
+        </dl>
+        <div style="margin-top:1rem;padding:0.9rem 1rem;background:var(--bg);border-radius:8px;border-left:3px solid var(--gold)">
+            <div style="font-size:0.74rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-muted);font-weight:700;margin-bottom:0.3rem">Sales Intel</div>
+            <div style="font-size:0.88rem;color:var(--text)">${esc(l.intel)}</div>
+        </div>`;
+    $('modal-foot').innerHTML = `
+        <button class="btn btn-ghost" onclick="closeModal()">Close</button>
+        <button class="btn btn-primary" onclick="closeModal();sendEmail(${l._id})">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+            Send Email
+        </button>`;
+    openModal();
+}
+
+function exportLeadsCSV(){
+    const rows = getFilteredLeads();
+    const headers = ['Company','Type','Country','Contact','Role','Email','Phone','Opportunity (EUR)','Priority','Status','Project'];
+    const csvEscape = (v) => '"' + String(v==null?'':v).replace(/"/g,'""') + '"';
+    const lines = [headers.map(csvEscape).join(',')];
+    rows.forEach(l => lines.push([l.company,l.type,l.country,l.contact,l.role,l.email,l.phone,l.opportunity,l.priority,l.status,l.project].map(csvEscape).join(',')));
+    const blob = new Blob(['﻿' + lines.join('\r\n')], { type:'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'vagotech-leads-' + new Date().toISOString().slice(0,10) + '.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+    toast('Exported ' + rows.length + ' leads to CSV', 'ok');
+}
+
+function openModal(){ $('modal').classList.add('open'); }
+function closeModal(){ $('modal').classList.remove('open'); }
+
+/* ============================================================
+   TAB 2 — MARKET ANALYSIS
+   ============================================================ */
+function renderMarket(){
+    // Stat cards per country
+    $('market-cards').innerHTML = MARKET.map(m => `
+        <div class="stat">
+            <div class="label">${m.flag} ${esc(m.country)}</div>
+            <div class="value">${eurK(m.value)}</div>
+            <div class="delta flat">${m.operators} operator${m.operators>1?'s':''} · ${esc(m.note)}</div>
+        </div>`).join('');
+
+    // Bar chart — revenue by country
+    const maxVal = Math.max(...MARKET.map(m => m.value));
+    $('revenue-chart').innerHTML = MARKET.map((m,i) => `
+        <div class="bar-row">
+            <div class="bar-label">${m.flag} ${esc(m.country)}</div>
+            <div class="bar-track"><div class="bar-fill ${i===0?'gold':''}" data-w="${(m.value/maxVal*100).toFixed(1)}"></div></div>
+            <div class="bar-value">${eurK(m.value)}</div>
+        </div>`).join('');
+
+    // Donut — tier distribution (conic-gradient)
+    const totalTier = TIERS.reduce((s,t)=>s+t.value,0);
+    let acc = 0;
+    const stops = TIERS.map(t => {
+        const start = acc/totalTier*360;
+        acc += t.value;
+        const end = acc/totalTier*360;
+        return `${t.color} ${start.toFixed(1)}deg ${end.toFixed(1)}deg`;
+    }).join(', ');
+    $('tier-donut').style.background = `conic-gradient(${stops})`;
+    $('donut-total').textContent = eurK(totalTier);
+    $('tier-legend').innerHTML = TIERS.map(t => `
+        <div class="legend-item">
+            <span class="legend-swatch" style="background:${t.color}"></span>
+            <span>${esc(t.name)}</span>
+            <span class="lv">${eurK(t.value)}</span>
+        </div>`).join('');
+}
+
+function animateBars(){
+    requestAnimationFrame(() => {
+        document.querySelectorAll('#revenue-chart .bar-fill').forEach(b => { b.style.width = b.dataset.w + '%'; });
+    });
+}
+
+/* ============================================================
+   TAB 3 — PRICING TOOL
+   ============================================================ */
+let pricingGlass = 'windscreen';
+
+function selectGlass(btn){
+    document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    pricingGlass = btn.dataset.glass;
+    recalc();
+}
+
+function volumeDiscount(qty){
+    if (qty >= 500) return 0.18;
+    if (qty >= 200) return 0.12;
+    if (qty >= 100) return 0.08;
+    if (qty >= 50)  return 0.05;
+    if (qty >= 20)  return 0.02;
+    return 0;
+}
+
+function recalc(){
+    const ref = PRICE_REF[pricingGlass];
+    const w = Math.max(0, parseFloat($('p-width').value) || 0);
+    const h = Math.max(0, parseFloat($('p-height').value) || 0);
+    const qty = Math.max(0, parseInt($('p-qty').value) || 0);
+    const area = (w * h) / 1000000; // mm² -> m²
+    const sel = $('p-country').options[$('p-country').selectedIndex];
+    const shipPct = parseFloat(sel.dataset.ship) || 0;
+
+    // Per-unit at mid price, scaled by area (min billable 0.4 m²)
+    const billArea = Math.max(area, 0.4);
+    const unitMid = ref.mid * billArea;
+    const disc = volumeDiscount(qty);
+    const subtotal = unitMid * qty * (1 - disc);
+    const ship = subtotal * shipPct;
+    const total = subtotal + ship;
+    const lowTotal = (ref.low * billArea) * qty * (1 - disc) * (1 + shipPct);
+    const highTotal = (ref.high * billArea) * qty * (1 - disc) * (1 + shipPct);
+
+    $('q-product').textContent = ref.label;
+    $('q-area').textContent = area.toFixed(2) + ' m²' + (area < 0.4 ? ' (min 0.40)' : '');
+    $('q-unit').textContent = eur(Math.round(unitMid));
+    $('q-qty').textContent = qty.toLocaleString('en-US');
+    $('q-discount').textContent = (disc*100).toFixed(0) + '%';
+    $('q-ship').textContent = eur(Math.round(ship));
+    $('q-total').textContent = eur(Math.round(total));
+    $('q-range').textContent = 'range ' + eurK(Math.round(lowTotal)) + ' – ' + eurK(Math.round(highTotal));
+}
+
+function renderPriceRef(){
+    $('price-ref-tbody').innerHTML = Object.values(PRICE_REF).map(p => `
+        <tr>
+            <td class="prod">${esc(p.product)}</td>
+            <td>${esc(p.label.replace(p.product,'').trim()) || '—'}</td>
+            <td>${eur(p.low)}</td>
+            <td><strong>${eur(p.mid)}</strong></td>
+            <td>${eur(p.high)}</td>
+            <td><span class="badge badge-gray">${esc(p.lead)}</span></td>
+        </tr>`).join('');
+}
+
+function generateQuote(){
+    const ref = PRICE_REF[pricingGlass];
+    const total = $('q-total').textContent;
+    $('modal-title').textContent = 'Quote — ' + ref.label;
+    $('modal-body').innerHTML = `
+        <div style="text-align:center;padding:0.5rem 0 1.25rem">
+            <div style="font-size:0.78rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em">Estimated Total</div>
+            <div style="font-size:2.4rem;font-weight:800;color:var(--navy);margin-top:0.2rem">${total}</div>
+            <div style="font-size:0.82rem;color:var(--text-faint)">${$('q-range').textContent}</div>
+        </div>
+        <dl class="detail-grid">
+            <dt>Product</dt><dd>${esc(ref.label)}</dd>
+            <dt>Dimensions</dt><dd>${esc($('p-width').value)} × ${esc($('p-height').value)} mm</dd>
+            <dt>Unit area</dt><dd>${$('q-area').textContent}</dd>
+            <dt>Quantity</dt><dd>${$('q-qty').textContent} units</dd>
+            <dt>Volume discount</dt><dd>${$('q-discount').textContent}</dd>
+            <dt>Logistics</dt><dd>${$('q-ship').textContent}</dd>
+            <dt>Lead time</dt><dd>${esc(ref.lead)}</dd>
+        </dl>
+        <p style="margin-top:1rem;font-size:0.78rem;color:var(--text-faint);line-height:1.5">Indicative estimate. Subject to technical review and EN 12288 / EN 14752 spec validation. Valid 30 days. Glass Expert USA · +1-609-408-8100.</p>`;
+    $('modal-foot').innerHTML = `
+        <button class="btn btn-ghost" onclick="closeModal()">Close</button>
+        <button class="btn btn-gold" onclick="window.print()">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Print / Save PDF
+        </button>`;
+    openModal();
+    toast('Quote generated', 'ok');
+}
+
+/* ============================================================
+   TAB 4 — CAMPAIGNS
+   ============================================================ */
+function renderCampaigns(){
+    $('campaign-grid').innerHTML = CAMPAIGNS.map(c => {
+        const openRate = c.open;
+        const replyRate = ((c.reply / c.sent) * 100).toFixed(1);
+        const statusBadge = c.status === 'active' ? 'badge-green' : 'badge-amber';
+        return `
+        <div class="campaign-card">
+            <div class="ctitle">${esc(c.name)} <span class="badge ${statusBadge}"><span class="dot"></span>${esc(c.status)}</span></div>
+            <div style="font-size:0.8rem;color:var(--text-faint);margin-top:0.2rem">${esc(c.seg)}</div>
+            <div class="campaign-metrics">
+                <div class="cm"><div class="n">${c.sent}</div><div class="l">Sent</div></div>
+                <div class="cm"><div class="n">${openRate}%</div><div class="l">Open</div></div>
+                <div class="cm"><div class="n">${c.reply}</div><div class="l">Replies</div></div>
+            </div>
+            <div style="font-size:0.76rem;color:var(--text-muted);display:flex;justify-content:space-between"><span>Open rate</span><span>${openRate}%</span></div>
+            <div class="progress"><div style="width:${openRate}%"></div></div>
+            <div style="display:flex;gap:0.5rem;margin-top:1rem">
+                <button class="btn btn-ghost btn-sm" style="flex:1;justify-content:center" onclick="toast('Viewing ${esc(c.name)} report','ok')">View Report</button>
+                <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="toast('Launching ${esc(c.name)}','ok')">Launch</button>
+            </div>
+        </div>`;
+    }).join('');
+
+    $('template-list').innerHTML = TEMPLATES.map(t => `
+        <div class="template-row">
+            <div class="tinfo">
+                <div class="tname">${esc(t.name)}</div>
+                <div class="tdesc">${esc(t.desc)}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.85rem">
+                <span class="badge badge-gray">${t.uses} sent</span>
+                <button class="btn btn-ghost btn-sm" onclick="toast('Opening template: ${esc(t.name)}','ok')">Use</button>
+            </div>
+        </div>`).join('');
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+(function init(){
+    populateFilters();
+    renderLeads();
+    renderMarket();
+    renderPriceRef();
+    recalc();
+    renderCampaigns();
+})();
+</script>
+</body>
+</html>
