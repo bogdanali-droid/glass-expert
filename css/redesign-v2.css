@@ -596,9 +596,32 @@ p {
   background: var(--color-bg);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
-  padding: 2rem;
+  padding: 0;
+  overflow: hidden;
   transition: transform var(--transition), box-shadow var(--transition);
   border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+}
+.product-card-img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+}
+.product-card-caption {
+  font-size: 0.65rem;
+  color: var(--color-text-muted, #999);
+  padding: 0.2rem 0.75rem;
+  background: color-mix(in srgb, var(--color-border) 30%, transparent);
+  text-align: right;
+}
+.product-card-body {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-card:hover {
@@ -608,15 +631,15 @@ p {
 
 .product-card .product-icon {
   font-size: 2.5rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 14px;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 12px;
   background: color-mix(in srgb, var(--accent-current, #0066CC) 10%, transparent);
-  margin-left: auto;
+  margin-left: 0;
   margin-right: auto;
 }
 .product-card .product-icon svg {
