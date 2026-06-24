@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAGOTECH — Business Dashboard | Glass Expert USA</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        /* ============================================================
+           VAGOTECH BUSINESS DASHBOARD — Glass Expert USA
+           Self-contained B2B admin. Navy #1a3a52 + gold accents.
+           Zero external dependencies (pure CSS charts).
+           ============================================================ */
+        :root {
+            --navy:        #1a3a52;
+            --navy-2:      #2d5a7a;
+            --navy-deep:   #112637;
+            --gold:        #c8a24b;
+            --gold-soft:   #e3c878;
+            --gold-bg:     rgba(200, 162, 75, 0.12);
+            --bg:          #f4f6f8;
+            --surface:     #ffffff;
+            --text:        #1f2937;
+            --text-muted:  #6b7280;
+            --text-faint:  #9ca3af;
+            --border:      #e5e7eb;
+            --green:       #2f9e6f;
+            --green-bg:    rgba(47, 158, 111, 0.12);
+            --red:         #d65745;
+            --red-bg:      rgba(214, 87, 69, 0.12);
+            --amber:       #d99a2b;
+            --amber-bg:    rgba(217, 154, 43, 0.14);
+            --blue:        #2d6cb5;
+            --blue-bg:     rgba(45, 108, 181, 0.12);
+            --radius:      12px;
+            --radius-sm:   8px;
+            --shadow:      0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
+            --shadow-lg:   0 12px 32px rgba(16, 24, 40, 0.16);
+            --font:        'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ---------- Layout shell ---------- */
+        .app { display: flex; min-height: 100vh; }
+
+        .sidebar {
+            width: 248px;
+            background: linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0; left: 0; bottom: 0;
+            z-index: 40;
+            transition: transform 0.25s ease;
+        }
+
+        .brand {
+            padding: 1.5rem 1.5rem 1.25rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .brand .logo {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .brand .logo .dot { color: var(--gold); }
+        .brand .sub {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.55);
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .nav { padding: 1rem 0.75rem; flex: 1; }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 0.7rem 0.85rem;
+            margin-bottom: 0.25rem;
+            border-radius: var(--radius-sm);
+            color: rgba(255,255,255,0.72);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: left;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+        .nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
+        .nav-item.active {
+            background: var(--gold-bg);
+            color: var(--gold-soft);
+            box-shadow: inset 3px 0 0 var(--gold);
+        }
+        .nav-item .ico { width: 18px; height: 18px; flex-shrink: 0; }
+
+        .sidebar-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+        }
+        .sidebar-footer strong { color: rgba(255,255,255,0.8); }
+
+        .main {
+            flex: 1;
+            margin-left: 248px;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+        .topbar h1 { font-size: 1.25rem; font-weight: 700; color: var(--navy); }
+        .topbar .crumb { font-size: 0.8rem; color: var(--text-faint); margin-top: 2px; }
+        .topbar-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+        .hamburger {
+            display: none;
+            background: none; border: none; cursor: pointer;
+            padding: 0.4rem; color: var(--navy);
+        }
+
+        .user-chip {
+            display: flex; align-items: center; gap: 0.6rem;
+            padding: 0.35rem 0.4rem 0.35rem 0.75rem;
+            border-radius: 100px;
+            background: var(--bg);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .user-chip .avatar {
+            width: 32px; height: 32px; border-radius: 50%;
+            background: var(--navy); color: #fff;
+            display: grid; place-items: center;
+            font-size: 0.8rem; font-weight: 700;
+        }
+
+        .content { padding: 2rem; max-width: 1500px; width: 100%; }
+
+        /* ---------- Tab panels ---------- */
+        .panel { display: none; animation: fade 0.2s ease; }
+        .panel.active { display: block; }
+        @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+        .panel-head {
+            display: flex; align-items: flex-end; justify-content: space-between;
+            gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+        }
+        .panel-head h2 { font-size: 1.4rem; font-weight: 700; color: var(--navy); }
+        .panel-head p { font-size: 0.88rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+        /* ---------- Buttons ---------- */
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            padding: 0.55rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem; font-weight: 600;
+            border: 1px solid transparent;
+            cursor: pointer; transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .btn .ico { width: 16px; height: 16px; }
+        .btn-primary { background: var(--navy); color: #fff; }
+        .btn-primary:hover { background: var(--navy-2); }
+        .btn-gold { background: var(--gold); color: var(--navy-deep); }
+        .btn-gold:hover { background: var(--gold-soft); }
+        .btn-ghost { background: var(--surface); color: var(--navy); border-color: var(--border); }
+        .btn-ghost:hover { background: var(--bg); border-color: #d1d5db; }
+        .btn-sm { padding: 0.35rem 0.65rem; font-size: 0.78rem; }
+        .btn-icon {
+            padding: 0.4rem; background: transparent; color: var(--text-muted);
+            border-radius: 6px;
+        }
+        .btn-icon:hover { background: var(--bg); color: var(--navy); }
+
+        /* ---------- Cards / stat tiles ---------- */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 1.75rem;
+        }
+        .stat {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem 1.4rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        .stat::before {
+            content: ''; position: absolute; top: 0; left: 0; bottom: 0;
+            width: 4px; background: var(--gold);
+        }
+        .stat .label {
+            font-size: 0.78rem; color: var(--text-muted);
+            font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em;
+        }
+        .stat .value { font-size: 1.9rem; font-weight: 800; color: var(--navy); margin-top: 0.35rem; line-height: 1.1; }
+        .stat .delta { font-size: 0.78rem; margin-top: 0.4rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.25rem; }
+        .delta.up { color: var(--green); }
+        .delta.down { color: var(--red); }
+        .delta.flat { color: var(--text-faint); }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+        .card-head {
+            padding: 1.1rem 1.4rem;
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+        }
+        .card-head h3 { font-size: 1.02rem; font-weight: 700; color: var(--navy); }
+        .card-head .meta { font-size: 0.8rem; color: var(--text-faint); }
+        .card-body { padding: 1.4rem; }
+
+        /* ---------- Badges ---------- */
+        .badge {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 100px;
+            font-size: 0.72rem; font-weight: 600;
+            line-height: 1.4;
+        }
+        .badge-gold  { background: var(--gold-bg); color: #9a7726; }
+        .badge-green { background: var(--green-bg); color: var(--green); }
+        .badge-red   { background: var(--red-bg); color: var(--red); }
+        .badge-amber { background: var(--amber-bg); color: #a8741b; }
+        .badge-blue  { background: var(--blue-bg); color: var(--blue); }
+        .badge-gray  { background: #eef0f2; color: var(--text-muted); }
+        .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+        /* ---------- Tables ---------- */
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.87rem; }
+        thead th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-size: 0.74rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.04em;
+            color: var(--text-muted);
+            background: #fafbfc;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+        tbody td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        tbody tr:hover { background: #fafbfc; }
+        tbody tr:last-child td { border-bottom: none; }
+        .cell-company { font-weight: 600; color: var(--navy); }
+        .cell-sub { font-size: 0.78rem; color: var(--text-faint); }
+        .row-actions { display: flex; gap: 0.3rem; justify-content: flex-end; }
+
+        /* ---------- Filters ---------- */
+        .filters {
+            display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;
+            margin-bottom: 1.25rem;
+        }
+        .field { display: flex; flex-direction: column; gap: 0.3rem; }
+        .field label { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; }
+        select, input[type="text"], input[type="number"], input[type="search"] {
+            font-family: inherit;
+            font-size: 0.86rem;
+            padding: 0.5rem 0.7rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            color: var(--text);
+            min-width: 150px;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--navy-2);
+            box-shadow: 0 0 0 3px rgba(45, 90, 122, 0.12);
+        }
+        .search-box { position: relative; flex: 1; min-width: 200px; max-width: 340px; }
+        .search-box input { width: 100%; padding-left: 2.2rem; }
+        .search-box .ico { position: absolute; left: 0.65rem; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-faint); }
+
+        /* ---------- Pure-CSS bar chart ---------- */
+        .barchart { display: flex; flex-direction: column; gap: 0.9rem; }
+        .bar-row { display: grid; grid-template-columns: 130px 1fr auto; gap: 0.85rem; align-items: center; }
+        .bar-label { font-size: 0.84rem; font-weight: 600; color: var(--navy); }
+        .bar-track { background: var(--bg); border-radius: 100px; height: 12px; overflow: hidden; }
+        .bar-fill {
+            height: 100%; border-radius: 100px;
+            background: linear-gradient(90deg, var(--navy) 0%, var(--navy-2) 100%);
+            width: 0;
+            transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .bar-fill.gold { background: linear-gradient(90deg, var(--gold) 0%, var(--gold-soft) 100%); }
+        .bar-value { font-size: 0.84rem; font-weight: 700; color: var(--navy); min-width: 64px; text-align: right; }
+
+        /* ---------- Donut (conic-gradient) ---------- */
+        .donut-wrap { display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap; }
+        .donut {
+            width: 168px; height: 168px; border-radius: 50%;
+            position: relative; flex-shrink: 0;
+        }
+        .donut::after {
+            content: ''; position: absolute; inset: 26px;
+            background: var(--surface); border-radius: 50%;
+        }
+        .donut .center {
+            position: absolute; inset: 0; display: grid; place-items: center;
+            text-align: center; z-index: 2;
+        }
+        .donut .center .big { font-size: 1.5rem; font-weight: 800; color: var(--navy); }
+        .donut .center .small { font-size: 0.72rem; color: var(--text-muted); }
+        .legend { display: flex; flex-direction: column; gap: 0.55rem; }
+        .legend-item { display: flex; align-items: center; gap: 0.55rem; font-size: 0.85rem; }
+        .legend-swatch { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+        .legend-item .lv { margin-left: auto; font-weight: 700; color: var(--navy); padding-left: 1rem; }
+
+        /* ---------- Opportunity matrix ---------- */
+        .matrix {
+            display: grid;
+            grid-template-columns: auto repeat(3, 1fr);
+            gap: 6px;
+            margin-top: 0.5rem;
+        }
+        .matrix .axis-y, .matrix .axis-x { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; display: grid; place-items: center; }
+        .matrix-cell {
+            border-radius: var(--radius-sm);
+            padding: 0.7rem;
+            min-height: 78px;
+            display: flex; flex-direction: column; gap: 0.3rem;
+            border: 1px solid var(--border);
+        }
+        .matrix-cell.hot   { background: rgba(214, 87, 69, 0.10); border-color: rgba(214,87,69,0.25); }
+        .matrix-cell.warm  { background: var(--gold-bg); border-color: rgba(200,162,75,0.3); }
+        .matrix-cell.cool  { background: var(--blue-bg); border-color: rgba(45,108,181,0.22); }
+        .matrix-tag { font-size: 0.7rem; font-weight: 700; color: var(--navy); }
+        .matrix-co { font-size: 0.76rem; color: var(--text-muted); }
+
+        /* ---------- Pricing tool ---------- */
+        .price-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; }
+        .price-form { display: flex; flex-direction: column; gap: 1.1rem; }
+        .price-form .field { width: 100%; }
+        .price-form .field select, .price-form .field input { min-width: 0; width: 100%; }
+        .seg-toggle { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+        .seg-btn {
+            padding: 0.7rem; border: 1px solid var(--border); border-radius: var(--radius-sm);
+            background: var(--surface); font-size: 0.85rem; font-weight: 600; color: var(--text-muted);
+            cursor: pointer; text-align: center; transition: all 0.15s;
+        }
+        .seg-btn:hover { border-color: var(--navy-2); color: var(--navy); }
+        .seg-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+        .seg-btn small { display: block; font-weight: 500; font-size: 0.7rem; opacity: 0.8; margin-top: 2px; }
+
+        .quote-panel {
+            background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+            border-radius: var(--radius); color: #fff; padding: 1.6rem; align-self: start;
+            position: sticky; top: 90px;
+        }
+        .quote-panel h3 { color: #fff; font-size: 1.05rem; margin-bottom: 1rem; }
+        .quote-line { display: flex; justify-content: space-between; padding: 0.55rem 0; font-size: 0.88rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .quote-line span:first-child { color: rgba(255,255,255,0.65); }
+        .quote-line span:last-child { font-weight: 600; }
+        .quote-total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 1rem; padding-top: 1rem; border-top: 2px solid var(--gold); }
+        .quote-total .lbl { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+        .quote-total .amt { font-size: 1.9rem; font-weight: 800; color: var(--gold-soft); }
+        .quote-range { font-size: 0.78rem; color: rgba(255,255,255,0.55); text-align: right; margin-top: 0.2rem; }
+        .quote-note { font-size: 0.74rem; color: rgba(255,255,255,0.5); margin-top: 1rem; line-height: 1.5; }
+
+        .price-table td, .price-table th { font-size: 0.82rem; }
+        .price-table .prod { font-weight: 600; color: var(--navy); }
+
+        /* ---------- Campaigns ---------- */
+        .campaign-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem; }
+        .campaign-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.3rem; box-shadow: var(--shadow); }
+        .campaign-card .ctitle { font-weight: 700; color: var(--navy); font-size: 0.98rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+        .campaign-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin: 1rem 0; }
+        .cm { text-align: center; padding: 0.6rem 0.3rem; background: var(--bg); border-radius: var(--radius-sm); }
+        .cm .n { font-size: 1.15rem; font-weight: 800; color: var(--navy); }
+        .cm .l { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; margin-top: 1px; }
+        .progress { height: 7px; background: var(--bg); border-radius: 100px; overflow: hidden; margin-top: 0.4rem; }
+        .progress > div { height: 100%; background: var(--gold); border-radius: 100px; }
+        .template-row { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 0; border-bottom: 1px solid var(--border); gap: 1rem; }
+        .template-row:last-child { border-bottom: none; }
+        .template-row .tinfo { min-width: 0; }
+        .template-row .tname { font-weight: 600; color: var(--navy); font-size: 0.9rem; }
+        .template-row .tdesc { font-size: 0.78rem; color: var(--text-faint); }
+
+        /* ---------- Modal ---------- */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0; z-index: 100;
+            background: rgba(17, 38, 55, 0.55); backdrop-filter: blur(2px);
+            align-items: center; justify-content: center; padding: 1.5rem;
+        }
+        .modal-overlay.open { display: flex; animation: fade 0.15s ease; }
+        .modal {
+            background: var(--surface); border-radius: var(--radius);
+            width: 100%; max-width: 540px; max-height: 88vh; overflow-y: auto;
+            box-shadow: var(--shadow-lg); animation: pop 0.2s ease;
+        }
+        @keyframes pop { from { transform: scale(0.96); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-head { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+        .modal-head h3 { font-size: 1.1rem; color: var(--navy); }
+        .modal-body { padding: 1.5rem; }
+        .modal-foot { padding: 1rem 1.5rem; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 0.6rem; }
+        .detail-grid { display: grid; grid-template-columns: auto 1fr; gap: 0.6rem 1.25rem; font-size: 0.9rem; }
+        .detail-grid dt { color: var(--text-muted); font-weight: 600; }
+        .detail-grid dd { color: var(--text); }
+
+        /* ---------- Toast ---------- */
+        .toast-stack { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200; display: flex; flex-direction: column; gap: 0.6rem; }
+        .toast {
+            background: var(--navy); color: #fff; padding: 0.85rem 1.1rem;
+            border-radius: var(--radius-sm); box-shadow: var(--shadow-lg);
+            font-size: 0.86rem; display: flex; align-items: center; gap: 0.6rem;
+            border-left: 3px solid var(--gold);
+            animation: slidein 0.25s ease;
+        }
+        @keyframes slidein { from { transform: translateX(20px); opacity: 0; } to { transform: none; opacity: 1; } }
+        .toast.ok { border-left-color: var(--green); }
+
+        /* ---------- Responsive ---------- */
+        .backdrop { display: none; }
+        @media (max-width: 1024px) {
+            .price-layout { grid-template-columns: 1fr; }
+            .quote-panel { position: static; }
+        }
+        @media (max-width: 860px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); box-shadow: var(--shadow-lg); }
+            .main { margin-left: 0; }
+            .hamburger { display: inline-flex; }
+            .backdrop.show { display: block; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 35; }
+            .content { padding: 1.25rem; }
+            .topbar { padding: 0.85rem 1.25rem; }
+        }
+        @media (max-width: 560px) {
+            .matrix { grid-template-columns: auto repeat(3, 1fr); font-size: 0.7rem; }
+            .bar-row { grid-template-columns: 90px 1fr auto; }
+            .user-chip span.uname { display: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="logo">VAGO<span class="dot">·</span>TECH</div>
+            <div class="sub">Railway Glass · Sales OS</div>
+        </div>
+        <nav class="nav">
+            <button class="nav-item active" data-tab="leads" onclick="switchTab('leads')">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Leads Database
+            </button>
+            <button class="nav-item" data-tab="market" onclick="switchTab('market')">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 9l-5 5-3-3-4 4"/></svg>
+                Market Analysis
+            </button>
+            <button class="nav-item" data-tab="pricing" onclick="switchTab('pricing')">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 7h8M8 12h8M8 17h5"/></svg>
+                Pricing Tool
+            </button>
+            <button class="nav-item" data-tab="campaigns" onclick="switchTab('campaigns')">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+                Campaigns
+            </button>
+        </nav>
+        <div class="sidebar-footer">
+            <strong>Glass Expert USA</strong><br>
+            New Jersey · +1-609-408-8100<br>
+            office.us@xglass.eu
+        </div>
+    </aside>
+    <div class="backdrop" id="backdrop" onclick="toggleSidebar(false)"></div>
+
+    <!-- ===================== MAIN ===================== -->
+    <div class="main">
+        <header class="topbar">
+            <div style="display:flex;align-items:center;gap:0.75rem">
+                <button class="hamburger" onclick="toggleSidebar(true)" aria-label="Menu">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+                <div>
+                    <h1 id="page-title">Leads Database</h1>
+                    <div class="crumb">VAGOTECH · Railway &amp; Transit Glass · Q3 2026 Pipeline</div>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <span class="badge badge-green"><span class="dot"></span> Live</span>
+                <div class="user-chip">
+                    <span class="avatar">BA</span>
+                    <span class="uname">Bianca · Sales</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="content">
+
+            <!-- ============================================================
+                 TAB 1 — LEADS DATABASE
+                 ============================================================ -->
+            <section class="panel active" id="panel-leads">
+                <div class="panel-head">
+                    <div>
+                        <h2>Leads Database</h2>
+                        <p>Railway &amp; transit decision-makers across Europe. Source: VAGOTECH research, June 2026.</p>
+                    </div>
+                    <div style="display:flex;gap:0.6rem">
+                        <button class="btn btn-ghost" onclick="exportLeadsCSV()">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+                            Export CSV
+                        </button>
+                        <button class="btn btn-gold" onclick="toast('New lead form would open here','ok')">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Add Lead
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stat-grid">
+                    <div class="stat"><div class="label">Total Leads</div><div class="value" id="kpi-total">0</div><div class="delta up">▲ 4 this week</div></div>
+                    <div class="stat"><div class="label">Pipeline Value</div><div class="value" id="kpi-pipeline">€0</div><div class="delta up">▲ 12% MoM</div></div>
+                    <div class="stat"><div class="label">High Priority</div><div class="value" id="kpi-high">0</div><div class="delta flat">Tier 1 targets</div></div>
+                    <div class="stat"><div class="label">Contacted</div><div class="value" id="kpi-contacted">0</div><div class="delta up">▲ 2 today</div></div>
+                </div>
+
+                <div class="filters">
+                    <div class="search-box">
+                        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input type="search" id="f-search" placeholder="Search company or contact…" oninput="renderLeads()">
+                    </div>
+                    <div class="field">
+                        <label>Country</label>
+                        <select id="f-country" onchange="renderLeads()"><option value="">All countries</option></select>
+                    </div>
+                    <div class="field">
+                        <label>Priority</label>
+                        <select id="f-priority" onchange="renderLeads()">
+                            <option value="">All priorities</option>
+                            <option value="HIGH">High</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="LOW">Low</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Company Type</label>
+                        <select id="f-type" onchange="renderLeads()"><option value="">All types</option></select>
+                    </div>
+                    <div class="field">
+                        <label>Status</label>
+                        <select id="f-status" onchange="renderLeads()">
+                            <option value="">All statuses</option>
+                            <option value="new">New</option>
+                            <option value="contacted">Contacted</option>
+                            <option value="qualified">Qualified</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-head">
+                        <h3>Decision Makers &amp; Operators</h3>
+                        <span class="meta" id="leads-count">—</span>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Country</th>
+                                    <th>Contact</th>
+                                    <th>Email</th>
+                                    <th>Opportunity</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                    <th style="text-align:right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leads-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
