@@ -499,6 +499,10 @@
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
                 Campaigns
             </button>
+            <button class="nav-item" data-tab="expansion" onclick="switchTab('expansion')">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10A15 15 0 0 1 8 12a15 15 0 0 1 4-10z"/></svg>
+                Business Expansion
+            </button>
         </nav>
         <div class="sidebar-footer">
             <strong>Glass Expert USA</strong><br>
@@ -785,6 +789,93 @@
                 </div>
             </section>
 
+            <!-- ============================================================
+                 TAB 5 — BUSINESS EXPANSION
+                 ============================================================ -->
+            <section class="panel" id="panel-expansion">
+                <div class="panel-head">
+                    <div>
+                        <h2>Business Expansion</h2>
+                        <p>7-market priority matrix · Competitor landscape · Product line opportunities · 30-day action plan</p>
+                    </div>
+                    <span class="badge badge-gold">Aggregate Y1 target: €310K–€600K (markets 1–3)</span>
+                </div>
+
+                <!-- KPI strip -->
+                <div class="stat-grid" style="margin-bottom:1.5rem">
+                    <div class="stat"><div class="label">Active Markets</div><div class="value">3</div><div class="delta flat">RO · DE · US</div></div>
+                    <div class="stat"><div class="label">Priority Targets</div><div class="value">4</div><div class="delta up">RO → DE → HU → BG</div></div>
+                    <div class="stat"><div class="label">EU Rail Glazing Market</div><div class="value">€484M</div><div class="delta up">▲ CAGR 4.3% to 2028</div></div>
+                    <div class="stat"><div class="label">Key Differentiator</div><div class="value">4–6 wk</div><div class="delta flat">vs 12–16 wk competition</div></div>
+                </div>
+
+                <!-- 7-market matrix -->
+                <div class="card" style="margin-bottom:1.5rem">
+                    <div class="card-head"><h3>Market Priority Matrix</h3><span class="meta">Ranked by accessibility × revenue potential × effort</span></div>
+                    <div class="card-body" style="padding:0">
+                        <div style="overflow-x:auto">
+                        <table style="width:100%;border-collapse:collapse;font-size:0.87rem">
+                            <thead>
+                                <tr style="background:var(--bg);text-align:left">
+                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">#</th>
+                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Market</th>
+                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Addressable/yr</th>
+                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">VAGOTECH Y1</th>
+                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Opportunity</th>
+                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Key Driver</th>
+                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Immediate Action (30 days)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="expansion-table-body"></tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Competitor landscape + Product expansion (2 col) -->
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem" class="market-split">
+                    <div class="card">
+                        <div class="card-head"><h3>Competitor Landscape</h3><span class="meta">Rail glazing EU — exploitable weaknesses</span></div>
+                        <div class="card-body" style="padding:0">
+                            <table style="width:100%;border-collapse:collapse;font-size:0.82rem">
+                                <thead>
+                                    <tr style="background:var(--bg)">
+                                        <th style="padding:0.6rem 0.85rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border);text-align:left">Supplier</th>
+                                        <th style="padding:0.6rem 0.85rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border);text-align:left">Profile</th>
+                                        <th style="padding:0.6rem 0.85rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border);text-align:left">VAGOTECH Edge</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="competitor-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head"><h3>Product Line Expansion</h3><span class="meta">New railway glass segments VAGOTECH can enter</span></div>
+                        <div class="card-body" style="padding:0.25rem 0">
+                            <div id="product-expansion-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Entry strategy channels -->
+                <div class="card" style="margin-bottom:1.5rem">
+                    <div class="card-head"><h3>Entry Channels by Segment</h3><span class="meta">How to access each client type</span></div>
+                    <div class="card-body">
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem" id="entry-channels"></div>
+                    </div>
+                </div>
+
+                <!-- 30-day action plan -->
+                <div class="card">
+                    <div class="card-head"><h3>30-Day Action Plan</h3><span class="meta">Immediate next steps — validated by @robert Analytics + @bianca Sales</span></div>
+                    <div class="card-body" style="padding:0">
+                        <div id="action-plan-list"></div>
+                    </div>
+                </div>
+
+            </section>
+
         </main>
     </div>
 </div>
@@ -886,7 +977,53 @@ function toast(msg, type){
 /* ============================================================
    TAB NAVIGATION
    ============================================================ */
-const TAB_TITLES = { leads:'Leads Database', market:'Market Analysis', pricing:'Pricing Tool', campaigns:'Campaigns' };
+const TAB_TITLES = { leads:'Leads Database', market:'Market Analysis', pricing:'Pricing Tool', campaigns:'Campaigns', expansion:'Business Expansion' };
+
+/* ============================================================
+   EXPANSION DATA — sourced from docs/vagotech-market-analysis.md
+   ============================================================ */
+const EXPANSION_MARKETS = [
+    { rank:1, flag:'🇷🇴', country:'România', size:'€2–4M', y1:'€150–300K', opp:'HIGH', driver:'PNRR refurb 139 vagoane + 323 tramvaie vechi STB; OEM Astra + Electroputere', action:'Activează leads RO existente pe unghi aftermarket/refurb; cotație pilot', color:'var(--green)' },
+    { rank:2, flag:'🇩🇪', country:'Germania', size:'€100M+', y1:'€100–250K', opp:'HIGH', driver:'Producție Neubiberg = paritate locală; €15B S-Bahn + aftermarket DB', action:'Target operator municipal Stadtbahn; dosar Bahnnorm; activează entitatea Neubiberg', color:'var(--green)' },
+    { rank:3, flag:'🇭🇺', country:'Ungaria', size:'€20–40M', y1:'€60–150K', opp:'MED-HIGH', driver:'Siemens Combino 20 ani (mid-life refurb); 93 GTW refurb Stadler 2027–2034', action:'Contact BKV (Budapesta) aftermarket Combino + subcontract refurb GTW Stadler', color:'var(--amber)' },
+    { rank:4, flag:'🇧🇬', country:'Bulgaria', size:'€15–30M', y1:'€30–80K', opp:'MED', driver:'Flotă veche BDZ + tramvaie Sofia; 35 vagoane SH din DE; OEM Alstom/Škoda blochează nou', action:'Nișă: vagoane second-hand refurb + tramvaie Sofia. NU concura cu Alstom/Škoda pe nou', color:'var(--amber)' },
+    { rank:5, flag:'🇷🇸', country:'Serbia', size:'€10–25M', y1:'€30–70K', opp:'MED', driver:'CRRC Soko orphan fleet (fără aftermarket EU); 125 tramvaie noi pipeline GSP', action:'Identifică distribuitor local; target aftermarket CRRC Soko + GSP flota veche', color:'var(--amber)' },
+    { rank:6, flag:'🇲🇩', country:'Moldova', size:'€2–5M', y1:'€15–40K', opp:'LOW', driver:'Sinergie RO (Iași–Ungheni); parc CFM vechi fără furnizor structurat; buget mic €15.3M', action:'Add-on la operațiunea RO; contact CFM; effort marginal', color:'var(--text-faint)' },
+    { rank:7, flag:'🇺🇸', country:'SUA', size:'Uriaș', y1:'~€0 (2026)', opp:'DEFER', driver:'Buy America + FRA Type I/II (≠ EN 15152); omologare 24+ luni; furnizori stabiliți', action:'Monitor only; evaluează partener/asamblare US pentru 2027+', color:'var(--red)' },
+];
+
+const COMPETITORS = [
+    { name:'Pilkington (NSG)', profile:'Rail glazing leader, UK/JP', edge:'Lead-time lung; corporație lentă; suport EST-EU slab' },
+    { name:'Saint-Gobain Sully', profile:'Premium windscreens, FR', edge:'Premium price; volume mari only; flexibilitate redusă' },
+    { name:'AGC Glass Europe', profile:'Transport glass, BE/JP', edge:'Generalist; nu specializat aftermarket rapid' },
+    { name:'Glas Trösch', profile:'Train Glass, CH', edge:'Cost ridicat; focus DACH premium' },
+    { name:'Dellner Glass', profile:'Rail glazing UK, ex-Romag', edge:'Capacitate limitată; UK post-Brexit = friction EU' },
+    { name:'CRRC (intern)', profile:'Glass pe propriile trenuri, CN', edge:'Aftermarket EU aproape inexistent → orphan fleet' },
+];
+
+const PRODUCT_EXPANSION = [
+    { icon:'⬛', name:'Interior Glass Panels', tag:'EVOPRINT', status:'READY', desc:'Print ceramic transferabil direct din arhitectural → interior tren/tramvai. Diferențiator vizual, volum mare.' },
+    { icon:'🔲', name:'Door Glass Systems', tag:'EVOLAM SMART', status:'READY', desc:'Geam laminat pentru ușile de acces vagoane/tramvaie. EN 14752. Pipeline: Astra Imperio platform.' },
+    { icon:'🪟', name:'Anti-Vandal Side Windows', tag:'EVODUR', status:'ACTIVE', desc:'Geam securizat anti-vandal pentru tramvaie urbane. Cerere ridicată STB/CTP. Lead-time 4–5 săpt.' },
+    { icon:'🚀', name:'Heated Windscreens', tag:'EVOLAM+', status:'PHASE 2', desc:'Parbriz cu rezistență încălzire integrată. EN 15152. Omologare 6–12 luni. Marjă maximă €1.500–6.000/buc.' },
+    { icon:'🌐', name:'Low-E Insulated Glazing', tag:'EVOLAM', status:'EVALUATE', desc:'Termoizolație pentru vagoane long-distance. Cerere DB + CFR. Extindere naturală din know-how arhitectural.' },
+];
+
+const ENTRY_CHANNELS = [
+    { ch:'Aftermarket Direct', icon:'⚡', when:'Start here — ciclu 3–6 luni', who:'Directori tehnici / mentenanță operator', how:'Outreach direct. Cotație pe lot 5–50 buc. Livrare rapidă ca diferențiator #1.' },
+    { ch:'OEM B2B Supply', icon:'🏭', when:'6–9 luni ciclu', who:'Astra Vagoane Arad, Electroputere VFU Pașcani', how:'Contract supply geam/vehicul. Recurent + marjă bună. Intrare prin referință tehnic.' },
+    { ch:'Licitații Publice', icon:'📋', when:'9–15 luni ciclu', who:'CFR, STB, BDZ, MÁV (SEAP/TED)', how:'Monitorizare TED/SICAP. Necesită dosar complet + certificări EN. Ciclu lung dar volum mare.' },
+    { ch:'Distribuitori Locali', icon:'🤝', when:'Non-UE (RS, MD, BG)', who:'Parteneri locali cu relații operator', how:'Pentru piețe cu friction: vamă, limbă, birocrație. Marjă împărțită dar risk redus.' },
+];
+
+const ACTION_PLAN = [
+    { week:'Săpt. 1', priority:'HIGH', action:'Activează leads RO existente (CFR, STB, Astra, Electroputere) pe unghi aftermarket/refurb — NU "geam pentru Coradia"', owner:'@bianca' },
+    { week:'Săpt. 1–2', priority:'HIGH', action:'Obține 3 cotații reale (1 windscreen, 1 side, 1 interior pachet) → calibrează pricing model. Înlocuiește estimările cu date reale.', owner:'@bianca + @ioana' },
+    { week:'Săpt. 2', priority:'HIGH', action:'Activează entitatea Neubiberg pentru pilot Germania — target operator municipal Stadtbahn; pregătește dosar Bahnnorm.', owner:'Cătălin (Glas Expert DE)' },
+    { week:'Luna 1', priority:'CRITICAL', action:'Verifică status omologare EN 15152 VAGOTECH — ce avem, ce lipsește, cost/timp type-test. BLOCANT pentru tot.', owner:'Cătălin / Dept. Tehnic' },
+    { week:'Luna 1–2', priority:'MEDIUM', action:'Refresh date flotă din surse operator direct (STB, MÁV/BKV, GSP) → business case ferm cu cifre validate.', owner:'@robert' },
+    { week:'Trimestrial', priority:'LOW', action:'Recalibrează revenue Y1 vs pipeline real. Raportează accuracy. Decide expansiune HU/BG pe baza Q1–Q2.', owner:'@ana + @florin' },
+];
 function switchTab(tab){
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -1227,6 +1364,66 @@ function renderCampaigns(){
 }
 
 /* ============================================================
+   TAB 5 — BUSINESS EXPANSION
+   ============================================================ */
+function renderExpansion(){
+    const PRIO_COLOR = { HIGH:'var(--green)', 'MED-HIGH':'var(--green)', MED:'var(--amber)', LOW:'var(--text-faint)', DEFER:'var(--red)' };
+    const PRIO_BADGE = { HIGH:'badge-green', 'MED-HIGH':'badge-green', MED:'badge-amber', LOW:'badge-gray', DEFER:'badge-red' };
+
+    $('expansion-table-body').innerHTML = EXPANSION_MARKETS.map(m => `
+        <tr style="border-bottom:1px solid var(--border);transition:background 0.12s" onmouseenter="this.style.background='var(--bg)'" onmouseleave="this.style.background=''">
+            <td style="padding:0.75rem 1rem;font-size:1.1rem;font-weight:800;color:${m.color}">${m.rank}</td>
+            <td style="padding:0.75rem 1rem;font-weight:600">${m.flag} ${esc(m.country)}</td>
+            <td style="padding:0.75rem 1rem;color:var(--text-muted);font-size:0.85rem">${esc(m.size)}</td>
+            <td style="padding:0.75rem 1rem;font-weight:700;color:var(--navy)">${esc(m.y1)}</td>
+            <td style="padding:0.75rem 1rem"><span class="badge ${PRIO_BADGE[m.opp]}">${esc(m.opp)}</span></td>
+            <td style="padding:0.75rem 1rem;font-size:0.82rem;color:var(--text);max-width:280px">${esc(m.driver)}</td>
+            <td style="padding:0.75rem 1rem;font-size:0.82rem;color:var(--text-muted);max-width:260px">${esc(m.action)}</td>
+        </tr>`).join('');
+
+    $('competitor-table-body').innerHTML = COMPETITORS.map(c => `
+        <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:0.6rem 0.85rem;font-weight:600;font-size:0.83rem">${esc(c.name)}</td>
+            <td style="padding:0.6rem 0.85rem;color:var(--text-muted);font-size:0.8rem">${esc(c.profile)}</td>
+            <td style="padding:0.6rem 0.85rem;font-size:0.8rem;color:var(--green)">${esc(c.edge)}</td>
+        </tr>`).join('');
+
+    const STATUS_COL = { READY:'var(--green)', ACTIVE:'var(--blue)', 'PHASE 2':'var(--amber)', EVALUATE:'var(--text-faint)' };
+    $('product-expansion-list').innerHTML = PRODUCT_EXPANSION.map(p => `
+        <div style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem 1rem;border-bottom:1px solid var(--border)">
+            <span style="font-size:1.3rem;line-height:1">${p.icon}</span>
+            <div style="flex:1;min-width:0">
+                <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.2rem">
+                    <span style="font-weight:600;font-size:0.88rem">${esc(p.name)}</span>
+                    <span class="badge badge-gold" style="font-size:0.7rem">${esc(p.tag)}</span>
+                    <span style="font-size:0.72rem;color:${STATUS_COL[p.status]};font-weight:700">${esc(p.status)}</span>
+                </div>
+                <div style="font-size:0.79rem;color:var(--text-muted);line-height:1.45">${esc(p.desc)}</div>
+            </div>
+        </div>`).join('');
+
+    $('entry-channels').innerHTML = ENTRY_CHANNELS.map(ch => `
+        <div style="padding:1rem;background:var(--bg);border-radius:var(--radius-sm);border-left:3px solid var(--gold)">
+            <div style="font-size:1.4rem;margin-bottom:0.4rem">${ch.icon}</div>
+            <div style="font-weight:700;font-size:0.92rem;margin-bottom:0.25rem">${esc(ch.ch)}</div>
+            <div style="font-size:0.78rem;color:var(--amber);font-weight:600;margin-bottom:0.4rem">${esc(ch.when)}</div>
+            <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.3rem"><strong>Cine:</strong> ${esc(ch.who)}</div>
+            <div style="font-size:0.8rem;color:var(--text-muted)">${esc(ch.how)}</div>
+        </div>`).join('');
+
+    const AP_COLOR = { CRITICAL:'var(--red)', HIGH:'var(--green)', MEDIUM:'var(--amber)', LOW:'var(--text-faint)' };
+    $('action-plan-list').innerHTML = ACTION_PLAN.map((a,i) => `
+        <div style="display:flex;align-items:flex-start;gap:0;border-bottom:1px solid var(--border)">
+            <div style="padding:0.85rem 1rem;min-width:120px;font-size:0.8rem;color:var(--text-muted);font-weight:600;flex-shrink:0">${esc(a.week)}</div>
+            <div style="padding:0.85rem 0;width:80px;flex-shrink:0">
+                <span style="font-size:0.72rem;font-weight:700;color:${AP_COLOR[a.priority]}">${esc(a.priority)}</span>
+            </div>
+            <div style="padding:0.85rem 1rem;flex:1;font-size:0.85rem;color:var(--text)">${esc(a.action)}</div>
+            <div style="padding:0.85rem 1rem;font-size:0.78rem;color:var(--text-muted);white-space:nowrap">${esc(a.owner)}</div>
+        </div>`).join('');
+}
+
+/* ============================================================
    INIT
    ============================================================ */
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
@@ -1238,6 +1435,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
     renderPriceRef();
     recalc();
     renderCampaigns();
+    renderExpansion();
 })();
 </script>
 </body>
