@@ -416,12 +416,6 @@
                         Client
                         <select id="f-client">
                             <option value="">Selecteaza client...</option>
-                            <option value="GE-001">GE-001 — M-001</option>
-                            <option value="GE-002">GE-002 — I-002</option>
-                            <option value="GE-003">GE-003 — C-003</option>
-                            <option value="GE-004">GE-004 — T-004</option>
-                            <option value="GE-005">GE-005 — P-005</option>
-                            <option value="GE-006">GE-006 — A-006</option>
                         </select>
                     </label>
                     <label class="f">
@@ -551,56 +545,42 @@
 
 <script>
 const STORAGE_KEY = 'ge-oferte';
-const CLIENTS = {
-    'GE-001': { alias:'M-001', tara:'RO' },
-    'GE-002': { alias:'I-002', tara:'DE' },
-    'GE-003': { alias:'C-003', tara:'RO' },
-    'GE-004': { alias:'T-004', tara:'FR' },
-    'GE-005': { alias:'P-005', tara:'IT' },
-    'GE-006': { alias:'A-006', tara:'RO' },
-};
+const CRM_KEY = 'ge-crm-clients';
+
+// Incarca clientii din CRM localStorage
+function buildClientsMap() {
+    const map = {};
+    try {
+        const raw = localStorage.getItem(CRM_KEY);
+        if (raw) {
+            const arr = JSON.parse(raw);
+            arr.forEach(c => {
+                const tara = c.country === 'Germania' ? 'DE' : c.country === 'Austria' ? 'AT' : c.country === 'Franta' ? 'FR' : 'RO';
+                map[c.cod] = { alias: c.alias, tara, company: c.company };
+            });
+        }
+    } catch(e) {}
+    return map;
+}
+
+let CLIENTS = {};
+
+function populateClientDropdown() {
+    const sel = document.getElementById('f-client');
+    if (!sel) return;
+    // Pastreaza optiunea goala
+    sel.innerHTML = '<option value="">Selecteaza client...</option>';
+    Object.entries(CLIENTS).forEach(([cod, cl]) => {
+        const opt = document.createElement('option');
+        opt.value = cod;
+        opt.textContent = `${cod} — ${cl.alias} — ${cl.company || ''}`;
+        sel.appendChild(opt);
+    });
+}
+
 const PRODUSE = ['EVOPRINT','EVOLAM','EVOLAM SMART','EVODUR','EVOCLEAN','VERSATIKA'];
 
-const DEMO = [
-    {
-        id:'GE-OF-001', clientCod:'GE-003', data:'2026-04-10', valabilitate:30,
-        linii:[
-            { produs:'VERSATIKA', desc:'Sistem usa flush-to-wall 2100x900mm', qty:12, pret:285 },
-            { produs:'EVOLAM', desc:'Sticla laminata 10mm, transparent', qty:45, pret:68 }
-        ],
-        discountPct:5, note:'Termen livrare 4-6 saptamani. Inclus transport Europa.', status:'acceptata'
-    },
-    {
-        id:'GE-OF-002', clientCod:'GE-001', data:'2026-05-03', valabilitate:30,
-        linii:[
-            { produs:'EVOPRINT', desc:'Sticla ceramica print personalizat - motiv geometric', qty:80, pret:95 }
-        ],
-        discountPct:0, note:'Design confirmat de client. Aprobare print necesara inainte de productie.', status:'trimisa'
-    },
-    {
-        id:'GE-OF-003', clientCod:'GE-005', data:'2026-05-18', valabilitate:14,
-        linii:[
-            { produs:'EVOCLEAN', desc:'Sticla auto-curatanta fatada nord', qty:120, pret:78 },
-            { produs:'EVOLAM SMART', desc:'Sticla smart dimming zona receptie', qty:30, pret:185 }
-        ],
-        discountPct:8, note:'Proiect hotel 4 stele - deadline strins.', status:'draft'
-    },
-    {
-        id:'GE-OF-004', clientCod:'GE-002', data:'2026-03-22', valabilitate:30,
-        linii:[
-            { produs:'EVODUR', desc:'Sticla antiefractie clasa P4A', qty:60, pret:145 }
-        ],
-        discountPct:0, note:'', status:'refuzata'
-    },
-    {
-        id:'GE-OF-005', clientCod:'GE-004', data:'2026-02-14', valabilitate:30,
-        linii:[
-            { produs:'EVOLAM', desc:'Sticla laminata curbata R=800mm', qty:35, pret:112 },
-            { produs:'VERSATIKA', desc:'Sistem usa pivot 2400x1200mm', qty:4, pret:620 }
-        ],
-        discountPct:10, note:'Proiect finalizat, factura emisa separat.', status:'expirata'
-    }
-];
+const DEMO = [];
 
 let oferte = [];
 let editingId = null;
@@ -1024,6 +1004,8 @@ document.querySelectorAll('.modal-backdrop').forEach(bd => {
     });
 });
 
+CLIENTS = buildClientsMap();
+populateClientDropdown();
 loadData();
 renderKPIs();
 renderList();
