@@ -511,6 +511,48 @@
             .bar-row { grid-template-columns: 90px 1fr auto; }
             .user-chip span.uname { display: none; }
         }
+
+        /* ============================================================
+           EVENTS CALENDAR TAB
+           ============================================================ */
+        .cal-shell { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.5rem; }
+        .cal-nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); background: var(--navy); color: #fff; }
+        .cal-nav-btn { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 34px; height: 34px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+        .cal-nav-btn:hover { background: rgba(255,255,255,0.28); }
+        .cal-nav-title { font-size: 1rem; font-weight: 700; letter-spacing: 0.02em; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+        .cal-day-hd { padding: 0.5rem 0.25rem; text-align: center; font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); background: #f9fafb; }
+        .cal-cell { min-height: 88px; padding: 0.35rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); position: relative; }
+        .cal-cell:nth-child(7n) { border-right: none; }
+        .cal-empty { background: #fafafa; }
+        .cal-today { background: rgba(26,58,82,0.04); }
+        .cal-day-num { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 0.25rem; }
+        .today-num { background: var(--navy); color: #fff; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; }
+        .cal-ev { font-size: 0.68rem; font-weight: 600; padding: 0.15rem 0.35rem; border-radius: 4px; margin-bottom: 0.2rem; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: opacity 0.15s; }
+        .cal-ev:hover { opacity: 0.8; }
+        .ev-large { background: var(--blue-bg); color: var(--blue); border-left: 3px solid var(--blue); }
+        .ev-medium { background: var(--amber-bg); color: var(--amber); border-left: 3px solid var(--amber); }
+        .ev-small { background: var(--green-bg); color: var(--green); border-left: 3px solid var(--green); }
+        .ev-expired { background: #f3f4f6; color: var(--text-faint); border-left: 3px solid #d1d5db; text-decoration: line-through; }
+        .ev-legend { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem; padding: 0.85rem 1.25rem; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); }
+        .ev-legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: var(--text); }
+        .ev-legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+        .ev-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem; }
+        .ev-list-item { display: flex; align-items: center; gap: 0.85rem; padding: 0.85rem 1rem; background: var(--surface); border-radius: var(--radius-sm); box-shadow: var(--shadow); cursor: pointer; transition: box-shadow 0.15s; border-left: 4px solid transparent; }
+        .ev-list-item:hover { box-shadow: var(--shadow-lg); }
+        .ev-large-item { border-left-color: var(--blue); }
+        .ev-medium-item { border-left-color: var(--amber); }
+        .ev-small-item { border-left-color: var(--green); }
+        .ev-expired-item { border-left-color: #d1d5db; opacity: 0.65; }
+        .ev-list-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .ev-list-body { flex: 1; min-width: 0; }
+        .ev-list-name { font-size: 0.9rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .ev-list-meta { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+        .ev-size-badge { font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 20px; flex-shrink: 0; }
+        .ev-size-badge.ev-large { background: var(--blue-bg); color: var(--blue); }
+        .ev-size-badge.ev-medium { background: var(--amber-bg); color: var(--amber); }
+        .ev-size-badge.ev-small { background: var(--green-bg); color: var(--green); }
+        .ev-size-badge.ev-expired { background: #f3f4f6; color: var(--text-faint); }
     </style>
 </head>
 <body>
@@ -549,6 +591,10 @@
             <button class="nav-item" data-tab="ofertare" onclick="switchTab('ofertare')">
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                 Generare Oferte
+            </button>
+            <button class="nav-item" data-tab="events" onclick="switchTab('events')">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Calendar Evenimente
             </button>
         </nav>
         <div class="sidebar-footer">
@@ -1577,6 +1623,39 @@
 
             </section>
 
+            <!-- ============================================================
+                 TAB 8 — CALENDAR EVENIMENTE
+                 ============================================================ -->
+            <section class="panel" id="panel-events">
+                <div class="panel-head">
+                    <div>
+                        <h2>Calendar Evenimente</h2>
+                        <p>Târguri și expoziții feroviare &amp; sticlă — România, Europa, Internațional</p>
+                    </div>
+                </div>
+
+                <!-- Legend -->
+                <div class="ev-legend">
+                    <div class="ev-legend-item"><div class="ev-legend-dot" style="background:var(--blue);"></div> <strong>Mare</strong> — &gt;50K vizitatori / &gt;1000 expozanți</div>
+                    <div class="ev-legend-item"><div class="ev-legend-dot" style="background:var(--amber);"></div> <strong>Mediu</strong> — 10K–50K vizitatori / 200–1000 expozanți</div>
+                    <div class="ev-legend-item"><div class="ev-legend-dot" style="background:var(--green);"></div> <strong>Mic</strong> — &lt;10K vizitatori / &lt;200 expozanți</div>
+                    <div class="ev-legend-item"><div class="ev-legend-dot" style="background:#d1d5db;"></div> Expirat</div>
+                </div>
+
+                <!-- Calendar Grid -->
+                <div class="cal-shell">
+                    <div class="cal-nav">
+                        <button class="cal-nav-btn" onclick="calPrev()">&#8592;</button>
+                        <span class="cal-nav-title" id="cal-title"></span>
+                        <button class="cal-nav-btn" onclick="calNext()">&#8594;</button>
+                    </div>
+                    <div class="cal-grid" id="cal-grid"></div>
+                </div>
+
+                <!-- Events List -->
+                <div id="events-list"></div>
+            </section>
+
         </main>
     </div>
 </div>
@@ -1657,6 +1736,34 @@ const TEMPLATES = [
 ];
 
 /* ============================================================
+   EVENTS DATA — Târguri & Expoziții Feroviare / Sticlă 2025-2027
+   size: 'large' (>50K viz / >1000 exp) | 'medium' (10-50K) | 'small' (<10K)
+   category: 'railway' | 'glass' | 'transport'
+   ============================================================ */
+const EVENTS = [
+    { id:1, name:'InnoTrans 2026', category:'railway', size:'large', country:'Germania', city:'Berlin', dateStart:'2026-09-22', dateEnd:'2026-09-25', theme:'Mobilitate feroviară globală — material rulant, infrastructură, sticlă & componente, digitalizare feroviară', contact:'Messe Berlin GmbH', email:'innotrans@messe-berlin.de', website:'innotrans.com', exhibitors:3000, visitors:160000, description:'Cel mai mare târg feroviar din lume. Ediție bienală, Berlin. Oportunitate cheie VAGOTECH — geam frontal, lateral, partiții. Networking cu CFR, DB, PKP și producători OEM. Slot esențial pentru prezența internațională.' },
+    { id:2, name:'glasstec 2026', category:'glass', size:'large', country:'Germania', city:'Düsseldorf', dateStart:'2026-11-18', dateEnd:'2026-11-21', theme:'Producție sticlă, procesare industrială, arhitectură & aplicații speciale, inovații 2027', contact:'Messe Düsseldorf GmbH', email:'glasstec@messe-duesseldorf.de', website:'glasstec.com', exhibitors:1100, visitors:42000, description:'Liderul mondial al industriei de sticlă. Ediție bienală, Düsseldorf. Networking cu producători, furnizori materie primă și parteneri de procesare. Relevant pentru tehnologie EVOLAM și EVODUR.' },
+    { id:3, name:'UITP Global PT Summit 2025', category:'transport', size:'large', country:'Italia', city:'Milano', dateStart:'2025-06-15', dateEnd:'2025-06-18', theme:'Transport public urban, tramvaie electrice, autobuze, metro, mobilitate inteligentă', contact:'UITP — Union Internationale des Transports Publics', email:'summit@uitp.org', website:'uitp.org', exhibitors:420, visitors:12000, description:'Summit bienal al transportului public global — ediție 2025 Milano. Prezent STB, CTP Cluj, CTP Timișoara și operatori europeni. Urmează UITP 2027 Stockholm.' },
+    { id:4, name:'Transport Logistic 2025', category:'transport', size:'large', country:'Germania', city:'München', dateStart:'2025-06-03', dateEnd:'2025-06-06', theme:'Logistică intermodală, transport feroviar, freight, supply chain, soluții intermodale', contact:'Messe München GmbH', email:'info@messe-muenchen.de', website:'transportlogistic.de', exhibitors:2800, visitors:75000, description:'Cel mai mare târg de logistică și transport din lume. Ediție bienală, München. Oportunitate pentru segmentul freight și operatori internaționali.' },
+    { id:5, name:'Railtex 2025', category:'railway', size:'medium', country:'Marea Britanie', city:'Birmingham (NEC)', dateStart:'2025-05-06', dateEnd:'2025-05-08', theme:'Material rulant britanic, infrastructură feroviară, componente, manutenție', contact:'Informa Markets', email:'railtex@informa.com', website:'railtex.co.uk', exhibitors:400, visitors:14000, description:'Principalul eveniment feroviar britanic. Ediție bienală (alternat cu Infrarail). Urmează Railtex 2027.' },
+    { id:6, name:'TRAKO 2025', category:'railway', size:'medium', country:'Polonia', city:'Gdańsk', dateStart:'2025-09-23', dateEnd:'2025-09-26', theme:'Material rulant CEE, infrastructură feroviară, componente, manutenție vagoane', contact:'Targi Gdańsk SA', email:'trako@targi.gdansk.pl', website:'trako.com.pl', exhibitors:450, visitors:25000, description:'Cel mai mare târg feroviar din Europa Centrală și de Est. Ediție bienală, Gdańsk. Networking cu PKP, CFR, operatori CEE. Urmează TRAKO 2027.' },
+    { id:7, name:'Railway Interchange 2025', category:'railway', size:'medium', country:'SUA', city:'Minneapolis, MN', dateStart:'2025-09-21', dateEnd:'2025-09-23', theme:'Feroviar nord-american, freight, componente, material rulant, inovații', contact:'Railway Supply Institute', email:'info@railwayinterchange.org', website:'railwayinterchange.org', exhibitors:600, visitors:15000, description:'Principal eveniment feroviar nord-american. Oportunitate pentru piața SUA via Glass Expert NJ. Ediție bienală.' },
+    { id:8, name:'Vitrum 2025', category:'glass', size:'medium', country:'Italia', city:'Milano', dateStart:'2025-10-13', dateEnd:'2025-10-16', theme:'Industria sticlei italiene, procesare, mașini & echipamente, aplicații arhitecturale', contact:'Vitrum Show Srl', email:'info@vitrum-milan.com', website:'vitrum-milan.com', exhibitors:320, visitors:22000, description:'Târgul italian al industriei de sticlă. Ediție bienală. Networking cu procesatori, furnizori și producători de mașini. Urmează Vitrum 2027.' },
+    { id:9, name:'Middle East Rail 2026', category:'railway', size:'medium', country:'UAE', city:'Dubai (DWTC)', dateStart:'2026-02-17', dateEnd:'2026-02-19', theme:'Material rulant MENA, metro, tramvai, infrastructură feroviară, componente regionale', contact:'Informa Markets MENA', email:'middleeastrail@informa.com', website:'middleeastrail.com', exhibitors:280, visitors:18000, description:'Cea mai importantă expoziție feroviară din Orientul Mijlociu. Oportunitate pentru piețele UAE, Arabia Saudită, Qatar. Expansiune Glass Expert MENA.' },
+    { id:10, name:'GPU Glass Performance Days 2026', category:'glass', size:'small', country:'Finlanda', city:'Tampere', dateStart:'2026-05-12', dateEnd:'2026-05-14', theme:'Performanță sticlă, izolare termică, glazing avansat, aplicații speciale & feroviare', contact:'Glass Performance Days', email:'info@gpd.fi', website:'gpd.fi', exhibitors:120, visitors:5000, description:'Conferință internațională de referință pentru ingineria sticlei de înaltă performanță. Prezentare tehnologie EVOLAM și EVODUR recomandată.' },
+    { id:11, name:'Expo Feroviara România 2026', category:'railway', size:'small', country:'România', city:'București', dateStart:'2026-03-18', dateEnd:'2026-03-20', theme:'Feroviar românesc, modernizare CFR, tramvaie, componente locale', contact:'Camera de Comerț și Industrie București', email:'expo@ccib.ro', website:'ccib.ro', exhibitors:75, visitors:3000, description:'Expoziție națională feroviară. Prezență CFR, STB, AFER și furnizori locali. Oportunitate directă pentru VAGOTECH în piața internă.' },
+    { id:12, name:'Romanian Transport Forum 2026', category:'transport', size:'small', country:'România', city:'București', dateStart:'2026-10-15', dateEnd:'2026-10-16', theme:'Politici transport RO, modernizare CFR, fonduri europene, digitalizare mobilitate', contact:'Ministerul Transporturilor', email:'contact@mt.ro', website:'mt.ro', exhibitors:80, visitors:3500, description:'Forum național de politici și investiții în transport. Prezență CFR, STB, AFER și factori de decizie. Networking cu procurement și directori tehnici.' },
+    { id:13, name:'FEDECRAIL Convention 2026', category:'railway', size:'small', country:'Austria', city:'Viena', dateStart:'2026-09-05', dateEnd:'2026-09-08', theme:'Căi ferate turistice, patrimoniu, material rulant clasic, restaurare vagoane istorice', contact:'FEDECRAIL Secretariat', email:'info@fedecrail.eu', website:'fedecrail.eu', exhibitors:60, visitors:2000, description:'Federația europeană a căilor ferate turistice și istorice. Nișă pentru glazing special și restaurare. Piață de volum mic dar fidelizare ridicată.' },
+    { id:14, name:'InnoTrans 2028', category:'railway', size:'large', country:'Germania', city:'Berlin', dateStart:'2028-09-19', dateEnd:'2028-09-22', theme:'Mobilitate feroviară globală — material rulant, infrastructură, inovații 2028', contact:'Messe Berlin GmbH', email:'innotrans@messe-berlin.de', website:'innotrans.com', exhibitors:3200, visitors:170000, description:'Ediția 2028 a celui mai mare târg feroviar din lume. Planificare stand și materiale din 2027. Target: prezentare certificare extinsă VAGOTECH.' },
+    { id:15, name:'Railtex 2027', category:'railway', size:'medium', country:'Marea Britanie', city:'Birmingham (NEC)', dateStart:'2027-05-11', dateEnd:'2027-05-13', theme:'Inovații feroviare britanice, componente, material rulant, electrificare', contact:'Informa Markets', email:'railtex@informa.com', website:'railtex.co.uk', exhibitors:420, visitors:15000, description:'Ediția 2027 Railtex. Planificare devreme pentru stand și networking UK rail.' },
+    { id:16, name:'TRAKO 2027', category:'railway', size:'medium', country:'Polonia', city:'Gdańsk', dateStart:'2027-09-21', dateEnd:'2027-09-24', theme:'Material rulant CEE 2027, infrastructură, componente & aplicații feroviare', contact:'Targi Gdańsk SA', email:'trako@targi.gdansk.pl', website:'trako.com.pl', exhibitors:480, visitors:28000, description:'Cel mai mare târg feroviar din Europa Centrală și de Est — ediție 2027. Target major pentru expansiunea Glass Expert în Polonia și CEE.' },
+    { id:17, name:'Middle East Rail 2027', category:'railway', size:'medium', country:'UAE', city:'Dubai (DWTC)', dateStart:'2027-02-16', dateEnd:'2027-02-18', theme:'Material rulant MENA 2027, metro, tramvai, infrastructură, glazing & componente', contact:'Informa Markets MENA', email:'middleeastrail@informa.com', website:'middleeastrail.com', exhibitors:300, visitors:20000, description:'Ediția 2027 Middle East Rail. Consolidare prezență Glass Expert în piața MENA.' },
+    { id:18, name:'UITP Global PT Summit 2027', category:'transport', size:'large', country:'Suedia', city:'Stockholm', dateStart:'2027-06-13', dateEnd:'2027-06-16', theme:'Transport public global 2027, tramvaie, metro, mobilitate electrică & autonomă', contact:'UITP Secretariat Brussels', email:'summit@uitp.org', website:'uitp.org', exhibitors:450, visitors:13000, description:'Summit bienal transport public global — ediție 2027 Stockholm. Target STB, CTP, operatori regionali români și europeni.' },
+    { id:19, name:'Transport Logistic 2027', category:'transport', size:'large', country:'Germania', city:'München', dateStart:'2027-06-08', dateEnd:'2027-06-11', theme:'Logistică intermodală, transport feroviar freight, supply chain, automatizare', contact:'Messe München GmbH', email:'info@messe-muenchen.de', website:'transportlogistic.de', exhibitors:2900, visitors:80000, description:'Cel mai mare eveniment de logistică și transport — ediție 2027. Networking internațional și oportunități freight glass.' },
+    { id:20, name:'Vitrum 2027', category:'glass', size:'medium', country:'Italia', city:'Milano', dateStart:'2027-10-11', dateEnd:'2027-10-14', theme:'Industria sticlei 2027, procesare, mașini, inovații materiale & acoperiri', contact:'Vitrum Show Srl', email:'info@vitrum-milan.com', website:'vitrum-milan.com', exhibitors:340, visitors:24000, description:'Ediția 2027 Vitrum Milano. Networking cu furnizori materie primă și parteneri procesare. Prezentare inovații EVOLAM și EVOCLEAN.' }
+];
+
+/* ============================================================
    HELPERS
    ============================================================ */
 const $ = (id) => document.getElementById(id);
@@ -1678,7 +1785,7 @@ function toast(msg, type){
 /* ============================================================
    TAB NAVIGATION
    ============================================================ */
-const TAB_TITLES = { leads:'Bază de Clienți', market:'Analiză de Piață', pricing:'Calculator Prețuri', campaigns:'Campanii Email', expansion:'Expansiune Business', analytics:'Trafic & Analitics', ofertare:'Generare Oferte' };
+const TAB_TITLES = { leads:'Bază de Clienți', market:'Analiză de Piață', pricing:'Calculator Prețuri', campaigns:'Campanii Email', expansion:'Expansiune Business', analytics:'Trafic & Analitics', ofertare:'Generare Oferte', events:'Calendar Evenimente' };
 
 /* ============================================================
    EXPANSION DATA — sourced from docs/vagotech-market-analysis.md
@@ -1736,6 +1843,7 @@ function switchTab(tab){
     if (tab === 'pricing') recalc();
     if (tab === 'analytics') renderAnalytics();
     if (tab === 'ofertare') initOfertare();
+    if (tab === 'events') renderEvents();
 }
 function toggleSidebar(open){
     const sb = $('sidebar'), bd = $('backdrop');
@@ -3026,6 +3134,160 @@ ${notes ? `<div class="terms"><strong>Note:</strong> ${notes}</div>` : ''}
     const w = window.open('','_blank','width=900,height=700');
     w.document.write(html);
     w.document.close();
+}
+
+/* ============================================================
+   EVENTS CALENDAR
+   ============================================================ */
+let calYear = new Date().getFullYear();
+let calMonth = new Date().getMonth();
+
+const CAL_MONTHS = ['Ianuarie','Februarie','Martie','Aprilie','Mai','Iunie','Iulie','August','Septembrie','Octombrie','Noiembrie','Decembrie'];
+
+function renderEvents() {
+    renderCalendar();
+    renderEventsList();
+}
+
+function calPrev() {
+    calMonth--;
+    if (calMonth < 0) { calMonth = 11; calYear--; }
+    renderCalendar();
+}
+
+function calNext() {
+    calMonth++;
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    renderCalendar();
+}
+
+function renderCalendar() {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    $('cal-title').textContent = CAL_MONTHS[calMonth] + ' ' + calYear;
+
+    const firstWeekDay = new Date(calYear, calMonth, 1).getDay();
+    const totalDays = new Date(calYear, calMonth + 1, 0).getDate();
+    const startOffset = firstWeekDay === 0 ? 6 : firstWeekDay - 1;
+
+    const eventsByDay = {};
+    EVENTS.forEach(ev => {
+        const s = new Date(ev.dateStart + 'T00:00:00');
+        const e = new Date(ev.dateEnd + 'T00:00:00');
+        for (let d = new Date(s); d <= e; d.setDate(d.getDate() + 1)) {
+            if (d.getFullYear() === calYear && d.getMonth() === calMonth) {
+                const day = d.getDate();
+                if (!eventsByDay[day]) eventsByDay[day] = [];
+                if (!eventsByDay[day].find(x => x.id === ev.id)) eventsByDay[day].push(ev);
+            }
+        }
+    });
+
+    let html = '';
+    ['Lun','Mar','Mie','Joi','Vin','Sâm','Dum'].forEach(d => {
+        html += '<div class="cal-day-hd">' + d + '</div>';
+    });
+    for (let i = 0; i < startOffset; i++) html += '<div class="cal-cell cal-empty"></div>';
+
+    for (let day = 1; day <= totalDays; day++) {
+        const dayStr = calYear + '-' + String(calMonth + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+        const isToday = dayStr === todayStr;
+        const evs = eventsByDay[day] || [];
+        html += '<div class="cal-cell' + (isToday ? ' cal-today' : '') + '">';
+        if (isToday) {
+            html += '<span class="cal-day-num"><span class="today-num">' + day + '</span></span>';
+        } else {
+            html += '<span class="cal-day-num">' + day + '</span>';
+        }
+        evs.slice(0, 3).forEach(ev => {
+            const isPast = ev.dateEnd < todayStr;
+            const cls = isPast ? 'ev-expired' : 'ev-' + ev.size;
+            html += '<div class="cal-ev ' + cls + '" onclick="showEventDetail(' + ev.id + ')" title="' + esc(ev.name) + '">' + esc(ev.name) + '</div>';
+        });
+        if (evs.length > 3) html += '<div class="cal-ev ev-small" style="font-size:0.6rem;cursor:default;">+' + (evs.length - 3) + ' mai mult</div>';
+        html += '</div>';
+    }
+    $('cal-grid').innerHTML = html;
+}
+
+function renderEventsList() {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const upcoming = EVENTS.filter(ev => ev.dateEnd >= todayStr).sort((a, b) => a.dateStart.localeCompare(b.dateStart));
+    const past = EVENTS.filter(ev => ev.dateEnd < todayStr).sort((a, b) => b.dateStart.localeCompare(a.dateStart));
+
+    let html = '';
+    if (upcoming.length) {
+        html += '<h3 style="color:var(--navy);margin:1.5rem 0 0.75rem;font-size:0.95rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">&#128197; Evenimente Viitoare (' + upcoming.length + ')</h3>';
+        html += '<div class="ev-list">';
+        upcoming.forEach(ev => {
+            const sizeLabel = ev.size === 'large' ? 'MARE' : ev.size === 'medium' ? 'MEDIU' : 'MIC';
+            html += '<div class="ev-list-item ev-' + ev.size + '-item" onclick="showEventDetail(' + ev.id + ')">' +
+                '<div class="ev-list-dot ev-' + ev.size + '"></div>' +
+                '<div class="ev-list-body">' +
+                '<div class="ev-list-name">' + esc(ev.name) + '</div>' +
+                '<div class="ev-list-meta">' + esc(ev.city) + ', ' + esc(ev.country) + ' &nbsp;·&nbsp; ' + formatDateRange(ev.dateStart, ev.dateEnd) + ' &nbsp;·&nbsp; ~' + ev.exhibitors.toLocaleString('ro-RO') + ' exp. / ~' + ev.visitors.toLocaleString('ro-RO') + ' viz.</div>' +
+                '</div>' +
+                '<div class="ev-size-badge ev-' + ev.size + '">' + sizeLabel + '</div>' +
+                '</div>';
+        });
+        html += '</div>';
+    }
+    if (past.length) {
+        html += '<h3 style="color:var(--text-muted);margin:2rem 0 0.75rem;font-size:0.95rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">&#x2713; Evenimente Expirate (' + past.length + ')</h3>';
+        html += '<div class="ev-list">';
+        past.forEach(ev => {
+            html += '<div class="ev-list-item ev-expired-item" onclick="showEventDetail(' + ev.id + ')">' +
+                '<div class="ev-list-dot ev-expired"></div>' +
+                '<div class="ev-list-body">' +
+                '<div class="ev-list-name" style="color:var(--text-muted)">' + esc(ev.name) + '</div>' +
+                '<div class="ev-list-meta">' + esc(ev.city) + ', ' + esc(ev.country) + ' &nbsp;·&nbsp; ' + formatDateRange(ev.dateStart, ev.dateEnd) + '</div>' +
+                '</div>' +
+                '<div class="ev-size-badge ev-expired">EXPIRAT</div>' +
+                '</div>';
+        });
+        html += '</div>';
+    }
+    $('events-list').innerHTML = html;
+}
+
+function formatDateRange(startStr, endStr) {
+    const months = ['ian','feb','mar','apr','mai','iun','iul','aug','sep','oct','nov','dec'];
+    const s = new Date(startStr + 'T00:00:00');
+    const e = new Date(endStr + 'T00:00:00');
+    if (s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear()) {
+        return s.getDate() + '–' + e.getDate() + ' ' + months[s.getMonth()] + ' ' + s.getFullYear();
+    }
+    return s.getDate() + ' ' + months[s.getMonth()] + ' – ' + e.getDate() + ' ' + months[e.getMonth()] + ' ' + e.getFullYear();
+}
+
+function showEventDetail(id) {
+    const ev = EVENTS.find(e => e.id === id);
+    if (!ev) return;
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const isPast = ev.dateEnd < todayStr;
+    const catMap = { railway:'Feroviar', glass:'Sticlă', transport:'Transport' };
+    const sizeLabel = ev.size === 'large' ? 'MARE  —  >50K vizitatori' : ev.size === 'medium' ? 'MEDIU  —  10K–50K vizitatori' : 'MIC  —  <10K vizitatori';
+    const sizeColor = ev.size === 'large' ? 'var(--blue)' : ev.size === 'medium' ? 'var(--amber)' : 'var(--green)';
+    $('modal-title').textContent = ev.name;
+    $('modal-body').innerHTML =
+        '<div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.25rem;">' +
+        '<span style="background:' + sizeColor + '22;color:' + sizeColor + ';padding:0.25rem 0.8rem;border-radius:20px;font-size:0.78rem;font-weight:700;">' + sizeLabel + '</span>' +
+        '<span style="background:#f3f4f6;color:var(--navy);padding:0.25rem 0.8rem;border-radius:20px;font-size:0.78rem;font-weight:600;">' + catMap[ev.category] + '</span>' +
+        (isPast ? '<span style="background:#f3f4f6;color:var(--text-faint);padding:0.25rem 0.8rem;border-radius:20px;font-size:0.78rem;font-weight:600;">EXPIRAT</span>' : '') +
+        '</div>' +
+        '<table style="width:100%;border-collapse:collapse;font-size:0.88rem;">' +
+        '<tr><td style="padding:0.55rem 0;color:var(--text-muted);width:38%;font-weight:500;vertical-align:top;">Denumire</td><td style="padding:0.55rem 0;font-weight:600;">' + esc(ev.name) + '</td></tr>' +
+        '<tr style="border-top:1px solid var(--border)"><td style="padding:0.55rem 0;color:var(--text-muted);vertical-align:top;">Tematică</td><td style="padding:0.55rem 0;">' + esc(ev.theme) + '</td></tr>' +
+        '<tr style="border-top:1px solid var(--border)"><td style="padding:0.55rem 0;color:var(--text-muted);">Locație</td><td style="padding:0.55rem 0;">' + esc(ev.city) + ', ' + esc(ev.country) + '</td></tr>' +
+        '<tr style="border-top:1px solid var(--border)"><td style="padding:0.55rem 0;color:var(--text-muted);">Perioadă</td><td style="padding:0.55rem 0;font-weight:600;">' + formatDateRange(ev.dateStart, ev.dateEnd) + '</td></tr>' +
+        '<tr style="border-top:1px solid var(--border)"><td style="padding:0.55rem 0;color:var(--text-muted);">Expozanți</td><td style="padding:0.55rem 0;">~' + ev.exhibitors.toLocaleString('ro-RO') + '</td></tr>' +
+        '<tr style="border-top:1px solid var(--border)"><td style="padding:0.55rem 0;color:var(--text-muted);">Vizitatori</td><td style="padding:0.55rem 0;">~' + ev.visitors.toLocaleString('ro-RO') + '</td></tr>' +
+        '<tr style="border-top:1px solid var(--border)"><td style="padding:0.55rem 0;color:var(--text-muted);">Contact</td><td style="padding:0.55rem 0;">' + esc(ev.contact) + '</td></tr>' +
+        '<tr style="border-top:1px solid var(--border)"><td style="padding:0.55rem 0;color:var(--text-muted);">Email</td><td style="padding:0.55rem 0;"><a href="mailto:' + esc(ev.email) + '" style="color:var(--blue)">' + esc(ev.email) + '</a></td></tr>' +
+        '<tr style="border-top:1px solid var(--border)"><td style="padding:0.55rem 0;color:var(--text-muted);">Website</td><td style="padding:0.55rem 0;"><a href="https://' + esc(ev.website) + '" target="_blank" rel="noopener" style="color:var(--blue)">' + esc(ev.website) + '</a></td></tr>' +
+        '</table>' +
+        '<p style="margin-top:1.25rem;font-size:0.87rem;color:var(--text-muted);line-height:1.65;border-top:1px solid var(--border);padding-top:1rem;">' + esc(ev.description) + '</p>';
+    $('modal-foot').innerHTML = '<button class="btn btn-ghost" onclick="closeModal()">Închide</button>';
+    $('modal').classList.add('open');
 }
 </script>
 </body>
