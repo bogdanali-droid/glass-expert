@@ -1,0 +1,76 @@
+{
+  "total_rows": 8596,
+  "distinct_firms": 7552,
+  "clients_built": 7552,
+  "contacts_built": 4133,
+  "failed": [],
+  "failed_count": 0,
+  "batch_files": 26,
+  "sample_clients": [
+    {
+      "idx": 0,
+      "cod": "GE-001",
+      "alias": "G-001",
+      "company": "GENERAL CONCEPT PHARM",
+      "country": "România",
+      "city": "",
+      "email": "marius_andone@yahoo.com",
+      "phone": "0769225375",
+      "priority": "normal",
+      "created": "2012-11-06T11:46:52Z",
+      "intel": "Import legacy (id_client orig: 3). Adresa: INTRAREA SULFINEI 96A MĂGURELE"
+    },
+    {
+      "idx": 1,
+      "cod": "GE-002",
+      "alias": "D-002",
+      "company": "DRU COM SRL",
+      "country": "România",
+      "city": "",
+      "email": "drucomsrl@yahoo.com",
+      "phone": "",
+      "priority": "normal",
+      "created": "2012-11-06T17:24:33Z",
+      "intel": "Import legacy (id_client orig: 4). Adresa: "
+    },
+    {
+      "idx": 2,
+      "cod": "GE-003",
+      "alias": "M-003",
+      "company": "MetalPlast Construct",
+      "country": "România",
+      "city": "",
+      "email": "metalplastcons@yahoo.com",
+      "phone": "0757055316",
+      "priority": "normal",
+      "created": "2012-11-07T14:23:44Z",
+      "intel": "Import legacy (id_client orig: 5). Adresa: "
+    },
+    {
+      "idx": 3,
+      "cod": "GE-004",
+      "alias": "A-004",
+      "company": "Allard Corporation",
+      "country": "România",
+      "city": "Bucuresti",
+      "email": "office@allard.ro",
+      "phone": "",
+      "priority": "normal",
+      "created": "2012-11-07T14:36:31Z",
+      "intel": "Import legacy (id_client orig: 6). Adresa: Bucuresti"
+    },
+    {
+      "idx": 4,
+      "cod": "GE-005",
+      "alias": "P-005",
+      "company": "PANCIS GMBH",
+      "country": "Germania",
+      "city": "",
+      "email": "pancis_keg@aon.at",
+      "phone": "",
+      "priority": "normal",
+      "created": "2012-11-07T14:40:04Z",
+      "intel": "Import legacy (id_client orig: 7). Adresa: "
+    }
+  ]
+}
