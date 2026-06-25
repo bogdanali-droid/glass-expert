@@ -563,7 +563,7 @@
 const CRM_KEY = 'ge-crm-clients';
 const COD_KEY = 'ge-crm-cod-seq';
 const CRM_VERSION_KEY = 'ge-crm-version';
-const CRM_VERSION = '2026-06-25-real';
+const CRM_VERSION = '2026-06-25-csv2';
 
 const STAGES = ['prospect','calificat','oferta','comanda'];
 const STAGE_LABELS = { prospect:'Prospect', calificat:'Calificat', oferta:'Ofertă', comanda:'Comandă' };
@@ -642,6 +642,12 @@ function migrateClients(arr){
         if (!m.priority || !PRIORITIES.includes(m.priority)) m.priority = 'normal';
         if (!m.source) m.source = '';
         if (m.intel == null) m.intel = '';
+        // Campuri noi din importul CSV (Email PST 2024)
+        m.inquiryCount = m.inquiryCount || c.inquiryCount || 0;
+        m.lastSubject = m.lastSubject || c.lastSubject || '';
+        m.emailSource = m.emailSource || c.emailSource || '';
+        m.productsOrdered = m.productsOrdered || c.productsOrdered || [];
+        m.marginClass = m.marginClass || c.marginClass || '';
         if (!m.createdAt) m.createdAt = today();
         if (!m.lastActivity) m.lastActivity = (m.notes[0] && m.notes[0].date) || m.createdAt;
         // drop legacy flat keys (kept in contacts[0] now)

@@ -1,0 +1,15 @@
+{
+  "mode": "offline-idempotent",
+  "csv_rows": 1198,
+  "distinct_emails": 1198,
+  "dupe_emails_skipped": 0,
+  "matched_update": "unknown (no snapshot)",
+  "new_insert": "<= 1198 (INSERT OR IGNORE)",
+  "start_cod": "GE-7636",
+  "max_cod_generated": "GE-8833",
+  "update_statements": 2357,
+  "insert_statements": 2357,
+  "total_statements": 4715,
+  "batch_files": 95,
+  "unmapped_products": {}
+}
