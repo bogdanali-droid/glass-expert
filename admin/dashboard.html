@@ -1634,11 +1634,19 @@
                     </div>
                 </div>
 
+                <!-- Region Filters -->
+                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.25rem;">
+                    <button id="ev-filter-all" class="btn btn-primary" onclick="setEvFilter('all')" style="font-size:0.82rem;">&#127760; Toate</button>
+                    <button id="ev-filter-romania" class="btn btn-ghost" onclick="setEvFilter('romania')" style="font-size:0.82rem;">&#127479;&#127476; România</button>
+                    <button id="ev-filter-europa" class="btn btn-ghost" onclick="setEvFilter('europa')" style="font-size:0.82rem;">&#127466;&#127482; Europa</button>
+                    <button id="ev-filter-international" class="btn btn-ghost" onclick="setEvFilter('international')" style="font-size:0.82rem;">&#127758; Internațional</button>
+                </div>
+
                 <!-- Legend -->
                 <div class="ev-legend">
-                    <div class="ev-legend-item"><div class="ev-legend-dot" style="background:var(--blue);"></div> <strong>Mare</strong> — &gt;50K vizitatori / &gt;1000 expozanți</div>
-                    <div class="ev-legend-item"><div class="ev-legend-dot" style="background:var(--amber);"></div> <strong>Mediu</strong> — 10K–50K vizitatori / 200–1000 expozanți</div>
-                    <div class="ev-legend-item"><div class="ev-legend-dot" style="background:var(--green);"></div> <strong>Mic</strong> — &lt;10K vizitatori / &lt;200 expozanți</div>
+                    <div class="ev-legend-item"><div class="ev-legend-dot" style="background:var(--blue);"></div> <strong>Mare</strong> — &gt;50K vizitatori</div>
+                    <div class="ev-legend-item"><div class="ev-legend-dot" style="background:var(--amber);"></div> <strong>Mediu</strong> — 10K–50K vizitatori</div>
+                    <div class="ev-legend-item"><div class="ev-legend-dot" style="background:var(--green);"></div> <strong>Mic</strong> — &lt;10K vizitatori</div>
                     <div class="ev-legend-item"><div class="ev-legend-dot" style="background:#d1d5db;"></div> Expirat</div>
                 </div>
 
@@ -1652,7 +1660,7 @@
                     <div class="cal-grid" id="cal-grid"></div>
                 </div>
 
-                <!-- Events List -->
+                <!-- 3 Regional Sections -->
                 <div id="events-list"></div>
             </section>
 
@@ -1741,26 +1749,35 @@ const TEMPLATES = [
    category: 'railway' | 'glass' | 'transport'
    ============================================================ */
 const EVENTS = [
-    { id:1, name:'InnoTrans 2026', category:'railway', size:'large', country:'Germania', city:'Berlin', dateStart:'2026-09-22', dateEnd:'2026-09-25', theme:'Mobilitate feroviară globală — material rulant, infrastructură, sticlă & componente, digitalizare feroviară', contact:'Messe Berlin GmbH', email:'innotrans@messe-berlin.de', website:'innotrans.com', exhibitors:3000, visitors:160000, description:'Cel mai mare târg feroviar din lume. Ediție bienală, Berlin. Oportunitate cheie VAGOTECH — geam frontal, lateral, partiții. Networking cu CFR, DB, PKP și producători OEM. Slot esențial pentru prezența internațională.' },
-    { id:2, name:'glasstec 2026', category:'glass', size:'large', country:'Germania', city:'Düsseldorf', dateStart:'2026-11-18', dateEnd:'2026-11-21', theme:'Producție sticlă, procesare industrială, arhitectură & aplicații speciale, inovații 2027', contact:'Messe Düsseldorf GmbH', email:'glasstec@messe-duesseldorf.de', website:'glasstec.com', exhibitors:1100, visitors:42000, description:'Liderul mondial al industriei de sticlă. Ediție bienală, Düsseldorf. Networking cu producători, furnizori materie primă și parteneri de procesare. Relevant pentru tehnologie EVOLAM și EVODUR.' },
-    { id:3, name:'UITP Global PT Summit 2025', category:'transport', size:'large', country:'Italia', city:'Milano', dateStart:'2025-06-15', dateEnd:'2025-06-18', theme:'Transport public urban, tramvaie electrice, autobuze, metro, mobilitate inteligentă', contact:'UITP — Union Internationale des Transports Publics', email:'summit@uitp.org', website:'uitp.org', exhibitors:420, visitors:12000, description:'Summit bienal al transportului public global — ediție 2025 Milano. Prezent STB, CTP Cluj, CTP Timișoara și operatori europeni. Urmează UITP 2027 Stockholm.' },
-    { id:4, name:'Transport Logistic 2025', category:'transport', size:'large', country:'Germania', city:'München', dateStart:'2025-06-03', dateEnd:'2025-06-06', theme:'Logistică intermodală, transport feroviar, freight, supply chain, soluții intermodale', contact:'Messe München GmbH', email:'info@messe-muenchen.de', website:'transportlogistic.de', exhibitors:2800, visitors:75000, description:'Cel mai mare târg de logistică și transport din lume. Ediție bienală, München. Oportunitate pentru segmentul freight și operatori internaționali.' },
-    { id:5, name:'Railtex 2025', category:'railway', size:'medium', country:'Marea Britanie', city:'Birmingham (NEC)', dateStart:'2025-05-06', dateEnd:'2025-05-08', theme:'Material rulant britanic, infrastructură feroviară, componente, manutenție', contact:'Informa Markets', email:'railtex@informa.com', website:'railtex.co.uk', exhibitors:400, visitors:14000, description:'Principalul eveniment feroviar britanic. Ediție bienală (alternat cu Infrarail). Urmează Railtex 2027.' },
-    { id:6, name:'TRAKO 2025', category:'railway', size:'medium', country:'Polonia', city:'Gdańsk', dateStart:'2025-09-23', dateEnd:'2025-09-26', theme:'Material rulant CEE, infrastructură feroviară, componente, manutenție vagoane', contact:'Targi Gdańsk SA', email:'trako@targi.gdansk.pl', website:'trako.com.pl', exhibitors:450, visitors:25000, description:'Cel mai mare târg feroviar din Europa Centrală și de Est. Ediție bienală, Gdańsk. Networking cu PKP, CFR, operatori CEE. Urmează TRAKO 2027.' },
-    { id:7, name:'Railway Interchange 2025', category:'railway', size:'medium', country:'SUA', city:'Minneapolis, MN', dateStart:'2025-09-21', dateEnd:'2025-09-23', theme:'Feroviar nord-american, freight, componente, material rulant, inovații', contact:'Railway Supply Institute', email:'info@railwayinterchange.org', website:'railwayinterchange.org', exhibitors:600, visitors:15000, description:'Principal eveniment feroviar nord-american. Oportunitate pentru piața SUA via Glass Expert NJ. Ediție bienală.' },
-    { id:8, name:'Vitrum 2025', category:'glass', size:'medium', country:'Italia', city:'Milano', dateStart:'2025-10-13', dateEnd:'2025-10-16', theme:'Industria sticlei italiene, procesare, mașini & echipamente, aplicații arhitecturale', contact:'Vitrum Show Srl', email:'info@vitrum-milan.com', website:'vitrum-milan.com', exhibitors:320, visitors:22000, description:'Târgul italian al industriei de sticlă. Ediție bienală. Networking cu procesatori, furnizori și producători de mașini. Urmează Vitrum 2027.' },
-    { id:9, name:'Middle East Rail 2026', category:'railway', size:'medium', country:'UAE', city:'Dubai (DWTC)', dateStart:'2026-02-17', dateEnd:'2026-02-19', theme:'Material rulant MENA, metro, tramvai, infrastructură feroviară, componente regionale', contact:'Informa Markets MENA', email:'middleeastrail@informa.com', website:'middleeastrail.com', exhibitors:280, visitors:18000, description:'Cea mai importantă expoziție feroviară din Orientul Mijlociu. Oportunitate pentru piețele UAE, Arabia Saudită, Qatar. Expansiune Glass Expert MENA.' },
-    { id:10, name:'GPU Glass Performance Days 2026', category:'glass', size:'small', country:'Finlanda', city:'Tampere', dateStart:'2026-05-12', dateEnd:'2026-05-14', theme:'Performanță sticlă, izolare termică, glazing avansat, aplicații speciale & feroviare', contact:'Glass Performance Days', email:'info@gpd.fi', website:'gpd.fi', exhibitors:120, visitors:5000, description:'Conferință internațională de referință pentru ingineria sticlei de înaltă performanță. Prezentare tehnologie EVOLAM și EVODUR recomandată.' },
-    { id:11, name:'Expo Feroviara România 2026', category:'railway', size:'small', country:'România', city:'București', dateStart:'2026-03-18', dateEnd:'2026-03-20', theme:'Feroviar românesc, modernizare CFR, tramvaie, componente locale', contact:'Camera de Comerț și Industrie București', email:'expo@ccib.ro', website:'ccib.ro', exhibitors:75, visitors:3000, description:'Expoziție națională feroviară. Prezență CFR, STB, AFER și furnizori locali. Oportunitate directă pentru VAGOTECH în piața internă.' },
-    { id:12, name:'Romanian Transport Forum 2026', category:'transport', size:'small', country:'România', city:'București', dateStart:'2026-10-15', dateEnd:'2026-10-16', theme:'Politici transport RO, modernizare CFR, fonduri europene, digitalizare mobilitate', contact:'Ministerul Transporturilor', email:'contact@mt.ro', website:'mt.ro', exhibitors:80, visitors:3500, description:'Forum național de politici și investiții în transport. Prezență CFR, STB, AFER și factori de decizie. Networking cu procurement și directori tehnici.' },
-    { id:13, name:'FEDECRAIL Convention 2026', category:'railway', size:'small', country:'Austria', city:'Viena', dateStart:'2026-09-05', dateEnd:'2026-09-08', theme:'Căi ferate turistice, patrimoniu, material rulant clasic, restaurare vagoane istorice', contact:'FEDECRAIL Secretariat', email:'info@fedecrail.eu', website:'fedecrail.eu', exhibitors:60, visitors:2000, description:'Federația europeană a căilor ferate turistice și istorice. Nișă pentru glazing special și restaurare. Piață de volum mic dar fidelizare ridicată.' },
-    { id:14, name:'InnoTrans 2028', category:'railway', size:'large', country:'Germania', city:'Berlin', dateStart:'2028-09-19', dateEnd:'2028-09-22', theme:'Mobilitate feroviară globală — material rulant, infrastructură, inovații 2028', contact:'Messe Berlin GmbH', email:'innotrans@messe-berlin.de', website:'innotrans.com', exhibitors:3200, visitors:170000, description:'Ediția 2028 a celui mai mare târg feroviar din lume. Planificare stand și materiale din 2027. Target: prezentare certificare extinsă VAGOTECH.' },
-    { id:15, name:'Railtex 2027', category:'railway', size:'medium', country:'Marea Britanie', city:'Birmingham (NEC)', dateStart:'2027-05-11', dateEnd:'2027-05-13', theme:'Inovații feroviare britanice, componente, material rulant, electrificare', contact:'Informa Markets', email:'railtex@informa.com', website:'railtex.co.uk', exhibitors:420, visitors:15000, description:'Ediția 2027 Railtex. Planificare devreme pentru stand și networking UK rail.' },
-    { id:16, name:'TRAKO 2027', category:'railway', size:'medium', country:'Polonia', city:'Gdańsk', dateStart:'2027-09-21', dateEnd:'2027-09-24', theme:'Material rulant CEE 2027, infrastructură, componente & aplicații feroviare', contact:'Targi Gdańsk SA', email:'trako@targi.gdansk.pl', website:'trako.com.pl', exhibitors:480, visitors:28000, description:'Cel mai mare târg feroviar din Europa Centrală și de Est — ediție 2027. Target major pentru expansiunea Glass Expert în Polonia și CEE.' },
-    { id:17, name:'Middle East Rail 2027', category:'railway', size:'medium', country:'UAE', city:'Dubai (DWTC)', dateStart:'2027-02-16', dateEnd:'2027-02-18', theme:'Material rulant MENA 2027, metro, tramvai, infrastructură, glazing & componente', contact:'Informa Markets MENA', email:'middleeastrail@informa.com', website:'middleeastrail.com', exhibitors:300, visitors:20000, description:'Ediția 2027 Middle East Rail. Consolidare prezență Glass Expert în piața MENA.' },
-    { id:18, name:'UITP Global PT Summit 2027', category:'transport', size:'large', country:'Suedia', city:'Stockholm', dateStart:'2027-06-13', dateEnd:'2027-06-16', theme:'Transport public global 2027, tramvaie, metro, mobilitate electrică & autonomă', contact:'UITP Secretariat Brussels', email:'summit@uitp.org', website:'uitp.org', exhibitors:450, visitors:13000, description:'Summit bienal transport public global — ediție 2027 Stockholm. Target STB, CTP, operatori regionali români și europeni.' },
-    { id:19, name:'Transport Logistic 2027', category:'transport', size:'large', country:'Germania', city:'München', dateStart:'2027-06-08', dateEnd:'2027-06-11', theme:'Logistică intermodală, transport feroviar freight, supply chain, automatizare', contact:'Messe München GmbH', email:'info@messe-muenchen.de', website:'transportlogistic.de', exhibitors:2900, visitors:80000, description:'Cel mai mare eveniment de logistică și transport — ediție 2027. Networking internațional și oportunități freight glass.' },
-    { id:20, name:'Vitrum 2027', category:'glass', size:'medium', country:'Italia', city:'Milano', dateStart:'2027-10-11', dateEnd:'2027-10-14', theme:'Industria sticlei 2027, procesare, mașini, inovații materiale & acoperiri', contact:'Vitrum Show Srl', email:'info@vitrum-milan.com', website:'vitrum-milan.com', exhibitors:340, visitors:24000, description:'Ediția 2027 Vitrum Milano. Networking cu furnizori materie primă și parteneri procesare. Prezentare inovații EVOLAM și EVOCLEAN.' }
+    /* ---- ROMÂNIA ---- */
+    { id:11, region:'romania', name:'Expo Feroviara România 2026', category:'railway', size:'small', country:'România', city:'București', dateStart:'2026-03-18', dateEnd:'2026-03-20', theme:'Feroviar românesc, modernizare CFR, tramvaie, componente locale, certificări AFER', contact:'Camera de Comerț și Industrie București', email:'expo@ccib.ro', website:'ccib.ro', exhibitors:75, visitors:3000, description:'Expoziție națională feroviară. Prezență CFR, STB, AFER și furnizori locali. Oportunitate directă pentru VAGOTECH în piața internă.' },
+    { id:12, region:'romania', name:'Romanian Transport Forum 2026', category:'transport', size:'small', country:'România', city:'București', dateStart:'2026-10-15', dateEnd:'2026-10-16', theme:'Politici transport RO, modernizare CFR, fonduri europene, digitalizare mobilitate', contact:'Ministerul Transporturilor', email:'contact@mt.ro', website:'mt.ro', exhibitors:80, visitors:3500, description:'Forum național de politici și investiții în transport. Prezență CFR, STB, AFER și factori de decizie. Networking cu procurement și directori tehnici.' },
+    { id:21, region:'romania', name:'Conferința Națională CFR 2027', category:'railway', size:'small', country:'România', city:'Cluj-Napoca', dateStart:'2027-04-10', dateEnd:'2027-04-11', theme:'Modernizare infrastructură CFR, fonduri UE, material rulant nou, safety feroviar', contact:'CFR Infrastructură SA', email:'comunicare@cfr.ro', website:'cfr.ro', exhibitors:50, visitors:1500, description:'Conferință anuală CFR cu decidenți și parteneri industriali. Oportunitate pentru pitch direct geam frontal și lateral VAGOTECH.' },
+    { id:22, region:'romania', name:'Ziua Transportului Public 2027', category:'transport', size:'small', country:'România', city:'Timișoara', dateStart:'2027-06-20', dateEnd:'2027-06-21', theme:'Transport public urban, tramvaie electrice, autobuze hibrid, mobilitate durabilă RO', contact:'UITP Romania', email:'contact@uitp-romania.ro', website:'uitp-romania.ro', exhibitors:60, visitors:2500, description:'Eveniment anual dedicat operatorilor de transport public din România. Prezență STB, CTP Cluj, CTP Timișoara. Networking direct cu decidenți.' },
+
+    /* ---- EUROPA ---- */
+    { id:1, region:'europa', name:'InnoTrans 2026', category:'railway', size:'large', country:'Germania', city:'Berlin', dateStart:'2026-09-22', dateEnd:'2026-09-25', theme:'Mobilitate feroviară globală — material rulant, infrastructură, sticlă & componente, digitalizare feroviară', contact:'Messe Berlin GmbH', email:'innotrans@messe-berlin.de', website:'innotrans.com', exhibitors:3000, visitors:160000, description:'Cel mai mare târg feroviar din lume. Ediție bienală, Berlin. Oportunitate cheie VAGOTECH — geam frontal, lateral, partiții. Networking cu CFR, DB, PKP și producători OEM. Slot esențial pentru prezența internațională.' },
+    { id:2, region:'europa', name:'glasstec 2026', category:'glass', size:'large', country:'Germania', city:'Düsseldorf', dateStart:'2026-11-18', dateEnd:'2026-11-21', theme:'Producție sticlă, procesare industrială, arhitectură & aplicații speciale, inovații 2027', contact:'Messe Düsseldorf GmbH', email:'glasstec@messe-duesseldorf.de', website:'glasstec.com', exhibitors:1100, visitors:42000, description:'Liderul mondial al industriei de sticlă. Ediție bienală, Düsseldorf. Networking cu producători, furnizori materie primă și parteneri de procesare. Relevant pentru tehnologie EVOLAM și EVODUR.' },
+    { id:3, region:'europa', name:'UITP Global PT Summit 2025', category:'transport', size:'large', country:'Italia', city:'Milano', dateStart:'2025-06-15', dateEnd:'2025-06-18', theme:'Transport public urban, tramvaie electrice, autobuze, metro, mobilitate inteligentă', contact:'UITP — Union Internationale des Transports Publics', email:'summit@uitp.org', website:'uitp.org', exhibitors:420, visitors:12000, description:'Summit bienal al transportului public global — ediție 2025 Milano. Prezent STB, CTP Cluj, CTP Timișoara și operatori europeni. Urmează UITP 2027 Stockholm.' },
+    { id:4, region:'europa', name:'Transport Logistic 2025', category:'transport', size:'large', country:'Germania', city:'München', dateStart:'2025-06-03', dateEnd:'2025-06-06', theme:'Logistică intermodală, transport feroviar, freight, supply chain, soluții intermodale', contact:'Messe München GmbH', email:'info@messe-muenchen.de', website:'transportlogistic.de', exhibitors:2800, visitors:75000, description:'Cel mai mare târg de logistică și transport din lume. Ediție bienală, München. Oportunitate pentru segmentul freight și operatori internaționali.' },
+    { id:5, region:'europa', name:'Railtex 2025', category:'railway', size:'medium', country:'Marea Britanie', city:'Birmingham (NEC)', dateStart:'2025-05-06', dateEnd:'2025-05-08', theme:'Material rulant britanic, infrastructură feroviară, componente, manutenție', contact:'Informa Markets', email:'railtex@informa.com', website:'railtex.co.uk', exhibitors:400, visitors:14000, description:'Principalul eveniment feroviar britanic. Ediție bienală (alternat cu Infrarail). Urmează Railtex 2027.' },
+    { id:6, region:'europa', name:'TRAKO 2025', category:'railway', size:'medium', country:'Polonia', city:'Gdańsk', dateStart:'2025-09-23', dateEnd:'2025-09-26', theme:'Material rulant CEE, infrastructură feroviară, componente, manutenție vagoane', contact:'Targi Gdańsk SA', email:'trako@targi.gdansk.pl', website:'trako.com.pl', exhibitors:450, visitors:25000, description:'Cel mai mare târg feroviar din Europa Centrală și de Est. Ediție bienală, Gdańsk. Networking cu PKP, CFR, operatori CEE. Urmează TRAKO 2027.' },
+    { id:8, region:'europa', name:'Vitrum 2025', category:'glass', size:'medium', country:'Italia', city:'Milano', dateStart:'2025-10-13', dateEnd:'2025-10-16', theme:'Industria sticlei italiene, procesare, mașini & echipamente, aplicații arhitecturale', contact:'Vitrum Show Srl', email:'info@vitrum-milan.com', website:'vitrum-milan.com', exhibitors:320, visitors:22000, description:'Târgul italian al industriei de sticlă. Ediție bienală. Networking cu procesatori, furnizori și producători de mașini. Urmează Vitrum 2027.' },
+    { id:10, region:'europa', name:'GPU Glass Performance Days 2026', category:'glass', size:'small', country:'Finlanda', city:'Tampere', dateStart:'2026-05-12', dateEnd:'2026-05-14', theme:'Performanță sticlă, izolare termică, glazing avansat, aplicații speciale & feroviare', contact:'Glass Performance Days', email:'info@gpd.fi', website:'gpd.fi', exhibitors:120, visitors:5000, description:'Conferință internațională de referință pentru ingineria sticlei de înaltă performanță. Prezentare tehnologie EVOLAM și EVODUR recomandată.' },
+    { id:13, region:'europa', name:'FEDECRAIL Convention 2026', category:'railway', size:'small', country:'Austria', city:'Viena', dateStart:'2026-09-05', dateEnd:'2026-09-08', theme:'Căi ferate turistice, patrimoniu, material rulant clasic, restaurare vagoane istorice', contact:'FEDECRAIL Secretariat', email:'info@fedecrail.eu', website:'fedecrail.eu', exhibitors:60, visitors:2000, description:'Federația europeană a căilor ferate turistice și istorice. Nișă pentru glazing special și restaurare. Piață de volum mic dar fidelizare ridicată.' },
+    { id:14, region:'europa', name:'InnoTrans 2028', category:'railway', size:'large', country:'Germania', city:'Berlin', dateStart:'2028-09-19', dateEnd:'2028-09-22', theme:'Mobilitate feroviară globală — material rulant, infrastructură, inovații 2028', contact:'Messe Berlin GmbH', email:'innotrans@messe-berlin.de', website:'innotrans.com', exhibitors:3200, visitors:170000, description:'Ediția 2028 a celui mai mare târg feroviar din lume. Planificare stand și materiale din 2027. Target: prezentare certificare extinsă VAGOTECH.' },
+    { id:15, region:'europa', name:'Railtex 2027', category:'railway', size:'medium', country:'Marea Britanie', city:'Birmingham (NEC)', dateStart:'2027-05-11', dateEnd:'2027-05-13', theme:'Inovații feroviare britanice, componente, material rulant, electrificare', contact:'Informa Markets', email:'railtex@informa.com', website:'railtex.co.uk', exhibitors:420, visitors:15000, description:'Ediția 2027 Railtex. Planificare devreme pentru stand și networking UK rail.' },
+    { id:16, region:'europa', name:'TRAKO 2027', category:'railway', size:'medium', country:'Polonia', city:'Gdańsk', dateStart:'2027-09-21', dateEnd:'2027-09-24', theme:'Material rulant CEE 2027, infrastructură, componente & aplicații feroviare', contact:'Targi Gdańsk SA', email:'trako@targi.gdansk.pl', website:'trako.com.pl', exhibitors:480, visitors:28000, description:'Cel mai mare târg feroviar din Europa Centrală și de Est — ediție 2027. Target major pentru expansiunea Glass Expert în Polonia și CEE.' },
+    { id:18, region:'europa', name:'UITP Global PT Summit 2027', category:'transport', size:'large', country:'Suedia', city:'Stockholm', dateStart:'2027-06-13', dateEnd:'2027-06-16', theme:'Transport public global 2027, tramvaie, metro, mobilitate electrică & autonomă', contact:'UITP Secretariat Brussels', email:'summit@uitp.org', website:'uitp.org', exhibitors:450, visitors:13000, description:'Summit bienal transport public global — ediție 2027 Stockholm. Target STB, CTP, operatori regionali români și europeni.' },
+    { id:19, region:'europa', name:'Transport Logistic 2027', category:'transport', size:'large', country:'Germania', city:'München', dateStart:'2027-06-08', dateEnd:'2027-06-11', theme:'Logistică intermodală, transport feroviar freight, supply chain, automatizare', contact:'Messe München GmbH', email:'info@messe-muenchen.de', website:'transportlogistic.de', exhibitors:2900, visitors:80000, description:'Cel mai mare eveniment de logistică și transport — ediție 2027. Networking internațional și oportunități freight glass.' },
+    { id:20, region:'europa', name:'Vitrum 2027', category:'glass', size:'medium', country:'Italia', city:'Milano', dateStart:'2027-10-11', dateEnd:'2027-10-14', theme:'Industria sticlei 2027, procesare, mașini, inovații materiale & acoperiri', contact:'Vitrum Show Srl', email:'info@vitrum-milan.com', website:'vitrum-milan.com', exhibitors:340, visitors:24000, description:'Ediția 2027 Vitrum Milano. Networking cu furnizori materie primă și parteneri procesare. Prezentare inovații EVOLAM și EVOCLEAN.' },
+
+    /* ---- INTERNAȚIONAL ---- */
+    { id:7, region:'international', name:'Railway Interchange 2025', category:'railway', size:'medium', country:'SUA', city:'Minneapolis, MN', dateStart:'2025-09-21', dateEnd:'2025-09-23', theme:'Feroviar nord-american, freight, componente, material rulant, inovații', contact:'Railway Supply Institute', email:'info@railwayinterchange.org', website:'railwayinterchange.org', exhibitors:600, visitors:15000, description:'Principal eveniment feroviar nord-american. Oportunitate pentru piața SUA via Glass Expert NJ. Ediție bienală.' },
+    { id:9, region:'international', name:'Middle East Rail 2026', category:'railway', size:'medium', country:'UAE', city:'Dubai (DWTC)', dateStart:'2026-02-17', dateEnd:'2026-02-19', theme:'Material rulant MENA, metro, tramvai, infrastructură feroviară, componente regionale', contact:'Informa Markets MENA', email:'middleeastrail@informa.com', website:'middleeastrail.com', exhibitors:280, visitors:18000, description:'Cea mai importantă expoziție feroviară din Orientul Mijlociu. Oportunitate pentru piețele UAE, Arabia Saudită, Qatar. Expansiune Glass Expert MENA.' },
+    { id:17, region:'international', name:'Middle East Rail 2027', category:'railway', size:'medium', country:'UAE', city:'Dubai (DWTC)', dateStart:'2027-02-16', dateEnd:'2027-02-18', theme:'Material rulant MENA 2027, metro, tramvai, infrastructură, glazing & componente', contact:'Informa Markets MENA', email:'middleeastrail@informa.com', website:'middleeastrail.com', exhibitors:300, visitors:20000, description:'Ediția 2027 Middle East Rail. Consolidare prezență Glass Expert în piața MENA.' },
+    { id:23, region:'international', name:'Railway Interchange 2027', category:'railway', size:'medium', country:'SUA', city:'Kansas City, MO', dateStart:'2027-09-19', dateEnd:'2027-09-22', theme:'Feroviar nord-american, freight, componente, material rulant, inovații tehnice', contact:'Railway Supply Institute', email:'info@railwayinterchange.org', website:'railwayinterchange.org', exhibitors:650, visitors:17000, description:'Ediția 2027 Railway Interchange. Expansiunea Glass Expert NJ pe piața feroviară nord-americană.' },
+    { id:24, region:'international', name:'Middle East Rail 2028', category:'railway', size:'medium', country:'UAE', city:'Dubai (DWTC)', dateStart:'2028-02-13', dateEnd:'2028-02-15', theme:'Material rulant MENA 2028, metro, tramvai, sticlă feroviară & componente', contact:'Informa Markets MENA', email:'middleeastrail@informa.com', website:'middleeastrail.com', exhibitors:320, visitors:22000, description:'Ediția 2028 Middle East Rail. Target consolidare brand VAGOTECH în piețele arabe și africane.' }
 ];
 
 /* ============================================================
@@ -3141,8 +3158,28 @@ ${notes ? `<div class="terms"><strong>Note:</strong> ${notes}</div>` : ''}
    ============================================================ */
 let calYear = new Date().getFullYear();
 let calMonth = new Date().getMonth();
+let calRegionFilter = 'all';
 
 const CAL_MONTHS = ['Ianuarie','Februarie','Martie','Aprilie','Mai','Iunie','Iulie','August','Septembrie','Octombrie','Noiembrie','Decembrie'];
+
+const REGION_META = {
+    romania:      { label:'România',       flag:'🇷🇴', color:'#c2410c' },
+    europa:       { label:'Europa',        flag:'🇪🇺', color:'var(--navy)' },
+    international:{ label:'Internațional', flag:'🌐', color:'#7c3aed' }
+};
+
+function setEvFilter(region) {
+    calRegionFilter = region;
+    ['all','romania','europa','international'].forEach(r => {
+        const btn = $('ev-filter-' + r);
+        if (btn) {
+            btn.className = (r === region) ? 'btn btn-primary' : 'btn btn-ghost';
+            btn.style.fontSize = '0.82rem';
+        }
+    });
+    renderCalendar();
+    renderEventsList();
+}
 
 function renderEvents() {
     renderCalendar();
@@ -3161,6 +3198,10 @@ function calNext() {
     renderCalendar();
 }
 
+function filteredEvents() {
+    return calRegionFilter === 'all' ? EVENTS : EVENTS.filter(ev => ev.region === calRegionFilter);
+}
+
 function renderCalendar() {
     const todayStr = new Date().toISOString().slice(0, 10);
     $('cal-title').textContent = CAL_MONTHS[calMonth] + ' ' + calYear;
@@ -3169,8 +3210,9 @@ function renderCalendar() {
     const totalDays = new Date(calYear, calMonth + 1, 0).getDate();
     const startOffset = firstWeekDay === 0 ? 6 : firstWeekDay - 1;
 
+    const pool = filteredEvents();
     const eventsByDay = {};
-    EVENTS.forEach(ev => {
+    pool.forEach(ev => {
         const s = new Date(ev.dateStart + 'T00:00:00');
         const e = new Date(ev.dateEnd + 'T00:00:00');
         for (let d = new Date(s); d <= e; d.setDate(d.getDate() + 1)) {
@@ -3193,47 +3235,51 @@ function renderCalendar() {
         const isToday = dayStr === todayStr;
         const evs = eventsByDay[day] || [];
         html += '<div class="cal-cell' + (isToday ? ' cal-today' : '') + '">';
-        if (isToday) {
-            html += '<span class="cal-day-num"><span class="today-num">' + day + '</span></span>';
-        } else {
-            html += '<span class="cal-day-num">' + day + '</span>';
-        }
+        html += isToday
+            ? '<span class="cal-day-num"><span class="today-num">' + day + '</span></span>'
+            : '<span class="cal-day-num">' + day + '</span>';
         evs.slice(0, 3).forEach(ev => {
             const isPast = ev.dateEnd < todayStr;
             const cls = isPast ? 'ev-expired' : 'ev-' + ev.size;
             html += '<div class="cal-ev ' + cls + '" onclick="showEventDetail(' + ev.id + ')" title="' + esc(ev.name) + '">' + esc(ev.name) + '</div>';
         });
-        if (evs.length > 3) html += '<div class="cal-ev ev-small" style="font-size:0.6rem;cursor:default;">+' + (evs.length - 3) + ' mai mult</div>';
+        if (evs.length > 3) html += '<div style="font-size:0.6rem;color:var(--text-faint);padding:0 2px;">+' + (evs.length - 3) + ' mai mult</div>';
         html += '</div>';
     }
     $('cal-grid').innerHTML = html;
 }
 
-function renderEventsList() {
-    const todayStr = new Date().toISOString().slice(0, 10);
-    const upcoming = EVENTS.filter(ev => ev.dateEnd >= todayStr).sort((a, b) => a.dateStart.localeCompare(b.dateStart));
-    const past = EVENTS.filter(ev => ev.dateEnd < todayStr).sort((a, b) => b.dateStart.localeCompare(a.dateStart));
+function evListSection(regionKey, evList, todayStr) {
+    const meta = REGION_META[regionKey];
+    const upcoming = evList.filter(ev => ev.dateEnd >= todayStr).sort((a,b) => a.dateStart.localeCompare(b.dateStart));
+    const past     = evList.filter(ev => ev.dateEnd < todayStr).sort((a,b) => b.dateStart.localeCompare(a.dateStart));
 
-    let html = '';
+    let html = '<div style="margin-bottom:2rem;">';
+    html += '<div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;padding-bottom:0.6rem;border-bottom:2px solid ' + meta.color + ';">';
+    html += '<span style="font-size:1.25rem;">' + meta.flag + '</span>';
+    html += '<h3 style="margin:0;font-size:1rem;font-weight:800;color:' + meta.color + ';text-transform:uppercase;letter-spacing:0.04em;">' + meta.label + '</h3>';
+    html += '<span style="margin-left:auto;font-size:0.78rem;color:var(--text-muted);">' + upcoming.length + ' viitoare · ' + past.length + ' expirate</span>';
+    html += '</div>';
+
     if (upcoming.length) {
-        html += '<h3 style="color:var(--navy);margin:1.5rem 0 0.75rem;font-size:0.95rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">&#128197; Evenimente Viitoare (' + upcoming.length + ')</h3>';
         html += '<div class="ev-list">';
         upcoming.forEach(ev => {
-            const sizeLabel = ev.size === 'large' ? 'MARE' : ev.size === 'medium' ? 'MEDIU' : 'MIC';
+            const sl = ev.size === 'large' ? 'MARE' : ev.size === 'medium' ? 'MEDIU' : 'MIC';
             html += '<div class="ev-list-item ev-' + ev.size + '-item" onclick="showEventDetail(' + ev.id + ')">' +
                 '<div class="ev-list-dot ev-' + ev.size + '"></div>' +
                 '<div class="ev-list-body">' +
                 '<div class="ev-list-name">' + esc(ev.name) + '</div>' +
-                '<div class="ev-list-meta">' + esc(ev.city) + ', ' + esc(ev.country) + ' &nbsp;·&nbsp; ' + formatDateRange(ev.dateStart, ev.dateEnd) + ' &nbsp;·&nbsp; ~' + ev.exhibitors.toLocaleString('ro-RO') + ' exp. / ~' + ev.visitors.toLocaleString('ro-RO') + ' viz.</div>' +
+                '<div class="ev-list-meta">' + esc(ev.city) + ', ' + esc(ev.country) + ' &nbsp;·&nbsp; ' + formatDateRange(ev.dateStart, ev.dateEnd) + ' &nbsp;·&nbsp; ~' + ev.visitors.toLocaleString('ro-RO') + ' viz.</div>' +
                 '</div>' +
-                '<div class="ev-size-badge ev-' + ev.size + '">' + sizeLabel + '</div>' +
+                '<div class="ev-size-badge ev-' + ev.size + '">' + sl + '</div>' +
                 '</div>';
         });
         html += '</div>';
     }
+
     if (past.length) {
-        html += '<h3 style="color:var(--text-muted);margin:2rem 0 0.75rem;font-size:0.95rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">&#x2713; Evenimente Expirate (' + past.length + ')</h3>';
-        html += '<div class="ev-list">';
+        html += '<details style="margin-top:0.75rem;"><summary style="cursor:pointer;font-size:0.82rem;color:var(--text-muted);font-weight:600;">&#9660; Expirate (' + past.length + ')</summary>';
+        html += '<div class="ev-list" style="margin-top:0.5rem;">';
         past.forEach(ev => {
             html += '<div class="ev-list-item ev-expired-item" onclick="showEventDetail(' + ev.id + ')">' +
                 '<div class="ev-list-dot ev-expired"></div>' +
@@ -3244,8 +3290,33 @@ function renderEventsList() {
                 '<div class="ev-size-badge ev-expired">EXPIRAT</div>' +
                 '</div>';
         });
-        html += '</div>';
+        html += '</div></details>';
     }
+
+    if (!upcoming.length && !past.length) {
+        html += '<p style="color:var(--text-faint);font-size:0.88rem;padding:1rem 0;">Niciun eveniment în această regiune.</p>';
+    }
+
+    html += '</div>';
+    return html;
+}
+
+function renderEventsList() {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const pool = filteredEvents();
+
+    let html = '<div style="margin-top:1.5rem;">';
+
+    if (calRegionFilter === 'all') {
+        ['romania','europa','international'].forEach(r => {
+            const evList = pool.filter(ev => ev.region === r);
+            html += evListSection(r, evList, todayStr);
+        });
+    } else {
+        html += evListSection(calRegionFilter, pool, todayStr);
+    }
+
+    html += '</div>';
     $('events-list').innerHTML = html;
 }
 
