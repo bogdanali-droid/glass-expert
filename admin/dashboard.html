@@ -480,33 +480,33 @@
     <aside class="sidebar" id="sidebar">
         <div class="brand">
             <div class="logo">VAGO<span class="dot">·</span>TECH</div>
-            <div class="sub">Railway Glass · Sales OS</div>
+            <div class="sub">Sticlă Feroviară · Sales OS</div>
         </div>
         <nav class="nav">
             <button class="nav-item active" data-tab="leads" onclick="switchTab('leads')">
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                Leads Database
+                Bază de Clienți
             </button>
             <button class="nav-item" data-tab="market" onclick="switchTab('market')">
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 9l-5 5-3-3-4 4"/></svg>
-                Market Analysis
+                Analiză de Piață
             </button>
             <button class="nav-item" data-tab="pricing" onclick="switchTab('pricing')">
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 7h8M8 12h8M8 17h5"/></svg>
-                Pricing Tool
+                Calculator Prețuri
             </button>
             <button class="nav-item" data-tab="campaigns" onclick="switchTab('campaigns')">
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
-                Campaigns
+                Campanii Email
             </button>
             <button class="nav-item" data-tab="expansion" onclick="switchTab('expansion')">
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10A15 15 0 0 1 8 12a15 15 0 0 1 4-10z"/></svg>
-                Business Expansion
+                Expansiune Business
             </button>
         </nav>
         <div class="sidebar-footer">
-            <strong>Glass Expert USA</strong><br>
-            New Jersey · +1-609-408-8100<br>
+            <strong>Glas Expert</strong><br>
+            Popești-Leordeni · Neubiberg · NJ<br>
             office.us@xglass.eu
         </div>
     </aside>
@@ -520,8 +520,8 @@
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                 </button>
                 <div>
-                    <h1 id="page-title">Leads Database</h1>
-                    <div class="crumb">VAGOTECH · Railway &amp; Transit Glass · Q3 2026 Pipeline</div>
+                    <h1 id="page-title">Bază de Clienți</h1>
+                    <div class="crumb">VAGOTECH · Sticlă Feroviară · Pipeline T3 2026</div>
                 </div>
             </div>
             <div class="topbar-actions">
@@ -541,78 +541,78 @@
             <section class="panel active" id="panel-leads">
                 <div class="panel-head">
                     <div>
-                        <h2>Leads Database</h2>
-                        <p>Railway &amp; transit decision-makers across Europe. Source: VAGOTECH research, June 2026.</p>
+                        <h2>Bază de Clienți</h2>
+                        <p>Decidenți feroviari &amp; transit din Europa. Sursă: cercetare VAGOTECH, iunie 2026.</p>
                     </div>
                     <div style="display:flex;gap:0.6rem">
                         <button class="btn btn-ghost" onclick="exportLeadsCSV()">
                             <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
                             Export CSV
                         </button>
-                        <button class="btn btn-gold" onclick="toast('New lead form would open here','ok')">
+                        <button class="btn btn-gold" onclick="toast('Formularul de adăugare client se va deschide aici','ok')">
                             <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                            Add Lead
+                            Adaugă Client
                         </button>
                     </div>
                 </div>
 
                 <div class="stat-grid">
-                    <div class="stat"><div class="label">Total Leads</div><div class="value" id="kpi-total">0</div><div class="delta up">▲ 4 this week</div></div>
-                    <div class="stat"><div class="label">Pipeline Value</div><div class="value" id="kpi-pipeline">€0</div><div class="delta up">▲ 12% MoM</div></div>
-                    <div class="stat"><div class="label">High Priority</div><div class="value" id="kpi-high">0</div><div class="delta flat">Tier 1 targets</div></div>
-                    <div class="stat"><div class="label">Contacted</div><div class="value" id="kpi-contacted">0</div><div class="delta up">▲ 2 today</div></div>
+                    <div class="stat"><div class="label">Total Clienți</div><div class="value" id="kpi-total">0</div><div class="delta up">▲ 4 săptămâna aceasta</div></div>
+                    <div class="stat"><div class="label">Valoare Pipeline</div><div class="value" id="kpi-pipeline">€0</div><div class="delta up">▲ 12% MoM</div></div>
+                    <div class="stat"><div class="label">Prioritate Înaltă</div><div class="value" id="kpi-high">0</div><div class="delta flat">Ținte Tier 1</div></div>
+                    <div class="stat"><div class="label">Contactați</div><div class="value" id="kpi-contacted">0</div><div class="delta up">▲ 2 azi</div></div>
                 </div>
 
                 <div class="filters">
                     <div class="search-box">
                         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                        <input type="search" id="f-search" placeholder="Search company or contact…" oninput="renderLeads()">
+                        <input type="search" id="f-search" placeholder="Caută companie sau contact…" oninput="renderLeads()">
                     </div>
                     <div class="field">
-                        <label>Country</label>
-                        <select id="f-country" onchange="renderLeads()"><option value="">All countries</option></select>
+                        <label>Țară</label>
+                        <select id="f-country" onchange="renderLeads()"><option value="">Toate țările</option></select>
                     </div>
                     <div class="field">
-                        <label>Priority</label>
+                        <label>Prioritate</label>
                         <select id="f-priority" onchange="renderLeads()">
-                            <option value="">All priorities</option>
-                            <option value="HIGH">High</option>
-                            <option value="MEDIUM">Medium</option>
-                            <option value="LOW">Low</option>
+                            <option value="">Toate prioritățile</option>
+                            <option value="HIGH">Înaltă</option>
+                            <option value="MEDIUM">Medie</option>
+                            <option value="LOW">Scăzută</option>
                         </select>
                     </div>
                     <div class="field">
-                        <label>Company Type</label>
-                        <select id="f-type" onchange="renderLeads()"><option value="">All types</option></select>
+                        <label>Tip Companie</label>
+                        <select id="f-type" onchange="renderLeads()"><option value="">Toate tipurile</option></select>
                     </div>
                     <div class="field">
                         <label>Status</label>
                         <select id="f-status" onchange="renderLeads()">
-                            <option value="">All statuses</option>
-                            <option value="new">New</option>
-                            <option value="contacted">Contacted</option>
-                            <option value="qualified">Qualified</option>
+                            <option value="">Toate statusurile</option>
+                            <option value="new">Nou</option>
+                            <option value="contacted">Contactat</option>
+                            <option value="qualified">Calificat</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-head">
-                        <h3>Decision Makers &amp; Operators</h3>
+                        <h3>Decidenți &amp; Operatori</h3>
                         <span class="meta" id="leads-count">—</span>
                     </div>
                     <div class="table-wrap">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Company</th>
-                                    <th>Country</th>
+                                    <th>Companie</th>
+                                    <th>Țară</th>
                                     <th>Contact</th>
                                     <th>Email</th>
-                                    <th>Opportunity</th>
-                                    <th>Priority</th>
+                                    <th>Oportunitate</th>
+                                    <th>Prioritate</th>
                                     <th>Status</th>
-                                    <th style="text-align:right">Actions</th>
+                                    <th style="text-align:right">Acțiuni</th>
                                 </tr>
                             </thead>
                             <tbody id="leads-tbody"></tbody>
@@ -627,52 +627,52 @@
             <section class="panel" id="panel-market">
                 <div class="panel-head">
                     <div>
-                        <h2>Market Analysis</h2>
-                        <p>Railway glass opportunity sizing across target markets. Fleet modernization cycle 2026–2030.</p>
+                        <h2>Analiză de Piață</h2>
+                        <p>Dimensionarea oportunităților de sticlă feroviară pe piețele țintă. Ciclu de modernizare 2026–2030.</p>
                     </div>
-                    <span class="badge badge-gold">Total addressable: €3.55M Y1</span>
+                    <span class="badge badge-gold">Total adresabil: €3.55M An 1</span>
                 </div>
 
                 <div class="stat-grid" id="market-cards"></div>
 
                 <div class="card">
-                    <div class="card-head"><h3>Potential Revenue by Country (Year 1)</h3><span class="meta">EUR, estimated window contract value</span></div>
+                    <div class="card-head"><h3>Venituri Potențiale pe Țară (An 1)</h3><span class="meta">EUR, valoare estimată contract geamuri</span></div>
                     <div class="card-body"><div class="barchart" id="revenue-chart"></div></div>
                 </div>
 
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem" class="market-split">
                     <div class="card">
-                        <div class="card-head"><h3>Pipeline by Tier</h3><span class="meta">Opportunity distribution</span></div>
+                        <div class="card-head"><h3>Pipeline pe Nivel</h3><span class="meta">Distribuție oportunități</span></div>
                         <div class="card-body">
                             <div class="donut-wrap">
                                 <div class="donut" id="tier-donut">
-                                    <div class="center"><div class="big" id="donut-total">€3.55M</div><div class="small">total pipeline</div></div>
+                                    <div class="center"><div class="big" id="donut-total">€3.55M</div><div class="small">pipeline total</div></div>
                                 </div>
                                 <div class="legend" id="tier-legend"></div>
                             </div>
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-head"><h3>Opportunity Matrix</h3><span class="meta">Deal size × close probability</span></div>
+                        <div class="card-head"><h3>Matrix Oportunități</h3><span class="meta">Valoare deal × probabilitate închidere</span></div>
                         <div class="card-body">
                             <div class="matrix">
                                 <div class="axis-y" style="grid-row:span 1"></div>
-                                <div class="axis-x">Low prob.</div><div class="axis-x">Medium</div><div class="axis-x">High prob.</div>
+                                <div class="axis-x">Prob. mică</div><div class="axis-x">Medie</div><div class="axis-x">Prob. mare</div>
 
                                 <div class="axis-y">€1M+</div>
-                                <div class="matrix-cell cool"><span class="matrix-tag">Watch</span><span class="matrix-co">—</span></div>
-                                <div class="matrix-cell warm"><span class="matrix-tag">Nurture</span><span class="matrix-co">CFR Călători</span></div>
-                                <div class="matrix-cell hot"><span class="matrix-tag">Priority</span><span class="matrix-co">STB Astra Imperio</span></div>
+                                <div class="matrix-cell cool"><span class="matrix-tag">Monitorizare</span><span class="matrix-co">—</span></div>
+                                <div class="matrix-cell warm"><span class="matrix-tag">Cultivare</span><span class="matrix-co">CFR Călători</span></div>
+                                <div class="matrix-cell hot"><span class="matrix-tag">Prioritate</span><span class="matrix-co">STB Astra Imperio</span></div>
 
                                 <div class="axis-y">€300K–€1M</div>
-                                <div class="matrix-cell cool"><span class="matrix-tag">Watch</span><span class="matrix-co">RATB</span></div>
-                                <div class="matrix-cell warm"><span class="matrix-tag">Nurture</span><span class="matrix-co">Electroputere OEM</span></div>
-                                <div class="matrix-cell hot"><span class="matrix-tag">Priority</span><span class="matrix-co">Astra Vagoane</span></div>
+                                <div class="matrix-cell cool"><span class="matrix-tag">Monitorizare</span><span class="matrix-co">RATB</span></div>
+                                <div class="matrix-cell warm"><span class="matrix-tag">Cultivare</span><span class="matrix-co">Electroputere OEM</span></div>
+                                <div class="matrix-cell hot"><span class="matrix-tag">Prioritate</span><span class="matrix-co">Astra Vagoane</span></div>
 
                                 <div class="axis-y">&lt;€300K</div>
-                                <div class="matrix-cell cool"><span class="matrix-tag">Watch</span><span class="matrix-co">STPT, FMTC</span></div>
-                                <div class="matrix-cell warm"><span class="matrix-tag">Nurture</span><span class="matrix-co">CTP Timișoara</span></div>
-                                <div class="matrix-cell warm"><span class="matrix-tag">Nurture</span><span class="matrix-co">CTP Cluj</span></div>
+                                <div class="matrix-cell cool"><span class="matrix-tag">Monitorizare</span><span class="matrix-co">STPT, FMTC</span></div>
+                                <div class="matrix-cell warm"><span class="matrix-tag">Cultivare</span><span class="matrix-co">CTP Timișoara</span></div>
+                                <div class="matrix-cell warm"><span class="matrix-tag">Cultivare</span><span class="matrix-co">CTP Cluj</span></div>
                             </div>
                         </div>
                     </div>
@@ -685,45 +685,45 @@
             <section class="panel" id="panel-pricing">
                 <div class="panel-head">
                     <div>
-                        <h2>Pricing Tool</h2>
-                        <p>Interactive estimate generator. EN-certified railway glass · 4–6 week delivery.</p>
+                        <h2>Calculator Prețuri</h2>
+                        <p>Generator interactiv de estimări. Sticlă feroviară certificată EN · Livrare 4–6 săptămâni.</p>
                     </div>
                 </div>
 
                 <div class="price-layout">
                     <div class="card">
-                        <div class="card-head"><h3>Configure Estimate</h3></div>
+                        <div class="card-head"><h3>Configurează Estimarea</h3></div>
                         <div class="card-body">
                             <div class="price-form">
                                 <div class="field">
-                                    <label>Glass Type</label>
+                                    <label>Tip Sticlă</label>
                                     <div class="seg-toggle">
-                                        <button class="seg-btn active" data-glass="windscreen" onclick="selectGlass(this)">Windscreen<small>EVOLAM laminated</small></button>
-                                        <button class="seg-btn" data-glass="side" onclick="selectGlass(this)">Side Window<small>EVODUR tempered</small></button>
-                                        <button class="seg-btn" data-glass="door" onclick="selectGlass(this)">Door Glass<small>EVOLAM SMART</small></button>
-                                        <button class="seg-btn" data-glass="interior" onclick="selectGlass(this)">Interior / Partition<small>EVOPRINT</small></button>
+                                        <button class="seg-btn active" data-glass="windscreen" onclick="selectGlass(this)">Parbriz<small>EVOLAM laminat</small></button>
+                                        <button class="seg-btn" data-glass="side" onclick="selectGlass(this)">Geam Lateral<small>EVODUR securizat</small></button>
+                                        <button class="seg-btn" data-glass="door" onclick="selectGlass(this)">Geam Ușă<small>EVOLAM SMART</small></button>
+                                        <button class="seg-btn" data-glass="interior" onclick="selectGlass(this)">Interior / Partiție<small>EVOPRINT</small></button>
                                     </div>
                                 </div>
                                 <div class="field">
-                                    <label>Dimensions (mm)</label>
+                                    <label>Dimensiuni (mm)</label>
                                     <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:0.5rem;align-items:center">
-                                        <input type="number" id="p-width" value="1200" min="100" max="4000" oninput="recalc()" placeholder="Width">
+                                        <input type="number" id="p-width" value="1200" min="100" max="4000" oninput="recalc()" placeholder="Lățime">
                                         <span style="color:var(--text-faint);font-weight:700">×</span>
-                                        <input type="number" id="p-height" value="900" min="100" max="3000" oninput="recalc()" placeholder="Height">
+                                        <input type="number" id="p-height" value="900" min="100" max="3000" oninput="recalc()" placeholder="Înălțime">
                                     </div>
                                 </div>
                                 <div class="field">
-                                    <label>Quantity (units)</label>
+                                    <label>Cantitate (bucăți)</label>
                                     <input type="number" id="p-qty" value="160" min="1" max="100000" oninput="recalc()">
                                 </div>
                                 <div class="field">
-                                    <label>Destination Country</label>
+                                    <label>Țara de Destinație</label>
                                     <select id="p-country" onchange="recalc()">
-                                        <option value="RO" data-ship="0">Romania (base)</option>
-                                        <option value="DE" data-ship="0.04">Germany (+4% logistics)</option>
-                                        <option value="FR" data-ship="0.05">France (+5% logistics)</option>
-                                        <option value="PL" data-ship="0.03">Poland (+3% logistics)</option>
-                                        <option value="US" data-ship="0.11">United States (+11% freight)</option>
+                                        <option value="RO" data-ship="0">România (bază)</option>
+                                        <option value="DE" data-ship="0.04">Germania (+4% logistică)</option>
+                                        <option value="FR" data-ship="0.05">Franța (+5% logistică)</option>
+                                        <option value="PL" data-ship="0.03">Polonia (+3% logistică)</option>
+                                        <option value="US" data-ship="0.11">SUA (+11% freight)</option>
                                     </select>
                                 </div>
                             </div>
@@ -731,28 +731,28 @@
                     </div>
 
                     <div class="quote-panel">
-                        <h3>Estimate</h3>
-                        <div class="quote-line"><span>Product</span><span id="q-product">EVOLAM Windscreen</span></div>
-                        <div class="quote-line"><span>Unit area</span><span id="q-area">1.08 m²</span></div>
-                        <div class="quote-line"><span>Unit price</span><span id="q-unit">€0</span></div>
-                        <div class="quote-line"><span>Quantity</span><span id="q-qty">160</span></div>
-                        <div class="quote-line"><span>Volume discount</span><span id="q-discount">0%</span></div>
-                        <div class="quote-line"><span>Logistics</span><span id="q-ship">€0</span></div>
-                        <div class="quote-total"><span class="lbl">Estimated total</span><span class="amt" id="q-total">€0</span></div>
-                        <div class="quote-range" id="q-range">range —</div>
+                        <h3>Estimare</h3>
+                        <div class="quote-line"><span>Produs</span><span id="q-product">EVOLAM Parbriz</span></div>
+                        <div class="quote-line"><span>Suprafață/buc</span><span id="q-area">1.08 m²</span></div>
+                        <div class="quote-line"><span>Preț/buc</span><span id="q-unit">€0</span></div>
+                        <div class="quote-line"><span>Cantitate</span><span id="q-qty">160</span></div>
+                        <div class="quote-line"><span>Discount volum</span><span id="q-discount">0%</span></div>
+                        <div class="quote-line"><span>Logistică</span><span id="q-ship">€0</span></div>
+                        <div class="quote-total"><span class="lbl">Total estimat</span><span class="amt" id="q-total">€0</span></div>
+                        <div class="quote-range" id="q-range">interval —</div>
                         <button class="btn btn-gold" style="width:100%;justify-content:center;margin-top:1.25rem" onclick="generateQuote()">
                             <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-                            Generate Quote
+                            Generează Ofertă
                         </button>
-                        <p class="quote-note">Indicative only. Final pricing subject to technical review, EN 12288 / EN 14752 spec validation and volume confirmation.</p>
+                        <p class="quote-note">Estimare orientativă. Prețul final depinde de revizuire tehnică, validare specificații EN 12288 / EN 14752 și confirmare volum.</p>
                     </div>
                 </div>
 
                 <div class="card" style="margin-top:1.5rem">
-                    <div class="card-head"><h3>Price Reference — Per Unit (1 m², base)</h3><span class="meta">Volume tiers reduce unit cost up to 18%</span></div>
+                    <div class="card-head"><h3>Referință Prețuri — Per Unitate (1 m², bază)</h3><span class="meta">Discount volum reduce costul/buc cu până la 18%</span></div>
                     <div class="table-wrap">
                         <table class="price-table">
-                            <thead><tr><th>Product</th><th>Glass Type</th><th>Low</th><th>Mid</th><th>High</th><th>Lead Time</th></tr></thead>
+                            <thead><tr><th>Produs</th><th>Tip Sticlă</th><th>Minim</th><th>Mediu</th><th>Maxim</th><th>Termen Livrare</th></tr></thead>
                             <tbody id="price-ref-tbody"></tbody>
                         </table>
                     </div>
@@ -765,26 +765,26 @@
             <section class="panel" id="panel-campaigns">
                 <div class="panel-head">
                     <div>
-                        <h2>Email Campaigns</h2>
-                        <p>Outreach status across railway operator segments. Templates from VAGOTECH playbook.</p>
+                        <h2>Campanii Email</h2>
+                        <p>Status outreach pe segmente de operatori feroviari. Template-uri din playbook-ul VAGOTECH.</p>
                     </div>
-                    <button class="btn btn-gold" onclick="toast('Campaign launcher would open here','ok')">
+                    <button class="btn btn-gold" onclick="toast('Lansatorul de campanie se va deschide aici','ok')">
                         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
-                        New Campaign
+                        Campanie Nouă
                     </button>
                 </div>
 
                 <div class="stat-grid">
-                    <div class="stat"><div class="label">Emails Sent</div><div class="value">312</div><div class="delta up">▲ 48 this week</div></div>
-                    <div class="stat"><div class="label">Avg Open Rate</div><div class="value">41%</div><div class="delta up">▲ 6pts vs benchmark</div></div>
-                    <div class="stat"><div class="label">Responses</div><div class="value">27</div><div class="delta up">▲ 8.7% reply rate</div></div>
-                    <div class="stat"><div class="label">Meetings Booked</div><div class="value">9</div><div class="delta flat">3 Tier-1 accounts</div></div>
+                    <div class="stat"><div class="label">Emailuri Trimise</div><div class="value">312</div><div class="delta up">▲ 48 săptămâna aceasta</div></div>
+                    <div class="stat"><div class="label">Rată Deschidere</div><div class="value">41%</div><div class="delta up">▲ 6pp vs benchmark</div></div>
+                    <div class="stat"><div class="label">Răspunsuri</div><div class="value">27</div><div class="delta up">▲ 8.7% rată reply</div></div>
+                    <div class="stat"><div class="label">Întâlniri Programate</div><div class="value">9</div><div class="delta flat">3 conturi Tier-1</div></div>
                 </div>
 
                 <div class="campaign-grid" id="campaign-grid"></div>
 
                 <div class="card">
-                    <div class="card-head"><h3>Available Templates</h3><span class="meta">4 segments · EN-spec messaging</span></div>
+                    <div class="card-head"><h3>Template-uri Disponibile</h3><span class="meta">4 segmente · mesaje spec EN</span></div>
                     <div class="card-body" id="template-list"></div>
                 </div>
             </section>
@@ -795,35 +795,35 @@
             <section class="panel" id="panel-expansion">
                 <div class="panel-head">
                     <div>
-                        <h2>Business Expansion</h2>
-                        <p>7-market priority matrix · Competitor landscape · Product line opportunities · 30-day action plan</p>
+                        <h2>Expansiune Business</h2>
+                        <p>Matrix prioritate 7 piețe · Peisaj competitiv · Oportunități linie de produse · Plan acțiune 30 zile</p>
                     </div>
-                    <span class="badge badge-gold">Aggregate Y1 target: €310K–€600K (markets 1–3)</span>
+                    <span class="badge badge-gold">Țintă agregat An 1: €310K–€600K (piețele 1–3)</span>
                 </div>
 
                 <!-- KPI strip -->
                 <div class="stat-grid" style="margin-bottom:1.5rem">
-                    <div class="stat"><div class="label">Active Markets</div><div class="value">3</div><div class="delta flat">RO · DE · US</div></div>
-                    <div class="stat"><div class="label">Priority Targets</div><div class="value">4</div><div class="delta up">RO → DE → HU → BG</div></div>
-                    <div class="stat"><div class="label">EU Rail Glazing Market</div><div class="value">€484M</div><div class="delta up">▲ CAGR 4.3% to 2028</div></div>
-                    <div class="stat"><div class="label">Key Differentiator</div><div class="value">4–6 wk</div><div class="delta flat">vs 12–16 wk competition</div></div>
+                    <div class="stat"><div class="label">Piețe Active</div><div class="value">3</div><div class="delta flat">RO · DE · US</div></div>
+                    <div class="stat"><div class="label">Ținte Prioritare</div><div class="value">4</div><div class="delta up">RO → DE → HU → BG</div></div>
+                    <div class="stat"><div class="label">Piața EU Rail Glazing</div><div class="value">€484M</div><div class="delta up">▲ CAGR 4.3% până în 2028</div></div>
+                    <div class="stat"><div class="label">Diferențiator Cheie</div><div class="value">4–6 săpt.</div><div class="delta flat">vs 12–16 săpt. competiție</div></div>
                 </div>
 
                 <!-- 7-market matrix -->
                 <div class="card" style="margin-bottom:1.5rem">
-                    <div class="card-head"><h3>Market Priority Matrix</h3><span class="meta">Ranked by accessibility × revenue potential × effort</span></div>
+                    <div class="card-head"><h3>Matrix Prioritate Piețe</h3><span class="meta">Clasament după accesibilitate × potențial venituri × efort</span></div>
                     <div class="card-body" style="padding:0">
                         <div style="overflow-x:auto">
                         <table style="width:100%;border-collapse:collapse;font-size:0.87rem">
                             <thead>
                                 <tr style="background:var(--bg);text-align:left">
                                     <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">#</th>
-                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Market</th>
-                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Addressable/yr</th>
-                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">VAGOTECH Y1</th>
-                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Opportunity</th>
-                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Key Driver</th>
-                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Immediate Action (30 days)</th>
+                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Piață</th>
+                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Adresabil/an</th>
+                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">VAGOTECH An 1</th>
+                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Oportunitate</th>
+                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Driver Cheie</th>
+                                    <th style="padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border)">Acțiune Imediată (30 zile)</th>
                                 </tr>
                             </thead>
                             <tbody id="expansion-table-body"></tbody>
@@ -835,14 +835,14 @@
                 <!-- Competitor landscape + Product expansion (2 col) -->
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem" class="market-split">
                     <div class="card">
-                        <div class="card-head"><h3>Competitor Landscape</h3><span class="meta">Rail glazing EU — exploitable weaknesses</span></div>
+                        <div class="card-head"><h3>Peisaj Competitiv</h3><span class="meta">Rail glazing EU — slăbiciuni exploatabile</span></div>
                         <div class="card-body" style="padding:0">
                             <table style="width:100%;border-collapse:collapse;font-size:0.82rem">
                                 <thead>
                                     <tr style="background:var(--bg)">
-                                        <th style="padding:0.6rem 0.85rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border);text-align:left">Supplier</th>
-                                        <th style="padding:0.6rem 0.85rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border);text-align:left">Profile</th>
-                                        <th style="padding:0.6rem 0.85rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border);text-align:left">VAGOTECH Edge</th>
+                                        <th style="padding:0.6rem 0.85rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border);text-align:left">Furnizor</th>
+                                        <th style="padding:0.6rem 0.85rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border);text-align:left">Profil</th>
+                                        <th style="padding:0.6rem 0.85rem;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border);text-align:left">Avantaj VAGOTECH</th>
                                     </tr>
                                 </thead>
                                 <tbody id="competitor-table-body"></tbody>
@@ -851,7 +851,7 @@
                     </div>
 
                     <div class="card">
-                        <div class="card-head"><h3>Product Line Expansion</h3><span class="meta">New railway glass segments VAGOTECH can enter</span></div>
+                        <div class="card-head"><h3>Extindere Linie de Produse</h3><span class="meta">Segmente noi de sticlă feroviară pe care VAGOTECH le poate accesa</span></div>
                         <div class="card-body" style="padding:0.25rem 0">
                             <div id="product-expansion-list"></div>
                         </div>
@@ -860,7 +860,7 @@
 
                 <!-- Entry strategy channels -->
                 <div class="card" style="margin-bottom:1.5rem">
-                    <div class="card-head"><h3>Entry Channels by Segment</h3><span class="meta">How to access each client type</span></div>
+                    <div class="card-head"><h3>Canale de Intrare pe Segment</h3><span class="meta">Cum accesezi fiecare tip de client</span></div>
                     <div class="card-body">
                         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem" id="entry-channels"></div>
                     </div>
@@ -868,7 +868,7 @@
 
                 <!-- 30-day action plan -->
                 <div class="card">
-                    <div class="card-head"><h3>30-Day Action Plan</h3><span class="meta">Immediate next steps — validated by @robert Analytics + @bianca Sales</span></div>
+                    <div class="card-head"><h3>Plan de Acțiune 30 Zile</h3><span class="meta">Pași imediat următori — validat de @robert Analytics + @bianca Sales</span></div>
                     <div class="card-body" style="padding:0">
                         <div id="action-plan-list"></div>
                     </div>
@@ -936,23 +936,23 @@ const MARKET = [
 ];
 
 const TIERS = [
-    { name:'Tier 1 (€1M+)',     value:2250000, color:'#1a3a52' },
-    { name:'Tier 2 (€300K–1M)', value:950000,  color:'#c8a24b' },
-    { name:'Tier 3 (<€300K)',   value:350000,  color:'#2d6cb5' }
+    { name:'Nivel 1 (€1M+)',     value:2250000, color:'#1a3a52' },
+    { name:'Nivel 2 (€300K–1M)', value:950000,  color:'#c8a24b' },
+    { name:'Nivel 3 (<€300K)',   value:350000,  color:'#2d6cb5' }
 ];
 
 const CAMPAIGNS = [
-    { name:'CFR Coradia Stream', seg:'National Railway', sent:42, open:52, reply:7, status:'active' },
-    { name:'STB Tram Modernization', seg:'Public Transit', sent:38, open:46, reply:6, status:'active' },
-    { name:'OEM Supplier Outreach', seg:'Manufacturers', sent:64, open:38, reply:9, status:'active' },
-    { name:'Regional Transit Pilot', seg:'Regional Transit', sent:88, open:31, reply:4, status:'scheduled' }
+    { name:'CFR Coradia Stream', seg:'Operator Național Feroviar', sent:42, open:52, reply:7, status:'active' },
+    { name:'STB Modernizare Tramvaie', seg:'Transit Public', sent:38, open:46, reply:6, status:'active' },
+    { name:'Outreach Furnizori OEM', seg:'Producători', sent:64, open:38, reply:9, status:'active' },
+    { name:'Pilot Transit Regional', seg:'Transit Regional', sent:88, open:31, reply:4, status:'scheduled' }
 ];
 
 const TEMPLATES = [
-    { name:'Coradia Stream Introduction', desc:'Tier-1 national railway · EN 12288 windshield focus', uses:42 },
-    { name:'Astra Imperio Tram Spec', desc:'Anti-glare + sound-dampening EVOLAM pitch', uses:38 },
-    { name:'OEM Single-Supplier Offer', desc:'Volume OEM supply · 4–6 week delivery advantage', uses:64 },
-    { name:'Regional Modernization Pilot', desc:'5–10 unit pilot order · low-commitment entry', uses:88 }
+    { name:'Introducere Coradia Stream', desc:'Operator național Tier-1 · focus parbriz EN 12288', uses:42 },
+    { name:'Spec Tramvai Astra Imperio', desc:'Pitch EVOLAM anti-reflexie + fonoabsorbție', uses:38 },
+    { name:'Ofertă OEM Furnizor Unic', desc:'Supply OEM volum · avantaj livrare 4–6 săptămâni', uses:64 },
+    { name:'Pilot Modernizare Regională', desc:'Comandă pilot 5–10 buc · intrare fără angajament mare', uses:88 }
 ];
 
 /* ============================================================
@@ -977,7 +977,7 @@ function toast(msg, type){
 /* ============================================================
    TAB NAVIGATION
    ============================================================ */
-const TAB_TITLES = { leads:'Leads Database', market:'Market Analysis', pricing:'Pricing Tool', campaigns:'Campaigns', expansion:'Business Expansion' };
+const TAB_TITLES = { leads:'Bază de Clienți', market:'Analiză de Piață', pricing:'Calculator Prețuri', campaigns:'Campanii Email', expansion:'Expansiune Business' };
 
 /* ============================================================
    EXPANSION DATA — sourced from docs/vagotech-market-analysis.md
@@ -1123,17 +1123,17 @@ function updateKPIs(){
 
 function sendEmail(id){
     const l = leadState.find(x => x._id === id);
-    const subject = encodeURIComponent('VAGOTECH — Premium European Railway Glass for ' + l.company);
-    const body = encodeURIComponent('Dear ' + l.contact + ',\n\nGlass Expert USA is introducing VAGOTECH — railway glass engineered to EN 12288 / EN 14752 / EN 12600, with 4–6 week delivery.\n\nFor your project (' + l.project + '), VAGOTECH offers EN-certified engineering, 25+ years of experience and direct technical support from our Timișoara and New Jersey teams.\n\nCould we schedule a 30-minute technical briefing?\n\nBest regards,\nVAGOTECH Sales — Glass Expert USA\n+1-609-408-8100 · office.us@xglass.eu');
+    const subject = encodeURIComponent('VAGOTECH — Sticlă Feroviară Europeană Premium pentru ' + l.company);
+    const body = encodeURIComponent('Stimate ' + l.contact + ',\n\nGlas Expert introduce VAGOTECH — sticlă feroviară proiectată conform EN 12288 / EN 14752 / EN 12600, cu livrare în 4–6 săptămâni.\n\nPentru proiectul dvs. (' + l.project + '), VAGOTECH oferă inginerie certificată EN, 25+ ani experiență și suport tehnic direct din fabricile noastre din Popești-Leordeni și Neubiberg.\n\nPutem programa un briefing tehnic de 30 minute?\n\nCu stimă,\nVAGOTECH Sales — Glas Expert\n+1-609-408-8100 · office.us@xglass.eu');
     window.location.href = 'mailto:' + l.email + '?subject=' + subject + '&body=' + body;
-    toast('Opening email to ' + l.contact, 'ok');
+    toast('Se deschide emailul către ' + l.contact, 'ok');
 }
 
 function markContacted(id){
     const l = leadState.find(x => x._id === id);
-    if (l.status === 'new') { l.status = 'contacted'; toast(l.company + ' marked as contacted', 'ok'); }
-    else if (l.status === 'contacted') { l.status = 'qualified'; toast(l.company + ' marked as qualified', 'ok'); }
-    else { toast(l.company + ' is already ' + l.status); }
+    if (l.status === 'new') { l.status = 'contacted'; toast(l.company + ' marcat ca Contactat', 'ok'); }
+    else if (l.status === 'contacted') { l.status = 'qualified'; toast(l.company + ' marcat ca Calificat', 'ok'); }
+    else { toast(l.company + ' are deja statusul ' + l.status); }
     renderLeads();
 }
 
@@ -1147,22 +1147,22 @@ function viewDetails(id){
             <span class="badge badge-gold">${eurK(l.opportunity)} opportunity</span>
         </div>
         <dl class="detail-grid">
-            <dt>Type</dt><dd>${esc(l.type)}</dd>
-            <dt>Country</dt><dd>${esc(l.country)}</dd>
+            <dt>Tip</dt><dd>${esc(l.type)}</dd>
+            <dt>Țară</dt><dd>${esc(l.country)}</dd>
             <dt>Contact</dt><dd>${esc(l.contact)} — ${esc(l.role)}</dd>
             <dt>Email</dt><dd><a href="mailto:${esc(l.email)}" style="color:var(--blue)">${esc(l.email)}</a></dd>
-            <dt>Phone</dt><dd>${esc(l.phone)}</dd>
-            <dt>Project</dt><dd>${esc(l.project)}</dd>
+            <dt>Telefon</dt><dd>${esc(l.phone)}</dd>
+            <dt>Proiect</dt><dd>${esc(l.project)}</dd>
         </dl>
         <div style="margin-top:1rem;padding:0.9rem 1rem;background:var(--bg);border-radius:8px;border-left:3px solid var(--gold)">
-            <div style="font-size:0.74rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-muted);font-weight:700;margin-bottom:0.3rem">Sales Intel</div>
+            <div style="font-size:0.74rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-muted);font-weight:700;margin-bottom:0.3rem">Informații Sales</div>
             <div style="font-size:0.88rem;color:var(--text)">${esc(l.intel)}</div>
         </div>`;
     $('modal-foot').innerHTML = `
-        <button class="btn btn-ghost" onclick="closeModal()">Close</button>
+        <button class="btn btn-ghost" onclick="closeModal()">Închide</button>
         <button class="btn btn-primary" onclick="closeModal();sendEmail(${l._id})">
             <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
-            Send Email
+            Trimite Email
         </button>`;
     openModal();
 }
@@ -1180,7 +1180,7 @@ function exportLeadsCSV(){
     a.download = 'vagotech-leads-' + new Date().toISOString().slice(0,10) + '.csv';
     document.body.appendChild(a); a.click(); a.remove();
     URL.revokeObjectURL(url);
-    toast('Exported ' + rows.length + ' leads to CSV', 'ok');
+    toast('Exportat ' + rows.length + ' clienți în CSV', 'ok');
 }
 
 function openModal(){ $('modal').classList.add('open'); }
@@ -1313,15 +1313,15 @@ function generateQuote(){
             <dt>Logistics</dt><dd>${$('q-ship').textContent}</dd>
             <dt>Lead time</dt><dd>${esc(ref.lead)}</dd>
         </dl>
-        <p style="margin-top:1rem;font-size:0.78rem;color:var(--text-faint);line-height:1.5">Indicative estimate. Subject to technical review and EN 12288 / EN 14752 spec validation. Valid 30 days. Glass Expert USA · +1-609-408-8100.</p>`;
+        <p style="margin-top:1rem;font-size:0.78rem;color:var(--text-faint);line-height:1.5">Estimare orientativă. Supusă revizuirii tehnice și validării specificațiilor EN 12288 / EN 14752. Valabilă 30 zile. Glas Expert · +1-609-408-8100.</p>`;
     $('modal-foot').innerHTML = `
-        <button class="btn btn-ghost" onclick="closeModal()">Close</button>
+        <button class="btn btn-ghost" onclick="closeModal()">Închide</button>
         <button class="btn btn-gold" onclick="window.print()">
             <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-            Print / Save PDF
+            Printează / Salvează PDF
         </button>`;
     openModal();
-    toast('Quote generated', 'ok');
+    toast('Ofertă generată', 'ok');
 }
 
 /* ============================================================
