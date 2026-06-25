@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Admin — Glas Expert</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --navy:       #1a3a52;
+            --navy-2:     #2d5a7a;
+            --navy-deep:  #112637;
+            --gold:       #c8a24b;
+            --gold-soft:  #e3c878;
+            --gold-bg:    rgba(200,162,75,0.12);
+            --bg:         #f4f6f8;
+            --surface:    #ffffff;
+            --text:       #1f2937;
+            --text-muted: #6b7280;
+            --text-faint: #9ca3af;
+            --border:     #e5e7eb;
+            --green:      #2f9e6f;
+            --green-bg:   rgba(47,158,111,0.12);
+            --red:        #d65745;
+            --red-bg:     rgba(214,87,69,0.12);
+            --amber:      #d99a2b;
+            --amber-bg:   rgba(217,154,43,0.14);
+            --blue:       #2d6cb5;
+            --blue-bg:    rgba(45,108,181,0.12);
+            --purple:     #7c3aed;
+            --purple-bg:  rgba(124,58,237,0.10);
+            --radius:     12px;
+            --radius-lg:  16px;
+            --radius-sm:  8px;
+            --shadow:     0 1px 3px rgba(16,24,40,0.08), 0 1px 2px rgba(16,24,40,0.04);
+            --shadow-md:  0 6px 18px rgba(16,24,40,0.10), 0 2px 6px rgba(16,24,40,0.06);
+            --shadow-lg:  0 12px 32px rgba(16,24,40,0.16);
+            --font:       'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family:var(--font); color:var(--text); line-height:1.5;
+            -webkit-font-smoothing:antialiased;
+            background:linear-gradient(160deg, #f0f4f8 0%, #e8edf3 100%);
+            background-attachment:fixed;
+            min-height:100vh;
+        }
+        a { text-decoration:none; color:inherit; }
+
+        /* ---- Shell ---- */
+        .wrap { max-width:1180px; margin:0 auto; padding:0 2rem 3rem; }
+
+        /* ---- Header ---- */
+        .topbar {
+            background:linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+            color:#fff; position:sticky; top:0; z-index:30;
+            box-shadow:var(--shadow-md);
+        }
+        .topbar-inner {
+            max-width:1180px; margin:0 auto; padding:1.15rem 2rem;
+            display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+        }
+        .brand { display:flex; flex-direction:column; }
+        .brand .logo { font-size:1.4rem; font-weight:800; letter-spacing:-0.02em; line-height:1.1; }
+        .brand .logo .dot { color:var(--gold); }
+        .brand .logo .adm { color:rgba(255,255,255,0.55); font-weight:600; font-size:1.05rem; }
+        .brand .sub { font-size:0.76rem; color:rgba(255,255,255,0.55); margin-top:0.25rem; letter-spacing:0.01em; }
+        .topbar-right { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+        .sys-badge {
+            display:inline-flex; align-items:center; gap:0.45rem;
+            background:rgba(47,158,111,0.18); color:#7ee0b0;
+            font-size:0.78rem; font-weight:700; padding:0.35rem 0.8rem; border-radius:20px;
+            border:1px solid rgba(47,158,111,0.35);
+        }
+        .sys-badge .pulse {
+            width:8px; height:8px; border-radius:50%; background:#3ddc97;
+            box-shadow:0 0 0 0 rgba(61,220,151,0.7); animation:pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%   { box-shadow:0 0 0 0 rgba(61,220,151,0.6); }
+            70%  { box-shadow:0 0 0 7px rgba(61,220,151,0); }
+            100% { box-shadow:0 0 0 0 rgba(61,220,151,0); }
+        }
+
+        /* ---- Mode toggle (header) ---- */
+        .mode-toggle { display:flex; background:rgba(255,255,255,0.10); border-radius:9px; padding:3px; gap:3px; }
+        .mode-btn {
+            padding:0.4rem 0.95rem; border:none; border-radius:6px; font-size:0.8rem; font-weight:700;
+            cursor:pointer; background:none; color:rgba(255,255,255,0.7); transition:all 0.15s; font-family:var(--font);
+        }
+        .mode-btn.active { background:#fff; color:var(--navy); box-shadow:var(--shadow); }
+        .mode-btn.factory.active { background:var(--amber-bg); color:#fff; box-shadow:inset 0 0 0 1px var(--amber); }
+
+        /* ---- Hero line ---- */
+        .hero { padding:2.25rem 0 1.5rem; }
+        .hero h1 { font-size:1.55rem; font-weight:800; color:var(--navy); letter-spacing:-0.02em; }
+        .hero p { font-size:0.95rem; color:var(--text-muted); margin-top:0.35rem; }
+        .mode-note {
+            display:none; margin-top:0.85rem; font-size:0.82rem; font-weight:600;
+            color:#a8741b; background:var(--amber-bg); border-radius:8px; padding:0.55rem 0.9rem;
+            border-left:3px solid var(--amber);
+        }
+        .mode-note.show { display:inline-block; }
+
+        /* ---- Global stat strip ---- */
+        .gstats { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1rem; margin-bottom:2rem; }
+        .gstat { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); padding:1.05rem 1.25rem; }
+        .gstat .label { font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:0.4rem; }
+        .gstat .value { font-size:1.7rem; font-weight:800; color:var(--navy); line-height:1; }
+        .gstat .sub { font-size:0.73rem; color:var(--text-faint); margin-top:0.3rem; }
+        .gstat .sub.warn { color:var(--amber); font-weight:700; }
+
+        /* ---- Section heading ---- */
+        .sec-head { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:1rem; }
+        .sec-head h2 { font-size:1.05rem; font-weight:800; color:var(--navy); letter-spacing:-0.01em; }
+        .sec-head .hint { font-size:0.8rem; color:var(--text-faint); }
+
+        /* ---- Module grid ---- */
+        .modules { display:grid; grid-template-columns:repeat(2,1fr); gap:1.25rem; margin-bottom:2.5rem; }
+        .mod-card {
+            background:var(--surface); border-radius:var(--radius-lg); box-shadow:var(--shadow-md);
+            border-top:4px solid var(--navy); padding:1.4rem 1.5rem 1.25rem;
+            display:flex; flex-direction:column; cursor:pointer;
+            transition:transform 0.18s ease, box-shadow 0.18s ease;
+            position:relative; overflow:hidden;
+        }
+        .mod-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+        .mod-card.crm      { border-top-color:var(--navy); }
+        .mod-card.ofertare { border-top-color:var(--gold); }
+        .mod-card.comenzi  { border-top-color:var(--amber); }
+        .mod-card.rapoarte { border-top-color:var(--green); }
+        .mod-card.soon { cursor:default; opacity:0.92; }
+        .mod-card.soon:hover { transform:none; box-shadow:var(--shadow-md); }
+
+        .mod-top { display:flex; align-items:flex-start; gap:0.85rem; margin-bottom:1rem; }
+        .mod-ico {
+            width:46px; height:46px; border-radius:12px; flex-shrink:0;
+            display:flex; align-items:center; justify-content:center; font-size:1.4rem;
+        }
+        .mod-card.crm      .mod-ico { background:var(--navy);   color:#fff; }
+        .mod-card.ofertare .mod-ico { background:var(--gold-bg);  color:#9a7726; }
+        .mod-card.comenzi  .mod-ico { background:var(--amber-bg); color:#a8741b; }
+        .mod-card.rapoarte .mod-ico { background:var(--green-bg); color:var(--green); }
+        .mod-titles { flex:1; min-width:0; }
+        .mod-titles h3 { font-size:1.08rem; font-weight:800; color:var(--navy); letter-spacing:-0.01em; }
+        .mod-titles .range { font-size:0.76rem; color:var(--text-faint); margin-top:0.15rem; font-family:'Courier New',monospace; }
+        .mod-soon-badge {
+            font-size:0.64rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em;
+            background:#eef0f2; color:var(--text-muted); padding:0.2rem 0.55rem; border-radius:20px; align-self:flex-start;
+        }
+
+        .mod-kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:0.5rem; padding:0.9rem 0; border-top:1px solid var(--border); }
+        .mod-kpi { text-align:left; }
+        .mod-kpi .k-val { font-size:1.35rem; font-weight:800; color:var(--navy); line-height:1.05; }
+        .mod-kpi .k-val.warn { color:var(--amber); }
+        .mod-kpi .k-val.muted { color:var(--text-faint); }
+        .mod-kpi .k-lbl { font-size:0.68rem; color:var(--text-muted); margin-top:0.2rem; font-weight:600; }
+
+        .mod-foot { display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding-top:0.5rem; }
+        .mod-extra { font-size:0.74rem; color:var(--text-faint); }
+        .mod-go {
+            display:inline-flex; align-items:center; gap:0.35rem; font-size:0.84rem; font-weight:700;
+            color:var(--navy); transition:gap 0.15s;
+        }
+        .mod-card:hover .mod-go { gap:0.6rem; }
+        .mod-card.ofertare .mod-go { color:#9a7726; }
+        .mod-card.comenzi  .mod-go { color:#a8741b; }
+        .mod-card.rapoarte .mod-go { color:var(--green); }
+        .mod-go svg { width:15px; height:15px; }
+
+        /* ---- Activity ---- */
+        .activity-card { background:var(--surface); border-radius:var(--radius-lg); box-shadow:var(--shadow-md); overflow:hidden; }
+        .activity-head { display:flex; align-items:center; justify-content:space-between; padding:1.15rem 1.5rem; border-bottom:1px solid var(--border); }
+        .activity-head h2 { font-size:1.02rem; font-weight:800; color:var(--navy); }
+        .activity-head .meta { font-size:0.78rem; color:var(--text-faint); }
+        .timeline { padding:0.5rem 0; }
+        .tl-item { display:flex; align-items:center; gap:0.9rem; padding:0.7rem 1.5rem; border-bottom:1px solid #f3f4f6; transition:background 0.12s; }
+        .tl-item:last-child { border-bottom:none; }
+        .tl-item:hover { background:#fafbfc; }
+        .tl-date { font-size:0.74rem; color:var(--text-faint); font-family:'Courier New',monospace; width:84px; flex-shrink:0; }
+        .tl-badge { width:96px; flex-shrink:0; }
+        .tl-alias { font-family:'Courier New',monospace; font-weight:700; font-size:0.82rem; color:var(--navy); width:74px; flex-shrink:0; }
+        .tl-desc { font-size:0.86rem; color:var(--text); flex:1; min-width:0; }
+        .tl-empty { padding:2.5rem 1.5rem; text-align:center; color:var(--text-faint); font-size:0.88rem; }
+
+        /* ---- Badges ---- */
+        .badge { display:inline-flex; align-items:center; gap:0.3rem; font-size:0.7rem; font-weight:700; padding:0.18rem 0.55rem; border-radius:20px; white-space:nowrap; }
+        .badge .dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
+        .badge-navy   { background:var(--navy); color:#fff; }
+        .badge-gold   { background:var(--gold-bg); color:#9a7726; }
+        .badge-green  { background:var(--green-bg); color:var(--green); }
+        .badge-red    { background:var(--red-bg); color:var(--red); }
+        .badge-amber  { background:var(--amber-bg); color:#a8741b; }
+        .badge-blue   { background:var(--blue-bg); color:var(--blue); }
+        .badge-gray   { background:#eef0f2; color:var(--text-muted); }
+
+        /* ---- Footer ---- */
+        .foot { margin-top:2.5rem; text-align:center; font-size:0.78rem; color:var(--text-faint); padding-top:1.5rem; border-top:1px solid var(--border); }
+        .foot strong { color:var(--text-muted); }
+
+        @media(max-width:780px){
+            .wrap { padding:0 1.1rem 2rem; }
+            .topbar-inner { padding:1rem 1.1rem; }
+            .modules { grid-template-columns:1fr; gap:1rem; }
+            .mod-kpis { grid-template-columns:repeat(3,1fr); }
+            .tl-badge { width:auto; }
+            .tl-alias { display:none; }
+            .hero h1 { font-size:1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======== HEADER ======== -->
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="brand">
+                <div class="logo">Glas<span class="dot">·</span>Expert <span class="adm">Admin</span></div>
+                <div class="sub">Portal Intern xglass.eu — CRM, Ofertare, Comenzi, Rapoarte</div>
+            </div>
+            <div class="topbar-right">
+                <span class="sys-badge"><span class="pulse"></span>Sistem operațional</span>
+                <div class="mode-toggle" title="Mod de vizualizare a datelor clienților">
+                    <button class="mode-btn active" id="mode-sales" onclick="setMode('sales')">Sales</button>
+                    <button class="mode-btn factory" id="mode-factory" onclick="setMode('factory')">Fabrică</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="wrap">
+
+        <!-- ======== HERO ======== -->
+        <section class="hero">
+            <h1>Bun venit în portalul intern</h1>
+            <p id="hero-sub">Privire de ansamblu asupra tuturor modulelor, KPI live și activitate recentă.</p>
+            <div class="mode-note" id="mode-note">🏭 Mod fabrică activ — identitatea clienților este mascată (alias în loc de denumire).</div>
+        </section>
+
+        <!-- ======== GLOBAL STATS ======== -->
+        <section class="gstats" id="gstats"></section>
+
+        <!-- ======== MODULES ======== -->
+        <div class="sec-head">
+            <h2>Module</h2>
+            <span class="hint">Click pe un card pentru a deschide modulul</span>
+        </div>
+        <section class="modules">
+
+            <!-- CRM -->
+            <a class="mod-card crm" href="crm.html">
+                <div class="mod-top">
+                    <div class="mod-ico">🏢</div>
+                    <div class="mod-titles">
+                        <h3>CRM Clienți</h3>
+                        <div class="range" id="crm-range">GE-001 … GE-006</div>
+                    </div>
+                </div>
+                <div class="mod-kpis">
+                    <div class="mod-kpi"><div class="k-val" id="crm-k-total">—</div><div class="k-lbl">Clienți</div></div>
+                    <div class="mod-kpi"><div class="k-val" id="crm-k-pipe">—</div><div class="k-lbl">Pipeline</div></div>
+                    <div class="mod-kpi"><div class="k-val" id="crm-k-over">—</div><div class="k-lbl">Tasks scad.</div></div>
+                </div>
+                <div class="mod-foot">
+                    <span class="mod-extra" id="crm-extra">Bază de clienți B2B</span>
+                    <span class="mod-go">Deschide
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                </div>
+            </a>
+
+            <!-- Ofertare -->
+            <a class="mod-card ofertare" href="ofertare.html">
+                <div class="mod-top">
+                    <div class="mod-ico">📄</div>
+                    <div class="mod-titles">
+                        <h3>Ofertare</h3>
+                        <div class="range" id="of-range">GE-OF-001 …</div>
+                    </div>
+                </div>
+                <div class="mod-kpis">
+                    <div class="mod-kpi"><div class="k-val" id="of-k-active">—</div><div class="k-lbl">Oferte active</div></div>
+                    <div class="mod-kpi"><div class="k-val" id="of-k-val">—</div><div class="k-lbl">Valoare</div></div>
+                    <div class="mod-kpi"><div class="k-val" id="of-k-accept">—</div><div class="k-lbl">Acceptate</div></div>
+                </div>
+                <div class="mod-foot">
+                    <span class="mod-extra" id="of-extra">Ultima ofertă: —</span>
+                    <span class="mod-go">Deschide
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                </div>
+            </a>
+
+            <!-- Comenzi -->
+            <a class="mod-card comenzi soon" href="comenzi.html" id="card-comenzi">
+                <div class="mod-top">
+                    <div class="mod-ico">📦</div>
+                    <div class="mod-titles">
+                        <h3>Comenzi</h3>
+                        <div class="range">Producție & livrare</div>
+                    </div>
+                    <span class="mod-soon-badge" id="comenzi-soon">În curând</span>
+                </div>
+                <div class="mod-kpis">
+                    <div class="mod-kpi"><div class="k-val muted" id="cm-k-active">—</div><div class="k-lbl">Comenzi active</div></div>
+                    <div class="mod-kpi"><div class="k-val muted" id="cm-k-prod">—</div><div class="k-lbl">În producție</div></div>
+                    <div class="mod-kpi"><div class="k-val muted" id="cm-k-late">—</div><div class="k-lbl">Întârziate</div></div>
+                </div>
+                <div class="mod-foot">
+                    <span class="mod-extra" id="cm-extra">Modul în pregătire</span>
+                    <span class="mod-go" id="cm-go" style="opacity:0.5">În curând</span>
+                </div>
+            </a>
+
+            <!-- Rapoarte -->
+            <a class="mod-card rapoarte soon" href="rapoarte.html" id="card-rapoarte">
+                <div class="mod-top">
+                    <div class="mod-ico">📊</div>
+                    <div class="mod-titles">
+                        <h3>Rapoarte</h3>
+                        <div class="range">Analytics & KPI</div>
+                    </div>
+                    <span class="mod-soon-badge" id="rapoarte-soon">În curând</span>
+                </div>
+                <div class="mod-kpis">
+                    <div class="mod-kpi"><div class="k-val" id="rp-k-conv">—</div><div class="k-lbl">Rată conversie</div></div>
+                    <div class="mod-kpi"><div class="k-val" id="rp-k-month">—</div><div class="k-lbl">Valoare lună</div></div>
+                    <div class="mod-kpi"><div class="k-val muted" id="rp-k-win">—</div><div class="k-lbl">Win rate</div></div>
+                </div>
+                <div class="mod-foot">
+                    <span class="mod-extra" id="rp-extra">Derivat din CRM + Ofertare</span>
+                    <span class="mod-go" id="rp-go" style="opacity:0.5">În curând</span>
+                </div>
+            </a>
+
+        </section>
+
+        <!-- ======== ACTIVITY ======== -->
+        <section class="activity-card">
+            <div class="activity-head">
+                <h2>Activitate recentă</h2>
+                <span class="meta" id="activity-meta">—</span>
+            </div>
+            <div class="timeline" id="timeline"></div>
+        </section>
+
+        <!-- ======== FOOTER ======== -->
+        <footer class="foot">
+            <strong>Glas Expert</strong> — xglass.eu · Popești-Leordeni, România · Versiune 2.0 · © 2026
+        </footer>
+
+    </div>
+
+<script>
+/* ============================================================
+   STORAGE KEYS  (shared cu modulele)
+   ============================================================ */
+const K_CRM     = 'ge-crm-clients';
+const K_OFERTE  = 'ge-oferte';
+const K_COMENZI = 'ge-comenzi';
+
+/* mapă cod client → alias, pt. timeline cross-modul (fallback dacă CRM gol) */
+const ALIAS_FALLBACK = {
+    'GE-001':'M-001', 'GE-002':'I-002', 'GE-003':'C-003',
+    'GE-004':'T-004', 'GE-005':'P-005', 'GE-006':'A-006',
+};
+
+let viewMode = 'sales'; // sales | factory
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+const $ = id => document.getElementById(id);
+
+function readLS(key){
+    try { const s = localStorage.getItem(key); return s ? JSON.parse(s) : null; }
+    catch(e){ return null; }
+}
+function esc(s){ const d=document.createElement('div'); d.textContent=s==null?'':String(s); return d.innerHTML; }
+
+/* compact EUR: €1.06M / €420K / €0 */
+function eurK(n){
+    n = Number(n)||0;
+    if (n >= 1000000) return '€' + (n/1000000).toFixed(2) + 'M';
+    if (n >= 1000)    return '€' + Math.round(n/1000) + 'K';
+    return '€' + n;
+}
+function fmtDate(d){
+    if (!d) return '—';
+    // acceptă 'YYYY-MM-DD' sau ISO
+    const s = String(d).slice(0,10);
+    return s;
+}
+function aliasFor(cod, fallbackName){
+    // în mod fabrică nu dezvăluim numele; folosim aliasul cunoscut sau codul
+    return ALIAS_FALLBACK[cod] || (cod ? cod.replace('GE-','C-') : (fallbackName||'—'));
+}
+
+/* ============================================================
+   CRM — total clienți, pipeline (prospect+calificat), tasks scadente
+   ============================================================ */
+function readCRM(){
+    const clients = readLS(K_CRM) || [];
+    const today = new Date().toISOString().slice(0,10);
+    let total = clients.length;
+    let pipeline = 0, overdue = 0;
+    let minCod = null, maxCod = null;
+    const seen = {}; // cod -> {alias, company}
+
+    clients.forEach(c => {
+        if (['prospect','calificat'].includes(c.stage)) pipeline += Number(c.opportunity)||0;
+        // tasks scadente: notă/follow-up cu dueDate trecut, sau câmp tasks[]
+        if (Array.isArray(c.tasks)) {
+            c.tasks.forEach(t => { if (t && !t.done && t.due && t.due < today) overdue++; });
+        }
+        if (c.followUp && c.followUp < today) overdue++;
+        if (c.cod){
+            seen[c.cod] = { alias:c.alias, company:c.company };
+            if (minCod===null || c.cod < minCod) minCod = c.cod;
+            if (maxCod===null || c.cod > maxCod) maxCod = c.cod;
+        }
+    });
+
+    return { clients, total, pipeline, overdue, minCod, maxCod, seen };
+}
+
+/* ============================================================
+   OFERTE — active (status != anulat/refuzata/expirata), valoare, acceptate
+   ============================================================ */
+function calcOfertaTotal(o){
+    let sub = 0;
+    (o.linii || []).forEach(l => { sub += (parseFloat(l.qty)||0) * (parseFloat(l.pret)||0); });
+    const disc = sub * ((parseFloat(o.discountPct)||0) / 100);
+    const after = sub - disc;
+    return after * 1.19; // TVA 19%
+}
+function readOferte(){
+    const oferte = readLS(K_OFERTE) || [];
+    const DEAD = ['anulat','anulata','refuzata','expirata'];
+    let active = 0, accepted = 0, activeValue = 0;
+    let last = null;
+    oferte.forEach(o => {
+        const st = (o.status||'').toLowerCase();
+        if (!DEAD.includes(st)) { active++; activeValue += calcOfertaTotal(o); }
+        if (st === 'acceptata') accepted++;
+        if (!last || (o.data||'') > (last.data||'')) last = o;
+    });
+    return { oferte, count:oferte.length, active, accepted, activeValue, last };
+}
+
+/* ============================================================
+   COMENZI — active, în producție, întârziate  (modul viitor)
+   ============================================================ */
+function readComenzi(){
+    const comenzi = readLS(K_COMENZI);
+    if (!comenzi || !Array.isArray(comenzi)) return { exists:false, comenzi:[], active:0, prod:0, late:0 };
+    const today = new Date().toISOString().slice(0,10);
+    const DONE = ['livrata','livrat','anulata','anulat','finalizata'];
+    let active = 0, prod = 0, late = 0;
+    comenzi.forEach(c => {
+        const st = (c.status||'').toLowerCase();
+        if (!DONE.includes(st)) active++;
+        if (st === 'productie' || st === 'in_productie' || st === 'in-productie') prod++;
+        const deadline = c.deadline || c.livrare || c.dueDate;
+        if (deadline && deadline < today && !DONE.includes(st)) late++;
+    });
+    return { exists:true, comenzi, active, prod, late };
+}
+
+/* ============================================================
+   RENDER — global stats
+   ============================================================ */
+function renderGlobal(crm, of, cm){
+    const totalPipeline = crm.pipeline + of.activeValue;
+    const html = [
+        ['Clienți totali', crm.total || '0', 'în CRM'],
+        ['Valoare pipeline', eurK(totalPipeline), 'CRM + oferte active'],
+        ['Oferte active', of.active || '0', of.count + ' total emise'],
+        ['Module live', '2 / 4', 'CRM · Ofertare'],
+    ].map(([l,v,s]) => `
+        <div class="gstat">
+            <div class="label">${l}</div>
+            <div class="value">${v}</div>
+            <div class="sub">${s}</div>
+        </div>`).join('');
+    $('gstats').innerHTML = html;
+}
+
+/* ============================================================
+   RENDER — module cards
+   ============================================================ */
+function renderModules(crm, of, cm, rp){
+    // --- CRM ---
+    $('crm-k-total').textContent = crm.total;
+    $('crm-k-pipe').textContent  = eurK(crm.pipeline);
+    const over = $('crm-k-over');
+    over.textContent = crm.overdue > 0 ? (crm.overdue + ' ⚠') : '0';
+    over.classList.toggle('warn', crm.overdue > 0);
+    if (crm.minCod && crm.maxCod) $('crm-range').textContent = crm.minCod + ' … ' + crm.maxCod;
+    $('crm-extra').textContent = crm.total ? (crm.total + ' clienți în bază') : 'Bază de clienți B2B';
+
+    // --- Ofertare ---
+    $('of-k-active').textContent = of.active;
+    $('of-k-val').textContent    = eurK(of.activeValue);
+    $('of-k-accept').textContent = of.accepted;
+    if (of.last){
+        const al = of.last.clientCod ? aliasFor(of.last.clientCod) : '';
+        $('of-extra').textContent = 'Ultima: ' + (of.last.id || '—') + (al ? ' · ' + al : '') + ' · ' + fmtDate(of.last.data);
+        $('of-range').textContent = (of.oferte[0] && of.oferte[0].id ? of.oferte[0].id : 'GE-OF-001') + ' …';
+    }
+
+    // --- Comenzi (viitor) ---
+    if (cm.exists){
+        $('card-comenzi').classList.remove('soon');
+        $('comenzi-soon').style.display = 'none';
+        $('cm-k-active').textContent = cm.active; $('cm-k-active').classList.remove('muted');
+        $('cm-k-prod').textContent   = cm.prod;   $('cm-k-prod').classList.remove('muted');
+        const late = $('cm-k-late');
+        late.textContent = cm.late > 0 ? (cm.late + ' ⚠') : '0';
+        late.classList.remove('muted');
+        late.classList.toggle('warn', cm.late > 0);
+        $('cm-extra').textContent = cm.comenzi.length + ' comenzi în sistem';
+        $('cm-go').textContent = 'Deschide →'; $('cm-go').style.opacity = '1';
+    }
+
+    // --- Rapoarte (derivat) ---
+    $('rp-k-conv').textContent  = rp.conv;
+    $('rp-k-month').textContent = rp.monthValue;
+    if (rp.winRate !== null){ $('rp-k-win').textContent = rp.winRate; $('rp-k-win').classList.remove('muted'); }
+    // rapoarte.html nu există încă → rămâne "soon" dar arată KPI derivate
+}
+
+/* ============================================================
+   RAPOARTE derivat (din CRM + Ofertare, fără modul propriu)
+   ============================================================ */
+function deriveRapoarte(crm, of){
+    // rată conversie = clienți în etapă 'comanda' / total
+    let conv = '—', winRate = null;
+    if (crm.total > 0){
+        const won = crm.clients.filter(c => c.stage === 'comanda').length;
+        conv = Math.round((won / crm.total) * 100) + '%';
+    }
+    // win rate oferte = acceptate / (acceptate + refuzate)
+    const acc = of.oferte.filter(o => (o.status||'').toLowerCase() === 'acceptata').length;
+    const ref = of.oferte.filter(o => ['refuzata','expirata'].includes((o.status||'').toLowerCase())).length;
+    if (acc + ref > 0) winRate = Math.round((acc / (acc + ref)) * 100) + '%';
+
+    // valoare luna curentă = oferte emise în luna asta
+    const ym = new Date().toISOString().slice(0,7);
+    let monthVal = 0;
+    of.oferte.forEach(o => { if ((o.data||'').slice(0,7) === ym) monthVal += calcOfertaTotal(o); });
+
+    return { conv, winRate, monthValue: monthVal > 0 ? eurK(monthVal) : '€0' };
+}
+
+/* ============================================================
+   ACTIVITY TIMELINE — agregat din toate modulele
+   ============================================================ */
+function buildTimeline(crm, of, cm){
+    const events = [];
+
+    // CRM — note per client
+    crm.clients.forEach(c => {
+        (c.notes || []).forEach(n => {
+            events.push({
+                date: n.date || c.createdAt,
+                module: 'CRM', badge: 'badge-navy',
+                cod: c.cod, alias: c.alias, company: c.company,
+                desc: n.text || 'Activitate client',
+            });
+        });
+        if (c.createdAt && (!c.notes || !c.notes.length)){
+            events.push({
+                date: c.createdAt, module:'CRM', badge:'badge-navy',
+                cod:c.cod, alias:c.alias, company:c.company,
+                desc:'Client adăugat în CRM',
+            });
+        }
+    });
+
+    // Ofertare — fiecare ofertă = un eveniment
+    of.oferte.forEach(o => {
+        const stLabel = ({
+            draft:'creată (draft)', trimisa:'trimisă', acceptata:'acceptată',
+            refuzata:'refuzată', expirata:'expirată',
+        })[(o.status||'').toLowerCase()] || (o.status||'actualizată');
+        events.push({
+            date: o.data, module:'Ofertare', badge:'badge-gold',
+            cod:o.clientCod, alias:aliasFor(o.clientCod),
+            company:(crm.seen[o.clientCod]?.company),
+            desc: 'Ofertă ' + (o.id||'') + ' ' + stLabel + ' · ' + eurK(calcOfertaTotal(o)),
+        });
+    });
+
+    // Comenzi (dacă există)
+    cm.comenzi.forEach(o => {
+        events.push({
+            date: o.data || o.createdAt, module:'Comenzi', badge:'badge-amber',
+            cod:o.clientCod, alias:aliasFor(o.clientCod),
+            company:(crm.seen[o.clientCod]?.company),
+            desc: 'Comandă ' + (o.id||'') + ' · ' + (o.status||'—'),
+        });
+    });
+
+    // sortează desc după dată, top 10
+    events.sort((a,b) => String(b.date||'').localeCompare(String(a.date||'')));
+    return events.slice(0, 10);
+}
+
+function renderTimeline(events){
+    const tl = $('timeline');
+    if (!events.length){
+        tl.innerHTML = '<div class="tl-empty">Nicio activitate înregistrată încă. Adaugă clienți sau oferte pentru a popula istoricul.</div>';
+        $('activity-meta').textContent = '0 acțiuni';
+        return;
+    }
+    const factory = viewMode === 'factory';
+    tl.innerHTML = events.map(e => {
+        // aliasul e safe în ambele moduri (nu dezvăluie clientul)
+        const who = `<span class="tl-alias">${esc(e.alias || aliasFor(e.cod))}</span>`;
+        // doar în mod sales adăugăm denumirea companiei în descriere
+        let desc = esc(e.desc);
+        if (!factory && e.company){
+            desc = `<strong style="color:var(--navy)">${esc(e.company)}</strong> — ${desc}`;
+        }
+        return `
+        <div class="tl-item">
+            <span class="tl-date">${esc(fmtDate(e.date))}</span>
+            <span class="tl-badge"><span class="badge ${e.badge}">${esc(e.module)}</span></span>
+            ${who}
+            <span class="tl-desc">${desc}</span>
+        </div>`;
+    }).join('');
+    $('activity-meta').textContent = events.length + ' acțiuni recente';
+}
+
+/* ============================================================
+   MODE
+   ============================================================ */
+function setMode(mode){
+    viewMode = mode;
+    $('mode-sales').classList.toggle('active', mode === 'sales');
+    $('mode-factory').classList.toggle('active', mode === 'factory');
+    $('mode-note').classList.toggle('show', mode === 'factory');
+    $('hero-sub').textContent = mode === 'factory'
+        ? 'Mod fabrică — KPI vizibile, dar identitatea clienților este mascată.'
+        : 'Privire de ansamblu asupra tuturor modulelor, KPI live și activitate recentă.';
+    try { localStorage.setItem('ge-admin-mode', mode); } catch(e){}
+    refresh();
+}
+
+/* ============================================================
+   REFRESH (recitește tot din localStorage)
+   ============================================================ */
+let _crm, _of, _cm, _rp;
+function refresh(){
+    _crm = readCRM();
+    _of  = readOferte();
+    _cm  = readComenzi();
+    _rp  = deriveRapoarte(_crm, _of);
+    renderGlobal(_crm, _of, _cm);
+    renderModules(_crm, _of, _cm, _rp);
+    renderTimeline(buildTimeline(_crm, _of, _cm));
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+(function init(){
+    try {
+        const saved = localStorage.getItem('ge-admin-mode');
+        if (saved === 'factory') viewMode = 'factory';
+    } catch(e){}
+    if (viewMode === 'factory'){
+        $('mode-sales').classList.remove('active');
+        $('mode-factory').classList.add('active');
+        $('mode-note').classList.add('show');
+    }
+    refresh();
+    // re-sync dacă alt tab modifică localStorage
+    window.addEventListener('storage', refresh);
+    // re-sync la revenirea pe tab
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+})();
+</script>
+</body>
+</html>
