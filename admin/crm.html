@@ -562,6 +562,8 @@
    ============================================================ */
 const CRM_KEY = 'ge-crm-clients';
 const COD_KEY = 'ge-crm-cod-seq';
+const CRM_VERSION_KEY = 'ge-crm-version';
+const CRM_VERSION = '2026-06-25-real';
 
 const STAGES = ['prospect','calificat','oferta','comanda'];
 const STAGE_LABELS = { prospect:'Prospect', calificat:'Calificat', oferta:'Ofertă', comanda:'Comandă' };
@@ -592,6 +594,16 @@ let sortDir = 'asc';       // asc | desc
 const PRIORITY_ORDER = { high:0, normal:1, low:2 };
 
 function loadClients(){
+    const storedVersion = localStorage.getItem(CRM_VERSION_KEY);
+    if (storedVersion !== CRM_VERSION) {
+        // Prima incarcare cu date reale — sterge demo din localStorage
+        localStorage.removeItem(CRM_KEY);
+        localStorage.removeItem(COD_KEY);
+        clients = migrateClients(seedClients());
+        saveClients();
+        localStorage.setItem(CRM_VERSION_KEY, CRM_VERSION);
+        return;
+    }
     let loaded = null;
     try {
         const s = localStorage.getItem(CRM_KEY);
@@ -599,7 +611,6 @@ function loadClients(){
     } catch(e){}
     if (loaded && Array.isArray(loaded) && loaded.length){
         clients = migrateClients(loaded);
-        saveClients();
         return;
     }
     clients = migrateClients(seedClients());
