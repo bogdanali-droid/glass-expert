@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAGOTECH — Sticlă Feroviară | Glas Expert</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0f1923;
+            color: #1a1a1a;
+        }
+
+        .print-bar {
+            background: #1a3a52;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .print-bar strong { color: #fbbf24; }
+        @media print { .print-bar { display: none; } }
+
+        .deck { max-width: 960px; margin: 0 auto; }
+
+        .slide {
+            background: white;
+            min-height: 540px;
+            padding: 56px 64px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            page-break-after: always;
+            position: relative;
+            margin-bottom: 4px;
+            overflow: hidden;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 20px;
+            right: 28px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: #cbd5e1;
+            text-transform: uppercase;
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #0066cc;
+            margin-bottom: 14px;
+        }
+
+        .slide h2 {
+            font-size: 34px;
+            font-weight: 800;
+            color: #1a3a52;
+            line-height: 1.15;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .slide .deck-subtitle {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 36px;
+            line-height: 1.5;
+        }
+
+        /* TITLE SLIDE */
+        .slide-title {
+            background: linear-gradient(145deg, #0d2035 0%, #1a3a52 60%, #1e4d6b 100%);
+            color: white;
+            min-height: 600px;
+            padding: 80px 64px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-title .hero-photo {
+            position: absolute;
+            right: 0; top: 0; bottom: 0;
+            width: 45%;
+            object-fit: cover;
+            object-position: 30% center;
+            opacity: 0.4;
+            mix-blend-mode: luminosity;
+        }
+
+        .slide-title .title-content {
+            position: relative;
+            z-index: 2;
+            max-width: 58%;
+        }
+
+        .slide-title .logo-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 60px;
+        }
+
+        .slide-title .logo-bar .brand {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .slide-title h1 {
+            font-size: 76px;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .slide-title .title-tagline {
+            font-size: 22px;
+            color: rgba(255,255,255,0.75);
+            font-weight: 400;
+            margin-bottom: 48px;
+        }
+
+        .cert-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 60px;
+        }
+
+        .cert-pill {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .cert-pill.highlight {
+            background: rgba(251,191,36,0.2);
+            border-color: rgba(251,191,36,0.5);
+            color: #fde68a;
+        }
+
+        .slide-title .footer-row {
+            display: flex;
+            gap: 32px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.55);
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 24px;
+        }
+
+        .slide-title .footer-row span { color: rgba(255,255,255,0.85); }
+
+        /* DARK SLIDE */
+        .slide-dark {
+            background: #1a3a52;
+            color: white;
+        }
+
+        .slide-dark .eyebrow { color: #fbbf24; }
+        .slide-dark h2 { color: white; }
+        .slide-dark .deck-subtitle { color: rgba(255,255,255,0.6); }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 8px;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            padding: 28px 24px;
+            text-align: center;
+        }
+
+        .stat-box .num {
+            font-size: 52px;
+            font-weight: 900;
+            color: #fbbf24;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .stat-box .unit {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fbbf24;
+        }
+
+        .stat-box .label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.65);
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+
+        /* TWO-COL */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 4px;
+        }
+
+        .col-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 28px;
+            border-left: 4px solid #1a3a52;
+        }
+
+        .col-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a3a52;
+            margin-bottom: 16px;
+        }
+
+        .col-card ul { list-style: none; }
+
+        .col-card ul li {
+            font-size: 14px;
+            color: #374151;
+            padding: 7px 0;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.45;
+        }
+
+        .col-card ul li:last-child { border-bottom: none; }
+
+        .col-card ul li::before {
+            content: "▸";
+            color: #0066cc;
+            font-size: 11px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* COMPARISON TABLE */
+        .cmp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+            margin-top: 24px;
+        }
+
+        .cmp-table th {
+            background: #1a3a52;
+            color: white;
+            padding: 11px 14px;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .cmp-table th.vagotech-th { background: #059669; }
+
+        .cmp-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #374151;
+        }
+
+        .cmp-table tr:nth-child(even) td { background: #f9fafb; }
+        .cmp-table tr:nth-child(even) td.vt { background: #ecfdf5; }
+
+        .cmp-table td.vt {
+            background: #f0fdf4;
+            font-weight: 600;
+            color: #065f46;
+        }
+
+        .check { color: #059669; font-weight: 700; }
+        .cross { color: #dc2626; }
+        .partial { color: #d97706; }
+
+        /* PRODUCT CARDS */
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-top: 16px;
+        }
+
+        .product-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            background: white;
+        }
+
+        .product-box .prod-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a3a52;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .en-tag {
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.04em;
+        }
+
+        .en-tag.fire {
+            background: #fff7ed;
+            color: #ea580c;
+        }
+
+        .product-box ul { list-style: none; }
+
+        .product-box ul li {
+            font-size: 12.5px;
+            color: #6b7280;
+            padding: 3px 0;
+        }
+
+        .product-box ul li strong { color: #374151; }
+
+        /* STANDARDS GRID */
+        .std-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .std-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px 24px;
+            background: #f8fafc;
+        }
+
+        .std-box.critical {
+            background: #fff7ed;
+            border-color: #ea580c;
+            border-width: 2px;
+        }
+
+        .std-box .std-code {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1a3a52;
+            margin-bottom: 4px;
+        }
+
+        .std-box.critical .std-code { color: #c2410c; }
+
+        .std-box .std-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #ea580c;
+            margin-bottom: 6px;
+        }
+
+        .std-box p {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* FLEET SLIDE */
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .fleet-card {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            border-top: 3px solid #1a3a52;
+        }
+
+        .fleet-card .operator {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+
+        .fleet-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a3a52;
+            margin-bottom: 10px;
+        }
+
+        .fleet-card p {
+            font-size: 12.5px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        /* PRICE TABLE */
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+            font-size: 13px;
+        }
+
+        .price-table th {
+            background: #1a3a52;
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .price-table th:last-child { text-align: right; }
+
+        .price-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #374151;
+        }
+
+        .price-table td:last-child {
+            text-align: right;
+            font-weight: 700;
+            color: #1a3a52;
+        }
+
+        .price-table tr:nth-child(even) td { background: #f9fafb; }
+
+        .discount-row td {
+            background: #f0fdf4 !important;
+            color: #065f46 !important;
+            font-size: 12px;
+        }
+
+        /* REVENUE BARS */
+        .revenue-bars {
+            margin-top: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .rev-row {
+            display: grid;
+            grid-template-columns: 120px 1fr 120px;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .rev-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            text-align: right;
+        }
+
+        .rev-bar-wrap {
+            background: #f1f5f9;
+            border-radius: 6px;
+            height: 32px;
+            overflow: hidden;
+        }
+
+        .rev-bar {
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .rev-bar.conserv { background: #64748b; width: 52%; }
+        .rev-bar.standard { background: #1a3a52; width: 75%; }
+        .rev-bar.optimist { background: #059669; width: 100%; }
+
+        .rev-amount {
+            font-size: 16px;
+            font-weight: 800;
+            color: #1a3a52;
+        }
+
+        .rev-amount.optimist { color: #059669; }
+
+        /* STEPS */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .step-box { text-align: center; }
+
+        .step-num {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #1a3a52;
+            color: white;
+            font-size: 18px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+        }
+
+        .step-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1a3a52;
+            margin-bottom: 6px;
+        }
+
+        .step-desc {
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        /* CLOSING */
+        .slide-close {
+            background: linear-gradient(145deg, #0d2035 0%, #1a3a52 60%, #1e4d6b 100%);
+            color: white;
+            text-align: center;
+            min-height: 540px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-close h2 {
+            font-size: 56px;
+            font-weight: 900;
+            color: #fbbf24;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+        }
+
+        .slide-close .close-sub {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 44px;
+        }
+
+        .contact-box {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 14px;
+            padding: 28px 40px;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .contact-box p { font-size: 15px; color: rgba(255,255,255,0.85); margin-bottom: 8px; line-height: 1.6; }
+        .contact-box strong { color: white; }
+        .contact-box a { color: #93c5fd; text-decoration: none; }
+
+        /* HIGHLIGHT BOX */
+        .insight-box {
+            background: #fff7ed;
+            border-left: 4px solid #ea580c;
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin-top: 24px;
+        }
+
+        .insight-box p {
+            font-size: 14px;
+            color: #7c2d12;
+            line-height: 1.6;
+        }
+
+        .insight-box strong { color: #c2410c; }
+
+        /* PHOTO SLIDE */
+        .slide-photo {
+            padding: 0;
+            min-height: 540px;
+            position: relative;
+        }
+
+        .slide-photo .photo-bg {
+            position: absolute;
+            inset: 0;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide-photo .photo-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(10,28,45,0.92) 0%, rgba(10,28,45,0.65) 55%, rgba(10,28,45,0.15) 100%);
+        }
+
+        .slide-photo .photo-content {
+            position: relative;
+            z-index: 2;
+            padding: 64px;
+            color: white;
+            max-width: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 540px;
+        }
+
+        .slide-photo .photo-content .eyebrow { color: #fbbf24; }
+        .slide-photo .photo-content h2 { color: white; font-size: 38px; }
+        .slide-photo .photo-content .deck-subtitle { color: rgba(255,255,255,0.75); }
+
+        @media print {
+            body { background: white; }
+            .deck { max-width: 100%; }
+            .slide { margin-bottom: 0; min-height: 100vh; }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-bar">
+        Salvare PDF: <strong>Ctrl+P</strong> → Destinație: <strong>Salvare ca PDF</strong> → Format: <strong>Peisaj (Landscape)</strong>
+    </div>
+
+    <div class="deck">
+
+        <!-- ===== SLIDE 1: TITLU ===== -->
+        <div class="slide slide-title">
+            <img class="hero-photo" src="images/vagotech-hero.jpg" alt="VAGOTECH — CFR Desiro SR20D, Gara Aeroport Henri Coandă">
+            <div class="title-content">
+                <div class="logo-bar">
+                    <div>
+                        <div class="brand">Glas Expert · Divizia VAGOTECH</div>
+                    </div>
+                </div>
+
+                <h1>VAGOTECH</h1>
+                <p class="title-tagline">Sticlă Feroviară Certificată — Cea mai rapidă livrare din Europa</p>
+
+                <div class="cert-pills">
+                    <span class="cert-pill">EN 15152 — Geam Frontal Cabină</span>
+                    <span class="cert-pill">EN 15153 — Geam Lateral & Ușă</span>
+                    <span class="cert-pill">EN 12600 — Siguranță la Impact</span>
+                    <span class="cert-pill highlight">AFER — Singurul Producător Autorizat din România ★</span>
+                </div>
+
+                <div class="footer-row">
+                    <div>📍 Popești-Leordeni, România · Neubiberg, Germania</div>
+                    <div>📞 <span>+40 — RO</span></div>
+                    <div>✉ <span>office.us@xglass.eu</span></div>
+                    <div>🌐 <span>xglass.eu</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 2: OPORTUNITATEA ===== -->
+        <div class="slide slide-dark">
+            <span class="slide-number">02 / 10</span>
+            <div class="eyebrow">Oportunitatea</div>
+            <h2>O Piață de €484M — Insuficient Servită la Nivel Regional</h2>
+            <p class="deck-subtitle">Programele active de modernizare din 7 țări creează cerere imediată și prioritară de sticlă feroviară certificată.</p>
+
+            <div class="stat-grid">
+                <div class="stat-box">
+                    <div class="num">€484<span class="unit">M</span></div>
+                    <div class="label">Piața europeană de sticlă feroviară — total adresabil</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num">7</div>
+                    <div class="label">Programe active de modernizare (RO, HU, DE, RS, BG, MD, US)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num">4–6</div>
+                    <div class="label">Săptămâni livrare — față de 12–16 săptămâni la Pilkington / Saint-Gobain</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 3: FOTO + PROBLEMA ===== -->
+        <div class="slide slide-photo">
+            <img class="photo-bg" src="images/vagotech-hero.jpg" alt="CFR Desiro SR20D — material rulant feroviar România">
+            <div class="photo-overlay"></div>
+            <div class="photo-content">
+                <span class="slide-number" style="color:rgba(255,255,255,0.4);position:static;margin-bottom:16px;display:block;">03 / 10</span>
+                <div class="eyebrow">Provocarea Operatorilor</div>
+                <h2>Fiecare Săptămână în Atelier Costă Bani</h2>
+                <p class="deck-subtitle">Managerii de flotă se confruntă cu o problemă de aprovizionare nerezolvată la nivel regional — până acum.</p>
+
+                <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
+                    <div style="background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.3);border-radius:8px;padding:14px 18px;">
+                        <div style="font-size:11px;font-weight:700;color:#fca5a5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">❌ Realitatea Actuală</div>
+                        <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.6;">Pilkington & Saint-Gobain: <strong style="color:white">12–16 săptămâni</strong> termen livrare · Fără certificare AFER = blocați de la achizițiile feroviare românești · Cantități minime care nu se potrivesc refurbishingului</div>
+                    </div>
+                    <div style="background:rgba(5,150,105,0.15);border:1px solid rgba(5,150,105,0.3);border-radius:8px;padding:14px 18px;">
+                        <div style="font-size:11px;font-weight:700;color:#6ee7b7;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">✓ Soluția VAGOTECH</div>
+                        <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.6;"><strong style="color:white">4–6 săptămâni</strong> · Singurul producător AFER autorizat din România · Producție 100% internă · Comenzi pilot acceptate de la 5 unități</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 4: AVANTAJ COMPETITIV ===== -->
+        <div class="slide">
+            <span class="slide-number">04 / 10</span>
+            <div class="eyebrow">De Ce VAGOTECH</div>
+            <h2>Față în Față: VAGOTECH vs. Liderii de Piață</h2>
+
+            <table class="cmp-table">
+                <thead>
+                    <tr>
+                        <th>Criteriu</th>
+                        <th>Pilkington (NSG)</th>
+                        <th>Saint-Gobain</th>
+                        <th>Dellner Glass</th>
+                        <th class="vagotech-th">VAGOTECH</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Termen livrare</strong></td>
+                        <td>12–16 săptămâni</td>
+                        <td>14–18 săptămâni</td>
+                        <td>10–14 săptămâni</td>
+                        <td class="vt">✓ <strong>4–6 săptămâni</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>EN 15152 / 15153</strong></td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="vt check">✓ Certificat</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Certificare AFER (România)</strong></td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="vt check">✓ AFER Certificat</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Producție internă</strong></td>
+                        <td class="partial">Parțial externalizat</td>
+                        <td class="partial">Parțial externalizat</td>
+                        <td class="partial">Parțial externalizat</td>
+                        <td class="vt">✓ 100% intern</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Proximitate regională (RO/HU/RS)</strong></td>
+                        <td class="cross">✗ UK / Japonia</td>
+                        <td class="cross">✗ Franța</td>
+                        <td class="cross">✗ Suedia</td>
+                        <td class="vt">✓ Popești-Leordeni, RO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Curburi / geometrie personalizată</strong></td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="partial">Limitat</td>
+                        <td class="vt">✓ Orice geometrie</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Comenzi pilot / cantități mici</strong></td>
+                        <td class="cross">✗ Minime mari</td>
+                        <td class="cross">✗ Minime mari</td>
+                        <td class="partial">Mediu</td>
+                        <td class="vt">✓ De la 5 unități</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ===== SLIDE 5: PRODUSE ===== -->
+        <div class="slide">
+            <span class="slide-number">05 / 10</span>
+            <div class="eyebrow">Portofoliu de Produse</div>
+            <h2>Soluții VAGOTECH — Orice Aplicație Feroviară Acoperită</h2>
+            <p class="deck-subtitle">Toate produsele certificate EN 15152, EN 15153, EN 12600. Producător autorizat AFER. Călire, laminare și curbire internă. Geometrie personalizată la specificații OEM.</p>
+
+            <div class="product-grid">
+                <div class="product-box">
+                    <div class="prod-title">
+                        Geam Frontal (Parbriz Cabină)
+                        <span class="en-tag">EN 15152</span>
+                        <span class="en-tag fire">AFER</span>
+                    </div>
+                    <ul>
+                        <li><strong>Aplicație:</strong> Cabs locomotive, DMU/EMU, front tramvai</li>
+                        <li><strong>Construcție:</strong> Laminat + termoîntărit, curbură personalizată</li>
+                        <li><strong>Opțiuni:</strong> Strat încălzitor dezivraj, folie UV & acustică</li>
+                        <li><strong>Impact:</strong> Rezistent la impact balast de înaltă energie</li>
+                        <li><strong>Livrare:</strong> 4–6 săptămâni standard</li>
+                    </ul>
+                </div>
+                <div class="product-box">
+                    <div class="prod-title">
+                        Geam Lateral & Ușă Pasageri
+                        <span class="en-tag">EN 15153</span>
+                        <span class="en-tag fire">AFER</span>
+                    </div>
+                    <ul>
+                        <li><strong>Aplicație:</strong> Ferestre și uși glisante pasageri, geam lateral tramvai</li>
+                        <li><strong>Construcție:</strong> Călit sau laminat, curbe & unghiuri personalizate</li>
+                        <li><strong>Opțiuni:</strong> Folie acustică, tratament easy-clean</li>
+                        <li><strong>Clasa impact:</strong> Certificat EN 12600</li>
+                        <li><strong>Livrare:</strong> 4–6 săptămâni standard</li>
+                    </ul>
+                </div>
+                <div class="product-box">
+                    <div class="prod-title">
+                        Geam Interior & Partiții
+                        <span class="en-tag">EN 12600</span>
+                        <span class="en-tag fire">AFER</span>
+                    </div>
+                    <ul>
+                        <li><strong>Aplicație:</strong> Ecrane echipaj, partiții interioare, ferestre urgență</li>
+                        <li><strong>Construcție:</strong> Călit sau laminat, clar / frosted / colorat</li>
+                        <li><strong>Opțiuni:</strong> Anti-zgâriere, coating easy-clean</li>
+                        <li><strong>Greutate:</strong> Construcții ușoare pentru eficiență energetică</li>
+                        <li><strong>Livrare:</strong> 4–6 săptămâni standard</li>
+                    </ul>
+                </div>
+                <div class="product-box">
+                    <div class="prod-title">
+                        Soluții Feroviare Personalizate
+                        <span class="en-tag fire">AFER</span>
+                    </div>
+                    <ul>
+                        <li><strong>Aplicație:</strong> Vitraj acoperiș, ferestre panoramice, panouri destinație</li>
+                        <li><strong>Construcție:</strong> Orice formă — consultanță tehnică inclusă</li>
+                        <li><strong>Conformitate:</strong> Pachet complet documentație EN la livrare</li>
+                        <li><strong>Capacitate:</strong> Comenzi la scară flotă (100+ unități)</li>
+                        <li><strong>Livrare:</strong> 5–8 săptămâni proiecte personalizate</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 6: CERTIFICĂRI ===== -->
+        <div class="slide">
+            <span class="slide-number">06 / 10</span>
+            <div class="eyebrow">Conformitate & Certificare</div>
+            <h2>Cele Patru Standarde care Definesc Achizițiile de Sticlă Feroviară</h2>
+            <p class="deck-subtitle">Sticla VAGOTECH respectă toate standardele. Documentație de conformitate livrată cu fiecare comandă.</p>
+
+            <div class="std-grid">
+                <div class="std-box">
+                    <div class="std-code">EN 15152</div>
+                    <p>Sticlă pentru parbrizele cabinei de conducere pe vehicule feroviare — rezistență la impact, claritate optică, integritate structurală pentru vitrajul frontal pe locomotive, EMU și tramvaie.</p>
+                </div>
+                <div class="std-box">
+                    <div class="std-code">EN 15153</div>
+                    <p>Sticlă pentru geamurile laterale și de ușă pe vehicule feroviare — acoperă opțiunile călit și laminat, toleranțe dimensionale, performanță termică și mecanică pentru vitrajul de pasageri.</p>
+                </div>
+                <div class="std-box">
+                    <div class="std-code">EN 12600</div>
+                    <p>Test de impact pendul și clasificare de siguranță pentru sticlă plată — definește categoriile de comportament la impact (1B1 până la 3C3) necesare pentru toate aplicațiile de vitraj feroviar interior și exterior.</p>
+                </div>
+                <div class="std-box critical">
+                    <div class="std-label">⚠ Certificare Obligatorie România</div>
+                    <div class="std-code">AFER</div>
+                    <p>Certificarea AFER (Autoritatea Feroviară Română) este obligatorie pentru sticla feroviară furnizată operatorilor români. VAGOTECH este singurul producător de sticlă feroviară certificat și autorizat AFER din România.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 7: FLOTELE ACTIVE ===== -->
+        <div class="slide">
+            <span class="slide-number">07 / 10</span>
+            <div class="eyebrow">Flotele Adresabile</div>
+            <h2>Unde Este Cererea — Chiar Acum</h2>
+            <p class="deck-subtitle">Programe cheie de modernizare din regiune care creează cerere imediată aftermarket și refurbishing.</p>
+
+            <div class="fleet-grid">
+                <div class="fleet-card" style="border-top-color:#c8a24b">
+                    <div class="operator">🇷🇴 CFR Călători</div>
+                    <h3>Coradia Stream + PNRR</h3>
+                    <p>139 vagoane în refurbishing activ. Modernizare Desiro SR20D. Achiziții noi locomotive și vagoane din fonduri PNRR 2024–2027.</p>
+                </div>
+                <div class="fleet-card">
+                    <div class="operator">🇷🇴 STB București</div>
+                    <h3>63× Tramvaie Astra Imperio</h3>
+                    <p>Flotă 323 tramvaie V3A-M în renovare. Contracte noi tramvai 36m. Cerere anti-reflexie + fonoabsorbție (EVOLAM).</p>
+                </div>
+                <div class="fleet-card">
+                    <div class="operator">🇷🇴 Electroputere VFU</div>
+                    <h3>OEM Furnizor Unic</h3>
+                    <p>8–12 geamuri/tramvai pe platforma Astra Imperio. Contracte furnizor unic preferate. Potențial 480+ unități/an.</p>
+                </div>
+                <div class="fleet-card">
+                    <div class="operator">🇷🇴 Astra Vagoane Arad</div>
+                    <h3>Subcontractare OEM</h3>
+                    <p>30–50 vagoane/an. Pachete geamuri pentru vagoane de pasageri. Subcontractare Coradia Stream pentru CFR.</p>
+                </div>
+                <div class="fleet-card">
+                    <div class="operator">🇭🇺 MÁV-Start</div>
+                    <h3>92 Set-uri EMU Noi</h3>
+                    <p>Achiziție fonduri UE pentru 92 seturi EMU noi. Flotă BKV Budapesta refurbishing tramvaie Combino (20 ani).</p>
+                </div>
+                <div class="fleet-card" style="border-top-color:#dc2626">
+                    <div class="operator">🇩🇪 Deutsche Bahn</div>
+                    <h3>Aftermarket Consistent</h3>
+                    <p>Investiție €12B infrastructură DB. Flotă ICE, IC și regional — cerere constantă aftermarket tot anul. Entitate Neubiberg activată.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 8: PREȚURI ORIENTATIVE ===== -->
+        <div class="slide">
+            <span class="slide-number">08 / 10</span>
+            <div class="eyebrow">Prețuri Orientative</div>
+            <h2>Referințe de Preț VAGOTECH — EXW Popești-Leordeni</h2>
+            <p class="deck-subtitle">Prețuri orientative pentru comenzi standard. Include documentație AFER completă. Ofertă fermă în 24h la primirea specificațiilor.</p>
+
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>Produs</th>
+                        <th>Specificație</th>
+                        <th>Livrare</th>
+                        <th>Preț Orientativ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Geam Frontal Standard</strong></td>
+                        <td>Laminat, plat, fără încălzire</td>
+                        <td>4–5 săpt.</td>
+                        <td>€820–1.100/buc</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Geam Frontal Curbat</strong></td>
+                        <td>Laminat curbat, profilat cabină</td>
+                        <td>4–6 săpt.</td>
+                        <td>€1.200–1.800/buc</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Geam Frontal cu Dezgivraj</strong></td>
+                        <td>Rezistență electrică integrată</td>
+                        <td>5–6 săpt.</td>
+                        <td>€1.600–2.400/buc</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Geam Lateral Fix — Pasageri</strong></td>
+                        <td>Laminat, montaj înecat în caroserie</td>
+                        <td>3–5 săpt.</td>
+                        <td>€280–420/buc</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Geam Ușă Acces Pasageri</strong></td>
+                        <td>Laminat rezistent impact, vizibilitate max</td>
+                        <td>4–5 săpt.</td>
+                        <td>€500–850/buc</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Partiție Interioară (m²)</strong></td>
+                        <td>Laminat clar, frosted sau imprimat EVOPRINT</td>
+                        <td>3–4 săpt.</td>
+                        <td>€55–200/m²</td>
+                    </tr>
+                    <tr class="discount-row">
+                        <td colspan="3"><strong>Reduceri volum:</strong> –8% (11–50 buc) · –15% (51–150 buc) · –20% (150+ buc) · Contract cadru anual: –5% suplimentar</td>
+                        <td>La cerere</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="insight-box" style="margin-top:16px">
+                <p><strong>Important:</strong> Toate prețurile includ documentație AFER completă. Reducere suplimentară de 15–20% față de furnizorii din Europa de Vest, fără taxe vamale intra-UE. Ofertă fermă în 24 ore la primirea dimensiunilor și cantităților.</p>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 9: DESPRE GLAS EXPERT ===== -->
+        <div class="slide">
+            <span class="slide-number">09 / 10</span>
+            <div class="eyebrow">De Ce Să Ai Încredere în VAGOTECH</div>
+            <h2>Experiența Glas Expert în Spatele Fiecărei Bucăți de Sticlă</h2>
+
+            <div class="two-col">
+                <div class="col-card">
+                    <h3>Credențiale</h3>
+                    <ul>
+                        <li><strong>25+ ani</strong> de inginerie a sticlei</li>
+                        <li><strong>Top 20</strong> procesator de sticlă în Europa</li>
+                        <li>Sedii: Popești-Leordeni, RO + Neubiberg, DE</li>
+                        <li><strong>Red Dot Award 2025</strong> — sistemul VERSATIKA</li>
+                        <li>Intern: călire, laminare, curbire, prelucrare margine personalizată</li>
+                        <li>Capacitate producție la scară de flotă</li>
+                    </ul>
+                </div>
+                <div class="col-card">
+                    <h3>Portofoliu Dovedit</h3>
+                    <ul>
+                        <li><strong>Roland Garros</strong> — Paris (vitraj landmark)</li>
+                        <li><strong>FUTURIUM</strong> — Berlin (precizie arhitecturală)</li>
+                        <li><strong>Therme</strong> — Ospitalitate internațională</li>
+                        <li><strong>SKANSKA</strong> — Real estate corporate</li>
+                        <li><strong>ING, H&M</strong> — Instalații brand global</li>
+                        <li>1.000+ proiecte în toată Europa</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <p><strong>De la Mai Bun la Cel Mai Bun.</strong> Aceeași disciplină inginerească care a câștigat Red Dot Award pentru VERSATIKA — singurul sistem de ușă din sticlă flush-to-wall de acest tip — este aplicată fiecărei componente feroviare VAGOTECH. Precizia nu este un departament. Este cultura.</p>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 10: PAȘI URMĂTORI ===== -->
+        <div class="slide slide-close">
+            <span class="slide-number" style="color:rgba(255,255,255,0.3);">10 / 10</span>
+            <div class="eyebrow">Începem</div>
+            <h2>Gata să Aprovizionezi cu Sticlă Feroviară Certificată?</h2>
+            <p class="close-sub">Livrare 4–6 săptămâni · EN 15152 / 15153 / 12600 · Certificat AFER · Producător direct</p>
+
+            <div class="steps" style="max-width: 760px; margin: 0 auto 40px;">
+                <div class="step-box">
+                    <div class="step-num">1</div>
+                    <div class="step-title" style="color:rgba(255,255,255,0.9);">Brief Tehnic</div>
+                    <div class="step-desc" style="color:rgba(255,255,255,0.55);">Trimiteți tipul vehiculului, dimensiunile sau referința de desen</div>
+                </div>
+                <div class="step-box">
+                    <div class="step-num">2</div>
+                    <div class="step-title" style="color:rgba(255,255,255,0.9);">Specificație + Ofertă</div>
+                    <div class="step-desc" style="color:rgba(255,255,255,0.55);">Răspundem în 24h cu spec, termen livrare și prețuri</div>
+                </div>
+                <div class="step-box">
+                    <div class="step-num">3</div>
+                    <div class="step-title" style="color:rgba(255,255,255,0.9);">Comandă Pilot</div>
+                    <div class="step-desc" style="color:rgba(255,255,255,0.55);">Începeți cu 5–20 unități. Validați calitatea și termenul</div>
+                </div>
+                <div class="step-box">
+                    <div class="step-num" style="background:#059669;">4</div>
+                    <div class="step-title" style="color:rgba(255,255,255,0.9);">Parteneriat Flotă</div>
+                    <div class="step-desc" style="color:rgba(255,255,255,0.55);">Acord de furnizare anual cu prețuri de volum și slot prioritar</div>
+                </div>
+            </div>
+
+            <div class="contact-box">
+                <p><strong>Glas Expert — Divizia VAGOTECH</strong></p>
+                <p>📍 Popești-Leordeni, România · Neubiberg, Germania</p>
+                <p>✉ <a href="mailto:office.us@xglass.eu"><strong>office.us@xglass.eu</strong></a> · <a href="https://xglass.eu"><strong>xglass.eu</strong></a></p>
+                <p style="margin-top:8px;font-size:13px;color:rgba(255,255,255,0.55);">Răspundem în 24 de ore. Ofertă fermă garantată.</p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
