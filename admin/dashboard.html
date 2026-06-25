@@ -452,6 +452,45 @@
         @keyframes slidein { from { transform: translateX(20px); opacity: 0; } to { transform: none; opacity: 1; } }
         .toast.ok { border-left-color: var(--green); }
 
+        /* ---------- Analytics tab ---------- */
+        .analytics-setup-banner { background: rgba(26,58,82,0.08); border: 1px solid rgba(26,58,82,0.2); border-radius: 8px; padding: 0.9rem 1.2rem; font-size: 0.84rem; color: #374151; margin-bottom: 1.5rem; }
+        .geo-flag { font-size: 1.1rem; }
+        .opp-badge-primary { background: #d1fae5; color: #065f46; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.7rem; font-weight: 700; }
+        .opp-badge-secondary { background: #dbeafe; color: #1e40af; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.7rem; font-weight: 700; }
+        .opp-badge-watch { background: #f3f4f6; color: #6b7280; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.7rem; font-weight: 700; }
+        .recent-visitors-table { font-size: 0.82rem; }
+        .section-interest-bar { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.6rem; }
+        .section-interest-bar .bar-label { width: 200px; font-size: 0.82rem; color: #374151; flex-shrink: 0; }
+        .section-interest-bar .bar-track { flex: 1; background: #f3f4f6; border-radius: 4px; height: 10px; }
+        .section-interest-bar .bar-fill { height: 10px; border-radius: 4px; background: var(--navy); }
+        .section-interest-bar .bar-pct { width: 40px; text-align: right; font-size: 0.8rem; font-weight: 600; color: var(--navy); }
+
+        /* Daily traffic bar chart (vertical mini-bars) */
+        .daily-chart { display: flex; align-items: flex-end; gap: 3px; height: 90px; padding-bottom: 0; }
+        .daily-bar { flex: 1; border-radius: 3px 3px 0 0; background: var(--navy); opacity: 0.78; min-width: 0; transition: opacity 0.15s; position: relative; cursor: default; }
+        .daily-bar:hover { opacity: 1; }
+        .daily-bar.weekend { background: var(--navy-2); opacity: 0.45; }
+        .daily-bar.today { background: var(--gold); opacity: 1; }
+
+        /* Donut traffic sources */
+        .traffic-donut-wrap { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+
+        /* Device bars */
+        .device-bar-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.55rem; }
+        .device-bar-row .dlabel { font-size: 0.84rem; width: 72px; flex-shrink: 0; font-weight: 600; color: var(--navy); }
+        .device-bar-row .dtrack { flex: 1; background: #f3f4f6; border-radius: 100px; height: 10px; overflow: hidden; }
+        .device-bar-row .dfill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--navy) 0%, var(--navy-2) 100%); transition: width 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .device-bar-row .dpct { font-size: 0.82rem; font-weight: 700; color: var(--navy); width: 38px; text-align: right; }
+
+        /* Two-col row */
+        .analytics-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+        @media (max-width: 860px) { .analytics-2col { grid-template-columns: 1fr; } }
+
+        /* Trend indicator */
+        .trend-up { color: var(--green); font-weight: 700; }
+        .trend-down { color: var(--red); font-weight: 700; }
+        .trend-flat { color: var(--text-faint); font-weight: 700; }
+
         /* ---------- Responsive ---------- */
         .backdrop { display: none; }
         @media (max-width: 1024px) {
@@ -502,6 +541,10 @@
             <button class="nav-item" data-tab="expansion" onclick="switchTab('expansion')">
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10A15 15 0 0 1 8 12a15 15 0 0 1 4-10z"/></svg>
                 Expansiune Business
+            </button>
+            <button class="nav-item" data-tab="analytics" onclick="switchTab('analytics')">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Trafic &amp; Analitics
             </button>
         </nav>
         <div class="sidebar-footer">
@@ -876,6 +919,310 @@
 
             </section>
 
+            <!-- ============================================================
+                 TAB 6 — TRAFIC & ANALITICS
+                 ============================================================ -->
+            <section class="panel" id="panel-analytics">
+                <div class="panel-head">
+                    <div>
+                        <h2>Trafic &amp; Analitics</h2>
+                        <p>Performanța site-ului vagotech.html &amp; glass-expert.us — ultimele 30 zile.</p>
+                    </div>
+                    <span class="badge badge-gold">Date simulate · Iunie 2026</span>
+                </div>
+
+                <!-- Setup banner -->
+                <div class="analytics-setup-banner">
+                    <strong>📊 Date simulate</strong> — Datele afișate sunt ilustrative.
+                    Pentru date reale, activați <strong>Cloudflare Web Analytics</strong> din Cloudflare Dashboard → Pages → glass-expert → Web Analytics.
+                    Gratuit, GDPR-compliant, fără cookies.
+                    <a href="https://dash.cloudflare.com" target="_blank" style="color: var(--gold)">→ Configurează acum</a>
+                </div>
+
+                <!-- A. KPI Strip -->
+                <div class="stat-grid">
+                    <div class="stat">
+                        <div class="label">Vizitatori Unici</div>
+                        <div class="value">847</div>
+                        <div class="delta up">▲ 23% vs luna trecută</div>
+                    </div>
+                    <div class="stat">
+                        <div class="label">Sesiuni Totale</div>
+                        <div class="value">1,284</div>
+                        <div class="delta up">▲ 18% MoM</div>
+                    </div>
+                    <div class="stat">
+                        <div class="label">Timp Mediu pe Pagină</div>
+                        <div class="value">3m 42s</div>
+                        <div class="delta up">▲ 0:24 vs medie</div>
+                    </div>
+                    <div class="stat">
+                        <div class="label">Rată Conversie</div>
+                        <div class="value">4.2%</div>
+                        <div class="delta up">▲ 0.8pp (formulare trimise)</div>
+                    </div>
+                </div>
+
+                <!-- B. Daily traffic bar chart -->
+                <div class="card" style="margin-bottom:1.5rem">
+                    <div class="card-head">
+                        <h3>Vizitatori Zilnici — Ultimele 30 Zile</h3>
+                        <span class="meta" id="analytics-daily-meta">—</span>
+                    </div>
+                    <div class="card-body" style="padding-bottom:0.6rem">
+                        <div id="daily-chart-wrap" class="daily-chart"></div>
+                        <div id="daily-chart-labels" style="display:flex;justify-content:space-between;margin-top:6px;font-size:0.7rem;color:var(--text-faint);padding:0 2px"></div>
+                    </div>
+                </div>
+
+                <!-- C. Two-col: Surse Trafic + Dispozitive -->
+                <div class="analytics-2col">
+                    <div class="card">
+                        <div class="card-head"><h3>Surse Trafic</h3><span class="meta">Ultimele 30 zile</span></div>
+                        <div class="card-body">
+                            <div class="traffic-donut-wrap">
+                                <div class="donut" id="traffic-source-donut" style="width:148px;height:148px">
+                                    <div class="center"><div class="big">1,284</div><div class="small">sesiuni</div></div>
+                                </div>
+                                <div class="legend">
+                                    <div class="legend-item"><span class="legend-swatch" style="background:#1a3a52"></span><span>Direct</span><span class="lv">38%</span></div>
+                                    <div class="legend-item"><span class="legend-swatch" style="background:#2f9e6f"></span><span>Organic Search</span><span class="lv">31%</span></div>
+                                    <div class="legend-item"><span class="legend-swatch" style="background:#c8a24b"></span><span>Referral</span><span class="lv">18%</span></div>
+                                    <div class="legend-item"><span class="legend-swatch" style="background:#2d6cb5"></span><span>Social (LinkedIn)</span><span class="lv">9%</span></div>
+                                    <div class="legend-item"><span class="legend-swatch" style="background:#d99a2b"></span><span>Email</span><span class="lv">4%</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-head"><h3>Dispozitive</h3><span class="meta">Distribuție sesiuni</span></div>
+                        <div class="card-body">
+                            <div style="margin-bottom:1rem">
+                                <div class="device-bar-row">
+                                    <div class="dlabel">💻 Desktop</div>
+                                    <div class="dtrack"><div class="dfill" id="dev-desktop" style="width:0%"></div></div>
+                                    <div class="dpct">62%</div>
+                                </div>
+                                <div class="device-bar-row">
+                                    <div class="dlabel">📱 Mobile</div>
+                                    <div class="dtrack"><div class="dfill" id="dev-mobile" style="width:0%;background:linear-gradient(90deg,var(--gold) 0%,var(--gold-soft) 100%)"></div></div>
+                                    <div class="dpct">31%</div>
+                                </div>
+                                <div class="device-bar-row">
+                                    <div class="dlabel">⬜ Tabletă</div>
+                                    <div class="dtrack"><div class="dfill" id="dev-tablet" style="width:0%;background:linear-gradient(90deg,var(--blue) 0%,#5a9fe0 100%)"></div></div>
+                                    <div class="dpct">7%</div>
+                                </div>
+                            </div>
+                            <div style="padding:0.75rem;background:var(--bg);border-radius:8px;font-size:0.82rem;color:var(--text-muted);line-height:1.5">
+                                <strong style="color:var(--navy)">Insight:</strong> 62% din trafic vine de pe desktop — audiența B2B profesională. Optimizați formularul de contact pentru mobile (31%).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- D. Top Pagini Accesate -->
+                <div class="card" style="margin-bottom:1.5rem">
+                    <div class="card-head"><h3>Top Pagini Accesate</h3><span class="meta">Ultimele 30 zile</span></div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pagină</th>
+                                    <th>Vizitatori</th>
+                                    <th>Timp Mediu</th>
+                                    <th>Bounce Rate</th>
+                                    <th>Trend</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="cell-company">/vagotech.html</span><div class="cell-sub">Landing principal VAGOTECH</div></td>
+                                    <td><strong style="color:var(--navy)">634</strong></td>
+                                    <td>4m 12s</td>
+                                    <td><span style="color:var(--green);font-weight:600">38%</span></td>
+                                    <td class="trend-up">▲</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="cell-company">/ (index)</span><div class="cell-sub">Homepage Glas Expert</div></td>
+                                    <td><strong style="color:var(--navy)">287</strong></td>
+                                    <td>2m 08s</td>
+                                    <td><span style="color:var(--amber);font-weight:600">52%</span></td>
+                                    <td class="trend-up">▲</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="cell-company">/vagotech.html#products</span><div class="cell-sub">Secțiunea produse (scroll)</div></td>
+                                    <td><strong style="color:var(--navy)">198</strong></td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                    <td class="trend-up">▲</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="cell-company">/commercial.html</span><div class="cell-sub">Real Estate Comercial</div></td>
+                                    <td><strong style="color:var(--navy)">89</strong></td>
+                                    <td>1m 44s</td>
+                                    <td><span style="color:var(--amber);font-weight:600">61%</span></td>
+                                    <td class="trend-flat">→</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="cell-company">/hospitality.html</span><div class="cell-sub">Hospitality &amp; Design</div></td>
+                                    <td><strong style="color:var(--navy)">47</strong></td>
+                                    <td>1m 22s</td>
+                                    <td><span style="color:var(--red);font-weight:600">67%</span></td>
+                                    <td class="trend-down">▼</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- E. Distribuție Geografică -->
+                <div class="card" style="margin-bottom:1.5rem">
+                    <div class="card-head"><h3>Distribuție Geografică</h3><span class="meta">Top Țări — Ultimele 30 Zile</span></div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Țară</th>
+                                    <th>Vizitatori</th>
+                                    <th>%</th>
+                                    <th>Sesiuni</th>
+                                    <th>Oportunitate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="geo-flag">🇷🇴</td>
+                                    <td class="cell-company">România</td>
+                                    <td><strong>312</strong></td>
+                                    <td>36.8%</td>
+                                    <td>489</td>
+                                    <td><span class="opp-badge-primary">PIAȚĂ PRIMARĂ</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="geo-flag">🇩🇪</td>
+                                    <td class="cell-company">Germania</td>
+                                    <td><strong>198</strong></td>
+                                    <td>23.4%</td>
+                                    <td>301</td>
+                                    <td><span class="opp-badge-primary">PIAȚĂ PRIMARĂ</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="geo-flag">🇺🇸</td>
+                                    <td class="cell-company">SUA</td>
+                                    <td><strong>87</strong></td>
+                                    <td>10.3%</td>
+                                    <td>124</td>
+                                    <td><span class="opp-badge-secondary">PIAȚĂ SECUNDARĂ</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="geo-flag">🇧🇪</td>
+                                    <td class="cell-company">Belgia</td>
+                                    <td><strong>43</strong></td>
+                                    <td>5.1%</td>
+                                    <td>61</td>
+                                    <td><span class="opp-badge-watch">MONITORIZARE</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="geo-flag">🇫🇷</td>
+                                    <td class="cell-company">Franța</td>
+                                    <td><strong>38</strong></td>
+                                    <td>4.5%</td>
+                                    <td>54</td>
+                                    <td><span class="opp-badge-watch">MONITORIZARE</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="geo-flag">🇬🇧</td>
+                                    <td class="cell-company">UK</td>
+                                    <td><strong>29</strong></td>
+                                    <td>3.4%</td>
+                                    <td>41</td>
+                                    <td><span class="opp-badge-watch">MONITORIZARE</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="geo-flag">🇵🇱</td>
+                                    <td class="cell-company">Polonia</td>
+                                    <td><strong>22</strong></td>
+                                    <td>2.6%</td>
+                                    <td>31</td>
+                                    <td><span class="opp-badge-watch">MONITORIZARE</span></td>
+                                </tr>
+                                <tr>
+                                    <td>—</td>
+                                    <td style="color:var(--text-muted)">Altele</td>
+                                    <td><strong>118</strong></td>
+                                    <td>13.9%</td>
+                                    <td>183</td>
+                                    <td>—</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- F. Vizitatori Recenți + G. Interes Secțiuni (2 col) -->
+                <div class="analytics-2col">
+                    <div class="card">
+                        <div class="card-head"><h3>Vizitatori Recenți</h3><span class="meta" id="visitors-feed-meta">—</span></div>
+                        <div class="table-wrap">
+                            <table class="recent-visitors-table">
+                                <thead>
+                                    <tr>
+                                        <th>Ora</th>
+                                        <th>IP</th>
+                                        <th>Locație</th>
+                                        <th>Pagină</th>
+                                        <th>Durată</th>
+                                        <th>Disp.</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-visitors-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-head"><h3>Interes pe Secțiuni</h3><span class="meta">vagotech.html — scroll engagement</span></div>
+                        <div class="card-body">
+                            <div class="section-interest-bar">
+                                <div class="bar-label">Hero + Intro</div>
+                                <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+                                <div class="bar-pct">100%</div>
+                            </div>
+                            <div class="section-interest-bar">
+                                <div class="bar-label">Produse</div>
+                                <div class="bar-track"><div class="bar-fill" style="width:78%"></div></div>
+                                <div class="bar-pct">78%</div>
+                            </div>
+                            <div class="section-interest-bar">
+                                <div class="bar-label">Comparație furnizori</div>
+                                <div class="bar-track"><div class="bar-fill" style="width:61%"></div></div>
+                                <div class="bar-pct">61%</div>
+                            </div>
+                            <div class="section-interest-bar">
+                                <div class="bar-label">Credențiale</div>
+                                <div class="bar-track"><div class="bar-fill" style="width:54%"></div></div>
+                                <div class="bar-pct">54%</div>
+                            </div>
+                            <div class="section-interest-bar">
+                                <div class="bar-label">Conformitate &amp; Standarde</div>
+                                <div class="bar-track"><div class="bar-fill" style="width:43%"></div></div>
+                                <div class="bar-pct">43%</div>
+                            </div>
+                            <div class="section-interest-bar">
+                                <div class="bar-label">Contact / Formular</div>
+                                <div class="bar-track"><div class="bar-fill" style="width:31%;background:var(--gold)"></div></div>
+                                <div class="bar-pct" style="color:var(--gold)">31%</div>
+                            </div>
+                            <div style="margin-top:1rem;padding:0.75rem;background:var(--gold-bg);border-radius:8px;border-left:3px solid var(--gold);font-size:0.8rem;color:var(--text-muted)">
+                                <strong style="color:var(--navy)">31% ajung la formular</strong> — aceștia sunt lead-uri potențiale. Optimizați CTA-ul pentru conversie mai mare.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
         </main>
     </div>
 </div>
@@ -977,7 +1324,7 @@ function toast(msg, type){
 /* ============================================================
    TAB NAVIGATION
    ============================================================ */
-const TAB_TITLES = { leads:'Bază de Clienți', market:'Analiză de Piață', pricing:'Calculator Prețuri', campaigns:'Campanii Email', expansion:'Expansiune Business' };
+const TAB_TITLES = { leads:'Bază de Clienți', market:'Analiză de Piață', pricing:'Calculator Prețuri', campaigns:'Campanii Email', expansion:'Expansiune Business', analytics:'Trafic & Analitics' };
 
 /* ============================================================
    EXPANSION DATA — sourced from docs/vagotech-market-analysis.md
@@ -1033,6 +1380,7 @@ function switchTab(tab){
     toggleSidebar(false);
     if (tab === 'market') animateBars();
     if (tab === 'pricing') recalc();
+    if (tab === 'analytics') renderAnalytics();
 }
 function toggleSidebar(open){
     const sb = $('sidebar'), bd = $('backdrop');
@@ -1421,6 +1769,114 @@ function renderExpansion(){
             <div style="padding:0.85rem 1rem;flex:1;font-size:0.85rem;color:var(--text)">${esc(a.action)}</div>
             <div style="padding:0.85rem 1rem;font-size:0.78rem;color:var(--text-muted);white-space:nowrap">${esc(a.owner)}</div>
         </div>`).join('');
+}
+
+/* ============================================================
+   TAB 6 — ANALYTICS
+   ============================================================ */
+let analyticsRendered = false;
+
+function generateDailyTraffic(){
+    // 30 days ending today (June 25, 2026). Weekday peaks ~30-80, weekends ~15-40.
+    const data = [];
+    const today = new Date('2026-06-25');
+    for (let i = 29; i >= 0; i--){
+        const d = new Date(today);
+        d.setDate(today.getDate() - i);
+        const dow = d.getDay(); // 0=Sun,6=Sat
+        const isWeekend = (dow === 0 || dow === 6);
+        const base = isWeekend ? 22 : 48;
+        const jitter = Math.floor(Math.sin(i * 2.7) * 14 + Math.cos(i * 1.3) * 8 + (i % 3 === 0 ? 12 : 0));
+        const val = Math.max(8, base + jitter + Math.floor(Math.random ? 0 : 0));
+        // Deterministic noise using day index to avoid random on each render
+        const noise = ((i * 17 + 7) % 20) - 10;
+        data.push({ val: Math.max(8, base + noise), isWeekend, isToday: i === 0, day: d });
+    }
+    return data;
+}
+
+const DAILY_DATA = generateDailyTraffic();
+
+const VISITOR_FEED_DATA = [
+    { time:'14:32', ip:'86.120.xxx.xxx', loc:'București, RO 🇷🇴', page:'/vagotech.html', dur:'5m 23s', dev:'💻' },
+    { time:'14:18', ip:'91.224.xxx.xxx', loc:'Hamburg, DE 🇩🇪', page:'/vagotech.html', dur:'3m 44s', dev:'💻' },
+    { time:'14:05', ip:'86.125.xxx.xxx', loc:'Cluj-Napoca, RO 🇷🇴', page:'/vagotech.html#products', dur:'2m 11s', dev:'📱' },
+    { time:'13:57', ip:'212.95.xxx.xxx', loc:'München, DE 🇩🇪', page:'/vagotech.html', dur:'6m 02s', dev:'💻' },
+    { time:'13:44', ip:'188.24.xxx.xxx', loc:'Timișoara, RO 🇷🇴', page:'/', dur:'1m 38s', dev:'📱' },
+    { time:'13:31', ip:'217.172.xxx.xxx', loc:'Berlin, DE 🇩🇪', page:'/commercial.html', dur:'2m 55s', dev:'💻' },
+    { time:'13:22', ip:'86.122.xxx.xxx', loc:'Iași, RO 🇷🇴', page:'/vagotech.html', dur:'4m 18s', dev:'💻' },
+    { time:'13:08', ip:'23.105.xxx.xxx', loc:'New York, US 🇺🇸', page:'/vagotech.html', dur:'3m 07s', dev:'💻' },
+    { time:'12:55', ip:'91.187.xxx.xxx', loc:'Frankfurt, DE 🇩🇪', page:'/vagotech.html#products', dur:'1m 52s', dev:'⬜' },
+    { time:'12:43', ip:'86.120.xxx.xxx', loc:'București, RO 🇷🇴', page:'/', dur:'0m 58s', dev:'📱' },
+    { time:'12:31', ip:'195.137.xxx.xxx', loc:'Bruxelles, BE 🇧🇪', page:'/vagotech.html', dur:'4m 44s', dev:'💻' },
+    { time:'12:17', ip:'81.180.xxx.xxx', loc:'Paris, FR 🇫🇷', page:'/hospitality.html', dur:'1m 14s', dev:'📱' },
+    { time:'12:03', ip:'91.224.xxx.xxx', loc:'Düsseldorf, DE 🇩🇪', page:'/vagotech.html', dur:'7m 09s', dev:'💻' },
+    { time:'11:49', ip:'86.127.xxx.xxx', loc:'Brașov, RO 🇷🇴', page:'/vagotech.html#products', dur:'3m 28s', dev:'💻' },
+    { time:'11:38', ip:'78.96.xxx.xxx', loc:'Londra, UK 🇬🇧', page:'/commercial.html', dur:'2m 01s', dev:'📱' },
+];
+
+function renderAnalytics(){
+    if (analyticsRendered) return;
+    analyticsRendered = true;
+
+    // --- Traffic source donut ---
+    const srcStops = [
+        { pct:38, color:'#1a3a52' },   // Direct
+        { pct:31, color:'#2f9e6f' },   // Organic
+        { pct:18, color:'#c8a24b' },   // Referral
+        { pct: 9, color:'#2d6cb5' },   // Social
+        { pct: 4, color:'#d99a2b' },   // Email
+    ];
+    let srcAcc = 0;
+    const srcGrad = srcStops.map(s => {
+        const start = srcAcc / 100 * 360;
+        srcAcc += s.pct;
+        const end = srcAcc / 100 * 360;
+        return `${s.color} ${start.toFixed(1)}deg ${end.toFixed(1)}deg`;
+    }).join(', ');
+    $('traffic-source-donut').style.background = `conic-gradient(${srcGrad})`;
+
+    // --- Device bars ---
+    requestAnimationFrame(() => {
+        $('dev-desktop').style.width = '62%';
+        $('dev-mobile').style.width = '31%';
+        $('dev-tablet').style.width = '7%';
+    });
+
+    // --- Daily traffic bar chart ---
+    const maxVal = Math.max(...DAILY_DATA.map(d => d.val));
+    const wrap = $('daily-chart-wrap');
+    const labelsEl = $('daily-chart-labels');
+    const total30 = DAILY_DATA.reduce((s, d) => s + d.val, 0);
+    $('analytics-daily-meta').textContent = total30 + ' vizitatori total';
+
+    wrap.innerHTML = DAILY_DATA.map((d, i) => {
+        const pct = (d.val / maxVal * 100).toFixed(1);
+        const cls = d.isToday ? 'today' : (d.isWeekend ? 'weekend' : '');
+        const dd = String(d.day.getDate()).padStart(2,'0');
+        const mm = String(d.day.getMonth() + 1).padStart(2,'0');
+        return `<div class="daily-bar ${cls}" title="${dd}.${mm}: ${d.val} vizitatori" style="height:${pct}%"></div>`;
+    }).join('');
+
+    // Labels every 5 days
+    const labelItems = DAILY_DATA.filter((_, i) => i % 5 === 0 || i === 29);
+    labelsEl.innerHTML = labelItems.map(d => {
+        const dd = String(d.day.getDate()).padStart(2,'0');
+        const mm = String(d.day.getMonth() + 1).padStart(2,'0');
+        return `<span>${dd}.${mm}</span>`;
+    }).join('');
+
+    // --- Recent visitors ---
+    $('visitors-feed-meta').textContent = 'Azi, ' + VISITOR_FEED_DATA.length + ' intrări';
+    $('recent-visitors-tbody').innerHTML = VISITOR_FEED_DATA.map(v => `
+        <tr>
+            <td style="font-size:0.78rem;color:var(--text-muted);white-space:nowrap">${esc(v.time)}</td>
+            <td style="font-size:0.77rem;color:var(--text-faint);font-family:monospace">${esc(v.ip)}</td>
+            <td style="font-size:0.78rem;white-space:nowrap">${esc(v.loc)}</td>
+            <td style="font-size:0.77rem;color:var(--blue);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(v.page)}</td>
+            <td style="font-size:0.78rem;color:var(--text-muted);white-space:nowrap">${esc(v.dur)}</td>
+            <td style="text-align:center">${esc(v.dev)}</td>
+        </tr>`).join('');
 }
 
 /* ============================================================
