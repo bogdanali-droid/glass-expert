@@ -14,6 +14,14 @@ binding = "VAGOTECH_DB"
 database_name = "vagotech_analytics"
 database_id = "e0d9934c-2e9e-4f9c-88b8-83bc679d16dc"
 
+# D1 Database Binding for Glass Expert CRM
+# IMPORTANT: Înlocuiește database_id cu ID-ul real după ce creezi DB-ul în Cloudflare Dashboard
+# Dashboard → Workers & Pages → D1 → Create database (name: glas-expert-crm)
+[[d1_databases]]
+binding = "DB"
+database_name = "glas-expert-crm"
+database_id = "REPLACE_WITH_REAL_DATABASE_ID"
+
 # Environment Variables
 [env.production.vars]
 ANALYTICS_ENABLED = "true"
