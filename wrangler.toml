@@ -20,7 +20,7 @@ database_id = "e0d9934c-2e9e-4f9c-88b8-83bc679d16dc"
 [[d1_databases]]
 binding = "DB"
 database_name = "glas-expert-crm"
-database_id = "REPLACE_WITH_REAL_DATABASE_ID"
+database_id = "c3af7e2d-326e-4f05-9b74-92fc42cd0241"
 
 # Environment Variables
 [env.production.vars]
