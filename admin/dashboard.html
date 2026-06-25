@@ -546,6 +546,10 @@
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                 Trafic &amp; Analitics
             </button>
+            <button class="nav-item" data-tab="ofertare" onclick="switchTab('ofertare')">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                Generare Oferte
+            </button>
         </nav>
         <div class="sidebar-footer">
             <strong>Glas Expert</strong><br>
@@ -1223,6 +1227,219 @@
 
             </section>
 
+            <!-- ============================================================
+                 TAB 7 — GENERARE OFERTE
+                 ============================================================ -->
+            <section class="panel" id="panel-ofertare">
+                <div class="panel-head">
+                    <div>
+                        <h2>Generare Oferte</h2>
+                        <p class="panel-sub">Configurează și generează oferte comerciale pentru clienți feroviari</p>
+                    </div>
+                    <div style="display:flex;gap:8px">
+                        <button class="btn btn-ghost" onclick="resetOferta()">Resetează</button>
+                        <button class="btn btn-primary" onclick="previewOferta()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            Previzualizează &amp; Printează
+                        </button>
+                    </div>
+                </div>
+
+                <style>
+                    .oferta-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; }
+                    @media(max-width:900px){ .oferta-grid { grid-template-columns:1fr; } }
+                    .oferta-card { background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); padding:20px; }
+                    .oferta-card h4 { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--navy-2); margin-bottom:14px; }
+                    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+                    .form-row.full { grid-template-columns:1fr; }
+                    label.field-label { font-size:11px; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px; }
+                    input.field, select.field, textarea.field {
+                        width:100%; padding:8px 10px; border:1px solid var(--border);
+                        border-radius:6px; font-size:13px; color:var(--text);
+                        background:var(--bg); transition:border .15s;
+                    }
+                    input.field:focus, select.field:focus, textarea.field:focus {
+                        outline:none; border-color:var(--navy-2); background:white;
+                    }
+                    textarea.field { resize:vertical; min-height:60px; }
+
+                    .prod-table { width:100%; border-collapse:collapse; }
+                    .prod-table thead th {
+                        background:var(--navy); color:white; padding:9px 10px;
+                        font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+                        text-align:left;
+                    }
+                    .prod-table thead th:last-child, .prod-table td:last-child { text-align:right; }
+                    .prod-table thead th:nth-child(3), .prod-table td:nth-child(3) { text-align:center; }
+                    .prod-table tbody tr:nth-child(even) td { background:#f8fafc; }
+                    .prod-table td { padding:10px; font-size:13px; border-bottom:1px solid var(--border); vertical-align:middle; }
+                    .prod-table td .prod-name { font-weight:600; color:var(--navy); display:block; }
+                    .prod-table td .prod-sub { font-size:11px; color:var(--text-faint); }
+                    .prod-table input[type=number] {
+                        width:70px; padding:5px 8px; border:1px solid var(--border);
+                        border-radius:4px; font-size:13px; text-align:center;
+                    }
+                    .prod-table .price-in { width:90px; padding:5px 8px; border:1px solid var(--border); border-radius:4px; font-size:13px; text-align:right; }
+                    .prod-table .row-total { font-weight:700; color:var(--navy); }
+                    .prod-table input[type=checkbox] { width:16px; height:16px; accent-color:var(--navy); cursor:pointer; }
+
+                    .totals-panel { background:linear-gradient(135deg,#f0f6ff,#e8f0ff); border:1px solid #c7d9f5; border-radius:var(--radius); padding:20px; }
+                    .totals-panel h4 { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--blue); margin-bottom:14px; }
+                    .totals-row { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid rgba(0,0,0,.06); font-size:14px; color:var(--text); }
+                    .totals-row:last-child { border-bottom:none; }
+                    .totals-row.grand { font-size:20px; font-weight:800; color:var(--navy); border-top:2px solid var(--navy-2); padding-top:12px; margin-top:4px; }
+                    .totals-row span { font-weight:600; }
+                    .totals-row.grand span { color:var(--gold); font-size:22px; }
+                    .discount-badge { display:inline-block; background:#dcfce7; color:#166534; font-size:11px; font-weight:700; padding:2px 8px; border-radius:100px; }
+
+                    .oferta-preview-wrap { display:none; }
+                    .oferta-print-content {
+                        font-family:'Segoe UI',system-ui,sans-serif;
+                        max-width:900px; margin:0 auto; padding:0;
+                    }
+                </style>
+
+                <!-- CLIENT & PROJECT DETAILS -->
+                <div class="oferta-grid">
+                    <div class="oferta-card">
+                        <h4>Date Client</h4>
+                        <div class="form-row">
+                            <div>
+                                <label class="field-label">Companie Client</label>
+                                <input class="field" id="of-company" type="text" placeholder="ex. CFR SA, STB, Operatorul X">
+                            </div>
+                            <div>
+                                <label class="field-label">Persoană Contact</label>
+                                <input class="field" id="of-contact" type="text" placeholder="Nume prenume">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div>
+                                <label class="field-label">Email</label>
+                                <input class="field" id="of-email" type="email" placeholder="email@companie.ro">
+                            </div>
+                            <div>
+                                <label class="field-label">Telefon</label>
+                                <input class="field" id="of-phone" type="text" placeholder="+40...">
+                            </div>
+                        </div>
+                        <div class="form-row full">
+                            <div>
+                                <label class="field-label">Proiect / Referință Flotă</label>
+                                <input class="field" id="of-project" type="text" placeholder="ex. Refurbishing Desiro SR20D — 12 unități">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oferta-card">
+                        <h4>Configurare Ofertă</h4>
+                        <div class="form-row">
+                            <div>
+                                <label class="field-label">Număr Ofertă</label>
+                                <input class="field" id="of-num" type="text" placeholder="auto">
+                            </div>
+                            <div>
+                                <label class="field-label">Data Ofertei</label>
+                                <input class="field" id="of-date" type="date">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div>
+                                <label class="field-label">Valabilitate</label>
+                                <select class="field" id="of-validity">
+                                    <option value="30">30 de zile</option>
+                                    <option value="45">45 de zile</option>
+                                    <option value="60">60 de zile</option>
+                                    <option value="90">90 de zile</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="field-label">Tip Contract</label>
+                                <select class="field" id="of-contract" onchange="recalcOferta()">
+                                    <option value="order">Per Comandă (EXW)</option>
+                                    <option value="annual">Contract Cadru Anual</option>
+                                    <option value="maintenance">Mentenanță Flotă</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div>
+                                <label class="field-label">Reducere Volum</label>
+                                <select class="field" id="of-discount" onchange="recalcOferta()">
+                                    <option value="0">Fără reducere (1–10 buc)</option>
+                                    <option value="8">– 8% (11–50 buc)</option>
+                                    <option value="15">– 15% (51–150 buc)</option>
+                                    <option value="20">– 20% (151–300 buc)</option>
+                                    <option value="custom">Personalizat…</option>
+                                </select>
+                            </div>
+                            <div id="of-custom-disc-wrap" style="display:none">
+                                <label class="field-label">Reducere % personalizată</label>
+                                <input class="field" id="of-custom-disc" type="number" min="0" max="50" placeholder="ex. 12" oninput="recalcOferta()">
+                            </div>
+                            <div>
+                                <label class="field-label">Include TVA (19%)</label>
+                                <select class="field" id="of-tva" onchange="recalcOferta()">
+                                    <option value="yes">Da — afișează cu TVA</option>
+                                    <option value="no">Nu — prețuri fără TVA</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row full">
+                            <div>
+                                <label class="field-label">Note / Condiții Speciale</label>
+                                <textarea class="field" id="of-notes" placeholder="ex. Livrare urgentă +40%, montaj inclus, etc."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PRODUCTS TABLE -->
+                <div class="oferta-card" style="margin-bottom:20px">
+                    <h4>Produse & Servicii</h4>
+                    <table class="prod-table" id="of-products-table">
+                        <thead>
+                            <tr>
+                                <th style="width:32px"></th>
+                                <th>Produs / Specificație</th>
+                                <th style="width:80px">Cant.</th>
+                                <th style="width:100px">Preț Unit. €</th>
+                                <th style="width:110px">Total €</th>
+                            </tr>
+                        </thead>
+                        <tbody id="of-products-tbody">
+                            <!-- Rows generated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- TOTALS + SUMMARY -->
+                <div class="oferta-grid">
+                    <div class="totals-panel">
+                        <h4>Sumar Financiar</h4>
+                        <div class="totals-row">Subtotal (fără reducere) <span id="of-subtotal">€ 0,00</span></div>
+                        <div class="totals-row">Reducere volum (<span id="of-disc-pct">0</span>%) <span id="of-disc-val" style="color:var(--green)">– € 0,00</span></div>
+                        <div class="totals-row">Bază impozabilă <span id="of-base">€ 0,00</span></div>
+                        <div class="totals-row" id="of-tva-row">TVA 19% <span id="of-tva-val">€ 0,00</span></div>
+                        <div class="totals-row grand">TOTAL DE PLATĂ <span id="of-total">€ 0,00</span></div>
+                    </div>
+
+                    <div class="oferta-card" style="display:flex;flex-direction:column;gap:10px">
+                        <h4>Termeni Livrare</h4>
+                        <div style="font-size:13px;color:var(--text-muted);line-height:1.7" id="of-terms-text">
+                            Selectează tipul de contract pentru a vedea termenii standard.
+                        </div>
+                        <div style="margin-top:auto;display:flex;gap:8px;flex-wrap:wrap">
+                            <button class="btn btn-ghost" style="font-size:12px" onclick="copyOfertaText()">📋 Copiază rezumat</button>
+                            <button class="btn btn-primary" onclick="previewOferta()" style="flex:1">
+                                🖨️ Print / PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
         </main>
     </div>
 </div>
@@ -1324,7 +1541,7 @@ function toast(msg, type){
 /* ============================================================
    TAB NAVIGATION
    ============================================================ */
-const TAB_TITLES = { leads:'Bază de Clienți', market:'Analiză de Piață', pricing:'Calculator Prețuri', campaigns:'Campanii Email', expansion:'Expansiune Business', analytics:'Trafic & Analitics' };
+const TAB_TITLES = { leads:'Bază de Clienți', market:'Analiză de Piață', pricing:'Calculator Prețuri', campaigns:'Campanii Email', expansion:'Expansiune Business', analytics:'Trafic & Analitics', ofertare:'Generare Oferte' };
 
 /* ============================================================
    EXPANSION DATA — sourced from docs/vagotech-market-analysis.md
@@ -1381,6 +1598,7 @@ function switchTab(tab){
     if (tab === 'market') animateBars();
     if (tab === 'pricing') recalc();
     if (tab === 'analytics') renderAnalytics();
+    if (tab === 'ofertare') initOfertare();
 }
 function toggleSidebar(open){
     const sb = $('sidebar'), bd = $('backdrop');
@@ -1893,6 +2111,270 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
     renderCampaigns();
     renderExpansion();
 })();
+
+/* ============================================================
+   TAB 7 — GENERARE OFERTE
+   ============================================================ */
+const OFERTA_PRODUCTS = [
+    { id:'gf-std',   name:'Geam Frontal Standard',       desc:'Laminat 2-strat, plat, fără încălzire — 900×600mm',       unit:'buc', price:960 },
+    { id:'gf-curb',  name:'Geam Frontal Curbat',         desc:'Laminat curbat, profilat cabină — 1000×700mm',             unit:'buc', price:1500 },
+    { id:'gf-heat',  name:'Geam Frontal cu Dezgivraj',   desc:'Rezistență electrică integrată (heating wire)',            unit:'buc', price:2000 },
+    { id:'gf-desiro',name:'Geam Frontal Desiro/EMU',     desc:'Curbat dublu, antireflex, heating, AFER — pe comandă',    unit:'buc', price:2600 },
+    { id:'gl-fix',   name:'Geam Lateral Fix — Pasageri', desc:'Laminat, montaj înecat în caroserie — 700×600mm',         unit:'buc', price:350 },
+    { id:'gl-bat',   name:'Geam Lateral Batant/Glisant', desc:'Cu profil etanșare, rezistent vibrații — 600×500mm',      unit:'buc', price:475 },
+    { id:'gu-acces', name:'Geam Ușă Acces Pasageri',     desc:'Laminat rezistent impact, vizibilitate max — 1400×500mm', unit:'buc', price:675 },
+    { id:'gu-panel', name:'Panou Ușă cu Geam Integral',  desc:'Ansamblu complet ușă — 1800×700mm',                       unit:'buc', price:1075 },
+    { id:'gi-std',   name:'Partiție Interioară Standard',desc:'Laminat clar 2×3mm',                                      unit:'m²',  price:78 },
+    { id:'gi-frost', name:'Partiție Frosted/Privacy',    desc:'Satinat sau imprimat ceramic parțial',                    unit:'m²',  price:108 },
+    { id:'gi-print', name:'Geam EVOPRINT Ceramic',       desc:'Imprimare digitală full-color, personalizabil',            unit:'m²',  price:160 },
+];
+
+const CONTRACT_TERMS = {
+    order: `<strong>Per Comandă (EXW):</strong> 50% avans la confirmare, 50% la livrare. Termen livrare: 4–6 săptămâni. Baza prețuri: EXW Popești-Leordeni.`,
+    annual: `<strong>Contract Cadru Anual:</strong> Volum minim €30.000/an sau 50+ buc. Prețuri fixate 12 luni. Livrare prioritară 3–4 săptămâni. Plată 30 zile net.`,
+    maintenance: `<strong>Mentenanță Flotă:</strong> Contract 3–5 ani. Stoc dedicat. Intervenție reactivă ≤ 48 ore. Rapoarte tehnice trimestriale. Plată lunară/trimestrială.`
+};
+
+let ofertaInit = false;
+
+function initOfertare() {
+    if (ofertaInit) return;
+    ofertaInit = true;
+
+    // set today date
+    const today = new Date();
+    $('of-date').value = today.toISOString().slice(0,10);
+
+    // generate offer number
+    const num = 'VGT-' + today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + String(today.getDate()).padStart(2,'0') + '-' + Math.floor(Math.random()*900+100);
+    $('of-num').value = num;
+
+    // build products table
+    const tbody = $('of-products-tbody');
+    tbody.innerHTML = '';
+    OFERTA_PRODUCTS.forEach((p, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><input type="checkbox" id="chk-${p.id}" onchange="recalcOferta()"></td>
+            <td>
+                <span class="prod-name">${p.name}</span>
+                <span class="prod-sub">${p.desc}</span>
+            </td>
+            <td style="text-align:center">
+                <input type="number" id="qty-${p.id}" value="1" min="1" max="9999" oninput="recalcOferta()" disabled>
+                <div style="font-size:10px;color:var(--text-faint);margin-top:2px">${p.unit}</div>
+            </td>
+            <td>
+                <input class="price-in" type="number" id="prc-${p.id}" value="${p.price}" min="0" step="10" oninput="recalcOferta()">
+            </td>
+            <td class="row-total" id="row-total-${p.id}" style="text-align:right">—</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    // enable qty when checked
+    OFERTA_PRODUCTS.forEach(p => {
+        const chk = $('chk-' + p.id);
+        const qty = $('qty-' + p.id);
+        chk.addEventListener('change', () => { qty.disabled = !chk.checked; recalcOferta(); });
+    });
+
+    // discount custom field
+    $('of-discount').addEventListener('change', function(){
+        $('of-custom-disc-wrap').style.display = this.value === 'custom' ? 'block' : 'none';
+        recalcOferta();
+    });
+
+    // contract terms
+    $('of-contract').addEventListener('change', updateContractTerms);
+    updateContractTerms();
+
+    recalcOferta();
+}
+
+function updateContractTerms(){
+    const ct = $('of-contract').value;
+    $('of-terms-text').innerHTML = CONTRACT_TERMS[ct] + `<br><br><em style="font-size:11px;color:var(--text-faint)">Garanție produs: 24 luni de la livrare. Documentație AFER inclusă.</em>`;
+}
+
+function recalcOferta(){
+    let subtotal = 0;
+    OFERTA_PRODUCTS.forEach(p => {
+        const chk = $('chk-' + p.id);
+        const qty = parseFloat($('qty-' + p.id)?.value) || 0;
+        const prc = parseFloat($('prc-' + p.id)?.value) || 0;
+        const rowTotal = chk && chk.checked ? qty * prc : 0;
+        const cell = $('row-total-' + p.id);
+        if (cell) cell.textContent = chk && chk.checked ? '€ ' + rowTotal.toLocaleString('ro-RO',{minimumFractionDigits:2,maximumFractionDigits:2}) : '—';
+        subtotal += rowTotal;
+    });
+
+    const discSel = $('of-discount').value;
+    let discPct = discSel === 'custom' ? (parseFloat($('of-custom-disc')?.value) || 0) : parseFloat(discSel);
+    const discVal = subtotal * discPct / 100;
+    const base = subtotal - discVal;
+    const tvaInclude = $('of-tva')?.value === 'yes';
+    const tvaVal = tvaInclude ? base * 0.19 : 0;
+    const total = base + tvaVal;
+
+    $('of-subtotal').textContent = '€ ' + subtotal.toLocaleString('ro-RO',{minimumFractionDigits:2,maximumFractionDigits:2});
+    $('of-disc-pct').textContent = discPct;
+    $('of-disc-val').textContent = '– € ' + discVal.toLocaleString('ro-RO',{minimumFractionDigits:2,maximumFractionDigits:2});
+    $('of-base').textContent = '€ ' + base.toLocaleString('ro-RO',{minimumFractionDigits:2,maximumFractionDigits:2});
+    $('of-tva-val').textContent = '€ ' + tvaVal.toLocaleString('ro-RO',{minimumFractionDigits:2,maximumFractionDigits:2});
+    $('of-tva-row').style.display = tvaInclude ? 'flex' : 'none';
+    $('of-total').textContent = '€ ' + total.toLocaleString('ro-RO',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+function resetOferta(){
+    OFERTA_PRODUCTS.forEach(p => {
+        const chk = $('chk-' + p.id);
+        const qty = $('qty-' + p.id);
+        const prc = $('prc-' + p.id);
+        if(chk){ chk.checked = false; }
+        if(qty){ qty.value = 1; qty.disabled = true; }
+        if(prc){ prc.value = p.price; }
+        const cell = $('row-total-' + p.id);
+        if(cell) cell.textContent = '—';
+    });
+    recalcOferta();
+    showToast('Ofertă resetată.','info');
+}
+
+function copyOfertaText(){
+    const company = $('of-company').value || '—';
+    const project = $('of-project').value || '—';
+    const total = $('of-total').textContent;
+    const lines = [`OFERTĂ VAGOTECH — ${company}\nProiect: ${project}\n`];
+    OFERTA_PRODUCTS.forEach(p => {
+        const chk = $('chk-' + p.id);
+        if(chk && chk.checked){
+            const qty = $('qty-' + p.id).value;
+            const prc = $('prc-' + p.id).value;
+            lines.push(`• ${p.name}: ${qty} ${p.unit} × €${prc}`);
+        }
+    });
+    lines.push(`\nTOTAL: ${total}`);
+    navigator.clipboard.writeText(lines.join('\n')).then(() => showToast('Rezumat copiat în clipboard!','success'));
+}
+
+function previewOferta(){
+    const company = $('of-company').value || 'Client';
+    const contact = $('of-contact').value || '';
+    const ofNum = $('of-num').value;
+    const ofDate = $('of-date').value;
+    const validity = $('of-validity').value;
+    const project = $('of-project').value || '';
+    const notes = $('of-notes').value || '';
+    const discPct = $('of-disc-pct').textContent;
+    const contractType = {'order':'Per Comandă (EXW)','annual':'Contract Cadru Anual','maintenance':'Mentenanță Flotă'}[$('of-contract').value];
+    const tvaInclude = $('of-tva').value === 'yes';
+
+    let rows = '';
+    let subtotal = 0;
+    OFERTA_PRODUCTS.forEach(p => {
+        const chk = $('chk-' + p.id);
+        if(chk && chk.checked){
+            const qty = parseFloat($('qty-' + p.id).value) || 0;
+            const prc = parseFloat($('prc-' + p.id).value) || 0;
+            const rt = qty * prc;
+            subtotal += rt;
+            rows += `<tr>
+                <td>${p.name}<br><small style="color:#94a3b8">${p.desc}</small></td>
+                <td style="text-align:center">${qty} ${p.unit}</td>
+                <td style="text-align:right">€ ${prc.toLocaleString('ro-RO',{minimumFractionDigits:2})}</td>
+                <td style="text-align:right;font-weight:700">€ ${rt.toLocaleString('ro-RO',{minimumFractionDigits:2})}</td>
+            </tr>`;
+        }
+    });
+    if(!rows){ showToast('Selectează cel puțin un produs!','error'); return; }
+
+    const discVal = subtotal * parseFloat(discPct) / 100;
+    const base = subtotal - discVal;
+    const tvaVal = tvaInclude ? base * 0.19 : 0;
+    const total = base + tvaVal;
+    const fmt = v => '€ ' + v.toLocaleString('ro-RO',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+    const html = `<!DOCTYPE html><html lang="ro"><head><meta charset="UTF-8">
+<title>Ofertă ${ofNum} — VAGOTECH</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:#1a1a1a;background:white;padding:40px}
+.header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;padding-bottom:24px;border-bottom:3px solid #1a3a52}
+.logo{font-size:28px;font-weight:900;color:#1a3a52;letter-spacing:-1px}
+.logo span{color:#0066cc}
+.logo-sub{font-size:12px;color:#94a3b8;letter-spacing:.05em;margin-top:2px}
+.meta{text-align:right;font-size:13px;color:#64748b}
+.meta strong{color:#1a3a52;font-size:15px}
+h2{font-size:22px;font-weight:800;color:#1a3a52;margin-bottom:20px}
+.client-box{background:#f8fafc;border-radius:8px;padding:16px 20px;margin-bottom:24px;border-left:4px solid #0066cc}
+.client-box h4{font-size:11px;color:#94a3b8;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+table{width:100%;border-collapse:collapse;margin-bottom:20px}
+th{background:#1a3a52;color:white;padding:10px 12px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-align:left}
+th:last-child,td:last-child{text-align:right}
+th:nth-child(2),td:nth-child(2){text-align:center}
+td{padding:11px 12px;font-size:13px;border-bottom:1px solid #e2e8f0;vertical-align:top}
+tr:nth-child(even) td{background:#f8fafc}
+.totals{max-width:380px;margin-left:auto;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden}
+.totals-row{display:flex;justify-content:space-between;padding:9px 14px;font-size:13px;border-bottom:1px solid #e2e8f0}
+.totals-row:last-child{border-bottom:none}
+.totals-row.grand{background:#1a3a52;color:white;font-size:16px;font-weight:800;padding:12px 14px}
+.totals-row.grand span{color:#fde68a;font-size:18px}
+.terms{margin-top:28px;padding:16px 20px;background:#f0f6ff;border-radius:8px;font-size:12px;color:#374151;line-height:1.6}
+.cert-row{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:#94a3b8}
+.cert-pill{background:#f1f5f9;padding:4px 10px;border-radius:100px}
+.footer{margin-top:40px;padding-top:20px;border-top:1px solid #e2e8f0;font-size:11px;color:#94a3b8;display:flex;justify-content:space-between}
+@media print{body{padding:20px}.footer{position:fixed;bottom:10px;left:0;right:0;padding:0 20px}}
+</style></head><body>
+<div class="header">
+    <div>
+        <div class="logo">VAGO<span>TECH</span></div>
+        <div class="logo-sub">by Glas Expert · xglass.eu · Omologat AFER</div>
+        <div style="font-size:12px;color:#64748b;margin-top:8px">Popești-Leordeni, Șos. Olteniței · România</div>
+    </div>
+    <div class="meta">
+        <strong>OFERTĂ COMERCIALĂ</strong><br>
+        Nr. ${ofNum}<br>
+        Data: ${ofDate}<br>
+        Valabilitate: ${validity} zile<br>
+        Tip: ${contractType}
+    </div>
+</div>
+<div class="client-box">
+    <h4>Client</h4>
+    <strong style="font-size:16px;color:#1a3a52">${company}</strong>${contact ? '<br>Contact: '+contact : ''}${project ? '<br><em style="color:#64748b">Proiect: '+project+'</em>' : ''}
+</div>
+<h2>Produse & Servicii Ofertate</h2>
+<table><thead><tr><th>Produs / Specificație</th><th>Cantitate</th><th>Preț Unitar</th><th>Total</th></tr></thead><tbody>${rows}</tbody></table>
+<div class="totals">
+    <div class="totals-row">Subtotal <span>${fmt(subtotal)}</span></div>
+    ${parseFloat(discPct)>0 ? `<div class="totals-row" style="color:#059669">Reducere ${discPct}% <span>– ${fmt(discVal)}</span></div>` : ''}
+    <div class="totals-row">Bază impozabilă <span>${fmt(base)}</span></div>
+    ${tvaInclude ? `<div class="totals-row">TVA 19% <span>${fmt(tvaVal)}</span></div>` : ''}
+    <div class="totals-row grand">TOTAL <span>${fmt(total)}</span></div>
+</div>
+${notes ? `<div class="terms"><strong>Note:</strong> ${notes}</div>` : ''}
+<div class="terms">
+    <strong>Termeni:</strong> ${CONTRACT_TERMS[$('of-contract').value].replace(/<[^>]+>/g,'')}
+    Garanție: 24 luni de la livrare. Documentație AFER inclusă.
+</div>
+<div class="cert-row">
+    <span class="cert-pill">✓ Omologat AFER</span>
+    <span class="cert-pill">25+ Ani Experiență</span>
+    <span class="cert-pill">Top 20 Europa</span>
+    <span class="cert-pill">Livrare 4–6 Săptămâni</span>
+</div>
+<div class="footer">
+    <span>VAGOTECH by Glas Expert · office@xglass.eu · xglass.eu</span>
+    <span>Ofertă valabilă ${validity} zile · ${ofDate}</span>
+</div>
+<script>window.onload=()=>{window.print();}<\/script>
+</body></html>`;
+
+    const w = window.open('','_blank','width=900,height=700');
+    w.document.write(html);
+    w.document.close();
+}
 </script>
 </body>
 </html>

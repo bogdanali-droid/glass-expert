@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propunere Comercială — VAGOTECH Digital | AXA IT → Glas Expert</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0f1923;
+            color: #1a1a1a;
+        }
+
+        .print-bar {
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 13px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        .print-bar strong { color: #fbbf24; }
+        .print-bar a {
+            background: rgba(255,255,255,0.12);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.25);
+            padding: 5px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .print-bar a:hover { background: rgba(255,255,255,0.22); }
+        @media print {
+            .print-bar { display: none; }
+            body { background: white; }
+        }
+
+        .deck { max-width: 960px; margin: 0 auto; }
+
+        .slide {
+            background: white;
+            min-height: 500px;
+            padding: 52px 64px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            page-break-after: always;
+            position: relative;
+            margin-bottom: 4px;
+            overflow: hidden;
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #7c3aed, #4f46e5, transparent);
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 20px; right: 28px;
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 0.1em; color: #cbd5e1;
+            text-transform: uppercase;
+        }
+
+        .confidential-badge {
+            position: absolute;
+            top: 20px; left: 28px;
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 0.12em; color: #7c3aed;
+            text-transform: uppercase;
+            border: 1px solid #7c3aed;
+            padding: 3px 8px; border-radius: 3px;
+        }
+
+        .eyebrow {
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #7c3aed;
+            margin-bottom: 14px;
+        }
+
+        .slide h2 {
+            font-size: 34px; font-weight: 800;
+            color: #0f172a; line-height: 1.15;
+            margin-bottom: 10px; letter-spacing: -0.02em;
+        }
+
+        .deck-subtitle {
+            font-size: 16px; color: #64748b;
+            margin-bottom: 32px; line-height: 1.5;
+        }
+
+        /* COVER */
+        .slide-cover {
+            background: linear-gradient(145deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            color: white; min-height: 580px;
+            padding: 80px 64px;
+        }
+        .slide-cover::after { display: none; }
+
+        .agency-bar {
+            display: flex; align-items: center;
+            gap: 16px; margin-bottom: 56px;
+        }
+
+        .agency-logo {
+            width: 42px; height: 42px;
+            background: #7c3aed; border-radius: 8px;
+            display: flex; align-items: center;
+            justify-content: center;
+            font-size: 16px; font-weight: 900;
+            color: white; letter-spacing: -1px;
+        }
+
+        .agency-name {
+            font-size: 13px; color: rgba(255,255,255,0.55);
+            letter-spacing: 0.1em; text-transform: uppercase;
+        }
+
+        .agency-name strong { color: rgba(255,255,255,0.85); font-weight: 700; }
+
+        .cover-arrow {
+            font-size: 13px; color: rgba(255,255,255,0.3);
+            letter-spacing: 0.05em;
+        }
+
+        .slide-cover h1 {
+            font-size: 62px; font-weight: 900;
+            color: white; letter-spacing: -0.04em;
+            line-height: 1; margin-bottom: 10px;
+        }
+
+        .slide-cover .sub {
+            font-size: 20px; color: rgba(255,255,255,0.65);
+            font-weight: 400; margin-bottom: 40px;
+        }
+
+        .cover-pills {
+            display: flex; flex-wrap: wrap;
+            gap: 10px; margin-bottom: 52px;
+        }
+
+        .cover-pill {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white; padding: 6px 14px;
+            border-radius: 100px; font-size: 12px;
+            font-weight: 600; letter-spacing: 0.04em;
+        }
+
+        .cover-pill.gold {
+            background: rgba(251,191,36,0.15);
+            border-color: rgba(251,191,36,0.4);
+            color: #fde68a;
+        }
+
+        .cover-meta {
+            display: flex; gap: 40px;
+            flex-wrap: wrap;
+            border-top: 1px solid rgba(255,255,255,0.12);
+            padding-top: 24px;
+        }
+
+        .cover-meta-item label {
+            font-size: 10px; color: rgba(255,255,255,0.4);
+            letter-spacing: 0.1em; text-transform: uppercase;
+            display: block; margin-bottom: 4px;
+        }
+
+        .cover-meta-item span {
+            font-size: 14px; color: rgba(255,255,255,0.8);
+            font-weight: 500;
+        }
+
+        /* SECTION HEADER */
+        .slide-section {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            min-height: 180px;
+            justify-content: center;
+            border-left: 5px solid #7c3aed;
+        }
+
+        .slide-section .sec-num {
+            font-size: 80px; font-weight: 900;
+            color: #e2e8f0; line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .slide-section h2 { font-size: 30px; }
+
+        /* DELIVERABLES TABLE */
+        .deliv-table {
+            width: 100%; border-collapse: collapse;
+            margin-top: 24px;
+        }
+
+        .deliv-table th {
+            background: #0f172a; color: white;
+            padding: 11px 14px;
+            text-align: left; font-size: 11px;
+            font-weight: 700; letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .deliv-table th:last-child,
+        .deliv-table td:last-child { text-align: right; }
+
+        .deliv-table tr:nth-child(even) td { background: #f8fafc; }
+
+        .deliv-table td {
+            padding: 13px 14px; font-size: 13px;
+            color: #374151;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        .deliv-table .item-name {
+            font-weight: 700; color: #0f172a;
+            display: block;
+        }
+
+        .deliv-table .item-desc {
+            font-size: 11px; color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        .deliv-table .price-cell {
+            font-weight: 800; color: #7c3aed;
+            font-size: 15px; white-space: nowrap;
+        }
+
+        .deliv-table .effort-badge {
+            display: inline-block;
+            background: #f1f5f9; color: #64748b;
+            font-size: 10px; font-weight: 600;
+            padding: 2px 8px; border-radius: 100px;
+            letter-spacing: 0.04em;
+        }
+
+        .deliv-table tr.total-row td {
+            background: #0f172a; color: white;
+            font-weight: 700; font-size: 14px;
+            border-top: 2px solid #7c3aed;
+        }
+
+        .deliv-table tr.total-row .price-cell {
+            color: #fde68a; font-size: 18px;
+        }
+
+        /* INVESTMENT OPTIONS */
+        .option-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px; margin-top: 28px;
+        }
+
+        .option-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px; padding: 28px 22px;
+            position: relative;
+        }
+
+        .option-card.featured {
+            border-color: #7c3aed;
+            background: linear-gradient(135deg, #faf5ff, #ede9fe);
+        }
+
+        .option-badge {
+            position: absolute; top: -12px;
+            left: 50%; transform: translateX(-50%);
+            background: #7c3aed; color: white;
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 0.1em; padding: 4px 12px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .option-tier {
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #7c3aed; margin-bottom: 8px;
+        }
+
+        .option-price {
+            font-size: 34px; font-weight: 900;
+            color: #0f172a; line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .option-price small {
+            font-size: 13px; font-weight: 500;
+            color: #64748b;
+        }
+
+        .option-desc {
+            font-size: 13px; color: #64748b;
+            margin-bottom: 20px; line-height: 1.5;
+            min-height: 54px;
+        }
+
+        .option-features {
+            list-style: none; font-size: 13px;
+            color: #374151;
+        }
+
+        .option-features li {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            display: flex; align-items: flex-start;
+            gap: 8px;
+        }
+
+        .option-features li:last-child { border-bottom: none; }
+
+        .option-features .check { color: #7c3aed; font-weight: 700; flex-shrink: 0; }
+        .option-features .x { color: #94a3b8; font-weight: 700; flex-shrink: 0; }
+
+        /* RETAINER */
+        .retainer-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px; margin-top: 28px;
+        }
+
+        .retainer-card {
+            background: #f8fafc; border-radius: 8px;
+            padding: 24px;
+            border-left: 4px solid #7c3aed;
+        }
+
+        .retainer-card.highlighted {
+            background: linear-gradient(135deg, #faf5ff, #ede9fe);
+            border-left-color: #5b21b6;
+        }
+
+        .retainer-name {
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 0.1em; color: #7c3aed;
+            text-transform: uppercase; margin-bottom: 8px;
+        }
+
+        .retainer-price {
+            font-size: 26px; font-weight: 900;
+            color: #0f172a; margin-bottom: 6px;
+        }
+
+        .retainer-price small {
+            font-size: 13px; font-weight: 500;
+            color: #64748b;
+        }
+
+        .retainer-desc {
+            font-size: 13px; color: #64748b;
+            line-height: 1.5; margin-bottom: 14px;
+        }
+
+        .retainer-includes {
+            list-style: none; font-size: 12px;
+            color: #374151;
+        }
+
+        .retainer-includes li {
+            padding: 3px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            display: flex; gap: 6px;
+        }
+
+        .retainer-includes .dot { color: #7c3aed; font-weight: 900; flex-shrink: 0; }
+
+        /* VALUE PROOF */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px; margin-top: 24px;
+        }
+
+        .value-card {
+            background: #f8fafc; border-radius: 8px;
+            padding: 20px; border-top: 3px solid #7c3aed;
+        }
+
+        .value-card h4 {
+            font-size: 14px; font-weight: 800;
+            color: #0f172a; margin-bottom: 6px;
+        }
+
+        .value-card p {
+            font-size: 13px; color: #64748b;
+            line-height: 1.5;
+        }
+
+        .value-card .big-num {
+            font-size: 32px; font-weight: 900;
+            color: #7c3aed; line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        /* TERMS */
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px; margin-top: 28px;
+        }
+
+        .term-block h4 {
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #7c3aed; margin-bottom: 10px;
+        }
+
+        .term-block ul { list-style: none; font-size: 13px; color: #374151; }
+
+        .term-block ul li {
+            padding: 6px 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex; justify-content: space-between;
+            gap: 12px;
+        }
+
+        .term-block ul li span {
+            color: #0f172a; font-weight: 600;
+            text-align: right;
+        }
+
+        /* CTA */
+        .slide-cta {
+            background: linear-gradient(145deg, #0f172a 0%, #1e1b4b 100%);
+            color: white; text-align: center;
+            min-height: 480px;
+        }
+        .slide-cta::after { display: none; }
+
+        .slide-cta h2 {
+            font-size: 40px; font-weight: 900;
+            color: white; margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .slide-cta p {
+            font-size: 16px; color: rgba(255,255,255,0.65);
+            margin-bottom: 36px; max-width: 520px;
+            margin-left: auto; margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .cta-contact {
+            display: flex; justify-content: center;
+            gap: 40px; flex-wrap: wrap; margin-bottom: 40px;
+        }
+
+        .cta-item label {
+            font-size: 10px; color: rgba(255,255,255,0.4);
+            letter-spacing: 0.12em; text-transform: uppercase;
+            display: block; margin-bottom: 5px;
+        }
+
+        .cta-item span {
+            font-size: 15px; color: white; font-weight: 600;
+        }
+
+        .cta-divider {
+            width: 40px; height: 2px;
+            background: rgba(255,255,255,0.15);
+            margin: 28px auto;
+        }
+
+        .bottom-note {
+            font-size: 11px; color: rgba(255,255,255,0.35);
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 768px) {
+            .slide { padding: 36px 24px; }
+            .option-cards, .retainer-grid, .value-grid, .terms-grid { grid-template-columns: 1fr; }
+            .slide-cover h1 { font-size: 44px; }
+        }
+
+        @media print {
+            .slide { margin-bottom: 0; page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="print-bar">
+    <span><strong>AXA IT → Glas Expert</strong> · Propunere comercială VAGOTECH Digital · Confidențial</span>
+    <a onclick="window.print()">⬇ Salvează PDF</a>
+</div>
+
+<div class="deck">
+
+    <!-- COVER -->
+    <div class="slide slide-cover">
+        <div class="agency-bar">
+            <div class="agency-logo">AX</div>
+            <div>
+                <div class="agency-name"><strong>AXA IT</strong> · Digital Agency</div>
+            </div>
+            <div class="cover-arrow">→</div>
+            <div class="agency-name"><strong>Glas Expert</strong> · xglass.eu · VAGOTECH</div>
+        </div>
+
+        <div class="eyebrow" style="color:rgba(255,255,255,0.45)">Propunere Comercială · Confidențial</div>
+        <h1>Proiect<br>VAGOTECH<br>Digital</h1>
+        <div class="sub">Prezență digitală completă pentru brandul de sticlă feroviară</div>
+
+        <div class="cover-pills">
+            <div class="cover-pill gold">Landing page premium</div>
+            <div class="cover-pill">Admin dashboard custom</div>
+            <div class="cover-pill">Sistem bilingv EN/RO</div>
+            <div class="cover-pill">Deck prezentare</div>
+            <div class="cover-pill">Ofertă comercială</div>
+            <div class="cover-pill">SEO tehnic</div>
+            <div class="cover-pill">Cloudflare Pages</div>
+        </div>
+
+        <div class="cover-meta">
+            <div class="cover-meta-item">
+                <label>Client</label>
+                <span>Glas Expert / VAGOTECH by xglass.eu</span>
+            </div>
+            <div class="cover-meta-item">
+                <label>Agenție</label>
+                <span>AXA IT — Digital Agency</span>
+            </div>
+            <div class="cover-meta-item">
+                <label>Proiect</label>
+                <span>VAGOTECH Digital — Prezență web completă</span>
+            </div>
+            <div class="cover-meta-item">
+                <label>An</label>
+                <span id="cover-year">2026</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="slide slide-section">
+        <div class="sec-num">01</div>
+        <div class="eyebrow">Ce Am Livrat</div>
+        <h2>Livrabile & Efort Estimat</h2>
+    </div>
+
+    <!-- DELIVERABLES TABLE -->
+    <div class="slide" style="padding-top:40px">
+        <div class="slide-number">02 / Livrabile</div>
+        <div class="confidential-badge">Intern</div>
+        <div class="eyebrow">Detaliu deliverabile</div>
+        <h2>Ce A Fost Livrat Efectiv</h2>
+        <p class="deck-subtitle">Evaluare bazată pe rate de piață agenție RO/EU: senior dev €400–600/zi · designer €300–450/zi · copywriter €200–350/zi.</p>
+
+        <table class="deliv-table">
+            <thead>
+                <tr>
+                    <th style="width:38%">Deliverabil</th>
+                    <th>Efort estimat</th>
+                    <th>Valoare piață</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span class="item-name">Landing Page VAGOTECH</span>
+                        <span class="item-desc">vagotech.html — hero, produse, credențiale, contact. Custom, pixel-perfect, responsive.</span>
+                    </td>
+                    <td><span class="effort-badge">6–8 zile dev+design</span></td>
+                    <td class="price-cell">€ 2.800 – 4.200</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="item-name">Sistem Bilingv EN/RO (i18n)</span>
+                        <span class="item-desc">vagotech-i18n.js — 200+ chei, toggle localStorage, applyLang(). Custom built.</span>
+                    </td>
+                    <td><span class="effort-badge">2–3 zile dev</span></td>
+                    <td class="price-cell">€ 900 – 1.400</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="item-name">Admin Dashboard Custom</span>
+                        <span class="item-desc">admin/dashboard.html — 6 tab-uri, charts CSS pure, analize piață, competitori, calculator prețuri, analytics tab.</span>
+                    </td>
+                    <td><span class="effort-badge">4–5 zile dev+design</span></td>
+                    <td class="price-cell">€ 1.800 – 2.800</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="item-name">Deck Prezentare HTML</span>
+                        <span class="item-desc">vagotech-presentation.html — 10 slide-uri printabile, branded, print-ready PDF.</span>
+                    </td>
+                    <td><span class="effort-badge">1.5–2 zile design+dev</span></td>
+                    <td class="price-cell">€ 600 – 900</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="item-name">Ofertă Comercială Client</span>
+                        <span class="item-desc">vagotech-oferta.html — 10 pagini cu prețuri, pachete, termeni. Print-ready.</span>
+                    </td>
+                    <td><span class="effort-badge">1–1.5 zile design+dev</span></td>
+                    <td class="price-cell">€ 400 – 700</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="item-name">Copywriting EN + RO</span>
+                        <span class="item-desc">Tot textul de pe landing page — hero, produse, story, markets, compliance, CTAs. 2 limbi.</span>
+                    </td>
+                    <td><span class="effort-badge">2–3 zile copy</span></td>
+                    <td class="price-cell">€ 700 – 1.200</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="item-name">SEO Tehnic & Deployment</span>
+                        <span class="item-desc">Meta, OG, Twitter cards, sitemap.xml, Cloudflare Pages CI/CD, branch previews.</span>
+                    </td>
+                    <td><span class="effort-badge">1–1.5 zile</span></td>
+                    <td class="price-cell">€ 400 – 700</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="item-name">Research & Strategie</span>
+                        <span class="item-desc">Analiză piață feroviară, competitori, positioning AFER, identificare imagini CC, prețuri.</span>
+                    </td>
+                    <td><span class="effort-badge">1–2 zile</span></td>
+                    <td class="price-cell">€ 400 – 700</td>
+                </tr>
+                <tr class="total-row">
+                    <td><strong>TOTAL VALOARE PROIECT</strong></td>
+                    <td><strong>~18–26 zile muncă efectivă</strong></td>
+                    <td class="price-cell">€ 18.000 – 32.000</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="slide slide-section">
+        <div class="sec-num">02</div>
+        <div class="eyebrow">Propunere Financiară</div>
+        <h2>Ce Propunem Clientului</h2>
+    </div>
+
+    <!-- OPTIONS -->
+    <div class="slide" style="padding-top:40px">
+        <div class="slide-number">03 / Opțiuni</div>
+        <div class="eyebrow">Trei variante de prețuri</div>
+        <h2>Opțiuni de Investiție</h2>
+        <p class="deck-subtitle">Propunem trei variante — de la entry-level la premium — pentru a facilita decizia clientului.</p>
+
+        <div class="option-cards">
+            <div class="option-card">
+                <div class="option-tier">Opțiune Entry</div>
+                <div class="option-price">€ 11.500 <small>+ TVA</small></div>
+                <div class="option-desc">Pachet minimalist — livrabilele core fără extras. Bun dacă bugetul e limitat.</div>
+                <ul class="option-features">
+                    <li><span class="check">✓</span> Landing page VAGOTECH</li>
+                    <li><span class="check">✓</span> Sistem bilingv EN/RO</li>
+                    <li><span class="check">✓</span> SEO tehnic + deployment</li>
+                    <li><span class="check">✓</span> Copywriting de bază</li>
+                    <li><span class="x">✗</span> Admin dashboard</li>
+                    <li><span class="x">✗</span> Deck prezentare</li>
+                    <li><span class="x">✗</span> Ofertă comercială</li>
+                    <li><span class="x">✗</span> Research strategie</li>
+                </ul>
+            </div>
+
+            <div class="option-card featured">
+                <div class="option-badge">Recomandat</div>
+                <div class="option-tier">Opțiune Standard</div>
+                <div class="option-price">€ 18.900 <small>+ TVA</small></div>
+                <div class="option-desc">Toate livrabilele livrate efectiv. Preț agenție premium RO — 40% sub agenții occidentale.</div>
+                <ul class="option-features">
+                    <li><span class="check">✓</span> Landing page VAGOTECH complet</li>
+                    <li><span class="check">✓</span> Sistem bilingv EN/RO custom</li>
+                    <li><span class="check">✓</span> Admin dashboard (6 tab-uri)</li>
+                    <li><span class="check">✓</span> Deck prezentare HTML</li>
+                    <li><span class="check">✓</span> Ofertă comercială client</li>
+                    <li><span class="check">✓</span> Copywriting complet EN + RO</li>
+                    <li><span class="check">✓</span> SEO tehnic + deployment CF Pages</li>
+                    <li><span class="check">✓</span> Research & strategie inclus</li>
+                </ul>
+            </div>
+
+            <div class="option-card">
+                <div class="option-tier">Opțiune Premium</div>
+                <div class="option-price">€ 28.500 <small>+ TVA</small></div>
+                <div class="option-desc">Pachetul complet cu priorități maxime, revizii nelimitate și suport extins.</div>
+                <ul class="option-features">
+                    <li><span class="check">✓</span> Totul din Standard</li>
+                    <li><span class="check">✓</span> Prezentare RO (variantă separată)</li>
+                    <li><span class="check">✓</span> 3 runde de revizii incluse</li>
+                    <li><span class="check">✓</span> Integrare analytics real (CF Analytics)</li>
+                    <li><span class="check">✓</span> Schema.org markup complet</li>
+                    <li><span class="check">✓</span> Pagini segment (comercial, medical…)</li>
+                    <li><span class="check">✓</span> 3 luni suport inclus</li>
+                    <li><span class="check">✓</span> Raport lunar SEO</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- RETAINER -->
+    <div class="slide" style="padding-top:40px">
+        <div class="slide-number">04 / Mentenanță</div>
+        <div class="eyebrow">After go-live</div>
+        <h2>Retainer Lunar — Mentenanță & Evoluție</h2>
+        <p class="deck-subtitle">Propunem un contract de mentenanță după livrarea proiectului. Recomandat pentru clienți care vor să evolueze site-ul continuu.</p>
+
+        <div class="retainer-grid">
+            <div class="retainer-card">
+                <div class="retainer-name">Basic Care</div>
+                <div class="retainer-price">€ 350 <small>/ lună + TVA</small></div>
+                <div class="retainer-desc">Mentenanță minimă — updates tehnice, securitate, monitorizare.</div>
+                <ul class="retainer-includes">
+                    <li><span class="dot">›</span> 4 ore de muncă incluse/lună</li>
+                    <li><span class="dot">›</span> Monitorizare uptime + alerte</li>
+                    <li><span class="dot">›</span> Updates tehnice Cloudflare</li>
+                    <li><span class="dot">›</span> Backup lunar conținut</li>
+                    <li><span class="dot">›</span> Raport lunar status</li>
+                </ul>
+            </div>
+
+            <div class="retainer-card highlighted">
+                <div class="retainer-name">Growth Partner ★ Recomandat</div>
+                <div class="retainer-price">€ 750 <small>/ lună + TVA</small></div>
+                <div class="retainer-desc">Mentenanță + evoluție activă — conținut nou, optimizări, analitics real.</div>
+                <ul class="retainer-includes">
+                    <li><span class="dot">›</span> 12 ore de muncă incluse/lună</li>
+                    <li><span class="dot">›</span> Tot din Basic Care</li>
+                    <li><span class="dot">›</span> 1 pagină nouă sau secțiune/lună</li>
+                    <li><span class="dot">›</span> Optimizări SEO on-page</li>
+                    <li><span class="dot">›</span> Integrare analytics reale (Cloudflare)</li>
+                    <li><span class="dot">›</span> Suport email 48h răspuns</li>
+                    <li><span class="dot">›</span> Raport lunar trafic + recomandări</li>
+                </ul>
+            </div>
+
+            <div class="retainer-card">
+                <div class="retainer-name">Full Service</div>
+                <div class="retainer-price">€ 1.400 <small>/ lună + TVA</small></div>
+                <div class="retainer-desc">Parteneriat complet — agenție dedicată pentru toate canalele digitale.</div>
+                <ul class="retainer-includes">
+                    <li><span class="dot">›</span> 24 ore de muncă incluse/lună</li>
+                    <li><span class="dot">›</span> Tot din Growth Partner</li>
+                    <li><span class="dot">›</span> Management conținut social media</li>
+                    <li><span class="dot">›</span> Campanii Google/LinkedIn Ads</li>
+                    <li><span class="dot">›</span> A/B testing landing pages</li>
+                    <li><span class="dot">›</span> Account manager dedicat</li>
+                </ul>
+            </div>
+
+            <div class="retainer-card" style="border-left-color:#94a3b8; background:#f8fafc; display:flex; align-items:center; justify-content:center; text-align:center; min-height:180px;">
+                <div>
+                    <div style="font-size:28px; font-weight:900; color:#0f172a; margin-bottom:6px">Ore Suplimentare</div>
+                    <div style="font-size:22px; font-weight:800; color:#7c3aed;">€ 65 – 85 / oră</div>
+                    <div style="font-size:13px; color:#94a3b8; margin-top:6px;">Ore în afara retainer-ului, facturate lunar</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VALUE PROOF -->
+    <div class="slide" style="padding-top:40px">
+        <div class="slide-number">05 / De Ce Merită</div>
+        <div class="eyebrow">Justificarea investiției</div>
+        <h2>De Ce Merită Prețul</h2>
+        <p class="deck-subtitle">Context: o agenție din Germania sau Elveția ar taxa același proiect la €18.000–30.000.</p>
+
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="big-num">€ 9–15K</div>
+                <h4>Economie față de agenții occidentale</h4>
+                <p>Agenții din Germania: €15.000–28.000 pentru același scope. AXA IT livrează calitate europeană la preț competitiv din România.</p>
+            </div>
+            <div class="value-card" style="border-top-color:#059669">
+                <div class="big-num" style="color:#059669">200+</div>
+                <h4>Chei i18n custom EN/RO</h4>
+                <p>Sistem bilingv complet custom — nu un plugin de traducere, ci o arhitectură dedicată pentru piața internațională.</p>
+            </div>
+            <div class="value-card" style="border-top-color:#d97706">
+                <div class="big-num" style="color:#d97706">6 tab-uri</div>
+                <h4>Admin dashboard cu analize piață</h4>
+                <p>Competitori, oportunități, calculator prețuri, analytics — un instrument de business, nu doar un site.</p>
+            </div>
+            <div class="value-card" style="border-top-color:#0066cc">
+                <div class="big-num" style="color:#0066cc">AFER</div>
+                <h4>Nișă feroviară specializată</h4>
+                <p>Conținut tehnic real, certificare AFER, terminologie feroviară corectă — copywriting de specialist, nu generic.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TERMS -->
+    <div class="slide" style="padding-top:40px">
+        <div class="slide-number">06 / Termeni</div>
+        <div class="eyebrow">Termeni Comerciali</div>
+        <h2>Termeni & Condiții AXA IT</h2>
+
+        <div class="terms-grid">
+            <div class="term-block">
+                <h4>Plată Proiect</h4>
+                <ul>
+                    <li>Avans la semnare <span>40%</span></li>
+                    <li>La livrare draft final <span>40%</span></li>
+                    <li>La acceptanță finală <span>20%</span></li>
+                    <li>Monedă <span>EUR (sau RON la curs BNR)</span></li>
+                    <li>Termen plată <span>15 zile calendaristice</span></li>
+                </ul>
+            </div>
+            <div class="term-block">
+                <h4>Livrare</h4>
+                <ul>
+                    <li>Timeline estimat <span>3–4 săptămâni de la start</span></li>
+                    <li>Runde de revizii incluse <span>2 runde (Standard), 3 (Premium)</span></li>
+                    <li>Revizii extra <span>€ 65–85 / oră</span></li>
+                    <li>Livrare accelerată (+50%) <span>1–2 săptămâni</span></li>
+                    <li>Acceptanță finală <span>7 zile de la livrare draft</span></li>
+                </ul>
+            </div>
+            <div class="term-block">
+                <h4>Drepturi & IP</h4>
+                <ul>
+                    <li>Cod sursă <span>Proprietatea clientului, la plată finală</span></li>
+                    <li>Designuri & assets <span>Licență exclusivă client</span></li>
+                    <li>Imagini terțe <span>CC/licențiate, documentate</span></li>
+                    <li>Portfolio AXA IT <span>Drept de referință, cu acord client</span></li>
+                </ul>
+            </div>
+            <div class="term-block">
+                <h4>Garanții & Suport</h4>
+                <ul>
+                    <li>Garanție post-livrare <span>30 zile bugfix gratuit</span></li>
+                    <li>SLA mentenanță (retainer) <span>48h răspuns / 72h rezolvare</span></li>
+                    <li>Hosting (CF Pages) <span>Gratuit pe tier actual</span></li>
+                    <li>Transferabilitate <span>Repo GitHub inclus la finalizare</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="slide slide-cta">
+        <div class="slide-number" style="color:rgba(255,255,255,0.25)">07 / Contact</div>
+        <div class="eyebrow" style="color:rgba(255,255,255,0.45)">Pasul Următor</div>
+        <h2>Hai Să Semnăm</h2>
+        <p>Trimite-ne acordul de principiu pe oricare dintre opțiuni și pregătim contractul în 24 de ore. Proiectul poate porni imediat.</p>
+
+        <div class="cta-contact">
+            <div class="cta-item">
+                <label>Email</label>
+                <span>contact@axait.ro</span>
+            </div>
+            <div class="cta-item">
+                <label>Telefon</label>
+                <span>+40 XXX XXX XXX</span>
+            </div>
+            <div class="cta-item">
+                <label>Opțiune recomandată</label>
+                <span>Standard — € 18.900 + TVA</span>
+            </div>
+        </div>
+
+        <div class="cta-divider"></div>
+
+        <div class="bottom-note">
+            AXA IT · Agenție Digitală · Propunere valabilă 30 de zile · Confidențial
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.getElementById('cover-year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
