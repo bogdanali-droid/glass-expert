@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Clienți — Glas Expert</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --navy:       #1a3a52;
+            --navy-2:     #2d5a7a;
+            --navy-deep:  #112637;
+            --gold:       #c8a24b;
+            --gold-soft:  #e3c878;
+            --gold-bg:    rgba(200,162,75,0.12);
+            --bg:         #f4f6f8;
+            --surface:    #ffffff;
+            --text:       #1f2937;
+            --text-muted: #6b7280;
+            --text-faint: #9ca3af;
+            --border:     #e5e7eb;
+            --green:      #2f9e6f;
+            --green-bg:   rgba(47,158,111,0.12);
+            --red:        #d65745;
+            --red-bg:     rgba(214,87,69,0.12);
+            --amber:      #d99a2b;
+            --amber-bg:   rgba(217,154,43,0.14);
+            --blue:       #2d6cb5;
+            --blue-bg:    rgba(45,108,181,0.12);
+            --purple:     #7c3aed;
+            --purple-bg:  rgba(124,58,237,0.10);
+            --radius:     12px;
+            --radius-sm:  8px;
+            --shadow:     0 1px 3px rgba(16,24,40,0.08), 0 1px 2px rgba(16,24,40,0.04);
+            --shadow-lg:  0 12px 32px rgba(16,24,40,0.16);
+            --font:       'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:var(--font); background:var(--bg); color:var(--text); line-height:1.5; -webkit-font-smoothing:antialiased; }
+
+        /* ---- Layout ---- */
+        .app { display:flex; min-height:100vh; }
+        .sidebar {
+            width:240px; background:linear-gradient(180deg,var(--navy) 0%,var(--navy-deep) 100%);
+            color:#fff; display:flex; flex-direction:column;
+            position:fixed; top:0; left:0; bottom:0; z-index:40;
+        }
+        .brand { padding:1.5rem 1.5rem 1.25rem; border-bottom:1px solid rgba(255,255,255,0.08); }
+        .brand .logo { font-size:1.2rem; font-weight:800; letter-spacing:-0.02em; }
+        .brand .dot { color:var(--gold); }
+        .brand .sub { font-size:0.7rem; color:rgba(255,255,255,0.5); margin-top:0.2rem; text-transform:uppercase; letter-spacing:0.08em; }
+        .nav { padding:1rem 0.75rem; flex:1; }
+        .nav-item {
+            display:flex; align-items:center; gap:0.75rem; width:100%;
+            padding:0.65rem 0.85rem; margin-bottom:0.2rem; border-radius:var(--radius-sm);
+            color:rgba(255,255,255,0.7); font-size:0.88rem; font-weight:500;
+            text-align:left; background:none; border:none; cursor:pointer;
+            transition:background 0.15s, color 0.15s; text-decoration:none;
+        }
+        .nav-item:hover { background:rgba(255,255,255,0.06); color:#fff; }
+        .nav-item.active { background:var(--gold-bg); color:var(--gold-soft); box-shadow:inset 3px 0 0 var(--gold); }
+        .nav-item .ico { width:17px; height:17px; flex-shrink:0; }
+        .nav-sep { font-size:0.66rem; font-weight:700; text-transform:uppercase; letter-spacing:0.09em; color:rgba(255,255,255,0.3); padding:1rem 0.85rem 0.35rem; }
+        .sidebar-footer { padding:1rem 1.5rem; border-top:1px solid rgba(255,255,255,0.08); font-size:0.74rem; color:rgba(255,255,255,0.45); }
+        .sidebar-footer strong { color:rgba(255,255,255,0.75); }
+
+        .main { flex:1; margin-left:240px; display:flex; flex-direction:column; }
+        .topbar {
+            background:var(--surface); border-bottom:1px solid var(--border);
+            padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between;
+            position:sticky; top:0; z-index:30;
+        }
+        .topbar h1 { font-size:1.2rem; font-weight:700; color:var(--navy); }
+        .topbar .crumb { font-size:0.78rem; color:var(--text-faint); margin-top:2px; }
+        .topbar-right { display:flex; align-items:center; gap:0.75rem; }
+        .content { padding:1.75rem 2rem; flex:1; }
+
+        /* ---- Mode toggle ---- */
+        .mode-bar { display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem; background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); padding:0.85rem 1.25rem; }
+        .mode-label { font-size:0.82rem; font-weight:600; color:var(--text-muted); }
+        .mode-toggle { display:flex; background:#f3f4f6; border-radius:8px; padding:3px; gap:3px; }
+        .mode-btn { padding:0.35rem 0.9rem; border:none; border-radius:6px; font-size:0.8rem; font-weight:600; cursor:pointer; background:none; color:var(--text-muted); transition:all 0.15s; }
+        .mode-btn.active { background:var(--surface); color:var(--navy); box-shadow:var(--shadow); }
+        .mode-btn.factory { color:var(--amber); }
+        .mode-btn.factory.active { background:var(--amber-bg); color:var(--amber); }
+        .mode-info { font-size:0.76rem; color:var(--text-faint); margin-left:auto; }
+
+        /* ---- Stat grid ---- */
+        .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; margin-bottom:1.5rem; }
+        .stat { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); padding:1.1rem 1.25rem; }
+        .stat .label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:0.35rem; }
+        .stat .value { font-size:1.6rem; font-weight:800; color:var(--navy); line-height:1; }
+        .stat .delta { font-size:0.74rem; color:var(--text-faint); margin-top:0.3rem; }
+        .stat .delta.up { color:var(--green); }
+
+        /* ---- Filters ---- */
+        .filters { display:flex; flex-wrap:wrap; gap:0.75rem; margin-bottom:1.25rem; align-items:flex-end; }
+        .search-box { display:flex; align-items:center; gap:0.5rem; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.45rem 0.85rem; flex:1; min-width:220px; }
+        .search-box input { border:none; outline:none; font-size:0.88rem; flex:1; background:none; font-family:var(--font); }
+        .search-box .ico { width:15px; height:15px; color:var(--text-faint); flex-shrink:0; }
+        .field { display:flex; flex-direction:column; gap:0.25rem; }
+        .field label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-muted); }
+        .field select { padding:0.45rem 0.75rem; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:0.85rem; background:var(--surface); outline:none; font-family:var(--font); color:var(--text); cursor:pointer; }
+
+        /* ---- Card / Table ---- */
+        .card { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); margin-bottom:1.5rem; overflow:hidden; }
+        .card-head { display:flex; align-items:center; justify-content:space-between; padding:1rem 1.5rem; border-bottom:1px solid var(--border); }
+        .card-head h3 { font-size:0.95rem; font-weight:700; color:var(--navy); }
+        .card-head .meta { font-size:0.78rem; color:var(--text-faint); }
+        .table-wrap { overflow-x:auto; }
+        table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+        th { text-align:left; padding:0.65rem 1.25rem; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); border-bottom:1px solid var(--border); background:#f9fafb; white-space:nowrap; }
+        td { padding:0.8rem 1.25rem; border-bottom:1px solid #f3f4f6; vertical-align:middle; }
+        tr:last-child td { border-bottom:none; }
+        tr:hover td { background:#fafafa; }
+        .cell-company { font-weight:700; color:var(--navy); }
+        .cell-sub { font-size:0.75rem; color:var(--text-faint); margin-top:1px; }
+        .cell-alias { font-family:'Courier New',monospace; font-weight:700; font-size:0.9rem; color:var(--navy); letter-spacing:0.05em; }
+        .cell-code { font-family:'Courier New',monospace; font-size:0.82rem; color:var(--text-muted); }
+        .cell-masked { color:var(--text-faint); font-style:italic; font-size:0.82rem; }
+
+        /* ---- Badges ---- */
+        .badge { display:inline-flex; align-items:center; gap:0.3rem; font-size:0.72rem; font-weight:700; padding:0.2rem 0.6rem; border-radius:20px; white-space:nowrap; }
+        .badge .dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
+        .badge-gold   { background:var(--gold-bg); color:#9a7726; }
+        .badge-green  { background:var(--green-bg); color:var(--green); }
+        .badge-red    { background:var(--red-bg); color:var(--red); }
+        .badge-amber  { background:var(--amber-bg); color:#a8741b; }
+        .badge-blue   { background:var(--blue-bg); color:var(--blue); }
+        .badge-gray   { background:#eef0f2; color:var(--text-muted); }
+        .badge-purple { background:var(--purple-bg); color:var(--purple); }
+
+        /* ---- Buttons ---- */
+        .btn { display:inline-flex; align-items:center; gap:0.4rem; padding:0.5rem 1rem; border-radius:var(--radius-sm); font-size:0.84rem; font-weight:600; cursor:pointer; border:1px solid transparent; transition:all 0.15s; font-family:var(--font); }
+        .btn-primary { background:var(--navy); color:#fff; }
+        .btn-primary:hover { background:var(--navy-2); }
+        .btn-gold { background:var(--gold); color:#fff; border-color:var(--gold); }
+        .btn-gold:hover { opacity:0.9; }
+        .btn-ghost { background:none; border-color:var(--border); color:var(--text-muted); }
+        .btn-ghost:hover { background:var(--bg); color:var(--text); }
+        .btn-sm { padding:0.3rem 0.65rem; font-size:0.78rem; }
+        .btn-icon { padding:0.35rem 0.6rem !important; }
+        .row-actions { display:flex; gap:0.3rem; justify-content:flex-end; }
+
+        /* ---- Pipeline funnel ---- */
+        .funnel-wrap { padding:1rem 1.5rem 1.5rem; }
+        .funnel-stage { display:flex; align-items:center; gap:0.75rem; margin-bottom:0.6rem; }
+        .funnel-label { width:110px; font-size:0.79rem; font-weight:600; color:var(--text-muted); flex-shrink:0; }
+        .funnel-track { flex:1; background:#f3f4f6; border-radius:20px; height:26px; overflow:hidden; }
+        .funnel-fill { height:100%; border-radius:20px; display:flex; align-items:center; padding-left:10px; font-size:0.74rem; font-weight:700; color:#fff; white-space:nowrap; transition:width 0.5s ease; }
+        .funnel-count { font-size:0.78rem; font-weight:600; color:var(--text-muted); width:80px; text-align:right; flex-shrink:0; }
+
+        /* ---- Kanban ---- */
+        .kanban-board { display:flex; gap:0.85rem; overflow-x:auto; padding:1rem 1.5rem 1.5rem; }
+        .kanban-col { min-width:210px; flex:1; background:#f8f9fb; border-radius:var(--radius); border:1px solid var(--border); display:flex; flex-direction:column; }
+        .kanban-col-head { padding:0.8rem 1rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; border-top:3px solid transparent; }
+        .kanban-col-title { font-size:0.8rem; font-weight:700; color:var(--navy); }
+        .kanban-col-count { font-size:0.7rem; font-weight:700; padding:0.15rem 0.5rem; border-radius:20px; }
+        .kanban-cards { padding:0.6rem; flex:1; display:flex; flex-direction:column; gap:0.45rem; min-height:80px; }
+        .kanban-card { background:var(--surface); border-radius:var(--radius-sm); box-shadow:var(--shadow); padding:0.8rem; cursor:pointer; border-left:3px solid transparent; transition:box-shadow 0.15s; }
+        .kanban-card:hover { box-shadow:var(--shadow-lg); }
+        .kanban-card-code { font-family:'Courier New',monospace; font-size:0.7rem; color:var(--text-faint); margin-bottom:0.2rem; }
+        .kanban-card-co { font-size:0.83rem; font-weight:700; color:var(--navy); margin-bottom:0.2rem; }
+        .kanban-card-contact { font-size:0.72rem; color:var(--text-muted); margin-bottom:0.4rem; }
+        .kanban-card-footer { display:flex; align-items:center; justify-content:space-between; }
+        .kanban-total { padding:0.45rem 1rem; font-size:0.74rem; color:var(--text-muted); font-weight:600; border-top:1px solid var(--border); text-align:center; }
+
+        /* ---- Notes ---- */
+        .notes-section { margin-top:1.25rem; border-top:1px solid var(--border); padding-top:1rem; }
+        .notes-head { font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:0.65rem; }
+        .note-item { display:flex; gap:0.65rem; padding:0.35rem 0; border-bottom:1px solid #f3f4f6; }
+        .note-date { font-size:0.7rem; color:var(--text-faint); flex-shrink:0; width:80px; padding-top:1px; }
+        .note-text { font-size:0.84rem; color:var(--text); flex:1; }
+        .add-note-form { display:flex; gap:0.5rem; margin-top:0.75rem; }
+        .add-note-input { flex:1; font-size:0.84rem; padding:0.45rem 0.75rem; border:1px solid var(--border); border-radius:8px; outline:none; font-family:var(--font); }
+
+        /* ---- Detail grid ---- */
+        .detail-grid { display:grid; grid-template-columns:auto 1fr; gap:0.4rem 1rem; font-size:0.86rem; }
+        .detail-grid dt { font-weight:700; color:var(--text-muted); white-space:nowrap; }
+        .detail-grid dd { color:var(--text); }
+
+        /* ---- Modal ---- */
+        .modal-backdrop { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:100; align-items:center; justify-content:center; }
+        .modal-backdrop.open { display:flex; }
+        .modal { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow-lg); width:92%; max-width:620px; max-height:90vh; display:flex; flex-direction:column; overflow:hidden; }
+        .modal-head { padding:1.25rem 1.5rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+        .modal-head h3 { font-size:1rem; font-weight:700; color:var(--navy); }
+        .modal-close { background:none; border:none; cursor:pointer; color:var(--text-faint); font-size:1.3rem; padding:0 0.25rem; }
+        .modal-body { padding:1.5rem; overflow-y:auto; flex:1; }
+        .modal-foot { padding:1rem 1.5rem; border-top:1px solid var(--border); display:flex; align-items:center; gap:0.6rem; flex-shrink:0; }
+        .modal-foot .btn-primary { margin-left:auto; }
+
+        /* ---- Form ---- */
+        .form-grid { display:grid; gap:0.9rem; }
+        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; }
+        .form-row.three { grid-template-columns:1fr 1fr 1fr; }
+        label.f { display:flex; flex-direction:column; gap:0.3rem; font-size:0.81rem; font-weight:600; color:var(--text-muted); }
+        label.f input, label.f select, label.f textarea {
+            font-size:0.88rem; padding:0.5rem 0.75rem; border:1px solid var(--border);
+            border-radius:8px; outline:none; font-family:var(--font); color:var(--text);
+            background:var(--surface); transition:border-color 0.15s;
+        }
+        label.f input:focus, label.f select:focus, label.f textarea:focus { border-color:var(--navy); }
+        label.f textarea { resize:vertical; }
+        .f-req { color:var(--red); }
+        .f-hint { font-size:0.72rem; color:var(--text-faint); font-weight:400; margin-top:1px; }
+        .alias-preview { font-family:'Courier New',monospace; font-size:1rem; font-weight:700; color:var(--amber); background:var(--amber-bg); border-radius:6px; padding:0.3rem 0.75rem; letter-spacing:0.05em; display:inline-block; }
+        .f-err { color:var(--red); font-size:0.81rem; display:none; }
+
+        /* ---- Toast ---- */
+        #toast-stack { position:fixed; bottom:1.5rem; right:1.5rem; display:flex; flex-direction:column; gap:0.5rem; z-index:200; }
+        .toast { display:flex; align-items:center; gap:0.6rem; background:#1f2937; color:#fff; padding:0.7rem 1.1rem; border-radius:8px; font-size:0.85rem; font-weight:500; box-shadow:var(--shadow-lg); min-width:240px; }
+        .toast.ok { background:var(--green); }
+        .toast.err { background:var(--red); }
+
+        @media(max-width:780px){
+            .sidebar { transform:translateX(-100%); transition:transform 0.25s ease; }
+            .sidebar.open { transform:translateX(0); box-shadow:var(--shadow-lg); }
+            .main { margin-left:0; }
+            .content { padding:1.25rem; }
+            .form-row { grid-template-columns:1fr; }
+            .form-row.three { grid-template-columns:1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+
+    <!-- ======== SIDEBAR ======== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="logo">Glas<span class="dot">·</span>Expert</div>
+            <div class="sub">CRM Intern · xglass.eu</div>
+        </div>
+        <nav class="nav">
+            <div class="nav-sep">CRM</div>
+            <button class="nav-item active" data-tab="clients">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Clienți
+            </button>
+            <button class="nav-item" data-tab="pipeline" onclick="switchView('pipeline')">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="4" height="18" rx="1"/><rect x="10" y="3" width="4" height="13" rx="1"/><rect x="17" y="3" width="4" height="16" rx="1"/></svg>
+                Pipeline
+            </button>
+            <div class="nav-sep">Module viitoare</div>
+            <button class="nav-item" style="opacity:0.4;cursor:default">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Ofertare
+            </button>
+            <button class="nav-item" style="opacity:0.4;cursor:default">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                Comenzi
+            </button>
+            <button class="nav-item" style="opacity:0.4;cursor:default">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 9l-5 5-3-3-4 4"/></svg>
+                Rapoarte
+            </button>
+        </nav>
+        <div class="sidebar-footer">
+            <strong>Glas Expert</strong><br>
+            Popești-Leordeni · Neubiberg<br>
+            xglass.eu
+        </div>
+    </aside>
+
+    <!-- ======== MAIN ======== -->
+    <div class="main">
+        <header class="topbar">
+            <div>
+                <h1 id="page-title">Clienți</h1>
+                <div class="crumb">Glas Expert · CRM Intern · <span id="crumb-sub">Toți clienții</span></div>
+            </div>
+            <div class="topbar-right">
+                <span class="badge badge-green"><span class="dot"></span>Local</span>
+                <button class="btn btn-gold" onclick="openAddClient()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Client Nou
+                </button>
+            </div>
+        </header>
+
+        <main class="content">
+
+            <!-- Mode bar -->
+            <div class="mode-bar">
+                <span class="mode-label">Vizualizare:</span>
+                <div class="mode-toggle">
+                    <button class="mode-btn active" id="mode-sales" onclick="setMode('sales')">Sales (complet)</button>
+                    <button class="mode-btn factory" id="mode-factory" onclick="setMode('factory')">Fabrică (alias)</button>
+                </div>
+                <span class="mode-info" id="mode-desc">Toate datele vizibile — mod sales</span>
+            </div>
+
+            <!-- KPI strip -->
+            <div class="stat-grid">
+                <div class="stat">
+                    <div class="label">Total Clienți</div>
+                    <div class="value" id="kpi-total">0</div>
+                    <div class="delta" id="kpi-total-sub">în baza de date</div>
+                </div>
+                <div class="stat">
+                    <div class="label">Pipeline Activ</div>
+                    <div class="value" id="kpi-pipeline">€0</div>
+                    <div class="delta up" id="kpi-pipe-sub">prospect + calificat</div>
+                </div>
+                <div class="stat">
+                    <div class="label">Clienți Activi</div>
+                    <div class="value" id="kpi-active">0</div>
+                    <div class="delta up">cel puțin o comandă</div>
+                </div>
+                <div class="stat">
+                    <div class="label">Prospecți</div>
+                    <div class="value" id="kpi-prospect">0</div>
+                    <div class="delta">necalificați încă</div>
+                </div>
+            </div>
+
+            <!-- ---- CLIENTS VIEW ---- -->
+            <div id="view-clients">
+                <!-- Filters -->
+                <div class="filters">
+                    <div class="search-box">
+                        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input type="search" id="f-search" placeholder="Caută companie, alias, contact…" oninput="renderClients()">
+                    </div>
+                    <div class="field">
+                        <label>Etapă</label>
+                        <select id="f-stage" onchange="renderClients()">
+                            <option value="">Toate etapele</option>
+                            <option value="prospect">Prospect</option>
+                            <option value="calificat">Calificat</option>
+                            <option value="oferta">Ofertă</option>
+                            <option value="comanda">Comandă</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Tip</label>
+                        <select id="f-type" onchange="renderClients()"><option value="">Toate tipurile</option></select>
+                    </div>
+                    <div class="field">
+                        <label>Țară</label>
+                        <select id="f-country" onchange="renderClients()"><option value="">Toate țările</option></select>
+                    </div>
+                    <button class="btn btn-ghost" onclick="exportCSV()" style="margin-left:auto">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+                        Export CSV
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="card-head">
+                        <h3>Bază de Clienți</h3>
+                        <span class="meta" id="clients-count">—</span>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Cod</th>
+                                    <th>Alias</th>
+                                    <th id="th-company">Companie</th>
+                                    <th>Etapă</th>
+                                    <th>Tip</th>
+                                    <th id="th-contact">Contact</th>
+                                    <th>Oportunitate</th>
+                                    <th style="text-align:right">Acțiuni</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clients-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ---- PIPELINE VIEW ---- -->
+            <div id="view-pipeline" style="display:none">
+                <div class="card" style="margin-bottom:1.25rem">
+                    <div class="card-head"><h3>Funnel Pipeline</h3><span class="meta" id="funnel-meta">—</span></div>
+                    <div class="funnel-wrap" id="funnel-container"></div>
+                </div>
+                <div class="card">
+                    <div class="card-head"><h3>Kanban Board</h3><span class="meta">Click pe card pentru detalii</span></div>
+                    <div id="kanban-container"></div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<!-- ======== MODAL ======== -->
+<div class="modal-backdrop" id="modal" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+        <div class="modal-head">
+            <h3 id="modal-title">Client</h3>
+            <button class="modal-close" onclick="closeModal()">×</button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
+        <div class="modal-foot" id="modal-foot"></div>
+    </div>
+</div>
+
+<div id="toast-stack"></div>
+
+<script>
+/* ============================================================
+   CONSTANTS
+   ============================================================ */
+const CRM_KEY = 'ge-crm-clients';
+const COD_KEY = 'ge-crm-cod-seq';
+
+const STAGES = ['prospect','calificat','oferta','comanda'];
+const STAGE_LABELS = { prospect:'Prospect', calificat:'Calificat', oferta:'Ofertă', comanda:'Comandă' };
+const STAGE_COLORS = { prospect:'#6b7280', calificat:'#2d6cb5', oferta:'#c8a24b', comanda:'#2f9e6f' };
+const STAGE_BADGE  = { prospect:'badge-gray', calificat:'badge-blue', oferta:'badge-gold', comanda:'badge-green' };
+
+const CLIENT_TYPES = ['Retailer','Distribuitor','Producător','Constructor','Arhitect','Dealer','Importator','Altul'];
+
+/* ============================================================
+   DATA
+   ============================================================ */
+let clients = [];
+let viewMode = 'sales'; // sales | factory
+let currentView = 'clients'; // clients | pipeline
+
+function loadClients(){
+    try {
+        const s = localStorage.getItem(CRM_KEY);
+        if (s) { clients = JSON.parse(s); return; }
+    } catch(e){}
+    // Seed data demo
+    clients = [
+        { _id:1, cod:'GE-001', alias:'M-001', company:'Mobexpert SRL', type:'Retailer', contact:'Bogdan Chivu', role:'Director Achiziții', email:'bogdan.chivu@mobexpert.ro', phone:'+40-21-3100000', country:'România', city:'București', vatCode:'RO12345678', opportunity:180000, stage:'comanda', notes:[{date:'2026-05-10',text:'Comandă repetată Q2 — platforme expunere showroom'}], intel:'Client fidel din 2019. Comenzi trimestriale. Discount 8%.', createdAt:'2024-01-15' },
+        { _id:2, cod:'GE-002', alias:'I-002', company:'IKEA România', type:'Retailer', contact:'Ana Ionescu', role:'Procurement Manager', email:'ana.ionescu@ikea.com', phone:'+40-21-4000000', country:'România', city:'București', vatCode:'RO98765432', opportunity:420000, stage:'oferta', notes:[], intel:'Cerere geam securizat 10mm pentru mese. Decizie august 2026.', createdAt:'2024-03-01' },
+        { _id:3, cod:'GE-003', alias:'C-003', company:'Construct Pro SRL', type:'Constructor', contact:'Mihai Dănilă', role:'Director Tehnic', email:'m.danila@constructpro.ro', phone:'+40-744-123456', country:'România', city:'Cluj-Napoca', vatCode:'RO11223344', opportunity:95000, stage:'calificat', notes:[{date:'2026-06-01',text:'Vizită fabrică — interesat geam termopan proiect rezidențial Cluj'}], intel:'Proiect 120 apartamente. Decizie Q3 2026.', createdAt:'2024-06-01' },
+        { _id:4, cod:'GE-004', alias:'T-004', company:'Top Glass Berlin GmbH', type:'Distribuitor', contact:'Klaus Werner', role:'CEO', email:'k.werner@topglass.de', phone:'+49-30-1234567', country:'Germania', city:'Berlin', vatCode:'DE123456789', opportunity:260000, stage:'calificat', notes:[], intel:'Interesat EVOLAM pentru proiecte comerciale Berlin. A văzut FUTURIUM.', createdAt:'2024-07-10' },
+        { _id:5, cod:'GE-005', alias:'P-005', company:'Piatra Online SRL', type:'Retailer', contact:'Ionuț Petrescu', role:'Manager', email:'ionut@piatraonline.ro', phone:'+40-722-987654', country:'România', city:'Timișoara', vatCode:'RO55667788', opportunity:35000, stage:'prospect', notes:[{date:'2026-04-20',text:'Contact la târgul de construcții — lăsat pliant EVOPRINT'}], intel:'Showroom materiale construcții. Potențial raft expunere.', createdAt:'2026-04-20' },
+        { _id:6, cod:'GE-006', alias:'A-006', company:'Archi Studio SRL', type:'Arhitect', contact:'Diana Florescu', role:'Arhitect Principal', email:'diana@archistudio.ro', phone:'+40-755-443322', country:'România', city:'Iași', vatCode:'RO33445566', opportunity:75000, stage:'prospect', notes:[], intel:'3 proiecte rezidențiale în Iași. Nu a cumpărat încă.', createdAt:'2026-05-15' },
+    ];
+    saveClients();
+}
+
+function saveClients(){
+    try { localStorage.setItem(CRM_KEY, JSON.stringify(clients)); } catch(e){}
+}
+
+function nextCod(){
+    let seq = parseInt(localStorage.getItem(COD_KEY)||'6') + 1;
+    localStorage.setItem(COD_KEY, seq);
+    return 'GE-' + String(seq).padStart('3','0');
+}
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+const $ = id => document.getElementById(id);
+const eur = n => '€' + Number(n).toLocaleString('ro-RO');
+const eurK = n => n>=1000000 ? '€'+(n/1000000).toFixed(2)+'M' : '€'+Math.round(n/1000)+'K';
+function esc(s){ const d=document.createElement('div'); d.textContent=s==null?'':String(s); return d.innerHTML; }
+function today(){ return new Date().toISOString().slice(0,10); }
+
+function toast(msg, type=''){
+    const el = document.createElement('div');
+    el.className = 'toast' + (type ? ' '+type : '');
+    el.textContent = msg;
+    $('toast-stack').appendChild(el);
+    setTimeout(()=>{ el.style.opacity='0'; el.style.transition='opacity .25s'; setTimeout(()=>el.remove(),260); }, 3000);
+}
+
+/* ============================================================
+   MODE & VIEW SWITCH
+   ============================================================ */
+function setMode(mode){
+    viewMode = mode;
+    $('mode-sales').classList.toggle('active', mode==='sales');
+    $('mode-factory').classList.toggle('active', mode==='factory');
+    $('mode-desc').textContent = mode==='sales'
+        ? 'Toate datele vizibile — mod sales'
+        : '⚠️ Mod fabrică — numai alias și cod client vizibil';
+    $('th-company').textContent = mode==='factory' ? 'Alias' : 'Companie';
+    $('th-contact').style.display = mode==='factory' ? 'none' : '';
+    renderClients();
+    if (currentView==='pipeline') renderKanban();
+}
+
+function switchView(v){
+    currentView = v;
+    $('view-clients').style.display = v==='clients' ? 'block' : 'none';
+    $('view-pipeline').style.display = v==='pipeline' ? 'block' : 'none';
+    document.querySelectorAll('.nav-item[data-tab]').forEach(b=>b.classList.remove('active'));
+    document.querySelector('.nav-item[data-tab="'+v+'"]')?.classList.add('active');
+    if (v==='pipeline'){ renderFunnel(); renderKanban(); }
+}
+
+/* ============================================================
+   FILTERS & RENDER
+   ============================================================ */
+function populateFilters(){
+    const types = [...new Set(clients.map(c=>c.type))].sort();
+    const countries = [...new Set(clients.map(c=>c.country))].sort();
+    $('f-type').innerHTML = '<option value="">Toate tipurile</option>' + types.map(t=>`<option>${esc(t)}</option>`).join('');
+    $('f-country').innerHTML = '<option value="">Toate țările</option>' + countries.map(c=>`<option>${esc(c)}</option>`).join('');
+}
+
+function rebuildFilters(){
+    const pT=$('f-type').value, pC=$('f-country').value;
+    populateFilters();
+    $('f-type').value=pT; $('f-country').value=pC;
+}
+
+function getFiltered(){
+    const q=$('f-search').value.trim().toLowerCase();
+    const stage=$('f-stage').value;
+    const type=$('f-type').value;
+    const country=$('f-country').value;
+    return clients.filter(c => {
+        if (stage && c.stage!==stage) return false;
+        if (type && c.type!==type) return false;
+        if (country && c.country!==country) return false;
+        if (q && !(
+            c.company.toLowerCase().includes(q) ||
+            c.alias.toLowerCase().includes(q) ||
+            c.cod.toLowerCase().includes(q) ||
+            (c.contact||'').toLowerCase().includes(q)
+        )) return false;
+        return true;
+    });
+}
+
+function renderClients(){
+    const rows = getFiltered();
+    const tbody = $('clients-tbody');
+    const factory = viewMode==='factory';
+
+    if (!rows.length){
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:2.5rem;color:var(--text-faint)">Niciun client nu corespunde filtrelor.</td></tr>`;
+    } else {
+        tbody.innerHTML = rows.map(c => `
+            <tr>
+                <td><span class="cell-code">${esc(c.cod)}</span></td>
+                <td><span class="cell-alias">${esc(c.alias)}</span></td>
+                <td>
+                    ${factory
+                        ? '<span class="cell-masked">— confidențial —</span>'
+                        : `<div class="cell-company">${esc(c.company)}</div><div class="cell-sub">${esc(c.city)}, ${esc(c.country)}</div>`
+                    }
+                </td>
+                <td><span class="badge ${STAGE_BADGE[c.stage]}">${STAGE_LABELS[c.stage]}</span></td>
+                <td>${factory ? '—' : esc(c.type)}</td>
+                <td style="${factory?'display:none':''}">
+                    <div>${esc(c.contact)}</div>
+                    <div class="cell-sub">${esc(c.role)}</div>
+                </td>
+                <td><strong>${eurK(c.opportunity)}</strong></td>
+                <td>
+                    <div class="row-actions">
+                        <button class="btn btn-ghost btn-sm btn-icon" onclick="advanceStage(${c._id})" title="Avansează etapă">›</button>
+                        <button class="btn btn-ghost btn-sm btn-icon" onclick="viewClient(${c._id})" title="Detalii">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        </button>
+                        ${!factory ? `<button class="btn btn-ghost btn-sm btn-icon" onclick="openEditClient(${c._id})" title="Editează">✎</button>` : ''}
+                    </div>
+                </td>
+            </tr>`).join('');
+    }
+
+    $('clients-count').textContent = rows.length + ' din ' + clients.length + ' clienți';
+    updateKPIs();
+}
+
+function updateKPIs(){
+    const total = clients.length;
+    const pipeline = clients.filter(c=>['prospect','calificat'].includes(c.stage)).reduce((s,c)=>s+c.opportunity,0);
+    const active = clients.filter(c=>c.stage==='comanda').length;
+    const prospect = clients.filter(c=>c.stage==='prospect').length;
+    $('kpi-total').textContent = total;
+    $('kpi-pipeline').textContent = eurK(pipeline);
+    $('kpi-active').textContent = active;
+    $('kpi-prospect').textContent = prospect;
+}
+
+/* ============================================================
+   FUNNEL + KANBAN
+   ============================================================ */
+function renderFunnel(){
+    const maxCount = Math.max(...STAGES.map(s=>clients.filter(c=>c.stage===s).length), 1);
+    const totalVal = clients.reduce((s,c)=>s+c.opportunity,0);
+    $('funnel-meta').textContent = clients.length + ' clienți · ' + eurK(totalVal) + ' total pipeline';
+    $('funnel-container').innerHTML = STAGES.map(stage => {
+        const count = clients.filter(c=>c.stage===stage).length;
+        const val = clients.filter(c=>c.stage===stage).reduce((s,c)=>s+c.opportunity,0);
+        const pct = Math.max((count/maxCount)*100, 5).toFixed(0);
+        const color = STAGE_COLORS[stage];
+        return `
+            <div class="funnel-stage">
+                <div class="funnel-label">${STAGE_LABELS[stage]}</div>
+                <div class="funnel-track">
+                    <div class="funnel-fill" style="width:${pct}%;background:${color}">${count>0?count+(count===1?' client':' clienți'):''}</div>
+                </div>
+                <div class="funnel-count">${val>0?eurK(val):'—'}</div>
+            </div>`;
+    }).join('');
+}
+
+function renderKanban(){
+    const factory = viewMode==='factory';
+    const cols = STAGES.map(stage => {
+        const stageclients = clients.filter(c=>c.stage===stage);
+        const total = stageclients.reduce((s,c)=>s+c.opportunity,0);
+        const color = STAGE_COLORS[stage];
+        const cards = stageclients.map(c=>`
+            <div class="kanban-card" style="border-left-color:${color}" onclick="viewClient(${c._id})">
+                <div class="kanban-card-code">${esc(c.cod)} · <strong>${esc(c.alias)}</strong></div>
+                <div class="kanban-card-co">${factory?'<span style="color:var(--text-faint);font-style:italic">— confidențial —</span>':esc(c.company)}</div>
+                ${!factory?`<div class="kanban-card-contact">${esc(c.contact)} · ${esc(c.country)}</div>`:''}
+                <div class="kanban-card-footer">
+                    <span style="font-size:0.78rem;font-weight:700;color:var(--text)">${eurK(c.opportunity)}</span>
+                    <span class="badge ${STAGE_BADGE[stage]}" style="font-size:0.65rem">${STAGE_LABELS[stage]}</span>
+                </div>
+            </div>`).join('') || '<div style="color:var(--text-faint);font-size:0.8rem;text-align:center;padding:1rem 0">—</div>';
+
+        return `
+            <div class="kanban-col">
+                <div class="kanban-col-head" style="border-top-color:${color}">
+                    <span class="kanban-col-title">${STAGE_LABELS[stage]}</span>
+                    <span class="kanban-col-count" style="background:${color}22;color:${color}">${stageclients.length}</span>
+                </div>
+                <div class="kanban-cards">${cards}</div>
+                ${total>0?`<div class="kanban-total">${eurK(total)}</div>`:''}
+            </div>`;
+    });
+    $('kanban-container').innerHTML = '<div class="kanban-board">' + cols.join('') + '</div>';
+}
+
+/* ============================================================
+   ADVANCE STAGE
+   ============================================================ */
+function advanceStage(id){
+    const c = clients.find(x=>x._id===id);
+    const idx = STAGES.indexOf(c.stage);
+    if (idx >= STAGES.length-1){ toast(c.company + ' este deja în etapa Comandă', ''); return; }
+    c.stage = STAGES[idx+1];
+    addNote(id, 'Avansat la etapa: ' + STAGE_LABELS[c.stage]);
+    saveClients();
+    renderClients();
+    if (currentView==='pipeline'){ renderFunnel(); renderKanban(); }
+    toast((viewMode==='factory'?c.alias:c.company) + ' → ' + STAGE_LABELS[c.stage], 'ok');
+}
+
+/* ============================================================
+   NOTES
+   ============================================================ */
+function addNote(id, text){
+    const c = clients.find(x=>x._id===id);
+    if (!c) return;
+    if (!c.notes) c.notes = [];
+    c.notes.unshift({ date: today(), text });
+    saveClients();
+}
+
+function addNoteInput(id){
+    const inp = $('note-inp-'+id);
+    if (!inp || !inp.value.trim()) return;
+    addNote(id, inp.value.trim());
+    inp.value = '';
+    $('notes-list-'+id).innerHTML = renderNotesList(clients.find(x=>x._id===id));
+    toast('Notă adăugată', 'ok');
+}
+
+function renderNotesList(c){
+    if (!c.notes || !c.notes.length) return '<div style="color:var(--text-faint);font-size:0.82rem;padding:0.4rem 0">Nicio notă.</div>';
+    return c.notes.slice(0,15).map(n=>`
+        <div class="note-item">
+            <span class="note-date">${esc(n.date)}</span>
+            <span class="note-text">${esc(n.text)}</span>
+        </div>`).join('');
+}
+
+/* ============================================================
+   VIEW CLIENT
+   ============================================================ */
+function viewClient(id){
+    const c = clients.find(x=>x._id===id);
+    $('modal-title').innerHTML = `<span style="font-family:'Courier New',monospace;font-size:0.8rem;color:var(--text-faint);font-weight:400;margin-right:0.5rem">${esc(c.cod)}</span>${esc(viewMode==='factory'?c.alias:c.company)}`;
+    $('modal-body').innerHTML = `
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.1rem">
+            <span class="alias-preview">${esc(c.alias)}</span>
+            <span class="badge ${STAGE_BADGE[c.stage]}">${STAGE_LABELS[c.stage]}</span>
+            <span class="badge badge-gold">€${Number(c.opportunity).toLocaleString('ro-RO')}</span>
+            ${viewMode==='factory'?'<span class="badge badge-amber">⚠ Mod fabrică activ</span>':''}
+        </div>
+        ${viewMode==='sales'?`
+        <dl class="detail-grid">
+            <dt>Companie</dt><dd>${esc(c.company)}</dd>
+            <dt>Tip</dt><dd>${esc(c.type)}</dd>
+            <dt>CUI/VAT</dt><dd>${esc(c.vatCode||'—')}</dd>
+            <dt>Contact</dt><dd>${esc(c.contact)} — ${esc(c.role)}</dd>
+            <dt>Email</dt><dd><a href="mailto:${esc(c.email)}" style="color:var(--blue)">${esc(c.email)}</a></dd>
+            <dt>Telefon</dt><dd>${esc(c.phone||'—')}</dd>
+            <dt>Locație</dt><dd>${esc(c.city)}, ${esc(c.country)}</dd>
+        </dl>
+        <div style="margin-top:1rem;padding:0.85rem 1rem;background:var(--bg);border-radius:8px;border-left:3px solid var(--gold)">
+            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem">Intel Sales</div>
+            <div style="font-size:0.86rem">${esc(c.intel||'—')}</div>
+        </div>`
+        :`<div style="padding:1rem;background:var(--amber-bg);border-radius:8px;color:var(--amber);font-size:0.86rem;font-weight:600;margin-bottom:1rem">
+            ⚠️ Mod fabrică activ — informațiile comerciale sunt ascunse. Treci în modul Sales pentru detalii complete.
+        </div>`}
+        <div class="notes-section">
+            <div class="notes-head">Activitate & Note</div>
+            <div id="notes-list-${c._id}">${renderNotesList(c)}</div>
+            <div class="add-note-form">
+                <input class="add-note-input" id="note-inp-${c._id}" type="text" placeholder="Adaugă notă (Enter)…" onkeydown="if(event.key==='Enter')addNoteInput(${c._id})">
+                <button class="btn btn-ghost btn-sm" onclick="addNoteInput(${c._id})">Adaugă</button>
+            </div>
+        </div>`;
+    $('modal-foot').innerHTML = `
+        <button class="btn btn-ghost" onclick="closeModal()">Închide</button>
+        <button class="btn" style="background:var(--red-bg);color:var(--red);border:1px solid var(--red)" onclick="deleteClient(${c._id})">🗑 Șterge</button>
+        <button class="btn btn-ghost" onclick="closeModal();openEditClient(${c._id})">✎ Editează</button>
+        <button class="btn btn-primary" onclick="advanceStage(${c._id});closeModal()">→ Avansează etapă</button>`;
+    openModal();
+}
+
+/* ============================================================
+   ADD / EDIT CLIENT
+   ============================================================ */
+function openAddClient(){ openClientForm(null); }
+function openEditClient(id){ openClientForm(id); }
+
+function openClientForm(editId){
+    const isEdit = editId !== null && editId !== undefined;
+    const c = isEdit ? clients.find(x=>x._id===editId) : {};
+    const newCod = isEdit ? c.cod : nextCod();
+    const newAlias = isEdit ? c.alias : autoAlias(c.company||'', newCod);
+
+    $('modal-title').textContent = isEdit ? 'Editează: ' + c.company : 'Client Nou';
+    $('modal-body').innerHTML = `
+    <div class="form-grid">
+        <div class="form-row">
+            <label class="f">Companie <span class="f-req">*</span>
+                <input id="lf-company" type="text" value="${esc(c.company||'')}" placeholder="ex. Mobexpert SRL" oninput="updateAliasPreview()">
+            </label>
+            <label class="f">Tip Client
+                <select id="lf-type">
+                    ${CLIENT_TYPES.map(t=>`<option value="${t}"${(c.type||''===t)?'':''} ${(c.type||'Retailer')===t?'selected':''}>${t}</option>`).join('')}
+                </select>
+            </label>
+        </div>
+        <div class="form-row three">
+            <label class="f">Cod Client
+                <input id="lf-cod" type="text" value="${esc(newCod)}" placeholder="GE-001">
+                <span class="f-hint">Auto-generat, editabil</span>
+            </label>
+            <label class="f">Alias Fabrică <span class="f-req">*</span>
+                <input id="lf-alias" type="text" value="${esc(isEdit?c.alias:newAlias)}" placeholder="ex. M-001">
+                <span class="f-hint">Vizibil în producție — nu dezvăluie clientul</span>
+            </label>
+            <label class="f">Etapă
+                <select id="lf-stage">
+                    ${STAGES.map(s=>`<option value="${s}"${(c.stage||'prospect')===s?'selected':''}>${STAGE_LABELS[s]}</option>`).join('')}
+                </select>
+            </label>
+        </div>
+        <div style="padding:0.6rem 0.9rem;background:var(--amber-bg);border-radius:8px;font-size:0.8rem;color:var(--amber)">
+            🏭 Alias în fabrică: <span class="alias-preview" id="alias-preview-live">${esc(isEdit?c.alias:newAlias)}</span>
+        </div>
+        <div class="form-row">
+            <label class="f">Contact Principal <span class="f-req">*</span>
+                <input id="lf-contact" type="text" value="${esc(c.contact||'')}" placeholder="Nume persoană">
+            </label>
+            <label class="f">Funcție
+                <input id="lf-role" type="text" value="${esc(c.role||'')}" placeholder="ex. Director Achiziții">
+            </label>
+        </div>
+        <div class="form-row">
+            <label class="f">Email <span class="f-req">*</span>
+                <input id="lf-email" type="email" value="${esc(c.email||'')}" placeholder="contact@companie.ro">
+            </label>
+            <label class="f">Telefon
+                <input id="lf-phone" type="text" value="${esc(c.phone||'')}" placeholder="+40-21-...">
+            </label>
+        </div>
+        <div class="form-row three">
+            <label class="f">Țară
+                <input id="lf-country" type="text" value="${esc(c.country||'România')}" placeholder="România">
+            </label>
+            <label class="f">Oraș
+                <input id="lf-city" type="text" value="${esc(c.city||'')}" placeholder="București">
+            </label>
+            <label class="f">CUI / VAT
+                <input id="lf-vat" type="text" value="${esc(c.vatCode||'')}" placeholder="RO12345678">
+            </label>
+        </div>
+        <label class="f">Oportunitate (€)
+            <input id="lf-opp" type="number" value="${c.opportunity||''}" placeholder="ex. 150000" min="0">
+        </label>
+        <label class="f">Intel Sales / Note
+            <textarea id="lf-intel" rows="3" placeholder="Buget estimat, deadline decizie, condiții speciale, concurență…">${esc(c.intel||'')}</textarea>
+        </label>
+        <div id="lf-err" class="f-err"></div>
+    </div>`;
+
+    $('modal-foot').innerHTML =
+        '<button class="btn btn-ghost" onclick="closeModal()">Anulează</button>' +
+        `<button class="btn btn-primary" onclick="saveClientForm(${isEdit?editId:'null'})">Salvează</button>`;
+
+    // live alias preview
+    $('lf-alias').addEventListener('input', ()=>{ const ap=$('alias-preview-live'); if(ap) ap.textContent=$('lf-alias').value||'—'; });
+
+    openModal();
+}
+
+function autoAlias(company, cod){
+    if (!company) return cod.replace('GE-', 'C-');
+    const letter = company.trim()[0].toUpperCase();
+    const num = cod.split('-')[1] || '001';
+    return letter + '-' + num;
+}
+
+function updateAliasPreview(){
+    const comp = $('lf-company').value.trim();
+    const cod = $('lf-cod').value.trim() || nextCod();
+    const suggested = autoAlias(comp, cod);
+    if ($('lf-alias') && !$('lf-alias').dataset.edited) $('lf-alias').value = suggested;
+    const ap = $('alias-preview-live');
+    if (ap) ap.textContent = $('lf-alias').value || '—';
+}
+
+function saveClientForm(editId){
+    const company = $('lf-company').value.trim();
+    const contact = $('lf-contact').value.trim();
+    const email   = $('lf-email').value.trim();
+    const alias   = $('lf-alias').value.trim();
+    const err = $('lf-err');
+
+    if (!company){ err.textContent='Compania este obligatorie.'; err.style.display='block'; return; }
+    if (!contact){ err.textContent='Contactul este obligatoriu.'; err.style.display='block'; return; }
+    if (!email)  { err.textContent='Emailul este obligatoriu.'; err.style.display='block'; return; }
+    if (!alias)  { err.textContent='Alias-ul este obligatoriu (vizibil în fabrică).'; err.style.display='block'; return; }
+    err.style.display='none';
+
+    const data = {
+        cod: $('lf-cod').value.trim() || nextCod(),
+        alias,
+        company,
+        type:        $('lf-type').value,
+        contact,
+        role:        $('lf-role').value.trim(),
+        email,
+        phone:       $('lf-phone').value.trim(),
+        country:     $('lf-country').value.trim() || 'România',
+        city:        $('lf-city').value.trim(),
+        vatCode:     $('lf-vat').value.trim(),
+        opportunity: parseInt($('lf-opp').value)||0,
+        stage:       $('lf-stage').value,
+        intel:       $('lf-intel').value.trim(),
+    };
+
+    if (editId !== null){
+        const idx = clients.findIndex(x=>x._id===editId);
+        if (idx!==-1) clients[idx] = { ...clients[idx], ...data };
+        toast('Client actualizat: ' + company, 'ok');
+    } else {
+        data._id = Date.now();
+        data.notes = [];
+        data.createdAt = today();
+        clients.push(data);
+        toast('Client adăugat: ' + company + ' (' + data.cod + ')', 'ok');
+    }
+
+    saveClients();
+    closeModal();
+    rebuildFilters();
+    renderClients();
+    if (currentView==='pipeline'){ renderFunnel(); renderKanban(); }
+}
+
+/* ============================================================
+   DELETE
+   ============================================================ */
+function deleteClient(id){
+    const c = clients.find(x=>x._id===id);
+    if (!c) return;
+    if (!confirm('Ștergi definitiv "' + c.company + '" (' + c.cod + ')? Acțiunea nu poate fi anulată.')) return;
+    clients = clients.filter(x=>x._id!==id);
+    saveClients();
+    closeModal();
+    toast('Șters: ' + c.company, '');
+    renderClients();
+    if (currentView==='pipeline'){ renderFunnel(); renderKanban(); }
+}
+
+/* ============================================================
+   EXPORT CSV
+   ============================================================ */
+function exportCSV(){
+    const rows = getFiltered();
+    const factory = viewMode==='factory';
+    const headers = factory
+        ? ['Cod Client','Alias','Etapa']
+        : ['Cod','Alias','Companie','Tip','CUI','Contact','Rol','Email','Telefon','Tara','Oras','Oportunitate EUR','Etapa','Intel'];
+    const csvEsc = v => '"' + String(v==null?'':v).replace(/"/g,'""') + '"';
+    const lines = [headers.map(csvEsc).join(',')];
+    rows.forEach(c => {
+        if (factory){
+            lines.push([c.cod, c.alias, STAGE_LABELS[c.stage]].map(csvEsc).join(','));
+        } else {
+            lines.push([c.cod,c.alias,c.company,c.type,c.vatCode,c.contact,c.role,c.email,c.phone,c.country,c.city,c.opportunity,STAGE_LABELS[c.stage],c.intel].map(csvEsc).join(','));
+        }
+    });
+    const blob = new Blob(['﻿'+lines.join('\r\n')], {type:'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download='glas-expert-crm-'+today()+'.csv';
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    toast('Exportat ' + rows.length + ' clienți' + (factory?' (mod fabrică)':'') + ' în CSV', 'ok');
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+function openModal(){ $('modal').classList.add('open'); }
+function closeModal(){ $('modal').classList.remove('open'); }
+
+/* ============================================================
+   INIT
+   ============================================================ */
+(function init(){
+    loadClients();
+    populateFilters();
+    renderClients();
+})();
+</script>
+</body>
+</html>
