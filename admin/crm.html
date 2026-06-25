@@ -60,9 +60,14 @@
         .nav-item:hover { background:rgba(255,255,255,0.06); color:#fff; }
         .nav-item.active { background:var(--gold-bg); color:var(--gold-soft); box-shadow:inset 3px 0 0 var(--gold); }
         .nav-item .ico { width:17px; height:17px; flex-shrink:0; }
+        .nav-item .nav-label { flex:1; }
         .nav-sep { font-size:0.66rem; font-weight:700; text-transform:uppercase; letter-spacing:0.09em; color:rgba(255,255,255,0.3); padding:1rem 0.85rem 0.35rem; }
         .sidebar-footer { padding:1rem 1.5rem; border-top:1px solid rgba(255,255,255,0.08); font-size:0.74rem; color:rgba(255,255,255,0.45); }
         .sidebar-footer strong { color:rgba(255,255,255,0.75); }
+
+        /* ---- Overdue badge sidebar ---- */
+        .nav-badge { background:var(--red); color:#fff; font-size:0.66rem; font-weight:800; min-width:18px; height:18px; padding:0 5px; border-radius:9px; display:inline-flex; align-items:center; justify-content:center; line-height:1; }
+        .nav-badge.hidden { display:none; }
 
         .main { flex:1; margin-left:240px; display:flex; flex-direction:column; }
         .topbar {
@@ -90,6 +95,7 @@
         .stat { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); padding:1.1rem 1.25rem; }
         .stat .label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:0.35rem; }
         .stat .value { font-size:1.6rem; font-weight:800; color:var(--navy); line-height:1; }
+        .stat .value.alert { color:var(--red); }
         .stat .delta { font-size:0.74rem; color:var(--text-faint); margin-top:0.3rem; }
         .stat .delta.up { color:var(--green); }
 
@@ -110,6 +116,9 @@
         .table-wrap { overflow-x:auto; }
         table { width:100%; border-collapse:collapse; font-size:0.85rem; }
         th { text-align:left; padding:0.65rem 1.25rem; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); border-bottom:1px solid var(--border); background:#f9fafb; white-space:nowrap; }
+        th.sortable { cursor:pointer; user-select:none; transition:color 0.15s; }
+        th.sortable:hover { color:var(--navy); }
+        th.sortable .sort-arrow { font-size:0.7rem; margin-left:0.25rem; color:var(--gold); }
         td { padding:0.8rem 1.25rem; border-bottom:1px solid #f3f4f6; vertical-align:middle; }
         tr:last-child td { border-bottom:none; }
         tr:hover td { background:#fafafa; }
@@ -130,6 +139,26 @@
         .badge-gray   { background:#eef0f2; color:var(--text-muted); }
         .badge-purple { background:var(--purple-bg); color:var(--purple); }
 
+        /* ---- Product tags ---- */
+        .product-tags { display:flex; flex-wrap:wrap; gap:0.25rem; }
+        .product-tag { font-size:0.65rem; font-weight:700; padding:0.12rem 0.45rem; border-radius:5px; white-space:nowrap; letter-spacing:0.02em; }
+        .product-tag.p-evoprint    { background:var(--blue-bg);   color:var(--blue); }
+        .product-tag.p-versatika   { background:var(--gold-bg);   color:#9a7726; }
+        .product-tag.p-evolam-smart{ background:var(--purple-bg); color:var(--purple); }
+        .product-tag.p-evolam      { background:#eef2f7;          color:#3b5a78; }
+        .product-tag.p-evodur      { background:var(--red-bg);    color:var(--red); }
+        .product-tag.p-evoclean    { background:var(--green-bg);  color:var(--green); }
+
+        /* ---- Priority ---- */
+        .priority-cell { display:inline-flex; align-items:center; gap:0.35rem; font-size:0.78rem; font-weight:600; }
+        .priority-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+        .priority-high   { color:var(--red); }
+        .priority-high   .priority-dot { background:var(--red); }
+        .priority-normal { color:#a8741b; }
+        .priority-normal .priority-dot { background:var(--amber); }
+        .priority-low    { color:var(--green); }
+        .priority-low    .priority-dot { background:var(--green); }
+
         /* ---- Buttons ---- */
         .btn { display:inline-flex; align-items:center; gap:0.4rem; padding:0.5rem 1rem; border-radius:var(--radius-sm); font-size:0.84rem; font-weight:600; cursor:pointer; border:1px solid transparent; transition:all 0.15s; font-family:var(--font); }
         .btn-primary { background:var(--navy); color:#fff; }
@@ -141,6 +170,8 @@
         .btn-sm { padding:0.3rem 0.65rem; font-size:0.78rem; }
         .btn-icon { padding:0.35rem 0.6rem !important; }
         .row-actions { display:flex; gap:0.3rem; justify-content:flex-end; }
+        .task-badge { display:inline-flex; align-items:center; gap:0.25rem; background:var(--red-bg); color:var(--red); font-size:0.7rem; font-weight:800; padding:0.15rem 0.5rem; border-radius:20px; }
+        .task-badge-soft { display:inline-flex; align-items:center; gap:0.25rem; background:#eef0f2; color:var(--text-muted); font-size:0.7rem; font-weight:700; padding:0.15rem 0.5rem; border-radius:20px; }
 
         /* ---- Pipeline funnel ---- */
         .funnel-wrap { padding:1rem 1.5rem 1.5rem; }
@@ -166,7 +197,7 @@
         .kanban-total { padding:0.45rem 1rem; font-size:0.74rem; color:var(--text-muted); font-weight:600; border-top:1px solid var(--border); text-align:center; }
 
         /* ---- Notes ---- */
-        .notes-section { margin-top:1.25rem; border-top:1px solid var(--border); padding-top:1rem; }
+        .notes-section { margin-top:1.25rem; }
         .notes-head { font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:0.65rem; }
         .note-item { display:flex; gap:0.65rem; padding:0.35rem 0; border-bottom:1px solid #f3f4f6; }
         .note-date { font-size:0.7rem; color:var(--text-faint); flex-shrink:0; width:80px; padding-top:1px; }
@@ -182,13 +213,75 @@
         /* ---- Modal ---- */
         .modal-backdrop { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:100; align-items:center; justify-content:center; }
         .modal-backdrop.open { display:flex; }
-        .modal { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow-lg); width:92%; max-width:620px; max-height:90vh; display:flex; flex-direction:column; overflow:hidden; }
+        .modal { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow-lg); width:92%; max-width:640px; max-height:90vh; display:flex; flex-direction:column; overflow:hidden; }
         .modal-head { padding:1.25rem 1.5rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
         .modal-head h3 { font-size:1rem; font-weight:700; color:var(--navy); }
         .modal-close { background:none; border:none; cursor:pointer; color:var(--text-faint); font-size:1.3rem; padding:0 0.25rem; }
         .modal-body { padding:1.5rem; overflow-y:auto; flex:1; }
-        .modal-foot { padding:1rem 1.5rem; border-top:1px solid var(--border); display:flex; align-items:center; gap:0.6rem; flex-shrink:0; }
+        .modal-foot { padding:1rem 1.5rem; border-top:1px solid var(--border); display:flex; align-items:center; gap:0.6rem; flex-shrink:0; flex-wrap:wrap; }
         .modal-foot .btn-primary { margin-left:auto; }
+
+        /* ---- Modal internal tabs ---- */
+        .modal-tabs { display:flex; gap:0.25rem; border-bottom:1px solid var(--border); padding:0 1.5rem; flex-shrink:0; background:#fbfcfd; }
+        .modal-tab-btn { background:none; border:none; cursor:pointer; font-family:var(--font); font-size:0.82rem; font-weight:600; color:var(--text-muted); padding:0.7rem 0.85rem; border-bottom:2px solid transparent; margin-bottom:-1px; transition:color 0.15s, border-color 0.15s; display:inline-flex; align-items:center; gap:0.35rem; }
+        .modal-tab-btn:hover { color:var(--navy); }
+        .modal-tab-btn.active { color:var(--navy); border-bottom-color:var(--gold); }
+        .modal-tab-btn .tab-count { font-size:0.66rem; font-weight:800; background:#eef0f2; color:var(--text-muted); border-radius:10px; padding:0 0.4rem; min-width:16px; text-align:center; }
+        .modal-tab-pane { display:none; }
+        .modal-tab-pane.active { display:block; }
+
+        /* ---- Timeline activitate ---- */
+        .timeline { position:relative; padding-left:1.1rem; }
+        .timeline::before { content:''; position:absolute; left:4px; top:4px; bottom:4px; width:2px; background:var(--border); }
+        .timeline-item { position:relative; padding:0 0 1rem 1rem; }
+        .timeline-item:last-child { padding-bottom:0; }
+        .timeline-dot { position:absolute; left:-1.1rem; top:3px; width:11px; height:11px; border-radius:50%; background:var(--text-faint); border:2px solid var(--surface); box-shadow:0 0 0 1px var(--border); }
+        .timeline-dot.stage-move { background:var(--gold); box-shadow:0 0 0 1px var(--gold); }
+        .timeline-head { display:flex; align-items:baseline; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.15rem; }
+        .timeline-co { font-size:0.82rem; font-weight:700; color:var(--navy); }
+        .timeline-date { font-size:0.7rem; color:var(--text-faint); }
+        .timeline-text { font-size:0.84rem; color:var(--text); }
+
+        /* ---- Tasks ---- */
+        .task-list { display:flex; flex-direction:column; gap:0.4rem; }
+        .task-item { display:flex; align-items:flex-start; gap:0.65rem; padding:0.6rem 0.75rem; background:#fafbfc; border:1px solid var(--border); border-radius:var(--radius-sm); }
+        .task-item.is-done { opacity:0.6; }
+        .task-check { width:18px; height:18px; margin-top:1px; cursor:pointer; accent-color:var(--green); flex-shrink:0; }
+        .task-body { flex:1; min-width:0; }
+        .task-text { font-size:0.85rem; color:var(--text); }
+        .task-text.done { text-decoration:line-through; color:var(--text-faint); }
+        .task-due { font-size:0.72rem; color:var(--text-muted); margin-top:2px; display:inline-flex; align-items:center; gap:0.25rem; }
+        .task-due.overdue { color:var(--red); font-weight:700; }
+        .task-due.soon { color:var(--amber); font-weight:700; }
+        .task-del { background:none; border:none; cursor:pointer; color:var(--text-faint); font-size:0.95rem; padding:0 0.2rem; line-height:1; flex-shrink:0; }
+        .task-del:hover { color:var(--red); }
+        .add-task-form { display:flex; gap:0.5rem; margin-top:0.9rem; flex-wrap:wrap; }
+        .add-task-input { flex:1; min-width:160px; font-size:0.84rem; padding:0.5rem 0.75rem; border:1px solid var(--border); border-radius:8px; outline:none; font-family:var(--font); }
+        .add-task-date { font-size:0.84rem; padding:0.5rem 0.6rem; border:1px solid var(--border); border-radius:8px; outline:none; font-family:var(--font); color:var(--text); }
+
+        /* ---- Contact cards ---- */
+        .contact-card { display:flex; align-items:flex-start; gap:0.75rem; padding:0.8rem 0.9rem; background:#fafbfc; border:1px solid var(--border); border-radius:var(--radius-sm); margin-bottom:0.55rem; }
+        .contact-avatar { width:38px; height:38px; border-radius:50%; background:var(--navy); color:#fff; font-size:0.82rem; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; letter-spacing:0.02em; }
+        .contact-info { flex:1; min-width:0; }
+        .contact-name { font-size:0.88rem; font-weight:700; color:var(--navy); }
+        .contact-role { font-size:0.76rem; color:var(--text-muted); }
+        .contact-meta { font-size:0.78rem; color:var(--text); margin-top:0.3rem; display:flex; flex-direction:column; gap:0.1rem; }
+        .contact-meta a { color:var(--blue); text-decoration:none; }
+        .contact-primary-tag { font-size:0.62rem; font-weight:800; text-transform:uppercase; letter-spacing:0.04em; background:var(--gold-bg); color:#9a7726; padding:0.1rem 0.4rem; border-radius:5px; margin-left:0.4rem; }
+
+        /* ---- Top opportunities ---- */
+        .overview-section { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; }
+        .top-opp-item { display:flex; align-items:center; gap:0.75rem; padding:0.7rem 1.25rem; border-bottom:1px solid #f3f4f6; }
+        .top-opp-item:last-child { border-bottom:none; }
+        .top-opp-rank { width:24px; height:24px; border-radius:50%; background:var(--gold-bg); color:#9a7726; font-size:0.78rem; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+        .top-opp-co { flex:1; min-width:0; }
+        .top-opp-co .name { font-size:0.85rem; font-weight:700; color:var(--navy); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .top-opp-co .alias { font-family:'Courier New',monospace; font-size:0.72rem; color:var(--text-faint); }
+        .top-opp-val { font-size:0.86rem; font-weight:800; color:var(--text); flex-shrink:0; }
+
+        /* ---- Overview layout ---- */
+        .overview-2col { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem; }
+        .overview-empty { color:var(--text-faint); font-size:0.84rem; padding:1.5rem 1.25rem; text-align:center; }
 
         /* ---- Form ---- */
         .form-grid { display:grid; gap:0.9rem; }
@@ -204,8 +297,13 @@
         label.f textarea { resize:vertical; }
         .f-req { color:var(--red); }
         .f-hint { font-size:0.72rem; color:var(--text-faint); font-weight:400; margin-top:1px; }
+        .f-label { font-size:0.81rem; font-weight:600; color:var(--text-muted); margin-bottom:0.4rem; }
         .alias-preview { font-family:'Courier New',monospace; font-size:1rem; font-weight:700; color:var(--amber); background:var(--amber-bg); border-radius:6px; padding:0.3rem 0.75rem; letter-spacing:0.05em; display:inline-block; }
         .f-err { color:var(--red); font-size:0.81rem; display:none; }
+        .product-pick { display:flex; flex-wrap:wrap; gap:0.4rem; }
+        .product-pick label { display:inline-flex; align-items:center; gap:0.35rem; font-size:0.8rem; font-weight:600; color:var(--text); background:#f6f7f9; border:1px solid var(--border); border-radius:20px; padding:0.3rem 0.7rem; cursor:pointer; transition:all 0.15s; }
+        .product-pick label:hover { border-color:var(--navy-2); }
+        .product-pick input { accent-color:var(--navy); cursor:pointer; }
 
         /* ---- Toast ---- */
         #toast-stack { position:fixed; bottom:1.5rem; right:1.5rem; display:flex; flex-direction:column; gap:0.5rem; z-index:200; }
@@ -213,6 +311,9 @@
         .toast.ok { background:var(--green); }
         .toast.err { background:var(--red); }
 
+        @media(max-width:980px){
+            .overview-2col { grid-template-columns:1fr; }
+        }
         @media(max-width:780px){
             .sidebar { transform:translateX(-100%); transition:transform 0.25s ease; }
             .sidebar.open { transform:translateX(0); box-shadow:var(--shadow-lg); }
@@ -234,26 +335,35 @@
         </div>
         <nav class="nav">
             <div class="nav-sep">CRM</div>
-            <button class="nav-item active" data-tab="clients">
+            <button class="nav-item active" data-tab="overview" onclick="switchView('overview')">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                <span class="nav-label">Overview</span>
+            </button>
+            <button class="nav-item" data-tab="clients" onclick="switchView('clients')">
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                Clienți
+                <span class="nav-label">Clienți</span>
             </button>
             <button class="nav-item" data-tab="pipeline" onclick="switchView('pipeline')">
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="4" height="18" rx="1"/><rect x="10" y="3" width="4" height="13" rx="1"/><rect x="17" y="3" width="4" height="16" rx="1"/></svg>
-                Pipeline
+                <span class="nav-label">Pipeline</span>
+            </button>
+            <button class="nav-item" data-tab="activity" onclick="switchView('activity')">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span class="nav-label">Activitate</span>
+                <span class="nav-badge hidden" id="nav-overdue-badge">0</span>
             </button>
             <div class="nav-sep">Module viitoare</div>
             <button class="nav-item" style="opacity:0.4;cursor:default">
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                Ofertare
+                <span class="nav-label">Ofertare</span>
             </button>
             <button class="nav-item" style="opacity:0.4;cursor:default">
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-                Comenzi
+                <span class="nav-label">Comenzi</span>
             </button>
             <button class="nav-item" style="opacity:0.4;cursor:default">
                 <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 9l-5 5-3-3-4 4"/></svg>
-                Rapoarte
+                <span class="nav-label">Rapoarte</span>
             </button>
         </nav>
         <div class="sidebar-footer">
@@ -267,8 +377,8 @@
     <div class="main">
         <header class="topbar">
             <div>
-                <h1 id="page-title">Clienți</h1>
-                <div class="crumb">Glas Expert · CRM Intern · <span id="crumb-sub">Toți clienții</span></div>
+                <h1 id="page-title">Overview</h1>
+                <div class="crumb">Glas Expert · CRM Intern · <span id="crumb-sub">Sumar</span></div>
             </div>
             <div class="topbar-right">
                 <span class="badge badge-green"><span class="dot"></span>Local</span>
@@ -291,32 +401,55 @@
                 <span class="mode-info" id="mode-desc">Toate datele vizibile — mod sales</span>
             </div>
 
-            <!-- KPI strip -->
-            <div class="stat-grid">
-                <div class="stat">
-                    <div class="label">Total Clienți</div>
-                    <div class="value" id="kpi-total">0</div>
-                    <div class="delta" id="kpi-total-sub">în baza de date</div>
+            <!-- ---- OVERVIEW VIEW ---- -->
+            <div id="view-overview">
+                <div class="stat-grid">
+                    <div class="stat">
+                        <div class="label">Total Clienți</div>
+                        <div class="value" id="ov-total">0</div>
+                        <div class="delta" id="ov-total-sub">în baza de date</div>
+                    </div>
+                    <div class="stat">
+                        <div class="label">Valoare Pipeline</div>
+                        <div class="value" id="ov-pipeline">€0</div>
+                        <div class="delta up">total oportunități</div>
+                    </div>
+                    <div class="stat">
+                        <div class="label">Clienți Activi</div>
+                        <div class="value" id="ov-active">0</div>
+                        <div class="delta up">în etapa Comandă</div>
+                    </div>
+                    <div class="stat">
+                        <div class="label">Tasks Scadente</div>
+                        <div class="value" id="ov-overdue">0</div>
+                        <div class="delta" id="ov-overdue-sub">follow-up necesar</div>
+                    </div>
                 </div>
-                <div class="stat">
-                    <div class="label">Pipeline Activ</div>
-                    <div class="value" id="kpi-pipeline">€0</div>
-                    <div class="delta up" id="kpi-pipe-sub">prospect + calificat</div>
+
+                <div class="card" style="margin-bottom:1.5rem">
+                    <div class="card-head"><h3>Funnel Pipeline</h3><span class="meta" id="ov-funnel-meta">—</span></div>
+                    <div class="funnel-wrap" id="ov-funnel-container"></div>
                 </div>
-                <div class="stat">
-                    <div class="label">Clienți Activi</div>
-                    <div class="value" id="kpi-active">0</div>
-                    <div class="delta up">cel puțin o comandă</div>
+
+                <div class="overview-2col">
+                    <div class="overview-section">
+                        <div class="card-head"><h3>Top 5 Oportunități</h3><span class="meta">după valoare</span></div>
+                        <div id="ov-top-opps"></div>
+                    </div>
+                    <div class="overview-section">
+                        <div class="card-head"><h3>Activitate Recentă</h3><span class="meta">ultimele note</span></div>
+                        <div style="padding:1.1rem 1.25rem" id="ov-recent-activity"></div>
+                    </div>
                 </div>
-                <div class="stat">
-                    <div class="label">Prospecți</div>
-                    <div class="value" id="kpi-prospect">0</div>
-                    <div class="delta">necalificați încă</div>
+
+                <div class="card">
+                    <div class="card-head"><h3>Tasks Scadente</h3><span class="meta" id="ov-tasks-meta">overdue · azi · mâine</span></div>
+                    <div style="padding:1.1rem 1.25rem" id="ov-due-tasks"></div>
                 </div>
             </div>
 
             <!-- ---- CLIENTS VIEW ---- -->
-            <div id="view-clients">
+            <div id="view-clients" style="display:none">
                 <!-- Filters -->
                 <div class="filters">
                     <div class="search-box">
@@ -332,6 +465,10 @@
                             <option value="oferta">Ofertă</option>
                             <option value="comanda">Comandă</option>
                         </select>
+                    </div>
+                    <div class="field">
+                        <label>Produs</label>
+                        <select id="f-product" onchange="renderClients()"><option value="">Toate produsele</option></select>
                     </div>
                     <div class="field">
                         <label>Tip</label>
@@ -358,11 +495,12 @@
                                 <tr>
                                     <th>Cod</th>
                                     <th>Alias</th>
-                                    <th id="th-company">Companie</th>
-                                    <th>Etapă</th>
-                                    <th>Tip</th>
-                                    <th id="th-contact">Contact</th>
-                                    <th>Oportunitate</th>
+                                    <th id="th-company" class="sortable" onclick="sortBy('company')">Companie</th>
+                                    <th class="sortable" onclick="sortBy('priority')">Prioritate</th>
+                                    <th class="sortable" onclick="sortBy('stage')">Etapă</th>
+                                    <th>Produse</th>
+                                    <th class="sortable" onclick="sortBy('opportunity')">Oportunitate</th>
+                                    <th>Tasks</th>
                                     <th style="text-align:right">Acțiuni</th>
                                 </tr>
                             </thead>
@@ -384,6 +522,21 @@
                 </div>
             </div>
 
+            <!-- ---- ACTIVITY VIEW ---- -->
+            <div id="view-activity" style="display:none">
+                <div class="filters">
+                    <div class="field" style="min-width:280px">
+                        <label>Filtrează după client</label>
+                        <select id="f-activity-client" onchange="renderActivity()"><option value="">Toți clienții</option></select>
+                    </div>
+                    <span class="mode-info" id="activity-meta" style="margin-left:auto"></span>
+                </div>
+                <div class="card">
+                    <div class="card-head"><h3>Timeline Activitate</h3><span class="meta">cele mai recente întâi</span></div>
+                    <div style="padding:1.25rem 1.5rem" id="activity-timeline"></div>
+                </div>
+            </div>
+
         </main>
     </div>
 </div>
@@ -395,6 +548,7 @@
             <h3 id="modal-title">Client</h3>
             <button class="modal-close" onclick="closeModal()">×</button>
         </div>
+        <div id="modal-tabs"></div>
         <div class="modal-body" id="modal-body"></div>
         <div class="modal-foot" id="modal-foot"></div>
     </div>
@@ -416,28 +570,125 @@ const STAGE_BADGE  = { prospect:'badge-gray', calificat:'badge-blue', oferta:'ba
 
 const CLIENT_TYPES = ['Retailer','Distribuitor','Producător','Constructor','Arhitect','Dealer','Importator','Altul'];
 
+const PRODUCTS = ['EVOPRINT','EVOLAM','EVOLAM SMART','EVODUR','EVOCLEAN','VERSATIKA'];
+const PRODUCT_CLASS = {
+    'EVOPRINT':'p-evoprint', 'EVOLAM':'p-evolam', 'EVOLAM SMART':'p-evolam-smart',
+    'EVODUR':'p-evodur', 'EVOCLEAN':'p-evoclean', 'VERSATIKA':'p-versatika'
+};
+
+const PRIORITIES = ['high','normal','low'];
+const PRIORITY_LABELS = { high:'Urgent', normal:'Normal', low:'Scăzut' };
+
+const SOURCES = ['Târg','Website','Referral','LinkedIn','Cold Call','Partener','Altul'];
+
 /* ============================================================
    DATA
    ============================================================ */
 let clients = [];
-let viewMode = 'sales'; // sales | factory
-let currentView = 'clients'; // clients | pipeline
+let viewMode = 'sales';    // sales | factory
+let currentView = 'overview'; // overview | clients | pipeline | activity
+let sortKey = null;        // company | priority | stage | opportunity
+let sortDir = 'asc';       // asc | desc
+const PRIORITY_ORDER = { high:0, normal:1, low:2 };
 
 function loadClients(){
+    let loaded = null;
     try {
         const s = localStorage.getItem(CRM_KEY);
-        if (s) { clients = JSON.parse(s); return; }
+        if (s) loaded = JSON.parse(s);
     } catch(e){}
-    // Seed data demo
-    clients = [
-        { _id:1, cod:'GE-001', alias:'M-001', company:'Mobexpert SRL', type:'Retailer', contact:'Bogdan Chivu', role:'Director Achiziții', email:'bogdan.chivu@mobexpert.ro', phone:'+40-21-3100000', country:'România', city:'București', vatCode:'RO12345678', opportunity:180000, stage:'comanda', notes:[{date:'2026-05-10',text:'Comandă repetată Q2 — platforme expunere showroom'}], intel:'Client fidel din 2019. Comenzi trimestriale. Discount 8%.', createdAt:'2024-01-15' },
-        { _id:2, cod:'GE-002', alias:'I-002', company:'IKEA România', type:'Retailer', contact:'Ana Ionescu', role:'Procurement Manager', email:'ana.ionescu@ikea.com', phone:'+40-21-4000000', country:'România', city:'București', vatCode:'RO98765432', opportunity:420000, stage:'oferta', notes:[], intel:'Cerere geam securizat 10mm pentru mese. Decizie august 2026.', createdAt:'2024-03-01' },
-        { _id:3, cod:'GE-003', alias:'C-003', company:'Construct Pro SRL', type:'Constructor', contact:'Mihai Dănilă', role:'Director Tehnic', email:'m.danila@constructpro.ro', phone:'+40-744-123456', country:'România', city:'Cluj-Napoca', vatCode:'RO11223344', opportunity:95000, stage:'calificat', notes:[{date:'2026-06-01',text:'Vizită fabrică — interesat geam termopan proiect rezidențial Cluj'}], intel:'Proiect 120 apartamente. Decizie Q3 2026.', createdAt:'2024-06-01' },
-        { _id:4, cod:'GE-004', alias:'T-004', company:'Top Glass Berlin GmbH', type:'Distribuitor', contact:'Klaus Werner', role:'CEO', email:'k.werner@topglass.de', phone:'+49-30-1234567', country:'Germania', city:'Berlin', vatCode:'DE123456789', opportunity:260000, stage:'calificat', notes:[], intel:'Interesat EVOLAM pentru proiecte comerciale Berlin. A văzut FUTURIUM.', createdAt:'2024-07-10' },
-        { _id:5, cod:'GE-005', alias:'P-005', company:'Piatra Online SRL', type:'Retailer', contact:'Ionuț Petrescu', role:'Manager', email:'ionut@piatraonline.ro', phone:'+40-722-987654', country:'România', city:'Timișoara', vatCode:'RO55667788', opportunity:35000, stage:'prospect', notes:[{date:'2026-04-20',text:'Contact la târgul de construcții — lăsat pliant EVOPRINT'}], intel:'Showroom materiale construcții. Potențial raft expunere.', createdAt:'2026-04-20' },
-        { _id:6, cod:'GE-006', alias:'A-006', company:'Archi Studio SRL', type:'Arhitect', contact:'Diana Florescu', role:'Arhitect Principal', email:'diana@archistudio.ro', phone:'+40-755-443322', country:'România', city:'Iași', vatCode:'RO33445566', opportunity:75000, stage:'prospect', notes:[], intel:'3 proiecte rezidențiale în Iași. Nu a cumpărat încă.', createdAt:'2026-05-15' },
-    ];
+    if (loaded && Array.isArray(loaded) && loaded.length){
+        clients = migrateClients(loaded);
+        saveClients();
+        return;
+    }
+    clients = migrateClients(seedClients());
     saveClients();
+}
+
+function seedClients(){
+    return [
+        { _id:1, cod:'GE-001', alias:'M-001', company:'Mobexpert SRL', type:'Retailer',
+          contacts:[
+            { name:'Bogdan Chivu', role:'Director Achiziții', email:'bogdan.chivu@mobexpert.ro', phone:'+40-21-3100000', primary:true },
+            { name:'Raluca Stan', role:'Achiziții', email:'raluca.stan@mobexpert.ro', phone:'+40-21-3100012', primary:false }
+          ],
+          country:'România', city:'București', vatCode:'RO12345678', opportunity:180000, stage:'comanda',
+          products:['EVOPRINT','EVODUR'], priority:'normal', source:'Referral', tags:[],
+          notes:[{date:'2026-06-22',text:'Confirmare livrare lot 2 — platforme expunere showroom'},{date:'2026-05-10',text:'Comandă repetată Q2 — platforme expunere showroom'}],
+          tasks:[ { _id:1101, text:'Trimite factura proforma lot 3', dueDate:daysFromNow(2), done:false, createdAt:'2026-06-20' } ],
+          intel:'Client fidel din 2019. Comenzi trimestriale. Discount 8%.', createdAt:'2024-01-15', lastActivity:'2026-06-22' },
+
+        { _id:2, cod:'GE-002', alias:'I-002', company:'IKEA România', type:'Retailer',
+          contacts:[ { name:'Ana Ionescu', role:'Procurement Manager', email:'ana.ionescu@ikea.com', phone:'+40-21-4000000', primary:true } ],
+          country:'România', city:'București', vatCode:'RO98765432', opportunity:420000, stage:'oferta',
+          products:['EVODUR','EVOLAM'], priority:'high', source:'Website', tags:[],
+          notes:[{date:'2026-06-18',text:'Ofertă trimisă — geam securizat 10mm pentru mese'}],
+          tasks:[
+            { _id:1201, text:'Follow-up ofertă geam securizat', dueDate:daysFromNow(-3), done:false, createdAt:'2026-06-10' },
+            { _id:1202, text:'Pregătește mostre 10mm pentru prezentare', dueDate:daysFromNow(5), done:false, createdAt:'2026-06-15' }
+          ],
+          intel:'Cerere geam securizat 10mm pentru mese. Decizie august 2026.', createdAt:'2024-03-01', lastActivity:'2026-06-18' },
+
+        { _id:3, cod:'GE-003', alias:'C-003', company:'Construct Pro SRL', type:'Constructor',
+          contacts:[ { name:'Mihai Dănilă', role:'Director Tehnic', email:'m.danila@constructpro.ro', phone:'+40-744-123456', primary:true } ],
+          country:'România', city:'Cluj-Napoca', vatCode:'RO11223344', opportunity:95000, stage:'calificat',
+          products:['EVOLAM','EVOCLEAN'], priority:'normal', source:'Târg', tags:[],
+          notes:[{date:'2026-06-01',text:'Vizită fabrică — interesat geam termopan proiect rezidențial Cluj'}],
+          tasks:[ { _id:1301, text:'Sună pentru programare a doua vizită', dueDate:daysFromNow(1), done:false, createdAt:'2026-06-19' } ],
+          intel:'Proiect 120 apartamente. Decizie Q3 2026.', createdAt:'2024-06-01', lastActivity:'2026-06-01' },
+
+        { _id:4, cod:'GE-004', alias:'T-004', company:'Top Glass Berlin GmbH', type:'Distribuitor',
+          contacts:[ { name:'Klaus Werner', role:'CEO', email:'k.werner@topglass.de', phone:'+49-30-1234567', primary:true } ],
+          country:'Germania', city:'Berlin', vatCode:'DE123456789', opportunity:260000, stage:'calificat',
+          products:['EVOLAM','VERSATIKA'], priority:'high', source:'LinkedIn', tags:[],
+          notes:[{date:'2026-06-12',text:'Cere catalog VERSATIKA și termene livrare DACH'}],
+          tasks:[], intel:'Interesat EVOLAM pentru proiecte comerciale Berlin. A văzut FUTURIUM.', createdAt:'2024-07-10', lastActivity:'2026-06-12' },
+
+        { _id:5, cod:'GE-005', alias:'P-005', company:'Piatra Online SRL', type:'Retailer',
+          contacts:[ { name:'Ionuț Petrescu', role:'Manager', email:'ionut@piatraonline.ro', phone:'+40-722-987654', primary:true } ],
+          country:'România', city:'Timișoara', vatCode:'RO55667788', opportunity:35000, stage:'prospect',
+          products:['EVOPRINT'], priority:'low', source:'Târg', tags:[],
+          notes:[{date:'2026-04-20',text:'Contact la târgul de construcții — lăsat pliant EVOPRINT'}],
+          tasks:[], intel:'Showroom materiale construcții. Potențial raft expunere.', createdAt:'2026-04-20', lastActivity:'2026-04-20' },
+
+        { _id:6, cod:'GE-006', alias:'A-006', company:'Archi Studio SRL', type:'Arhitect',
+          contacts:[ { name:'Diana Florescu', role:'Arhitect Principal', email:'diana@archistudio.ro', phone:'+40-755-443322', primary:true } ],
+          country:'România', city:'Iași', vatCode:'RO33445566', opportunity:75000, stage:'prospect',
+          products:['VERSATIKA','EVOLAM SMART'], priority:'normal', source:'Website', tags:[],
+          notes:[{date:'2026-05-15',text:'A cerut prezentare VERSATIKA pentru 3 proiecte rezidențiale'}],
+          tasks:[ { _id:1601, text:'Trimite studii de caz VERSATIKA (Roland Garros, FUTURIUM)', dueDate:daysFromNow(0), done:false, createdAt:'2026-06-18' } ],
+          intel:'3 proiecte rezidențiale în Iași. Nu a cumpărat încă.', createdAt:'2026-05-15', lastActivity:'2026-05-15' },
+    ];
+}
+
+/* ---- Migration: backward compatible ---- */
+function migrateClients(arr){
+    return arr.map(c => {
+        const m = { ...c };
+        if (m._id == null) m._id = Date.now() + Math.floor(Math.random()*1000);
+        // contacts[] from old flat contact/role/email/phone
+        if (!Array.isArray(m.contacts)){
+            const legacy = { name:m.contact||'', role:m.role||'', email:m.email||'', phone:m.phone||'', primary:true };
+            m.contacts = (legacy.name || legacy.email || legacy.phone) ? [legacy] : [];
+        }
+        if (!Array.isArray(m.products)) m.products = [];
+        if (!Array.isArray(m.tags)) m.tags = [];
+        if (!Array.isArray(m.notes)) m.notes = [];
+        if (!Array.isArray(m.tasks)) m.tasks = [];
+        m.tasks = m.tasks.map(t => ({
+            _id: t._id != null ? t._id : (Date.now() + Math.floor(Math.random()*100000)),
+            text: t.text||'', dueDate: t.dueDate||'', done: !!t.done, createdAt: t.createdAt||today()
+        }));
+        if (!m.priority || !PRIORITIES.includes(m.priority)) m.priority = 'normal';
+        if (!m.source) m.source = '';
+        if (m.intel == null) m.intel = '';
+        if (!m.createdAt) m.createdAt = today();
+        if (!m.lastActivity) m.lastActivity = (m.notes[0] && m.notes[0].date) || m.createdAt;
+        // drop legacy flat keys (kept in contacts[0] now)
+        delete m.contact; delete m.role; delete m.email; delete m.phone;
+        return m;
+    });
 }
 
 function saveClients(){
@@ -445,19 +696,55 @@ function saveClients(){
 }
 
 function nextCod(){
-    let seq = parseInt(localStorage.getItem(COD_KEY)||'6') + 1;
+    const maxExisting = clients.reduce((mx,c)=>{
+        const n = parseInt(String(c.cod||'').split('-')[1]); return (!isNaN(n) && n>mx) ? n : mx;
+    }, 0);
+    const stored = parseInt(localStorage.getItem(COD_KEY)||'0');
+    let seq = Math.max(maxExisting, stored) + 1;
     localStorage.setItem(COD_KEY, seq);
-    return 'GE-' + String(seq).padStart('3','0');
+    return 'GE-' + String(seq).padStart(3,'0');
 }
 
 /* ============================================================
    HELPERS
    ============================================================ */
 const $ = id => document.getElementById(id);
-const eur = n => '€' + Number(n).toLocaleString('ro-RO');
+const eur = n => '€' + Number(n||0).toLocaleString('ro-RO');
 const eurK = n => n>=1000000 ? '€'+(n/1000000).toFixed(2)+'M' : '€'+Math.round(n/1000)+'K';
 function esc(s){ const d=document.createElement('div'); d.textContent=s==null?'':String(s); return d.innerHTML; }
 function today(){ return new Date().toISOString().slice(0,10); }
+function daysFromNow(d){ const t=new Date(); t.setDate(t.getDate()+d); return t.toISOString().slice(0,10); }
+
+function primaryContact(c){
+    if (!c.contacts || !c.contacts.length) return { name:'', role:'', email:'', phone:'' };
+    return c.contacts.find(x=>x.primary) || c.contacts[0];
+}
+function clientLabel(c){ return viewMode==='factory' ? c.alias : c.company; }
+function initials(name){
+    const parts = String(name||'').trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return '–';
+    return (parts[0][0] + (parts[1]? parts[1][0] : '')).toUpperCase();
+}
+
+// task status relative to today: 'overdue' | 'today' | 'soon'(tomorrow) | 'future' | ''
+function taskStatus(t){
+    if (!t || t.done || !t.dueDate) return '';
+    const due = t.dueDate, td = today(), tm = daysFromNow(1);
+    if (due < td) return 'overdue';
+    if (due === td) return 'today';
+    if (due === tm) return 'soon';
+    return 'future';
+}
+function clientOverdueCount(c){
+    return (c.tasks||[]).filter(t=>!t.done && t.dueDate && t.dueDate < today()).length;
+}
+function clientOpenDueCount(c){
+    // overdue + today + tomorrow, not done
+    return (c.tasks||[]).filter(t=>{ const s=taskStatus(t); return s==='overdue'||s==='today'||s==='soon'; }).length;
+}
+function totalOverdue(){
+    return clients.reduce((s,c)=>s + clientOverdueCount(c), 0);
+}
 
 function toast(msg, type=''){
     const el = document.createElement('div');
@@ -465,6 +752,15 @@ function toast(msg, type=''){
     el.textContent = msg;
     $('toast-stack').appendChild(el);
     setTimeout(()=>{ el.style.opacity='0'; el.style.transition='opacity .25s'; setTimeout(()=>el.remove(),260); }, 3000);
+}
+
+function productTagsHTML(arr){
+    if (!arr || !arr.length) return '<span style="color:var(--text-faint);font-size:0.72rem">—</span>';
+    return '<div class="product-tags">' + arr.map(p=>`<span class="product-tag ${PRODUCT_CLASS[p]||''}">${esc(p)}</span>`).join('') + '</div>';
+}
+function priorityCellHTML(p){
+    const cls = 'priority-'+(p||'normal');
+    return `<span class="priority-cell ${cls}"><span class="priority-dot"></span>${PRIORITY_LABELS[p]||'Normal'}</span>`;
 }
 
 /* ============================================================
@@ -478,34 +774,147 @@ function setMode(mode){
         ? 'Toate datele vizibile — mod sales'
         : '⚠️ Mod fabrică — numai alias și cod client vizibil';
     $('th-company').textContent = mode==='factory' ? 'Alias' : 'Companie';
-    $('th-contact').style.display = mode==='factory' ? 'none' : '';
-    renderClients();
-    if (currentView==='pipeline') renderKanban();
+    renderAll();
 }
+
+const VIEW_TITLES = {
+    overview: ['Overview','Sumar'],
+    clients:  ['Clienți','Toți clienții'],
+    pipeline: ['Pipeline','Funnel & Kanban'],
+    activity: ['Activitate','Timeline global']
+};
 
 function switchView(v){
     currentView = v;
-    $('view-clients').style.display = v==='clients' ? 'block' : 'none';
-    $('view-pipeline').style.display = v==='pipeline' ? 'block' : 'none';
+    ['overview','clients','pipeline','activity'].forEach(name=>{
+        $('view-'+name).style.display = (name===v) ? 'block' : 'none';
+    });
     document.querySelectorAll('.nav-item[data-tab]').forEach(b=>b.classList.remove('active'));
     document.querySelector('.nav-item[data-tab="'+v+'"]')?.classList.add('active');
+    const t = VIEW_TITLES[v] || ['',''];
+    $('page-title').textContent = t[0];
+    $('crumb-sub').textContent = t[1];
+    if (v==='overview')  renderOverview();
+    if (v==='clients')   renderClients();
     if (v==='pipeline'){ renderFunnel(); renderKanban(); }
+    if (v==='activity'){ populateActivityFilter(); renderActivity(); }
+}
+
+function renderAll(){
+    updateOverdueBadge();
+    if (currentView==='overview')  renderOverview();
+    if (currentView==='clients')   renderClients();
+    if (currentView==='pipeline'){ renderFunnel(); renderKanban(); }
+    if (currentView==='activity'){ populateActivityFilter(); renderActivity(); }
+}
+
+function updateOverdueBadge(){
+    const n = totalOverdue();
+    const b = $('nav-overdue-badge');
+    if (n>0){ b.textContent = n; b.classList.remove('hidden'); }
+    else { b.classList.add('hidden'); }
 }
 
 /* ============================================================
-   FILTERS & RENDER
+   OVERVIEW
+   ============================================================ */
+function renderOverview(){
+    const total = clients.length;
+    const pipelineVal = clients.reduce((s,c)=>s+(c.opportunity||0),0);
+    const active = clients.filter(c=>c.stage==='comanda').length;
+    const overdue = totalOverdue();
+
+    $('ov-total').textContent = total;
+    $('ov-pipeline').textContent = eurK(pipelineVal);
+    $('ov-active').textContent = active;
+    const ovo = $('ov-overdue');
+    ovo.textContent = overdue;
+    ovo.classList.toggle('alert', overdue>0);
+    $('ov-overdue-sub').textContent = overdue>0 ? 'necesită atenție' : 'totul la zi';
+
+    // Funnel
+    renderFunnelInto('ov-funnel-container','ov-funnel-meta');
+
+    // Top 5 opportunities
+    const top = [...clients].sort((a,b)=>(b.opportunity||0)-(a.opportunity||0)).slice(0,5);
+    $('ov-top-opps').innerHTML = top.length ? top.map((c,i)=>`
+        <div class="top-opp-item" style="cursor:pointer" onclick="viewClient(${c._id})">
+            <span class="top-opp-rank">${i+1}</span>
+            <div class="top-opp-co">
+                <div class="name">${esc(clientLabel(c))}</div>
+                <div class="alias">${esc(c.alias)}</div>
+            </div>
+            <span class="badge ${STAGE_BADGE[c.stage]}">${STAGE_LABELS[c.stage]}</span>
+            <span class="top-opp-val">${eurK(c.opportunity)}</span>
+        </div>`).join('') : '<div class="overview-empty">Niciun client încă.</div>';
+
+    // Recent activity — last 8 notes across all clients
+    const acts = collectActivities().slice(0,8);
+    $('ov-recent-activity').innerHTML = acts.length ? renderTimeline(acts) : '<div class="overview-empty">Nicio activitate înregistrată.</div>';
+
+    // Due tasks (overdue + today + tomorrow)
+    const due = collectDueTasks();
+    $('ov-due-tasks').innerHTML = due.length ? renderDueTaskList(due) : '<div class="overview-empty">Niciun task scadent. Totul este la zi. ✓</div>';
+}
+
+function collectDueTasks(){
+    const out = [];
+    clients.forEach(c=>{
+        (c.tasks||[]).forEach(t=>{
+            const st = taskStatus(t);
+            if (st==='overdue'||st==='today'||st==='soon') out.push({ client:c, task:t, status:st });
+        });
+    });
+    const rank = { overdue:0, today:1, soon:2 };
+    out.sort((a,b)=> (rank[a.status]-rank[b.status]) || (a.task.dueDate||'').localeCompare(b.task.dueDate||''));
+    return out;
+}
+
+function dueLabel(status, date){
+    if (status==='overdue') return 'Scadent ' + date + ' (depășit)';
+    if (status==='today')   return 'Scadent azi (' + date + ')';
+    if (status==='soon')    return 'Scadent mâine (' + date + ')';
+    return date;
+}
+
+function renderDueTaskList(items){
+    return '<div class="task-list">' + items.map(({client,task,status})=>`
+        <div class="task-item">
+            <input type="checkbox" class="task-check" ${task.done?'checked':''} onchange="toggleTaskGlobal(${client._id}, ${task._id})">
+            <div class="task-body">
+                <div class="task-text">${esc(task.text)}</div>
+                <span class="task-due ${status==='overdue'?'overdue':(status==='today'||status==='soon')?'soon':''}">
+                    ⏱ ${esc(dueLabel(status, task.dueDate))} · <strong style="cursor:pointer" onclick="viewClient(${client._id})">${esc(clientLabel(client))}</strong>
+                </span>
+            </div>
+        </div>`).join('') + '</div>';
+}
+
+function toggleTaskGlobal(clientId, taskId){
+    const c = clients.find(x=>x._id===clientId); if(!c) return;
+    const t = (c.tasks||[]).find(x=>x._id===taskId); if(!t) return;
+    t.done = !t.done;
+    touch(c);
+    saveClients();
+    renderAll();
+    toast(t.done ? 'Task finalizat' : 'Task redeschis', 'ok');
+}
+
+/* ============================================================
+   FILTERS & CLIENTS RENDER
    ============================================================ */
 function populateFilters(){
-    const types = [...new Set(clients.map(c=>c.type))].sort();
-    const countries = [...new Set(clients.map(c=>c.country))].sort();
+    const types = [...new Set(clients.map(c=>c.type).filter(Boolean))].sort();
+    const countries = [...new Set(clients.map(c=>c.country).filter(Boolean))].sort();
     $('f-type').innerHTML = '<option value="">Toate tipurile</option>' + types.map(t=>`<option>${esc(t)}</option>`).join('');
     $('f-country').innerHTML = '<option value="">Toate țările</option>' + countries.map(c=>`<option>${esc(c)}</option>`).join('');
+    $('f-product').innerHTML = '<option value="">Toate produsele</option>' + PRODUCTS.map(p=>`<option>${esc(p)}</option>`).join('');
 }
 
 function rebuildFilters(){
-    const pT=$('f-type').value, pC=$('f-country').value;
+    const pT=$('f-type').value, pC=$('f-country').value, pP=$('f-product').value;
     populateFilters();
-    $('f-type').value=pT; $('f-country').value=pC;
+    $('f-type').value=pT; $('f-country').value=pC; $('f-product').value=pP;
 }
 
 function getFiltered(){
@@ -513,17 +922,54 @@ function getFiltered(){
     const stage=$('f-stage').value;
     const type=$('f-type').value;
     const country=$('f-country').value;
-    return clients.filter(c => {
+    const product=$('f-product').value;
+    let rows = clients.filter(c => {
         if (stage && c.stage!==stage) return false;
         if (type && c.type!==type) return false;
         if (country && c.country!==country) return false;
-        if (q && !(
-            c.company.toLowerCase().includes(q) ||
-            c.alias.toLowerCase().includes(q) ||
-            c.cod.toLowerCase().includes(q) ||
-            (c.contact||'').toLowerCase().includes(q)
-        )) return false;
+        if (product && !(c.products||[]).includes(product)) return false;
+        if (q){
+            const pc = primaryContact(c);
+            const hay = [c.company, c.alias, c.cod, pc.name, ...(c.contacts||[]).map(x=>x.name)].join(' ').toLowerCase();
+            if (!hay.includes(q)) return false;
+        }
         return true;
+    });
+    if (sortKey){
+        rows = [...rows].sort((a,b)=>{
+            let av, bv;
+            if (sortKey==='company'){ av=(a.company||'').toLowerCase(); bv=(b.company||'').toLowerCase(); }
+            else if (sortKey==='opportunity'){ av=a.opportunity||0; bv=b.opportunity||0; }
+            else if (sortKey==='stage'){ av=STAGES.indexOf(a.stage); bv=STAGES.indexOf(b.stage); }
+            else if (sortKey==='priority'){ av=PRIORITY_ORDER[a.priority]??1; bv=PRIORITY_ORDER[b.priority]??1; }
+            else { av=0; bv=0; }
+            if (av<bv) return sortDir==='asc' ? -1 : 1;
+            if (av>bv) return sortDir==='asc' ? 1 : -1;
+            return 0;
+        });
+    }
+    return rows;
+}
+
+function sortBy(key){
+    if (sortKey===key){ sortDir = sortDir==='asc' ? 'desc' : 'asc'; }
+    else { sortKey=key; sortDir='asc'; }
+    renderClients();
+}
+
+function sortArrow(key){
+    if (sortKey!==key) return '';
+    return `<span class="sort-arrow">${sortDir==='asc'?'▲':'▼'}</span>`;
+}
+
+function updateSortHeaders(){
+    document.querySelectorAll('th.sortable').forEach(th=>{
+        const m = (th.getAttribute('onclick')||'').match(/sortBy\('(\w+)'\)/);
+        if (!m) return;
+        const key = m[1];
+        const baseLabel = key==='company' ? (viewMode==='factory'?'Alias':'Companie')
+            : key==='priority' ? 'Prioritate' : key==='stage' ? 'Etapă' : 'Oportunitate';
+        th.innerHTML = baseLabel + sortArrow(key);
     });
 }
 
@@ -531,11 +977,20 @@ function renderClients(){
     const rows = getFiltered();
     const tbody = $('clients-tbody');
     const factory = viewMode==='factory';
+    updateSortHeaders();
 
     if (!rows.length){
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:2.5rem;color:var(--text-faint)">Niciun client nu corespunde filtrelor.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:2.5rem;color:var(--text-faint)">Niciun client nu corespunde filtrelor.</td></tr>`;
     } else {
-        tbody.innerHTML = rows.map(c => `
+        tbody.innerHTML = rows.map(c => {
+            const od = clientOverdueCount(c);
+            const openDue = clientOpenDueCount(c);
+            const openTotal = (c.tasks||[]).filter(t=>!t.done).length;
+            let taskCell;
+            if (od>0) taskCell = `<span class="task-badge">⚠ ${od}</span>`;
+            else if (openTotal>0) taskCell = `<span class="task-badge-soft">${openTotal}</span>`;
+            else taskCell = '<span style="color:var(--text-faint)">—</span>';
+            return `
             <tr>
                 <td><span class="cell-code">${esc(c.cod)}</span></td>
                 <td><span class="cell-alias">${esc(c.alias)}</span></td>
@@ -545,13 +1000,11 @@ function renderClients(){
                         : `<div class="cell-company">${esc(c.company)}</div><div class="cell-sub">${esc(c.city)}, ${esc(c.country)}</div>`
                     }
                 </td>
+                <td>${priorityCellHTML(c.priority)}</td>
                 <td><span class="badge ${STAGE_BADGE[c.stage]}">${STAGE_LABELS[c.stage]}</span></td>
-                <td>${factory ? '—' : esc(c.type)}</td>
-                <td style="${factory?'display:none':''}">
-                    <div>${esc(c.contact)}</div>
-                    <div class="cell-sub">${esc(c.role)}</div>
-                </td>
+                <td>${productTagsHTML(c.products)}</td>
                 <td><strong>${eurK(c.opportunity)}</strong></td>
+                <td>${taskCell}</td>
                 <td>
                     <div class="row-actions">
                         <button class="btn btn-ghost btn-sm btn-icon" onclick="advanceStage(${c._id})" title="Avansează etapă">›</button>
@@ -561,35 +1014,25 @@ function renderClients(){
                         ${!factory ? `<button class="btn btn-ghost btn-sm btn-icon" onclick="openEditClient(${c._id})" title="Editează">✎</button>` : ''}
                     </div>
                 </td>
-            </tr>`).join('');
+            </tr>`;
+        }).join('');
     }
 
     $('clients-count').textContent = rows.length + ' din ' + clients.length + ' clienți';
-    updateKPIs();
-}
-
-function updateKPIs(){
-    const total = clients.length;
-    const pipeline = clients.filter(c=>['prospect','calificat'].includes(c.stage)).reduce((s,c)=>s+c.opportunity,0);
-    const active = clients.filter(c=>c.stage==='comanda').length;
-    const prospect = clients.filter(c=>c.stage==='prospect').length;
-    $('kpi-total').textContent = total;
-    $('kpi-pipeline').textContent = eurK(pipeline);
-    $('kpi-active').textContent = active;
-    $('kpi-prospect').textContent = prospect;
+    updateOverdueBadge();
 }
 
 /* ============================================================
    FUNNEL + KANBAN
    ============================================================ */
-function renderFunnel(){
+function renderFunnelInto(containerId, metaId){
     const maxCount = Math.max(...STAGES.map(s=>clients.filter(c=>c.stage===s).length), 1);
-    const totalVal = clients.reduce((s,c)=>s+c.opportunity,0);
-    $('funnel-meta').textContent = clients.length + ' clienți · ' + eurK(totalVal) + ' total pipeline';
-    $('funnel-container').innerHTML = STAGES.map(stage => {
+    const totalVal = clients.reduce((s,c)=>s+(c.opportunity||0),0);
+    if (metaId) $(metaId).textContent = clients.length + ' clienți · ' + eurK(totalVal) + ' total pipeline';
+    $(containerId).innerHTML = STAGES.map(stage => {
         const count = clients.filter(c=>c.stage===stage).length;
-        const val = clients.filter(c=>c.stage===stage).reduce((s,c)=>s+c.opportunity,0);
-        const pct = Math.max((count/maxCount)*100, 5).toFixed(0);
+        const val = clients.filter(c=>c.stage===stage).reduce((s,c)=>s+(c.opportunity||0),0);
+        const pct = Math.max((count/maxCount)*100, count>0?8:3).toFixed(0);
         const color = STAGE_COLORS[stage];
         return `
             <div class="funnel-stage">
@@ -601,23 +1044,29 @@ function renderFunnel(){
             </div>`;
     }).join('');
 }
+function renderFunnel(){ renderFunnelInto('funnel-container','funnel-meta'); }
 
 function renderKanban(){
     const factory = viewMode==='factory';
     const cols = STAGES.map(stage => {
         const stageclients = clients.filter(c=>c.stage===stage);
-        const total = stageclients.reduce((s,c)=>s+c.opportunity,0);
+        const total = stageclients.reduce((s,c)=>s+(c.opportunity||0),0);
         const color = STAGE_COLORS[stage];
-        const cards = stageclients.map(c=>`
+        const cards = stageclients.map(c=>{
+            const pc = primaryContact(c);
+            const od = clientOverdueCount(c);
+            return `
             <div class="kanban-card" style="border-left-color:${color}" onclick="viewClient(${c._id})">
                 <div class="kanban-card-code">${esc(c.cod)} · <strong>${esc(c.alias)}</strong></div>
                 <div class="kanban-card-co">${factory?'<span style="color:var(--text-faint);font-style:italic">— confidențial —</span>':esc(c.company)}</div>
-                ${!factory?`<div class="kanban-card-contact">${esc(c.contact)} · ${esc(c.country)}</div>`:''}
+                ${!factory?`<div class="kanban-card-contact">${esc(pc.name||'—')} · ${esc(c.country)}</div>`:''}
+                ${(c.products&&c.products.length)?`<div style="margin-bottom:0.4rem">${productTagsHTML(c.products)}</div>`:''}
                 <div class="kanban-card-footer">
                     <span style="font-size:0.78rem;font-weight:700;color:var(--text)">${eurK(c.opportunity)}</span>
-                    <span class="badge ${STAGE_BADGE[stage]}" style="font-size:0.65rem">${STAGE_LABELS[stage]}</span>
+                    ${od>0?`<span class="task-badge">⚠ ${od}</span>`:`<span class="badge ${STAGE_BADGE[stage]}" style="font-size:0.65rem">${STAGE_LABELS[stage]}</span>`}
                 </div>
-            </div>`).join('') || '<div style="color:var(--text-faint);font-size:0.8rem;text-align:center;padding:1rem 0">—</div>';
+            </div>`;
+        }).join('') || '<div style="color:var(--text-faint);font-size:0.8rem;text-align:center;padding:1rem 0">—</div>';
 
         return `
             <div class="kanban-col">
@@ -633,18 +1082,77 @@ function renderKanban(){
 }
 
 /* ============================================================
+   ACTIVITY (global timeline)
+   ============================================================ */
+function collectActivities(){
+    const out = [];
+    clients.forEach(c=>{
+        (c.notes||[]).forEach((n,i)=>{
+            out.push({
+                client:c, date:n.date||'', text:n.text||'',
+                stageMove: /^Avansat la etapa:/.test(n.text||''),
+                seq:i
+            });
+        });
+    });
+    out.sort((a,b)=>{
+        const d = (b.date||'').localeCompare(a.date||'');
+        if (d!==0) return d;
+        return 0;
+    });
+    return out;
+}
+
+function renderTimeline(items){
+    return '<div class="timeline">' + items.map(a=>{
+        const color = STAGE_COLORS[a.client.stage] || 'var(--text-faint)';
+        const dotStyle = a.stageMove ? '' : `style="background:${color};box-shadow:0 0 0 1px ${color}"`;
+        return `
+            <div class="timeline-item">
+                <span class="timeline-dot ${a.stageMove?'stage-move':''}" ${dotStyle}></span>
+                <div class="timeline-head">
+                    <span class="timeline-co" style="cursor:pointer" onclick="viewClient(${a.client._id})">${esc(clientLabel(a.client))}</span>
+                    <span class="timeline-date">${esc(a.date||'—')}</span>
+                </div>
+                <div class="timeline-text">${esc(a.text)}</div>
+            </div>`;
+    }).join('') + '</div>';
+}
+
+function populateActivityFilter(){
+    const sel = $('f-activity-client');
+    const prev = sel.value;
+    const opts = [...clients]
+        .sort((a,b)=> clientLabel(a).localeCompare(clientLabel(b)))
+        .map(c=>`<option value="${c._id}">${esc(clientLabel(c))} (${esc(c.alias)})</option>`).join('');
+    sel.innerHTML = '<option value="">Toți clienții</option>' + opts;
+    if (prev && clients.some(c=>String(c._id)===prev)) sel.value = prev;
+}
+
+function renderActivity(){
+    const filterId = $('f-activity-client').value;
+    let items = collectActivities();
+    if (filterId) items = items.filter(a=>String(a.client._id)===filterId);
+    $('activity-meta').textContent = items.length + (items.length===1?' notă':' note');
+    $('activity-timeline').innerHTML = items.length
+        ? renderTimeline(items)
+        : '<div class="overview-empty">Nicio activitate înregistrată.</div>';
+}
+
+/* ============================================================
    ADVANCE STAGE
    ============================================================ */
+function touch(c){ c.lastActivity = today(); }
+
 function advanceStage(id){
     const c = clients.find(x=>x._id===id);
     const idx = STAGES.indexOf(c.stage);
-    if (idx >= STAGES.length-1){ toast(c.company + ' este deja în etapa Comandă', ''); return; }
+    if (idx >= STAGES.length-1){ toast(clientLabel(c) + ' este deja în etapa Comandă', ''); return; }
     c.stage = STAGES[idx+1];
     addNote(id, 'Avansat la etapa: ' + STAGE_LABELS[c.stage]);
     saveClients();
-    renderClients();
-    if (currentView==='pipeline'){ renderFunnel(); renderKanban(); }
-    toast((viewMode==='factory'?c.alias:c.company) + ' → ' + STAGE_LABELS[c.stage], 'ok');
+    renderAll();
+    toast(clientLabel(c) + ' → ' + STAGE_LABELS[c.stage], 'ok');
 }
 
 /* ============================================================
@@ -655,6 +1163,7 @@ function addNote(id, text){
     if (!c) return;
     if (!c.notes) c.notes = [];
     c.notes.unshift({ date: today(), text });
+    touch(c);
     saveClients();
 }
 
@@ -663,13 +1172,16 @@ function addNoteInput(id){
     if (!inp || !inp.value.trim()) return;
     addNote(id, inp.value.trim());
     inp.value = '';
-    $('notes-list-'+id).innerHTML = renderNotesList(clients.find(x=>x._id===id));
+    const list = $('notes-list-'+id);
+    if (list) list.innerHTML = renderNotesList(clients.find(x=>x._id===id));
+    if (currentView==='activity'){ renderActivity(); }
+    if (currentView==='overview'){ renderOverview(); }
     toast('Notă adăugată', 'ok');
 }
 
 function renderNotesList(c){
     if (!c.notes || !c.notes.length) return '<div style="color:var(--text-faint);font-size:0.82rem;padding:0.4rem 0">Nicio notă.</div>';
-    return c.notes.slice(0,15).map(n=>`
+    return c.notes.slice(0,20).map(n=>`
         <div class="note-item">
             <span class="note-date">${esc(n.date)}</span>
             <span class="note-text">${esc(n.text)}</span>
@@ -677,49 +1189,249 @@ function renderNotesList(c){
 }
 
 /* ============================================================
-   VIEW CLIENT
+   TASKS (per client)
    ============================================================ */
+function renderTaskList(c){
+    if (!c.tasks || !c.tasks.length) return '<div style="color:var(--text-faint);font-size:0.82rem;padding:0.4rem 0">Niciun task. Adaugă un follow-up mai jos.</div>';
+    const sorted = [...c.tasks].sort((a,b)=>{
+        if (a.done!==b.done) return a.done?1:-1;
+        return (a.dueDate||'9999').localeCompare(b.dueDate||'9999');
+    });
+    return '<div class="task-list">' + sorted.map(t=>{
+        const st = taskStatus(t);
+        const dueCls = st==='overdue'?'overdue':(st==='today'||st==='soon')?'soon':'';
+        const dueTxt = t.dueDate ? (st==='overdue'?'Depășit · '+t.dueDate : st==='today'?'Azi · '+t.dueDate : st==='soon'?'Mâine · '+t.dueDate : t.dueDate) : 'Fără termen';
+        return `
+        <div class="task-item ${t.done?'is-done':''}">
+            <input type="checkbox" class="task-check" ${t.done?'checked':''} onchange="toggleTask(${c._id}, ${t._id})">
+            <div class="task-body">
+                <div class="task-text ${t.done?'done':''}">${esc(t.text)}</div>
+                <span class="task-due ${dueCls}">⏱ ${esc(dueTxt)}</span>
+            </div>
+            <button class="task-del" onclick="deleteTask(${c._id}, ${t._id})" title="Șterge task">×</button>
+        </div>`;
+    }).join('') + '</div>';
+}
+
+function refreshTaskPane(c){
+    const list = $('tasks-list-'+c._id);
+    if (list) list.innerHTML = renderTaskList(c);
+    const cnt = $('tab-count-tasks-'+c._id);
+    if (cnt) cnt.textContent = (c.tasks||[]).filter(t=>!t.done).length;
+}
+
+function addTaskInput(id){
+    const c = clients.find(x=>x._id===id); if(!c) return;
+    const inp = $('task-inp-'+id), dt = $('task-date-'+id);
+    const text = inp ? inp.value.trim() : '';
+    if (!text){ toast('Scrie textul task-ului', 'err'); return; }
+    if (!c.tasks) c.tasks = [];
+    c.tasks.push({ _id: Date.now(), text, dueDate: dt ? dt.value : '', done:false, createdAt: today() });
+    touch(c);
+    saveClients();
+    if (inp) inp.value=''; if (dt) dt.value='';
+    refreshTaskPane(c);
+    renderAll();
+    toast('Task adăugat', 'ok');
+}
+
+function toggleTask(clientId, taskId){
+    const c = clients.find(x=>x._id===clientId); if(!c) return;
+    const t = (c.tasks||[]).find(x=>x._id===taskId); if(!t) return;
+    t.done = !t.done;
+    touch(c);
+    saveClients();
+    refreshTaskPane(c);
+    renderAll();
+}
+
+function deleteTask(clientId, taskId){
+    const c = clients.find(x=>x._id===clientId); if(!c) return;
+    c.tasks = (c.tasks||[]).filter(x=>x._id!==taskId);
+    saveClients();
+    refreshTaskPane(c);
+    renderAll();
+    toast('Task șters', '');
+}
+
+/* ============================================================
+   CONTACTS (per client)
+   ============================================================ */
+function renderContactList(c){
+    if (!c.contacts || !c.contacts.length) return '<div style="color:var(--text-faint);font-size:0.82rem;padding:0.4rem 0">Niciun contact înregistrat.</div>';
+    return c.contacts.map((p,i)=>`
+        <div class="contact-card">
+            <div class="contact-avatar">${esc(initials(p.name))}</div>
+            <div class="contact-info">
+                <div class="contact-name">${esc(p.name||'—')}${p.primary?'<span class="contact-primary-tag">Principal</span>':''}</div>
+                <div class="contact-role">${esc(p.role||'—')}</div>
+                <div class="contact-meta">
+                    ${p.email?`<span>✉ <a href="mailto:${esc(p.email)}">${esc(p.email)}</a></span>`:''}
+                    ${p.phone?`<span>☎ ${esc(p.phone)}</span>`:''}
+                </div>
+            </div>
+            <button class="task-del" onclick="deleteContact(${c._id}, ${i})" title="Șterge contact">×</button>
+        </div>`).join('');
+}
+
+function refreshContactPane(c){
+    const list = $('contacts-list-'+c._id);
+    if (list) list.innerHTML = renderContactList(c);
+    const cnt = $('tab-count-contacts-'+c._id);
+    if (cnt) cnt.textContent = (c.contacts||[]).length;
+}
+
+function addContactInput(id){
+    const c = clients.find(x=>x._id===id); if(!c) return;
+    const name = ($('ct-name-'+id)||{}).value?.trim() || '';
+    if (!name){ toast('Numele contactului e obligatoriu', 'err'); return; }
+    const role = ($('ct-role-'+id)||{}).value?.trim() || '';
+    const email = ($('ct-email-'+id)||{}).value?.trim() || '';
+    const phone = ($('ct-phone-'+id)||{}).value?.trim() || '';
+    if (!c.contacts) c.contacts = [];
+    c.contacts.push({ name, role, email, phone, primary: c.contacts.length===0 });
+    touch(c);
+    saveClients();
+    ['ct-name-','ct-role-','ct-email-','ct-phone-'].forEach(p=>{ const el=$(p+id); if(el) el.value=''; });
+    refreshContactPane(c);
+    toast('Contact adăugat', 'ok');
+}
+
+function deleteContact(clientId, idx){
+    const c = clients.find(x=>x._id===clientId); if(!c) return;
+    const wasPrimary = c.contacts[idx] && c.contacts[idx].primary;
+    c.contacts.splice(idx,1);
+    if (wasPrimary && c.contacts.length) c.contacts[0].primary = true;
+    saveClients();
+    refreshContactPane(c);
+    toast('Contact șters', '');
+}
+
+/* ============================================================
+   VIEW CLIENT (modal with internal tabs)
+   ============================================================ */
+let activeModalTab = 'details';
+
 function viewClient(id){
     const c = clients.find(x=>x._id===id);
-    $('modal-title').innerHTML = `<span style="font-family:'Courier New',monospace;font-size:0.8rem;color:var(--text-faint);font-weight:400;margin-right:0.5rem">${esc(c.cod)}</span>${esc(viewMode==='factory'?c.alias:c.company)}`;
-    $('modal-body').innerHTML = `
-        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.1rem">
-            <span class="alias-preview">${esc(c.alias)}</span>
-            <span class="badge ${STAGE_BADGE[c.stage]}">${STAGE_LABELS[c.stage]}</span>
-            <span class="badge badge-gold">€${Number(c.opportunity).toLocaleString('ro-RO')}</span>
-            ${viewMode==='factory'?'<span class="badge badge-amber">⚠ Mod fabrică activ</span>':''}
-        </div>
-        ${viewMode==='sales'?`
-        <dl class="detail-grid">
-            <dt>Companie</dt><dd>${esc(c.company)}</dd>
-            <dt>Tip</dt><dd>${esc(c.type)}</dd>
-            <dt>CUI/VAT</dt><dd>${esc(c.vatCode||'—')}</dd>
-            <dt>Contact</dt><dd>${esc(c.contact)} — ${esc(c.role)}</dd>
-            <dt>Email</dt><dd><a href="mailto:${esc(c.email)}" style="color:var(--blue)">${esc(c.email)}</a></dd>
-            <dt>Telefon</dt><dd>${esc(c.phone||'—')}</dd>
-            <dt>Locație</dt><dd>${esc(c.city)}, ${esc(c.country)}</dd>
-        </dl>
-        <div style="margin-top:1rem;padding:0.85rem 1rem;background:var(--bg);border-radius:8px;border-left:3px solid var(--gold)">
-            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem">Intel Sales</div>
-            <div style="font-size:0.86rem">${esc(c.intel||'—')}</div>
-        </div>`
-        :`<div style="padding:1rem;background:var(--amber-bg);border-radius:8px;color:var(--amber);font-size:0.86rem;font-weight:600;margin-bottom:1rem">
-            ⚠️ Mod fabrică activ — informațiile comerciale sunt ascunse. Treci în modul Sales pentru detalii complete.
-        </div>`}
-        <div class="notes-section">
-            <div class="notes-head">Activitate & Note</div>
+    if (!c) return;
+    activeModalTab = 'details';
+    closeModal(); // reset any open form state
+    $('modal-title').innerHTML = `<span style="font-family:'Courier New',monospace;font-size:0.8rem;color:var(--text-faint);font-weight:400;margin-right:0.5rem">${esc(c.cod)}</span>${esc(clientLabel(c))}`;
+
+    const factory = viewMode==='factory';
+    const openTasks = (c.tasks||[]).filter(t=>!t.done).length;
+
+    // Tabs bar — hide Contacte in factory mode
+    $('modal-tabs').innerHTML = `
+        <div class="modal-tabs">
+            <button class="modal-tab-btn active" data-mtab="details" onclick="modalTab('${c._id}','details')">Detalii</button>
+            ${!factory?`<button class="modal-tab-btn" data-mtab="contacts" onclick="modalTab('${c._id}','contacts')">Contacte <span class="tab-count" id="tab-count-contacts-${c._id}">${(c.contacts||[]).length}</span></button>`:''}
+            <button class="modal-tab-btn" data-mtab="notes" onclick="modalTab('${c._id}','notes')">Note <span class="tab-count">${(c.notes||[]).length}</span></button>
+            <button class="modal-tab-btn" data-mtab="tasks" onclick="modalTab('${c._id}','tasks')">Tasks <span class="tab-count" id="tab-count-tasks-${c._id}">${openTasks}</span></button>
+        </div>`;
+
+    // ---- Pane: Details ----
+    const detailsPane = `
+        <div class="modal-tab-pane active" data-pane="details">
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.1rem">
+                <span class="alias-preview">${esc(c.alias)}</span>
+                <span class="badge ${STAGE_BADGE[c.stage]}">${STAGE_LABELS[c.stage]}</span>
+                <span class="badge badge-gold">${eur(c.opportunity)}</span>
+                ${priorityCellHTML(c.priority)}
+                ${factory?'<span class="badge badge-amber">⚠ Mod fabrică activ</span>':''}
+            </div>
+            ${factory ? `
+                <div style="padding:1rem;background:var(--amber-bg);border-radius:8px;color:var(--amber);font-size:0.86rem;font-weight:600;margin-bottom:1rem">
+                    ⚠️ Mod fabrică activ — informațiile comerciale sunt ascunse. Treci în modul Sales pentru detalii complete.
+                </div>
+                <dl class="detail-grid">
+                    <dt>Cod</dt><dd>${esc(c.cod)}</dd>
+                    <dt>Alias</dt><dd>${esc(c.alias)}</dd>
+                    <dt>Etapă</dt><dd>${STAGE_LABELS[c.stage]}</dd>
+                    <dt>Oportunitate</dt><dd>${eur(c.opportunity)}</dd>
+                </dl>
+                <div style="margin-top:1rem">
+                    <div class="f-label">Produse de interes</div>
+                    ${productTagsHTML(c.products)}
+                </div>
+            ` : `
+                <dl class="detail-grid">
+                    <dt>Companie</dt><dd>${esc(c.company)}</dd>
+                    <dt>Tip</dt><dd>${esc(c.type||'—')}</dd>
+                    <dt>CUI/VAT</dt><dd>${esc(c.vatCode||'—')}</dd>
+                    <dt>Locație</dt><dd>${esc(c.city||'—')}, ${esc(c.country||'—')}</dd>
+                    <dt>Sursă</dt><dd>${esc(c.source||'—')}</dd>
+                    <dt>Client din</dt><dd>${esc(c.createdAt||'—')}</dd>
+                </dl>
+                <div style="margin-top:1rem">
+                    <div class="f-label">Produse de interes</div>
+                    ${productTagsHTML(c.products)}
+                </div>
+                <div style="margin-top:1rem;padding:0.85rem 1rem;background:var(--bg);border-radius:8px;border-left:3px solid var(--gold)">
+                    <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.3rem">Intel Sales</div>
+                    <div style="font-size:0.86rem">${esc(c.intel||'—')}</div>
+                </div>
+            `}
+        </div>`;
+
+    // ---- Pane: Contacts ----
+    const contactsPane = factory ? '' : `
+        <div class="modal-tab-pane" data-pane="contacts">
+            <div id="contacts-list-${c._id}">${renderContactList(c)}</div>
+            <div style="margin-top:1rem;border-top:1px solid var(--border);padding-top:1rem">
+                <div class="f-label">Adaugă contact nou</div>
+                <div class="form-row" style="margin-bottom:0.6rem">
+                    <input class="add-task-input" id="ct-name-${c._id}" type="text" placeholder="Nume *">
+                    <input class="add-task-input" id="ct-role-${c._id}" type="text" placeholder="Funcție">
+                </div>
+                <div class="form-row" style="margin-bottom:0.6rem">
+                    <input class="add-task-input" id="ct-email-${c._id}" type="email" placeholder="Email">
+                    <input class="add-task-input" id="ct-phone-${c._id}" type="text" placeholder="Telefon">
+                </div>
+                <button class="btn btn-ghost btn-sm" onclick="addContactInput(${c._id})">+ Adaugă Contact</button>
+            </div>
+        </div>`;
+
+    // ---- Pane: Notes ----
+    const notesPane = `
+        <div class="modal-tab-pane" data-pane="notes">
             <div id="notes-list-${c._id}">${renderNotesList(c)}</div>
             <div class="add-note-form">
                 <input class="add-note-input" id="note-inp-${c._id}" type="text" placeholder="Adaugă notă (Enter)…" onkeydown="if(event.key==='Enter')addNoteInput(${c._id})">
                 <button class="btn btn-ghost btn-sm" onclick="addNoteInput(${c._id})">Adaugă</button>
             </div>
         </div>`;
+
+    // ---- Pane: Tasks ----
+    const tasksPane = `
+        <div class="modal-tab-pane" data-pane="tasks">
+            <div id="tasks-list-${c._id}">${renderTaskList(c)}</div>
+            <div class="add-task-form">
+                <input class="add-task-input" id="task-inp-${c._id}" type="text" placeholder="Follow-up nou…" onkeydown="if(event.key==='Enter')addTaskInput(${c._id})">
+                <input class="add-task-date" id="task-date-${c._id}" type="date">
+                <button class="btn btn-ghost btn-sm" onclick="addTaskInput(${c._id})">+ Task</button>
+            </div>
+        </div>`;
+
+    $('modal-body').innerHTML = detailsPane + contactsPane + notesPane + tasksPane;
+
     $('modal-foot').innerHTML = `
         <button class="btn btn-ghost" onclick="closeModal()">Închide</button>
-        <button class="btn" style="background:var(--red-bg);color:var(--red);border:1px solid var(--red)" onclick="deleteClient(${c._id})">🗑 Șterge</button>
-        <button class="btn btn-ghost" onclick="closeModal();openEditClient(${c._id})">✎ Editează</button>
-        <button class="btn btn-primary" onclick="advanceStage(${c._id});closeModal()">→ Avansează etapă</button>`;
+        ${!factory?`<button class="btn" style="background:var(--red-bg);color:var(--red);border:1px solid var(--red)" onclick="deleteClient(${c._id})">🗑 Șterge</button>`:''}
+        ${!factory?`<button class="btn btn-ghost" onclick="closeModal();openEditClient(${c._id})">✎ Editează</button>`:''}
+        <button class="btn btn-primary" onclick="advanceStage(${c._id});viewClient(${c._id})">→ Avansează etapă</button>`;
     openModal();
+}
+
+function modalTab(clientId, tab){
+    activeModalTab = tab;
+    document.querySelectorAll('#modal-tabs .modal-tab-btn').forEach(b=>{
+        b.classList.toggle('active', b.getAttribute('data-mtab')===tab);
+    });
+    document.querySelectorAll('#modal-body .modal-tab-pane').forEach(p=>{
+        p.classList.toggle('active', p.getAttribute('data-pane')===tab);
+    });
 }
 
 /* ============================================================
@@ -732,8 +1444,11 @@ function openClientForm(editId){
     const isEdit = editId !== null && editId !== undefined;
     const c = isEdit ? clients.find(x=>x._id===editId) : {};
     const newCod = isEdit ? c.cod : nextCod();
+    const pc = isEdit ? primaryContact(c) : { name:'', role:'', email:'', phone:'' };
     const newAlias = isEdit ? c.alias : autoAlias(c.company||'', newCod);
+    const selProducts = isEdit ? (c.products||[]) : [];
 
+    $('modal-tabs').innerHTML = '';
     $('modal-title').textContent = isEdit ? 'Editează: ' + c.company : 'Client Nou';
     $('modal-body').innerHTML = `
     <div class="form-grid">
@@ -743,7 +1458,7 @@ function openClientForm(editId){
             </label>
             <label class="f">Tip Client
                 <select id="lf-type">
-                    ${CLIENT_TYPES.map(t=>`<option value="${t}"${(c.type||''===t)?'':''} ${(c.type||'Retailer')===t?'selected':''}>${t}</option>`).join('')}
+                    ${CLIENT_TYPES.map(t=>`<option value="${t}" ${(c.type||'Retailer')===t?'selected':''}>${t}</option>`).join('')}
                 </select>
             </label>
         </div>
@@ -753,33 +1468,52 @@ function openClientForm(editId){
                 <span class="f-hint">Auto-generat, editabil</span>
             </label>
             <label class="f">Alias Fabrică <span class="f-req">*</span>
-                <input id="lf-alias" type="text" value="${esc(isEdit?c.alias:newAlias)}" placeholder="ex. M-001">
+                <input id="lf-alias" type="text" value="${esc(newAlias)}" placeholder="ex. M-001">
                 <span class="f-hint">Vizibil în producție — nu dezvăluie clientul</span>
             </label>
             <label class="f">Etapă
                 <select id="lf-stage">
-                    ${STAGES.map(s=>`<option value="${s}"${(c.stage||'prospect')===s?'selected':''}>${STAGE_LABELS[s]}</option>`).join('')}
+                    ${STAGES.map(s=>`<option value="${s}" ${(c.stage||'prospect')===s?'selected':''}>${STAGE_LABELS[s]}</option>`).join('')}
                 </select>
             </label>
         </div>
         <div style="padding:0.6rem 0.9rem;background:var(--amber-bg);border-radius:8px;font-size:0.8rem;color:var(--amber)">
-            🏭 Alias în fabrică: <span class="alias-preview" id="alias-preview-live">${esc(isEdit?c.alias:newAlias)}</span>
+            🏭 Alias în fabrică: <span class="alias-preview" id="alias-preview-live">${esc(newAlias)}</span>
         </div>
-        <div class="form-row">
-            <label class="f">Contact Principal <span class="f-req">*</span>
-                <input id="lf-contact" type="text" value="${esc(c.contact||'')}" placeholder="Nume persoană">
+        <div class="form-row three">
+            <label class="f">Prioritate
+                <select id="lf-priority">
+                    ${PRIORITIES.map(p=>`<option value="${p}" ${(c.priority||'normal')===p?'selected':''}>${PRIORITY_LABELS[p]}</option>`).join('')}
+                </select>
             </label>
-            <label class="f">Funcție
-                <input id="lf-role" type="text" value="${esc(c.role||'')}" placeholder="ex. Director Achiziții">
+            <label class="f">Sursă
+                <select id="lf-source">
+                    <option value="" ${!c.source?'selected':''}>—</option>
+                    ${SOURCES.map(s=>`<option value="${s}" ${c.source===s?'selected':''}>${s}</option>`).join('')}
+                </select>
+            </label>
+            <label class="f">Oportunitate (€)
+                <input id="lf-opp" type="number" value="${c.opportunity||''}" placeholder="ex. 150000" min="0">
             </label>
         </div>
-        <div class="form-row">
-            <label class="f">Email <span class="f-req">*</span>
-                <input id="lf-email" type="email" value="${esc(c.email||'')}" placeholder="contact@companie.ro">
-            </label>
-            <label class="f">Telefon
-                <input id="lf-phone" type="text" value="${esc(c.phone||'')}" placeholder="+40-21-...">
-            </label>
+        <div>
+            <div class="f-label">Contact Principal</div>
+            <div class="form-row">
+                <label class="f">Nume <span class="f-req">*</span>
+                    <input id="lf-contact" type="text" value="${esc(pc.name||'')}" placeholder="Nume persoană">
+                </label>
+                <label class="f">Funcție
+                    <input id="lf-role" type="text" value="${esc(pc.role||'')}" placeholder="ex. Director Achiziții">
+                </label>
+            </div>
+            <div class="form-row" style="margin-top:0.75rem">
+                <label class="f">Email <span class="f-req">*</span>
+                    <input id="lf-email" type="email" value="${esc(pc.email||'')}" placeholder="contact@companie.ro">
+                </label>
+                <label class="f">Telefon
+                    <input id="lf-phone" type="text" value="${esc(pc.phone||'')}" placeholder="+40-21-...">
+                </label>
+            </div>
         </div>
         <div class="form-row three">
             <label class="f">Țară
@@ -792,9 +1526,12 @@ function openClientForm(editId){
                 <input id="lf-vat" type="text" value="${esc(c.vatCode||'')}" placeholder="RO12345678">
             </label>
         </div>
-        <label class="f">Oportunitate (€)
-            <input id="lf-opp" type="number" value="${c.opportunity||''}" placeholder="ex. 150000" min="0">
-        </label>
+        <div>
+            <div class="f-label">Produse de interes</div>
+            <div class="product-pick">
+                ${PRODUCTS.map(p=>`<label><input type="checkbox" class="lf-prod" value="${esc(p)}" ${selProducts.includes(p)?'checked':''}>${esc(p)}</label>`).join('')}
+            </div>
+        </div>
         <label class="f">Intel Sales / Note
             <textarea id="lf-intel" rows="3" placeholder="Buget estimat, deadline decizie, condiții speciale, concurență…">${esc(c.intel||'')}</textarea>
         </label>
@@ -805,66 +1542,88 @@ function openClientForm(editId){
         '<button class="btn btn-ghost" onclick="closeModal()">Anulează</button>' +
         `<button class="btn btn-primary" onclick="saveClientForm(${isEdit?editId:'null'})">Salvează</button>`;
 
-    // live alias preview
-    $('lf-alias').addEventListener('input', ()=>{ const ap=$('alias-preview-live'); if(ap) ap.textContent=$('lf-alias').value||'—'; });
+    // live alias preview (mark alias as manually edited so auto-suggest stops)
+    $('lf-alias').addEventListener('input', ()=>{
+        $('lf-alias').dataset.edited = '1';
+        const ap=$('alias-preview-live'); if(ap) ap.textContent=$('lf-alias').value||'—';
+    });
 
     openModal();
 }
 
 function autoAlias(company, cod){
-    if (!company) return cod.replace('GE-', 'C-');
+    if (!company) return (cod||'GE-001').replace('GE-', 'C-');
     const letter = company.trim()[0].toUpperCase();
-    const num = cod.split('-')[1] || '001';
+    const num = (cod||'').split('-')[1] || '001';
     return letter + '-' + num;
 }
 
 function updateAliasPreview(){
     const comp = $('lf-company').value.trim();
     const cod = $('lf-cod').value.trim() || nextCod();
-    const suggested = autoAlias(comp, cod);
-    if ($('lf-alias') && !$('lf-alias').dataset.edited) $('lf-alias').value = suggested;
+    const aliasEl = $('lf-alias');
+    if (aliasEl && !aliasEl.dataset.edited) aliasEl.value = autoAlias(comp, cod);
     const ap = $('alias-preview-live');
-    if (ap) ap.textContent = $('lf-alias').value || '—';
+    if (ap) ap.textContent = aliasEl.value || '—';
 }
 
 function saveClientForm(editId){
     const company = $('lf-company').value.trim();
-    const contact = $('lf-contact').value.trim();
+    const cname   = $('lf-contact').value.trim();
     const email   = $('lf-email').value.trim();
     const alias   = $('lf-alias').value.trim();
     const err = $('lf-err');
 
     if (!company){ err.textContent='Compania este obligatorie.'; err.style.display='block'; return; }
-    if (!contact){ err.textContent='Contactul este obligatoriu.'; err.style.display='block'; return; }
+    if (!cname)  { err.textContent='Numele contactului este obligatoriu.'; err.style.display='block'; return; }
     if (!email)  { err.textContent='Emailul este obligatoriu.'; err.style.display='block'; return; }
     if (!alias)  { err.textContent='Alias-ul este obligatoriu (vizibil în fabrică).'; err.style.display='block'; return; }
     err.style.display='none';
 
+    const products = Array.from(document.querySelectorAll('.lf-prod:checked')).map(el=>el.value);
+    const primary = {
+        name: cname,
+        role: $('lf-role').value.trim(),
+        email,
+        phone: $('lf-phone').value.trim(),
+        primary: true
+    };
+
     const data = {
-        cod: $('lf-cod').value.trim() || nextCod(),
+        cod:         $('lf-cod').value.trim() || nextCod(),
         alias,
         company,
         type:        $('lf-type').value,
-        contact,
-        role:        $('lf-role').value.trim(),
-        email,
-        phone:       $('lf-phone').value.trim(),
         country:     $('lf-country').value.trim() || 'România',
         city:        $('lf-city').value.trim(),
         vatCode:     $('lf-vat').value.trim(),
         opportunity: parseInt($('lf-opp').value)||0,
         stage:       $('lf-stage').value,
+        priority:    $('lf-priority').value,
+        source:      $('lf-source').value,
+        products,
         intel:       $('lf-intel').value.trim(),
     };
 
     if (editId !== null){
         const idx = clients.findIndex(x=>x._id===editId);
-        if (idx!==-1) clients[idx] = { ...clients[idx], ...data };
+        if (idx!==-1){
+            const existing = clients[idx];
+            // keep secondary contacts, replace primary
+            const others = (existing.contacts||[]).filter(x=>!x.primary);
+            const contacts = [primary, ...others.map(o=>({ ...o, primary:false }))];
+            clients[idx] = { ...existing, ...data, contacts };
+            touch(clients[idx]);
+        }
         toast('Client actualizat: ' + company, 'ok');
     } else {
         data._id = Date.now();
+        data.contacts = [primary];
+        data.tags = [];
         data.notes = [];
+        data.tasks = [];
         data.createdAt = today();
+        data.lastActivity = today();
         clients.push(data);
         toast('Client adăugat: ' + company + ' (' + data.cod + ')', 'ok');
     }
@@ -872,8 +1631,7 @@ function saveClientForm(editId){
     saveClients();
     closeModal();
     rebuildFilters();
-    renderClients();
-    if (currentView==='pipeline'){ renderFunnel(); renderKanban(); }
+    renderAll();
 }
 
 /* ============================================================
@@ -887,8 +1645,8 @@ function deleteClient(id){
     saveClients();
     closeModal();
     toast('Șters: ' + c.company, '');
-    renderClients();
-    if (currentView==='pipeline'){ renderFunnel(); renderKanban(); }
+    rebuildFilters();
+    renderAll();
 }
 
 /* ============================================================
@@ -898,15 +1656,17 @@ function exportCSV(){
     const rows = getFiltered();
     const factory = viewMode==='factory';
     const headers = factory
-        ? ['Cod Client','Alias','Etapa']
-        : ['Cod','Alias','Companie','Tip','CUI','Contact','Rol','Email','Telefon','Tara','Oras','Oportunitate EUR','Etapa','Intel'];
+        ? ['Cod Client','Alias','Etapa','Produse','Oportunitate EUR']
+        : ['Cod','Alias','Companie','Tip','CUI','Contact','Rol','Email','Telefon','Tara','Oras','Produse','Prioritate','Sursa','Oportunitate EUR','Etapa','Intel'];
     const csvEsc = v => '"' + String(v==null?'':v).replace(/"/g,'""') + '"';
     const lines = [headers.map(csvEsc).join(',')];
     rows.forEach(c => {
+        const prods = (c.products||[]).join('; ');
         if (factory){
-            lines.push([c.cod, c.alias, STAGE_LABELS[c.stage]].map(csvEsc).join(','));
+            lines.push([c.cod, c.alias, STAGE_LABELS[c.stage], prods, c.opportunity].map(csvEsc).join(','));
         } else {
-            lines.push([c.cod,c.alias,c.company,c.type,c.vatCode,c.contact,c.role,c.email,c.phone,c.country,c.city,c.opportunity,STAGE_LABELS[c.stage],c.intel].map(csvEsc).join(','));
+            const pc = primaryContact(c);
+            lines.push([c.cod,c.alias,c.company,c.type,c.vatCode,pc.name,pc.role,pc.email,pc.phone,c.country,c.city,prods,PRIORITY_LABELS[c.priority]||'',c.source||'',c.opportunity,STAGE_LABELS[c.stage],c.intel].map(csvEsc).join(','));
         }
     });
     const blob = new Blob(['﻿'+lines.join('\r\n')], {type:'text/csv;charset=utf-8;'});
@@ -920,7 +1680,7 @@ function exportCSV(){
    MODAL
    ============================================================ */
 function openModal(){ $('modal').classList.add('open'); }
-function closeModal(){ $('modal').classList.remove('open'); }
+function closeModal(){ $('modal').classList.remove('open'); $('modal-tabs').innerHTML=''; }
 
 /* ============================================================
    INIT
@@ -928,7 +1688,8 @@ function closeModal(){ $('modal').classList.remove('open'); }
 (function init(){
     loadClients();
     populateFilters();
-    renderClients();
+    updateOverdueBadge();
+    switchView('overview');
 })();
 </script>
 </body>
