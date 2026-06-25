@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofertare — Glas Expert CRM</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        :root {
+            --navy:       #1a3a52;
+            --navy-2:     #2d5a7a;
+            --navy-deep:  #112637;
+            --gold:       #c8a24b;
+            --gold-soft:  #e3c878;
+            --gold-bg:    rgba(200,162,75,0.12);
+            --bg:         #f4f6f8;
+            --surface:    #ffffff;
+            --text:       #1f2937;
+            --text-muted: #6b7280;
+            --text-faint: #9ca3af;
+            --border:     #e5e7eb;
+            --green:      #2f9e6f;
+            --green-bg:   rgba(47,158,111,0.12);
+            --red:        #d65745;
+            --red-bg:     rgba(214,87,69,0.12);
+            --amber:      #d99a2b;
+            --amber-bg:   rgba(217,154,43,0.14);
+            --blue:       #2d6cb5;
+            --blue-bg:    rgba(45,108,181,0.12);
+            --purple:     #7c3aed;
+            --purple-bg:  rgba(124,58,237,0.10);
+            --radius:     12px;
+            --radius-sm:  8px;
+            --shadow:     0 1px 3px rgba(16,24,40,0.08), 0 1px 2px rgba(16,24,40,0.04);
+            --shadow-lg:  0 12px 32px rgba(16,24,40,0.16);
+            --font:       'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:var(--font); background:var(--bg); color:var(--text); line-height:1.5; -webkit-font-smoothing:antialiased; }
+
+        .app { display:flex; min-height:100vh; }
+        .sidebar {
+            width:240px; background:linear-gradient(180deg,var(--navy) 0%,var(--navy-deep) 100%);
+            color:#fff; display:flex; flex-direction:column;
+            position:fixed; top:0; left:0; bottom:0; z-index:40;
+        }
+        .brand { padding:1.5rem 1.5rem 1.25rem; border-bottom:1px solid rgba(255,255,255,0.08); }
+        .brand .logo { font-size:1.2rem; font-weight:800; letter-spacing:-0.02em; }
+        .brand .dot { color:var(--gold); }
+        .brand .sub { font-size:0.7rem; color:rgba(255,255,255,0.5); margin-top:0.2rem; text-transform:uppercase; letter-spacing:0.08em; }
+        .nav { padding:1rem 0.75rem; flex:1; }
+        .nav-item {
+            display:flex; align-items:center; gap:0.75rem; width:100%;
+            padding:0.65rem 0.85rem; margin-bottom:0.2rem; border-radius:var(--radius-sm);
+            color:rgba(255,255,255,0.7); font-size:0.88rem; font-weight:500;
+            text-align:left; background:none; border:none; cursor:pointer;
+            transition:background 0.15s, color 0.15s; text-decoration:none;
+        }
+        .nav-item:hover { background:rgba(255,255,255,0.06); color:#fff; }
+        .nav-item.active { background:var(--gold-bg); color:var(--gold-soft); box-shadow:inset 3px 0 0 var(--gold); }
+        .nav-item .ico { width:17px; height:17px; flex-shrink:0; }
+        .nav-item.disabled { opacity:0.4; cursor:default; pointer-events:none; }
+        .nav-sep { font-size:0.66rem; font-weight:700; text-transform:uppercase; letter-spacing:0.09em; color:rgba(255,255,255,0.3); padding:1rem 0.85rem 0.35rem; }
+        .sidebar-footer { padding:1rem 1.5rem; border-top:1px solid rgba(255,255,255,0.08); font-size:0.74rem; color:rgba(255,255,255,0.45); }
+        .sidebar-footer strong { color:rgba(255,255,255,0.75); }
+
+        .main { flex:1; margin-left:240px; display:flex; flex-direction:column; }
+        .topbar {
+            background:var(--surface); border-bottom:1px solid var(--border);
+            padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between;
+            position:sticky; top:0; z-index:30;
+        }
+        .topbar h1 { font-size:1.2rem; font-weight:700; color:var(--navy); }
+        .topbar .crumb { font-size:0.78rem; color:var(--text-faint); margin-top:2px; }
+        .topbar-right { display:flex; align-items:center; gap:0.75rem; }
+        .content { padding:1.75rem 2rem; flex:1; }
+
+        .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; margin-bottom:1.5rem; }
+        .stat { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); padding:1.1rem 1.25rem; }
+        .stat .label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:0.35rem; }
+        .stat .value { font-size:1.6rem; font-weight:800; color:var(--navy); line-height:1; }
+        .stat .delta { font-size:0.74rem; color:var(--text-faint); margin-top:0.3rem; }
+        .stat .delta.up { color:var(--green); }
+        .stat .delta.warn { color:var(--amber); }
+
+        .filters { display:flex; flex-wrap:wrap; gap:0.75rem; margin-bottom:1.25rem; align-items:flex-end; }
+        .search-box { display:flex; align-items:center; gap:0.5rem; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:0.45rem 0.85rem; flex:1; min-width:220px; }
+        .search-box input { border:none; outline:none; font-size:0.88rem; flex:1; background:none; font-family:var(--font); }
+        .search-box .ico { width:15px; height:15px; color:var(--text-faint); flex-shrink:0; }
+        .field { display:flex; flex-direction:column; gap:0.25rem; }
+        .field label { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--text-muted); }
+        .field select { padding:0.45rem 0.75rem; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:0.85rem; background:var(--surface); outline:none; font-family:var(--font); color:var(--text); cursor:pointer; }
+
+        .card { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); margin-bottom:1.5rem; overflow:hidden; }
+        .card-head { display:flex; align-items:center; justify-content:space-between; padding:1rem 1.5rem; border-bottom:1px solid var(--border); }
+        .card-head h3 { font-size:0.95rem; font-weight:700; color:var(--navy); }
+        .card-head .meta { font-size:0.78rem; color:var(--text-faint); }
+        .table-wrap { overflow-x:auto; }
+        table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+        th { text-align:left; padding:0.65rem 1.25rem; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); border-bottom:1px solid var(--border); background:#f9fafb; white-space:nowrap; }
+        td { padding:0.8rem 1.25rem; border-bottom:1px solid #f3f4f6; vertical-align:middle; }
+        tr:last-child td { border-bottom:none; }
+        tr:hover td { background:#fafafa; }
+        .cell-nr { font-family:'Courier New',monospace; font-weight:700; font-size:0.88rem; color:var(--navy); letter-spacing:0.03em; }
+        .cell-sub { font-size:0.75rem; color:var(--text-faint); margin-top:1px; }
+
+        .badge { display:inline-flex; align-items:center; gap:0.3rem; font-size:0.72rem; font-weight:700; padding:0.2rem 0.6rem; border-radius:20px; white-space:nowrap; }
+        .badge .dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
+        .badge-gold   { background:var(--gold-bg); color:#9a7726; }
+        .badge-green  { background:var(--green-bg); color:var(--green); }
+        .badge-red    { background:var(--red-bg); color:var(--red); }
+        .badge-amber  { background:var(--amber-bg); color:#a8741b; }
+        .badge-blue   { background:var(--blue-bg); color:var(--blue); }
+        .badge-gray   { background:#eef0f2; color:var(--text-muted); }
+        .badge-purple { background:var(--purple-bg); color:var(--purple); }
+
+        .btn { display:inline-flex; align-items:center; gap:0.4rem; padding:0.5rem 1rem; border-radius:var(--radius-sm); font-size:0.84rem; font-weight:600; cursor:pointer; border:1px solid transparent; transition:all 0.15s; font-family:var(--font); }
+        .btn-primary { background:var(--navy); color:#fff; border-color:var(--navy); }
+        .btn-primary:hover { background:var(--navy-2); }
+        .btn-gold { background:var(--gold); color:#fff; border-color:var(--gold); }
+        .btn-gold:hover { opacity:0.9; }
+        .btn-ghost { background:none; border-color:var(--border); color:var(--text-muted); }
+        .btn-ghost:hover { background:var(--bg); color:var(--text); }
+        .btn-green { background:var(--green); color:#fff; border-color:var(--green); }
+        .btn-green:hover { opacity:0.9; }
+        .btn-red { background:none; border-color:var(--red-bg); color:var(--red); }
+        .btn-red:hover { background:var(--red-bg); }
+        .btn-sm { padding:0.3rem 0.65rem; font-size:0.78rem; }
+        .btn-icon { padding:0.35rem 0.6rem !important; }
+        .row-actions { display:flex; gap:0.3rem; justify-content:flex-end; }
+
+        /* ---- Modal ---- */
+        .modal-backdrop { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:100; align-items:flex-start; justify-content:center; padding:2rem 1rem; overflow-y:auto; }
+        .modal-backdrop.open { display:flex; }
+        .modal { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow-lg); width:100%; max-width:860px; display:flex; flex-direction:column; margin:auto; }
+        .modal-head { padding:1.25rem 1.5rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+        .modal-head h3 { font-size:1rem; font-weight:700; color:var(--navy); }
+        .modal-close { background:none; border:none; cursor:pointer; color:var(--text-faint); font-size:1.4rem; line-height:1; padding:0 0.25rem; }
+        .modal-body { padding:1.5rem; flex:1; }
+        .modal-foot { padding:1rem 1.5rem; border-top:1px solid var(--border); display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap; }
+        .modal-foot .spacer { flex:1; }
+
+        /* ---- Form ---- */
+        .form-grid { display:grid; gap:0.9rem; }
+        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; }
+        .form-row.three { grid-template-columns:1fr 1fr 1fr; }
+        .form-row.four { grid-template-columns:1fr 1fr 1fr 1fr; }
+        label.f { display:flex; flex-direction:column; gap:0.3rem; font-size:0.81rem; font-weight:600; color:var(--text-muted); }
+        label.f input, label.f select, label.f textarea {
+            font-size:0.88rem; padding:0.5rem 0.75rem; border:1px solid var(--border);
+            border-radius:8px; outline:none; font-family:var(--font); color:var(--text);
+            background:var(--surface); transition:border-color 0.15s;
+        }
+        label.f input:focus, label.f select:focus, label.f textarea:focus { border-color:var(--navy); }
+        label.f textarea { resize:vertical; }
+        label.f input[readonly] { background:#f9fafb; color:var(--text-muted); }
+
+        /* ---- Linii oferta ---- */
+        .lines-section { margin-top:1.25rem; }
+        .lines-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem; }
+        .lines-head h4 { font-size:0.85rem; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.05em; }
+        .lines-table-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:var(--radius-sm); }
+        .lines-table { width:100%; border-collapse:collapse; font-size:0.84rem; }
+        .lines-table th { text-align:left; padding:0.55rem 0.9rem; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); border-bottom:1px solid var(--border); background:#f9fafb; white-space:nowrap; }
+        .lines-table td { padding:0.55rem 0.9rem; border-bottom:1px solid #f3f4f6; vertical-align:middle; }
+        .lines-table tr:last-child td { border-bottom:none; }
+        .lines-table input, .lines-table select { font-size:0.84rem; padding:0.35rem 0.6rem; border:1px solid var(--border); border-radius:6px; outline:none; font-family:var(--font); color:var(--text); background:var(--surface); width:100%; }
+        .lines-table input:focus, .lines-table select:focus { border-color:var(--navy); }
+        .lines-table .td-total { font-weight:700; color:var(--navy); white-space:nowrap; }
+        .lines-table .td-del { text-align:center; }
+        .col-produs { min-width:160px; }
+        .col-desc { min-width:180px; }
+        .col-qty { width:90px; }
+        .col-pret { width:100px; }
+        .col-total { width:100px; }
+        .col-del { width:44px; }
+
+        /* ---- Totals box ---- */
+        .totals-box { margin-top:1rem; display:flex; justify-content:flex-end; }
+        .totals-inner { min-width:280px; }
+        .totals-row { display:flex; justify-content:space-between; align-items:center; padding:0.4rem 0; border-bottom:1px solid #f3f4f6; font-size:0.88rem; }
+        .totals-row:last-child { border-bottom:none; }
+        .totals-row .tl { color:var(--text-muted); }
+        .totals-row .tv { font-weight:600; color:var(--navy); }
+        .totals-row.total-final { padding:0.65rem 0; margin-top:0.25rem; border-top:2px solid var(--border); border-bottom:none; }
+        .totals-row.total-final .tl { font-size:1rem; font-weight:700; color:var(--navy); }
+        .totals-row.total-final .tv { font-size:1.15rem; font-weight:800; color:var(--navy); }
+        .discount-row { display:flex; align-items:center; gap:0.5rem; }
+        .discount-row input { width:65px; padding:0.3rem 0.5rem; border:1px solid var(--border); border-radius:6px; font-size:0.84rem; outline:none; font-family:var(--font); text-align:right; }
+        .discount-row input:focus { border-color:var(--navy); }
+
+        /* ---- Preview modal ---- */
+        .preview-doc { background:#fff; border-radius:var(--radius); overflow:hidden; }
+        .preview-header { background:var(--navy); color:#fff; padding:1.75rem 2rem; display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
+        .preview-logo { font-size:1.5rem; font-weight:800; letter-spacing:-0.02em; }
+        .preview-logo .dot { color:var(--gold); }
+        .preview-logo-sub { font-size:0.72rem; color:rgba(255,255,255,0.55); margin-top:0.15rem; text-transform:uppercase; letter-spacing:0.07em; }
+        .preview-logo-addr { font-size:0.74rem; color:rgba(255,255,255,0.6); margin-top:0.5rem; line-height:1.6; }
+        .preview-doc-meta { text-align:right; }
+        .preview-doc-nr { font-size:1.2rem; font-weight:800; color:#fff; }
+        .preview-doc-date { font-size:0.8rem; color:rgba(255,255,255,0.65); margin-top:0.2rem; }
+        .preview-doc-valid { font-size:0.75rem; color:var(--gold-soft); margin-top:0.15rem; }
+        .preview-body { padding:1.75rem 2rem; }
+        .preview-client-box { background:#f8f9fb; border-radius:var(--radius-sm); border:1px solid var(--border); padding:1rem 1.25rem; margin-bottom:1.5rem; }
+        .preview-client-box h4 { font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--text-muted); margin-bottom:0.6rem; }
+        .preview-client-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.5rem 1.5rem; }
+        .preview-client-item dt { font-size:0.72rem; color:var(--text-faint); font-weight:600; }
+        .preview-client-item dd { font-size:0.9rem; font-weight:700; color:var(--navy); }
+        .preview-products-title { font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--text-muted); margin-bottom:0.75rem; }
+        .preview-table { width:100%; border-collapse:collapse; font-size:0.85rem; margin-bottom:1.5rem; }
+        .preview-table th { text-align:left; padding:0.6rem 0.85rem; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); border-bottom:2px solid var(--border); }
+        .preview-table td { padding:0.7rem 0.85rem; border-bottom:1px solid #f3f4f6; }
+        .preview-table tr:last-child td { border-bottom:none; }
+        .preview-table .td-r { text-align:right; }
+        .preview-table .td-bold { font-weight:700; color:var(--navy); }
+        .preview-totals { display:flex; justify-content:flex-end; margin-bottom:1.5rem; }
+        .preview-totals-inner { min-width:260px; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; }
+        .preview-total-row { display:flex; justify-content:space-between; padding:0.5rem 1rem; border-bottom:1px solid #f3f4f6; font-size:0.88rem; }
+        .preview-total-row:last-child { border-bottom:none; background:var(--navy); color:#fff; font-weight:800; font-size:1rem; }
+        .preview-total-row .pt-v { font-weight:600; }
+        .preview-total-row:last-child .pt-v { font-weight:800; }
+        .preview-notes { background:#fffbf2; border-left:3px solid var(--gold); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:0.85rem 1rem; margin-bottom:1.5rem; font-size:0.85rem; color:var(--text); }
+        .preview-notes-label { font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--amber); margin-bottom:0.3rem; }
+        .preview-footer { border-top:1px solid var(--border); padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; background:#f9fafb; }
+        .preview-footer-left { font-size:0.75rem; color:var(--text-faint); }
+        .preview-footer-sign { text-align:right; }
+        .preview-footer-sign .sign-line { border-top:1px solid var(--border); width:160px; margin-left:auto; margin-bottom:0.3rem; }
+        .preview-footer-sign .sign-label { font-size:0.72rem; color:var(--text-faint); }
+
+        /* ---- Produse tags in list ---- */
+        .produse-list { display:flex; flex-wrap:wrap; gap:0.25rem; }
+        .prod-tag { font-size:0.7rem; font-weight:700; padding:0.15rem 0.5rem; border-radius:4px; background:var(--blue-bg); color:var(--blue); }
+
+        /* ---- Toast ---- */
+        #toast-stack { position:fixed; bottom:1.5rem; right:1.5rem; display:flex; flex-direction:column; gap:0.5rem; z-index:200; }
+        .toast { display:flex; align-items:center; gap:0.6rem; background:#1f2937; color:#fff; padding:0.7rem 1.1rem; border-radius:8px; font-size:0.85rem; font-weight:500; box-shadow:var(--shadow-lg); min-width:240px; animation:slideIn 0.2s ease; }
+        .toast.ok { background:var(--green); }
+        .toast.err { background:var(--red); }
+        @keyframes slideIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+        /* ---- Empty state ---- */
+        .empty-state { text-align:center; padding:3.5rem 1rem; color:var(--text-faint); }
+        .empty-state svg { width:48px; height:48px; margin-bottom:1rem; opacity:0.35; }
+        .empty-state p { font-size:0.9rem; }
+
+        @media(max-width:780px){
+            .sidebar { transform:translateX(-100%); }
+            .main { margin-left:0; }
+            .content { padding:1.25rem; }
+            .form-row { grid-template-columns:1fr; }
+            .form-row.three, .form-row.four { grid-template-columns:1fr 1fr; }
+            .preview-client-grid { grid-template-columns:1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+
+    <!-- ======== SIDEBAR ======== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="logo">Glas<span class="dot">·</span>Expert</div>
+            <div class="sub">CRM Intern · xglass.eu</div>
+        </div>
+        <nav class="nav">
+            <div class="nav-sep">CRM</div>
+            <a class="nav-item" href="crm.html">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Clienti
+            </a>
+            <a class="nav-item" href="crm.html">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="4" height="18" rx="1"/><rect x="10" y="3" width="4" height="13" rx="1"/><rect x="17" y="3" width="4" height="16" rx="1"/></svg>
+                Pipeline
+            </a>
+            <div class="nav-sep">Module</div>
+            <button class="nav-item active">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                Ofertare
+            </button>
+            <button class="nav-item disabled">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                Comenzi
+            </button>
+            <button class="nav-item disabled">
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 9l-5 5-3-3-4 4"/></svg>
+                Rapoarte
+            </button>
+        </nav>
+        <div class="sidebar-footer">
+            <strong>Glas Expert</strong><br>
+            Popesti-Leordeni · Neubiberg<br>
+            xglass.eu
+        </div>
+    </aside>
+
+    <!-- ======== MAIN ======== -->
+    <div class="main">
+        <header class="topbar">
+            <div>
+                <h1>Ofertare</h1>
+                <div class="crumb">Glas Expert · CRM Intern · Gestionare Oferte</div>
+            </div>
+            <div class="topbar-right">
+                <span class="badge badge-green"><span class="dot"></span>Local</span>
+                <button class="btn btn-gold" onclick="openCreateModal()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Oferta Noua
+                </button>
+            </div>
+        </header>
+
+        <main class="content">
+
+            <!-- KPI Strip -->
+            <div class="stat-grid">
+                <div class="stat">
+                    <div class="label">Total Oferte</div>
+                    <div class="value" id="kpi-total">0</div>
+                    <div class="delta">in baza de date</div>
+                </div>
+                <div class="stat">
+                    <div class="label">Valoare Totala</div>
+                    <div class="value" id="kpi-valoare">€0</div>
+                    <div class="delta up">toate ofertele</div>
+                </div>
+                <div class="stat">
+                    <div class="label">Acceptate</div>
+                    <div class="value" id="kpi-acceptate">0</div>
+                    <div class="delta up">rata conversie</div>
+                </div>
+                <div class="stat">
+                    <div class="label">In Asteptare</div>
+                    <div class="value" id="kpi-pending">0</div>
+                    <div class="delta warn">draft + trimise</div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters">
+                <div class="search-box">
+                    <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="search" id="f-search" placeholder="Cauta dupa nr. oferta, client, produse..." oninput="renderList()">
+                </div>
+                <div class="field">
+                    <label>Status</label>
+                    <select id="f-status" onchange="renderList()">
+                        <option value="">Toate statusurile</option>
+                        <option value="draft">Draft</option>
+                        <option value="trimisa">Trimisa</option>
+                        <option value="acceptata">Acceptata</option>
+                        <option value="refuzata">Refuzata</option>
+                        <option value="expirata">Expirata</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Produs</label>
+                    <select id="f-produs" onchange="renderList()">
+                        <option value="">Toate produsele</option>
+                        <option value="EVOPRINT">EVOPRINT</option>
+                        <option value="EVOLAM">EVOLAM</option>
+                        <option value="EVOLAM SMART">EVOLAM SMART</option>
+                        <option value="EVODUR">EVODUR</option>
+                        <option value="EVOCLEAN">EVOCLEAN</option>
+                        <option value="VERSATIKA">VERSATIKA</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="card">
+                <div class="card-head">
+                    <h3>Lista Oferte</h3>
+                    <span class="meta" id="list-count">0 oferte</span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nr. Oferta</th>
+                                <th>Client</th>
+                                <th>Data</th>
+                                <th>Produse</th>
+                                <th style="text-align:right">Valoare</th>
+                                <th>Status</th>
+                                <th style="text-align:right">Actiuni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbl-body"></tbody>
+                    </table>
+                    <div id="empty-state" class="empty-state" style="display:none">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        <p>Nicio oferta gasita. Creeaza prima oferta.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<!-- ======== MODAL CREARE/EDITARE ======== -->
+<div class="modal-backdrop" id="modal-form">
+    <div class="modal">
+        <div class="modal-head">
+            <h3 id="modal-form-title">Oferta Noua</h3>
+            <button class="modal-close" onclick="closeModal('modal-form')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-grid">
+                <div class="form-row four">
+                    <label class="f">
+                        Nr. Oferta
+                        <input type="text" id="f-nr" readonly placeholder="Auto-generat">
+                    </label>
+                    <label class="f">
+                        Client
+                        <select id="f-client">
+                            <option value="">Selecteaza client...</option>
+                            <option value="GE-001">GE-001 — M-001</option>
+                            <option value="GE-002">GE-002 — I-002</option>
+                            <option value="GE-003">GE-003 — C-003</option>
+                            <option value="GE-004">GE-004 — T-004</option>
+                            <option value="GE-005">GE-005 — P-005</option>
+                            <option value="GE-006">GE-006 — A-006</option>
+                        </select>
+                    </label>
+                    <label class="f">
+                        Data
+                        <input type="date" id="f-data">
+                    </label>
+                    <label class="f">
+                        Valabilitate (zile)
+                        <input type="number" id="f-valabilitate" value="30" min="1" max="365">
+                    </label>
+                </div>
+
+                <!-- Linii oferta -->
+                <div class="lines-section">
+                    <div class="lines-head">
+                        <h4>Linii Oferta</h4>
+                        <button class="btn btn-ghost btn-sm" onclick="addLine()">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Adauga linie
+                        </button>
+                    </div>
+                    <div class="lines-table-wrap">
+                        <table class="lines-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-produs">Produs</th>
+                                    <th class="col-desc">Descriere</th>
+                                    <th class="col-qty">Cantitate (m²)</th>
+                                    <th class="col-pret">Pret/m² (€)</th>
+                                    <th class="col-total">Total (€)</th>
+                                    <th class="col-del"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="lines-body"></tbody>
+                        </table>
+                    </div>
+                    <div class="totals-box">
+                        <div class="totals-inner">
+                            <div class="totals-row">
+                                <span class="tl">Subtotal</span>
+                                <span class="tv" id="t-subtotal">€ 0,00</span>
+                            </div>
+                            <div class="totals-row">
+                                <span class="tl">Discount</span>
+                                <span class="tv">
+                                    <span class="discount-row">
+                                        <input type="number" id="t-discount-pct" value="0" min="0" max="100" step="0.5" oninput="recalcTotals()">
+                                        <span style="color:var(--text-muted);font-size:0.82rem">%</span>
+                                        <span id="t-discount-val" style="color:var(--red);font-size:0.85rem">- € 0,00</span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="totals-row">
+                                <span class="tl">TVA 19%</span>
+                                <span class="tv" id="t-tva">€ 0,00</span>
+                            </div>
+                            <div class="totals-row total-final">
+                                <span class="tl">TOTAL</span>
+                                <span class="tv" id="t-total">€ 0,00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <label class="f">
+                    Note
+                    <textarea id="f-note" rows="3" placeholder="Termene de livrare, conditii speciale, alte mentiuni..."></textarea>
+                </label>
+            </div>
+        </div>
+        <div class="modal-foot">
+            <button class="btn btn-ghost" onclick="closeModal('modal-form')">Anuleaza</button>
+            <div class="spacer"></div>
+            <button class="btn btn-ghost" onclick="saveOferta('draft')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Salveaza Draft
+            </button>
+            <button class="btn btn-primary" onclick="saveOferta('trimisa')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Trimite Oferta
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ======== MODAL PREVIZUALIZARE ======== -->
+<div class="modal-backdrop" id="modal-preview">
+    <div class="modal" style="max-width:720px">
+        <div class="modal-head">
+            <h3 id="preview-title">Previzualizare Oferta</h3>
+            <button class="modal-close" onclick="closeModal('modal-preview')">&times;</button>
+        </div>
+        <div class="modal-body" style="padding:0">
+            <div id="preview-content"></div>
+        </div>
+        <div class="modal-foot">
+            <button class="btn btn-ghost" onclick="closeModal('modal-preview')">Inchide</button>
+            <div class="spacer"></div>
+            <button class="btn btn-ghost btn-sm" onclick="placeholder()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+                Descarca PDF
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ======== MODAL CONFIRMARE DELETE ======== -->
+<div class="modal-backdrop" id="modal-confirm">
+    <div class="modal" style="max-width:420px">
+        <div class="modal-head">
+            <h3>Confirma stergerea</h3>
+            <button class="modal-close" onclick="closeModal('modal-confirm')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="font-size:0.9rem;color:var(--text-muted)">Esti sigur ca vrei sa stergi oferta <strong id="confirm-nr"></strong>? Aceasta actiune nu poate fi anulata.</p>
+        </div>
+        <div class="modal-foot">
+            <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">Anuleaza</button>
+            <div class="spacer"></div>
+            <button class="btn btn-red" id="confirm-delete-btn">Sterge</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast stack -->
+<div id="toast-stack"></div>
+
+<script>
+const STORAGE_KEY = 'ge-oferte';
+const CLIENTS = {
+    'GE-001': { alias:'M-001', tara:'RO' },
+    'GE-002': { alias:'I-002', tara:'DE' },
+    'GE-003': { alias:'C-003', tara:'RO' },
+    'GE-004': { alias:'T-004', tara:'FR' },
+    'GE-005': { alias:'P-005', tara:'IT' },
+    'GE-006': { alias:'A-006', tara:'RO' },
+};
+const PRODUSE = ['EVOPRINT','EVOLAM','EVOLAM SMART','EVODUR','EVOCLEAN','VERSATIKA'];
+
+const DEMO = [
+    {
+        id:'GE-OF-001', clientCod:'GE-003', data:'2026-04-10', valabilitate:30,
+        linii:[
+            { produs:'VERSATIKA', desc:'Sistem usa flush-to-wall 2100x900mm', qty:12, pret:285 },
+            { produs:'EVOLAM', desc:'Sticla laminata 10mm, transparent', qty:45, pret:68 }
+        ],
+        discountPct:5, note:'Termen livrare 4-6 saptamani. Inclus transport Europa.', status:'acceptata'
+    },
+    {
+        id:'GE-OF-002', clientCod:'GE-001', data:'2026-05-03', valabilitate:30,
+        linii:[
+            { produs:'EVOPRINT', desc:'Sticla ceramica print personalizat - motiv geometric', qty:80, pret:95 }
+        ],
+        discountPct:0, note:'Design confirmat de client. Aprobare print necesara inainte de productie.', status:'trimisa'
+    },
+    {
+        id:'GE-OF-003', clientCod:'GE-005', data:'2026-05-18', valabilitate:14,
+        linii:[
+            { produs:'EVOCLEAN', desc:'Sticla auto-curatanta fatada nord', qty:120, pret:78 },
+            { produs:'EVOLAM SMART', desc:'Sticla smart dimming zona receptie', qty:30, pret:185 }
+        ],
+        discountPct:8, note:'Proiect hotel 4 stele - deadline strins.', status:'draft'
+    },
+    {
+        id:'GE-OF-004', clientCod:'GE-002', data:'2026-03-22', valabilitate:30,
+        linii:[
+            { produs:'EVODUR', desc:'Sticla antiefractie clasa P4A', qty:60, pret:145 }
+        ],
+        discountPct:0, note:'', status:'refuzata'
+    },
+    {
+        id:'GE-OF-005', clientCod:'GE-004', data:'2026-02-14', valabilitate:30,
+        linii:[
+            { produs:'EVOLAM', desc:'Sticla laminata curbata R=800mm', qty:35, pret:112 },
+            { produs:'VERSATIKA', desc:'Sistem usa pivot 2400x1200mm', qty:4, pret:620 }
+        ],
+        discountPct:10, note:'Proiect finalizat, factura emisa separat.', status:'expirata'
+    }
+];
+
+let oferte = [];
+let editingId = null;
+let lineCounter = 0;
+
+function loadData() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+        try { oferte = JSON.parse(raw); } catch(e) { oferte = [...DEMO]; }
+    } else {
+        oferte = [...DEMO];
+        saveData();
+    }
+}
+
+function saveData() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(oferte));
+}
+
+function calcOferta(o) {
+    let sub = 0;
+    (o.linii || []).forEach(l => { sub += (parseFloat(l.qty)||0) * (parseFloat(l.pret)||0); });
+    const disc = sub * ((parseFloat(o.discountPct)||0) / 100);
+    const afterDisc = sub - disc;
+    const tva = afterDisc * 0.19;
+    const total = afterDisc + tva;
+    return { sub, disc, afterDisc, tva, total };
+}
+
+function fmtEur(v) {
+    return '€ ' + (v||0).toLocaleString('ro-RO', { minimumFractionDigits:2, maximumFractionDigits:2 });
+}
+
+function getStatusBadge(status) {
+    const map = {
+        draft:     ['badge-gray',   'Draft'],
+        trimisa:   ['badge-blue',   'Trimisa'],
+        acceptata: ['badge-green',  'Acceptata'],
+        refuzata:  ['badge-red',    'Refuzata'],
+        expirata:  ['badge-amber',  'Expirata'],
+    };
+    const [cls, label] = map[status] || ['badge-gray', status];
+    return `<span class="badge ${cls}"><span class="dot"></span>${label}</span>`;
+}
+
+function renderList() {
+    const q = (document.getElementById('f-search').value || '').toLowerCase();
+    const st = document.getElementById('f-status').value;
+    const pr = document.getElementById('f-produs').value;
+
+    let filtered = oferte.filter(o => {
+        if (st && o.status !== st) return false;
+        if (pr && !o.linii.some(l => l.produs === pr)) return false;
+        if (q) {
+            const clientAlias = (CLIENTS[o.clientCod]?.alias || '').toLowerCase();
+            const produse = o.linii.map(l => l.produs).join(' ').toLowerCase();
+            if (!o.id.toLowerCase().includes(q) && !clientAlias.includes(q) && !produse.includes(q)) return false;
+        }
+        return true;
+    });
+
+    const tbody = document.getElementById('tbl-body');
+    const empty = document.getElementById('empty-state');
+    document.getElementById('list-count').textContent = filtered.length + ' oferte';
+
+    if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        empty.style.display = '';
+        return;
+    }
+    empty.style.display = 'none';
+
+    tbody.innerHTML = filtered.map(o => {
+        const { total } = calcOferta(o);
+        const cl = CLIENTS[o.clientCod];
+        const produse = [...new Set(o.linii.map(l => l.produs))];
+        const produseTags = produse.map(p => `<span class="prod-tag">${p}</span>`).join('');
+        return `<tr>
+            <td><div class="cell-nr">${o.id}</div></td>
+            <td>
+                <div style="font-weight:700;color:var(--navy)">${cl ? cl.alias : o.clientCod}</div>
+                <div class="cell-sub">${o.clientCod} · ${cl ? cl.tara : ''}</div>
+            </td>
+            <td>
+                <div>${o.data}</div>
+                <div class="cell-sub">val. ${o.valabilitate || 30} zile</div>
+            </td>
+            <td><div class="produse-list">${produseTags}</div></td>
+            <td style="text-align:right"><strong style="color:var(--navy)">${fmtEur(total)}</strong></td>
+            <td>${getStatusBadge(o.status)}</td>
+            <td>
+                <div class="row-actions">
+                    <button class="btn btn-ghost btn-sm btn-icon" title="Previzualizeaza" onclick="openPreview('${o.id}')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button class="btn btn-ghost btn-sm btn-icon" title="Editeaza" onclick="openEditModal('${o.id}')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                    <select class="btn btn-ghost btn-sm" style="padding:0.3rem 0.5rem;font-size:0.75rem;border-color:var(--border)" onchange="changeStatus('${o.id}', this.value)">
+                        <option value="">Status...</option>
+                        <option value="draft">Draft</option>
+                        <option value="trimisa">Trimisa</option>
+                        <option value="acceptata">Acceptata</option>
+                        <option value="refuzata">Refuzata</option>
+                        <option value="expirata">Expirata</option>
+                    </select>
+                    <button class="btn btn-ghost btn-sm btn-icon" title="Sterge" onclick="confirmDelete('${o.id}')">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                    </button>
+                </div>
+            </td>
+        </tr>`;
+    }).join('');
+}
+
+function renderKPIs() {
+    document.getElementById('kpi-total').textContent = oferte.length;
+    const totalVal = oferte.reduce((s, o) => s + calcOferta(o).total, 0);
+    document.getElementById('kpi-valoare').textContent = fmtEur(totalVal);
+    document.getElementById('kpi-acceptate').textContent = oferte.filter(o => o.status === 'acceptata').length;
+    document.getElementById('kpi-pending').textContent = oferte.filter(o => o.status === 'draft' || o.status === 'trimisa').length;
+}
+
+function nextNr() {
+    const nums = oferte.map(o => {
+        const m = o.id.match(/GE-OF-(\d+)/);
+        return m ? parseInt(m[1]) : 0;
+    });
+    const max = nums.length ? Math.max(...nums) : 0;
+    return 'GE-OF-' + String(max + 1).padStart(3, '0');
+}
+
+function openCreateModal() {
+    editingId = null;
+    document.getElementById('modal-form-title').textContent = 'Oferta Noua';
+    document.getElementById('f-nr').value = nextNr();
+    document.getElementById('f-client').value = '';
+    document.getElementById('f-data').value = new Date().toISOString().slice(0, 10);
+    document.getElementById('f-valabilitate').value = 30;
+    document.getElementById('f-note').value = '';
+    document.getElementById('t-discount-pct').value = 0;
+    document.getElementById('lines-body').innerHTML = '';
+    lineCounter = 0;
+    addLine();
+    recalcTotals();
+    openModal('modal-form');
+}
+
+function openEditModal(id) {
+    const o = oferte.find(x => x.id === id);
+    if (!o) return;
+    editingId = id;
+    document.getElementById('modal-form-title').textContent = 'Editeaza ' + id;
+    document.getElementById('f-nr').value = o.id;
+    document.getElementById('f-client').value = o.clientCod;
+    document.getElementById('f-data').value = o.data;
+    document.getElementById('f-valabilitate').value = o.valabilitate || 30;
+    document.getElementById('f-note').value = o.note || '';
+    document.getElementById('t-discount-pct').value = o.discountPct || 0;
+    document.getElementById('lines-body').innerHTML = '';
+    lineCounter = 0;
+    (o.linii || []).forEach(l => addLine(l));
+    recalcTotals();
+    openModal('modal-form');
+}
+
+function addLine(data) {
+    lineCounter++;
+    const id = 'line-' + lineCounter;
+    const produs = data ? data.produs : '';
+    const desc = data ? data.desc : '';
+    const qty = data ? data.qty : '';
+    const pret = data ? data.pret : '';
+    const opts = PRODUSE.map(p => `<option value="${p}" ${p === produs ? 'selected' : ''}>${p}</option>`).join('');
+    const tr = document.createElement('tr');
+    tr.id = id;
+    tr.innerHTML = `
+        <td class="col-produs"><select onchange="recalcTotals()">${opts}</select></td>
+        <td class="col-desc"><input type="text" value="${desc}" placeholder="Descriere..."></td>
+        <td class="col-qty"><input type="number" value="${qty}" min="0" step="0.1" placeholder="0" oninput="recalcLine('${id}')"></td>
+        <td class="col-pret"><input type="number" value="${pret}" min="0" step="0.01" placeholder="0.00" oninput="recalcLine('${id}')"></td>
+        <td class="col-total td-total" id="${id}-total">€ 0,00</td>
+        <td class="col-del td-del">
+            <button class="btn btn-ghost btn-sm btn-icon" onclick="removeLine('${id}')" title="Sterge linie" style="color:var(--red);border-color:var(--red-bg)">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </td>`;
+    document.getElementById('lines-body').appendChild(tr);
+    recalcLine(id);
+}
+
+function recalcLine(id) {
+    const tr = document.getElementById(id);
+    if (!tr) return;
+    const inputs = tr.querySelectorAll('input[type="number"]');
+    const qty = parseFloat(inputs[0].value) || 0;
+    const pret = parseFloat(inputs[1].value) || 0;
+    const total = qty * pret;
+    tr.querySelector(`#${id}-total`).textContent = fmtEur(total);
+    recalcTotals();
+}
+
+function removeLine(id) {
+    const tr = document.getElementById(id);
+    if (tr) tr.remove();
+    recalcTotals();
+}
+
+function recalcTotals() {
+    let sub = 0;
+    document.querySelectorAll('#lines-body tr').forEach(tr => {
+        const inputs = tr.querySelectorAll('input[type="number"]');
+        if (inputs.length >= 2) {
+            sub += (parseFloat(inputs[0].value)||0) * (parseFloat(inputs[1].value)||0);
+        }
+    });
+    const discPct = parseFloat(document.getElementById('t-discount-pct').value) || 0;
+    const disc = sub * (discPct / 100);
+    const afterDisc = sub - disc;
+    const tva = afterDisc * 0.19;
+    const total = afterDisc + tva;
+    document.getElementById('t-subtotal').textContent = fmtEur(sub);
+    document.getElementById('t-discount-val').textContent = '- ' + fmtEur(disc);
+    document.getElementById('t-tva').textContent = fmtEur(tva);
+    document.getElementById('t-total').textContent = fmtEur(total);
+}
+
+function getFormLinii() {
+    const rows = [];
+    document.querySelectorAll('#lines-body tr').forEach(tr => {
+        const sel = tr.querySelector('select');
+        const inputs = tr.querySelectorAll('input');
+        if (!sel) return;
+        rows.push({
+            produs: sel.value,
+            desc: inputs[0] ? inputs[0].value : '',
+            qty: parseFloat(inputs[1] ? inputs[1].value : 0) || 0,
+            pret: parseFloat(inputs[2] ? inputs[2].value : 0) || 0,
+        });
+    });
+    return rows;
+}
+
+function saveOferta(status) {
+    const clientCod = document.getElementById('f-client').value;
+    if (!clientCod) { toast('Selecteaza un client!', 'err'); return; }
+    const linii = getFormLinii();
+    if (linii.length === 0) { toast('Adauga cel putin o linie!', 'err'); return; }
+
+    const oferta = {
+        id: document.getElementById('f-nr').value,
+        clientCod,
+        data: document.getElementById('f-data').value,
+        valabilitate: parseInt(document.getElementById('f-valabilitate').value) || 30,
+        linii,
+        discountPct: parseFloat(document.getElementById('t-discount-pct').value) || 0,
+        note: document.getElementById('f-note').value,
+        status
+    };
+
+    if (editingId) {
+        const idx = oferte.findIndex(o => o.id === editingId);
+        if (idx !== -1) oferte[idx] = oferta;
+    } else {
+        oferte.push(oferta);
+    }
+    saveData();
+    renderKPIs();
+    renderList();
+    closeModal('modal-form');
+    toast(editingId ? 'Oferta actualizata!' : 'Oferta creata!', 'ok');
+}
+
+function changeStatus(id, newStatus) {
+    if (!newStatus) return;
+    const o = oferte.find(x => x.id === id);
+    if (!o) return;
+    o.status = newStatus;
+    saveData();
+    renderKPIs();
+    renderList();
+    toast('Status actualizat: ' + newStatus, 'ok');
+}
+
+function confirmDelete(id) {
+    document.getElementById('confirm-nr').textContent = id;
+    document.getElementById('confirm-delete-btn').onclick = () => deleteOferta(id);
+    openModal('modal-confirm');
+}
+
+function deleteOferta(id) {
+    oferte = oferte.filter(o => o.id !== id);
+    saveData();
+    renderKPIs();
+    renderList();
+    closeModal('modal-confirm');
+    toast('Oferta stearsa.', 'ok');
+}
+
+function openPreview(id) {
+    const o = oferte.find(x => x.id === id);
+    if (!o) return;
+    const cl = CLIENTS[o.clientCod] || {};
+    const { sub, disc, tva, total } = calcOferta(o);
+    const dateFmt = (d) => {
+        const [y,m,dd] = (d || '').split('-');
+        return dd + '.' + m + '.' + y;
+    };
+    const expDate = (() => {
+        const d = new Date(o.data);
+        d.setDate(d.getDate() + (parseInt(o.valabilitate)||30));
+        return dateFmt(d.toISOString().slice(0,10));
+    })();
+
+    const liniiRows = o.linii.map((l, i) => {
+        const t = (parseFloat(l.qty)||0) * (parseFloat(l.pret)||0);
+        return `<tr>
+            <td>${i+1}</td>
+            <td style="font-weight:700">${l.produs}</td>
+            <td>${l.desc || ''}</td>
+            <td class="td-r">${(parseFloat(l.qty)||0).toLocaleString('ro-RO',{minimumFractionDigits:2})} m²</td>
+            <td class="td-r">${fmtEur(parseFloat(l.pret)||0)}</td>
+            <td class="td-r td-bold">${fmtEur(t)}</td>
+        </tr>`;
+    }).join('');
+
+    const noteHtml = o.note ? `
+        <div class="preview-notes">
+            <div class="preview-notes-label">Note</div>
+            ${o.note}
+        </div>` : '';
+
+    const html = `
+    <div class="preview-doc">
+        <div class="preview-header">
+            <div>
+                <div class="preview-logo">Glas<span class="dot">·</span>Expert</div>
+                <div class="preview-logo-sub">xglass.eu · Premium Architectural Glass</div>
+                <div class="preview-logo-addr">Popesti-Leordeni, Romania<br>Neubiberg, Germany<br>office.us@xglass.eu</div>
+            </div>
+            <div class="preview-doc-meta">
+                <div class="preview-doc-nr">${o.id}</div>
+                <div class="preview-doc-date">Data: ${dateFmt(o.data)}</div>
+                <div class="preview-doc-valid">Valabila pana: ${expDate}</div>
+                <div style="margin-top:0.5rem">${getStatusBadge(o.status)}</div>
+            </div>
+        </div>
+        <div class="preview-body">
+            <div class="preview-client-box">
+                <h4>Client</h4>
+                <div class="preview-client-grid">
+                    <dl class="preview-client-item"><dt>Alias</dt><dd>${cl.alias || o.clientCod}</dd></dl>
+                    <dl class="preview-client-item"><dt>Cod Client</dt><dd>${o.clientCod}</dd></dl>
+                    <dl class="preview-client-item"><dt>Tara</dt><dd>${cl.tara || '—'}</dd></dl>
+                </div>
+            </div>
+            <div class="preview-products-title">Produse si Servicii</div>
+            <table class="preview-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Produs</th>
+                        <th>Descriere</th>
+                        <th class="td-r">Cantitate</th>
+                        <th class="td-r">Pret/m²</th>
+                        <th class="td-r">Total</th>
+                    </tr>
+                </thead>
+                <tbody>${liniiRows}</tbody>
+            </table>
+            <div class="preview-totals">
+                <div class="preview-totals-inner">
+                    <div class="preview-total-row"><span>Subtotal</span><span class="pt-v">${fmtEur(sub)}</span></div>
+                    ${disc > 0 ? `<div class="preview-total-row"><span>Discount ${o.discountPct}%</span><span class="pt-v" style="color:var(--red)">- ${fmtEur(disc)}</span></div>` : ''}
+                    <div class="preview-total-row"><span>TVA 19%</span><span class="pt-v">${fmtEur(tva)}</span></div>
+                    <div class="preview-total-row"><span>TOTAL</span><span class="pt-v">${fmtEur(total)}</span></div>
+                </div>
+            </div>
+            ${noteHtml}
+        </div>
+        <div class="preview-footer">
+            <div class="preview-footer-left">
+                Glas Expert · From Better to Best<br>
+                xglass.eu · Top 20 Europa · 25+ ani experienta
+            </div>
+            <div class="preview-footer-sign">
+                <div class="sign-line"></div>
+                <div class="sign-label">Reprezentant comercial</div>
+            </div>
+        </div>
+    </div>`;
+
+    document.getElementById('preview-content').innerHTML = html;
+    document.getElementById('preview-title').textContent = 'Previzualizare — ' + o.id;
+    openModal('modal-preview');
+}
+
+function openModal(id) {
+    document.getElementById(id).classList.add('open');
+}
+function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+}
+
+function placeholder() {
+    toast('Export PDF — in curand!', '');
+}
+
+function toast(msg, type) {
+    const el = document.createElement('div');
+    el.className = 'toast' + (type ? ' ' + type : '');
+    el.textContent = msg;
+    document.getElementById('toast-stack').appendChild(el);
+    setTimeout(() => el.remove(), 3200);
+}
+
+// Close modal on backdrop click
+document.querySelectorAll('.modal-backdrop').forEach(bd => {
+    bd.addEventListener('click', e => {
+        if (e.target === bd) bd.classList.remove('open');
+    });
+});
+
+loadData();
+renderKPIs();
+renderList();
+</script>
+</body>
+</html>
