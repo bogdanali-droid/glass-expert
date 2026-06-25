@@ -1635,11 +1635,12 @@
                 </div>
 
                 <!-- Region Filters -->
-                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.25rem;">
+                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center;">
                     <button id="ev-filter-all" class="btn btn-primary" onclick="setEvFilter('all')" style="font-size:0.82rem;">&#127760; Toate</button>
                     <button id="ev-filter-romania" class="btn btn-ghost" onclick="setEvFilter('romania')" style="font-size:0.82rem;">&#127479;&#127476; România</button>
                     <button id="ev-filter-europa" class="btn btn-ghost" onclick="setEvFilter('europa')" style="font-size:0.82rem;">&#127466;&#127482; Europa</button>
                     <button id="ev-filter-international" class="btn btn-ghost" onclick="setEvFilter('international')" style="font-size:0.82rem;">&#127758; Internațional</button>
+                    <button class="btn btn-primary" onclick="openAddEventModal()" style="margin-left:auto;font-size:0.82rem;background:var(--green);border-color:var(--green);">&#43; Adaugă Eveniment</button>
                 </div>
 
                 <!-- Legend -->
@@ -3198,8 +3199,158 @@ function calNext() {
     renderCalendar();
 }
 
+/* ---- Custom events (persisted in localStorage) ---- */
+let customEvents = [];
+try { const s = localStorage.getItem('vt-custom-events'); if (s) customEvents = JSON.parse(s); } catch(e) {}
+
+function saveCustomEventsLS() {
+    try { localStorage.setItem('vt-custom-events', JSON.stringify(customEvents)); } catch(e) {}
+}
+
+function allEvents() { return EVENTS.concat(customEvents); }
+
 function filteredEvents() {
-    return calRegionFilter === 'all' ? EVENTS : EVENTS.filter(ev => ev.region === calRegionFilter);
+    const pool = allEvents();
+    return calRegionFilter === 'all' ? pool : pool.filter(ev => ev.region === calRegionFilter);
+}
+
+function openAddEventModal() {
+    $('modal-title').textContent = '+ Adaugă Eveniment';
+    $('modal-body').innerHTML = `
+    <div style="display:grid;gap:0.85rem;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">
+                Denumire eveniment *
+                <input id="aev-name" class="input-v2" type="text" placeholder="ex. ExpoRail 2027" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">
+                Regiune *
+                <select id="aev-region" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;background:#fff;outline:none;">
+                    <option value="romania">🇷🇴 România</option>
+                    <option value="europa">🇪🇺 Europa</option>
+                    <option value="international">🌐 Internațional</option>
+                </select>
+            </label>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;">
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">
+                Data început *
+                <input id="aev-start" type="date" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">
+                Data sfârșit *
+                <input id="aev-end" type="date" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">
+                Mărime
+                <select id="aev-size" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;background:#fff;outline:none;">
+                    <option value="large">Mare (&gt;50K viz.)</option>
+                    <option value="medium" selected>Mediu (10–50K)</option>
+                    <option value="small">Mic (&lt;10K viz.)</option>
+                </select>
+            </label>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">
+                Oraș
+                <input id="aev-city" type="text" placeholder="ex. București" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">
+                Țară
+                <input id="aev-country" type="text" placeholder="ex. România" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">
+                Categorie
+                <select id="aev-category" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;background:#fff;outline:none;">
+                    <option value="railway">Feroviar</option>
+                    <option value="glass">Sticlă</option>
+                    <option value="transport">Transport</option>
+                </select>
+            </label>
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">
+                Website
+                <input id="aev-website" type="text" placeholder="ex. expoevent.ro" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">
+                Contact / Organizator
+                <input id="aev-contact" type="text" placeholder="ex. Messe Berlin GmbH" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">
+                Email contact
+                <input id="aev-email" type="email" placeholder="contact@event.com" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">
+                Nr. expozanți estimat
+                <input id="aev-exhibitors" type="number" placeholder="ex. 200" min="0" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">
+                Nr. vizitatori estimat
+                <input id="aev-visitors" type="number" placeholder="ex. 5000" min="0" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">
+            Tematică / Descriere
+            <textarea id="aev-theme" rows="3" placeholder="Descriere eveniment, tematică, relevanță pentru VAGOTECH..." style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;resize:vertical;outline:none;font-family:inherit;"></textarea>
+        </label>
+        <div id="aev-err" style="color:var(--red);font-size:0.82rem;display:none;"></div>
+    </div>`;
+    $('modal-foot').innerHTML =
+        '<button class="btn btn-ghost" onclick="closeModal()">Anulează</button>' +
+        '<button class="btn btn-primary" onclick="saveCustomEvent()" style="margin-left:auto;">Salvează Eveniment</button>';
+    $('modal').classList.add('open');
+}
+
+function saveCustomEvent() {
+    const name  = $('aev-name').value.trim();
+    const start = $('aev-start').value;
+    const end   = $('aev-end').value;
+    const err   = $('aev-err');
+    if (!name) { err.textContent='Denumirea este obligatorie.'; err.style.display='block'; return; }
+    if (!start || !end) { err.textContent='Datele de început și sfârșit sunt obligatorii.'; err.style.display='block'; return; }
+    if (end < start) { err.textContent='Data de sfârșit trebuie să fie după data de început.'; err.style.display='block'; return; }
+    err.style.display='none';
+
+    const newId = Date.now();
+    const theme = $('aev-theme').value.trim();
+    customEvents.push({
+        id:          newId,
+        custom:      true,
+        region:      $('aev-region').value,
+        name,
+        category:    $('aev-category').value,
+        size:        $('aev-size').value,
+        country:     $('aev-country').value.trim() || '—',
+        city:        $('aev-city').value.trim() || '—',
+        dateStart:   start,
+        dateEnd:     end,
+        theme:       theme || name,
+        contact:     $('aev-contact').value.trim() || '—',
+        email:       $('aev-email').value.trim() || '—',
+        website:     $('aev-website').value.trim() || '—',
+        exhibitors:  parseInt($('aev-exhibitors').value) || 0,
+        visitors:    parseInt($('aev-visitors').value) || 0,
+        description: theme || 'Eveniment adăugat manual.'
+    });
+    saveCustomEventsLS();
+    closeModal();
+    toast('Eveniment salvat: ' + name, 'ok');
+    renderCalendar();
+    renderEventsList();
+}
+
+function deleteCustomEvent(id) {
+    customEvents = customEvents.filter(ev => ev.id !== id);
+    saveCustomEventsLS();
+    closeModal();
+    toast('Eveniment șters.', '');
+    renderCalendar();
+    renderEventsList();
 }
 
 function renderCalendar() {
@@ -3357,7 +3508,10 @@ function showEventDetail(id) {
         '<tr style="border-top:1px solid var(--border)"><td style="padding:0.55rem 0;color:var(--text-muted);">Website</td><td style="padding:0.55rem 0;"><a href="https://' + esc(ev.website) + '" target="_blank" rel="noopener" style="color:var(--blue)">' + esc(ev.website) + '</a></td></tr>' +
         '</table>' +
         '<p style="margin-top:1.25rem;font-size:0.87rem;color:var(--text-muted);line-height:1.65;border-top:1px solid var(--border);padding-top:1rem;">' + esc(ev.description) + '</p>';
-    $('modal-foot').innerHTML = '<button class="btn btn-ghost" onclick="closeModal()">Închide</button>';
+    const deleteBtn = ev.custom
+        ? '<button class="btn" style="background:var(--red-bg);color:var(--red);border:1px solid var(--red);margin-left:auto;" onclick="deleteCustomEvent(' + ev.id + ')">&#128465; Șterge</button>'
+        : '';
+    $('modal-foot').innerHTML = '<button class="btn btn-ghost" onclick="closeModal()">Închide</button>' + deleteBtn;
     $('modal').classList.add('open');
 }
 </script>
