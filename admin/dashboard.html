@@ -642,7 +642,7 @@
                             <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
                             Export CSV
                         </button>
-                        <button class="btn btn-gold" onclick="toast('Formularul de adăugare client se va deschide aici','ok')">
+                        <button class="btn btn-gold" onclick="openAddLeadModal()">
                             <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                             Adaugă Client
                         </button>
@@ -1873,8 +1873,24 @@ function toggleSidebar(open){
 /* ============================================================
    TAB 1 — LEADS
    ============================================================ */
-// Mutable copy so "Mark as Contacted" persists during the session.
-let leadState = LEADS.map((l, i) => ({ ...l, _id: i }));
+/* ============================================================
+   CRM — LEADS MANAGEMENT (persisted in localStorage)
+   ============================================================ */
+const CRM_KEY = 'vt-crm-leads';
+let leadState = [];
+
+function initCRM() {
+    const stored = localStorage.getItem(CRM_KEY);
+    if (stored) {
+        try { leadState = JSON.parse(stored); return; } catch(e) {}
+    }
+    leadState = LEADS.map((l, i) => ({ ...l, _id: i }));
+    saveCRM();
+}
+
+function saveCRM() {
+    try { localStorage.setItem(CRM_KEY, JSON.stringify(leadState)); } catch(e) {}
+}
 
 function populateFilters(){
     const countries = [...new Set(leadState.map(l => l.country))].sort();
@@ -1963,6 +1979,7 @@ function markContacted(id){
     if (l.status === 'new') { l.status = 'contacted'; toast(l.company + ' marcat ca Contactat', 'ok'); }
     else if (l.status === 'contacted') { l.status = 'qualified'; toast(l.company + ' marcat ca Calificat', 'ok'); }
     else { toast(l.company + ' are deja statusul ' + l.status); }
+    saveCRM();
     renderLeads();
 }
 
@@ -1989,6 +2006,8 @@ function viewDetails(id){
         </div>`;
     $('modal-foot').innerHTML = `
         <button class="btn btn-ghost" onclick="closeModal()">Închide</button>
+        <button class="btn" style="background:var(--red-bg);color:var(--red);border:1px solid var(--red);" onclick="deleteLead(${l._id})">&#128465; Șterge</button>
+        <button class="btn btn-ghost" onclick="closeModal();openAddLeadModal(${l._id})">&#9998; Editează</button>
         <button class="btn btn-primary" onclick="closeModal();sendEmail(${l._id})">
             <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
             Trimite Email
@@ -2010,6 +2029,143 @@ function exportLeadsCSV(){
     document.body.appendChild(a); a.click(); a.remove();
     URL.revokeObjectURL(url);
     toast('Exportat ' + rows.length + ' clienți în CSV', 'ok');
+}
+
+/* ---- ADD / EDIT LEAD ---- */
+const LEAD_TYPES = ['National Railway','Public Transit','OEM Manufacturer','Regional Transit','Private Operator','Infrastructure','Other'];
+
+function openAddLeadModal(editId) {
+    const isEdit = editId !== undefined;
+    const l = isEdit ? leadState.find(x => x._id === editId) : {};
+    $('modal-title').textContent = isEdit ? 'Editează Client: ' + l.company : '+ Adaugă Client Nou';
+    $('modal-body').innerHTML = `
+    <div style="display:grid;gap:0.85rem;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">Companie *
+                <input id="lf-company" type="text" value="${esc(l.company||'')}" placeholder="ex. CFR Călători S.A." style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">Tip Companie
+                <select id="lf-type" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;background:#fff;outline:none;">
+                    ${LEAD_TYPES.map(t => `<option value="${t}"${(l.type||'')==t?' selected':''}>${t}</option>`).join('')}
+                </select>
+            </label>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">Contact (persoană) *
+                <input id="lf-contact" type="text" value="${esc(l.contact||'')}" placeholder="ex. Eduard Deleanu" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">Funcție
+                <input id="lf-role" type="text" value="${esc(l.role||'')}" placeholder="ex. Director Tehnic" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">Email *
+                <input id="lf-email" type="email" value="${esc(l.email||'')}" placeholder="contact@companie.ro" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">Telefon
+                <input id="lf-phone" type="text" value="${esc(l.phone||'')}" placeholder="+40-21-000000" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem;">
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">Țară
+                <input id="lf-country" type="text" value="${esc(l.country||'România')}" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">Oportunitate (€)
+                <input id="lf-opp" type="number" value="${l.opportunity||''}" placeholder="ex. 500000" min="0" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">Prioritate
+                <select id="lf-priority" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;background:#fff;outline:none;">
+                    <option value="HIGH"${(l.priority||'')==='HIGH'?' selected':''}>HIGH</option>
+                    <option value="MEDIUM"${(l.priority||'')==='MEDIUM'?' selected':''}>MEDIUM</option>
+                    <option value="LOW"${(l.priority||'LOW')==='LOW'?' selected':''}>LOW</option>
+                </select>
+            </label>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">Status
+                <select id="lf-status" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;background:#fff;outline:none;">
+                    <option value="new"${(l.status||'new')==='new'?' selected':''}>Nou</option>
+                    <option value="contacted"${(l.status||'')==='contacted'?' selected':''}>Contactat</option>
+                    <option value="qualified"${(l.status||'')==='qualified'?' selected':''}>Calificat</option>
+                </select>
+            </label>
+            <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">Proiect / Context
+                <input id="lf-project" type="text" value="${esc(l.project||'')}" placeholder="ex. Modernizare flotă 2027" style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;outline:none;">
+            </label>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:0.3rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);">Informații Sales / Intel
+            <textarea id="lf-intel" rows="3" placeholder="Buget, decizie, concurență, condiții speciale..." style="font-size:0.9rem;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:8px;resize:vertical;outline:none;font-family:inherit;">${esc(l.intel||'')}</textarea>
+        </label>
+        <div id="lf-err" style="color:var(--red);font-size:0.82rem;display:none;"></div>
+    </div>`;
+    $('modal-foot').innerHTML =
+        '<button class="btn btn-ghost" onclick="closeModal()">Anulează</button>' +
+        '<button class="btn btn-primary" onclick="saveLeadForm(' + (isEdit ? editId : 'null') + ')" style="margin-left:auto;">Salvează</button>';
+    openModal();
+}
+
+function saveLeadForm(editId) {
+    const company = $('lf-company').value.trim();
+    const contact = $('lf-contact').value.trim();
+    const email   = $('lf-email').value.trim();
+    const err = $('lf-err');
+    if (!company) { err.textContent='Compania este obligatorie.'; err.style.display='block'; return; }
+    if (!contact) { err.textContent='Contactul este obligatoriu.'; err.style.display='block'; return; }
+    if (!email)   { err.textContent='Emailul este obligatoriu.'; err.style.display='block'; return; }
+    err.style.display='none';
+
+    const data = {
+        company,
+        type:        $('lf-type').value,
+        contact,
+        role:        $('lf-role').value.trim(),
+        email,
+        phone:       $('lf-phone').value.trim(),
+        country:     $('lf-country').value.trim() || 'România',
+        opportunity: parseInt($('lf-opp').value) || 0,
+        priority:    $('lf-priority').value,
+        status:      $('lf-status').value,
+        project:     $('lf-project').value.trim(),
+        intel:       $('lf-intel').value.trim()
+    };
+
+    if (editId !== null) {
+        const idx = leadState.findIndex(x => x._id === editId);
+        if (idx !== -1) leadState[idx] = { ...leadState[idx], ...data };
+        toast('Client actualizat: ' + company, 'ok');
+    } else {
+        data._id = Date.now();
+        leadState.push(data);
+        toast('Client adăugat: ' + company, 'ok');
+    }
+    saveCRM();
+    closeModal();
+    rebuildFilters();
+    renderLeads();
+}
+
+function deleteLead(id) {
+    const l = leadState.find(x => x._id === id);
+    if (!l) return;
+    if (!confirm('Ștergi definitiv clientul "' + l.company + '"?')) return;
+    leadState = leadState.filter(x => x._id !== id);
+    saveCRM();
+    closeModal();
+    toast('Client șters: ' + l.company, '');
+    renderLeads();
+}
+
+function rebuildFilters() {
+    const fc = $('f-country'), ft = $('f-type');
+    const prevC = fc.value, prevT = ft.value;
+    fc.innerHTML = '<option value="">Toate țările</option>';
+    ft.innerHTML = '<option value="">Toate tipurile</option>';
+    [...new Set(leadState.map(l => l.country))].sort().forEach(c => {
+        fc.insertAdjacentHTML('beforeend', `<option value="${esc(c)}"${c===prevC?' selected':''}>${esc(c)}</option>`);
+    });
+    [...new Set(leadState.map(l => l.type))].sort().forEach(t => {
+        ft.insertAdjacentHTML('beforeend', `<option value="${esc(t)}"${t===prevT?' selected':''}>${esc(t)}</option>`);
+    });
 }
 
 function openModal(){ $('modal').classList.add('open'); }
@@ -2881,6 +3037,7 @@ function renderAnalytics(){
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 (function init(){
+    initCRM();
     populateFilters();
     renderLeads();
     renderMarket();
