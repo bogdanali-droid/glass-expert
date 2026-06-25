@@ -813,11 +813,11 @@
                 <div class="panel-head">
                     <div>
                         <h2>Campanii Email</h2>
-                        <p>Status outreach pe segmente de operatori feroviari. Template-uri din playbook-ul VAGOTECH.</p>
+                        <p>Generator de texte pentru outreach feroviar · Configurează segmentul și generează emailul gata de trimis</p>
                     </div>
-                    <button class="btn btn-gold" onclick="toast('Lansatorul de campanie se va deschide aici','ok')">
-                        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
-                        Campanie Nouă
+                    <button class="btn btn-gold" onclick="switchTab('leads')">
+                        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        Vezi Clienți Target
                     </button>
                 </div>
 
@@ -828,12 +828,149 @@
                     <div class="stat"><div class="label">Întâlniri Programate</div><div class="value">9</div><div class="delta flat">3 conturi Tier-1</div></div>
                 </div>
 
-                <div class="campaign-grid" id="campaign-grid"></div>
+                <style>
+                    .email-gen-wrap { display:grid; grid-template-columns:340px 1fr; gap:20px; margin-bottom:20px; }
+                    @media(max-width:900px){ .email-gen-wrap { grid-template-columns:1fr; } }
+                    .gen-config { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; }
+                    .gen-config h4 { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--navy-2); margin-bottom:16px; }
+                    .gen-field { margin-bottom:14px; }
+                    .gen-label { font-size:11px; font-weight:600; color:var(--text-muted); display:block; margin-bottom:5px; }
+                    .gen-select, .gen-input, .gen-textarea {
+                        width:100%; padding:8px 10px; border:1px solid var(--border);
+                        border-radius:6px; font-size:13px; color:var(--text);
+                        background:var(--bg);
+                    }
+                    .gen-select:focus, .gen-input:focus, .gen-textarea:focus {
+                        outline:none; border-color:var(--navy-2); background:white;
+                    }
+                    .gen-textarea { resize:vertical; min-height:70px; }
+                    .gen-btn { width:100%; margin-top:4px; justify-content:center; font-size:14px; padding:11px; }
 
-                <div class="card">
-                    <div class="card-head"><h3>Template-uri Disponibile</h3><span class="meta">4 segmente · mesaje spec EN</span></div>
-                    <div class="card-body" id="template-list"></div>
+                    .email-output { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; display:flex; flex-direction:column; gap:14px; }
+                    .email-output h4 { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--navy-2); }
+                    .subject-box { background:#f0f6ff; border:1px solid #c7d9f5; border-radius:6px; padding:12px 14px; font-size:14px; font-weight:600; color:#1a3a52; position:relative; }
+                    .copy-btn { position:absolute; right:10px; top:50%; transform:translateY(-50%); background:var(--navy); color:white; border:none; border-radius:4px; font-size:11px; font-weight:600; padding:3px 10px; cursor:pointer; }
+                    .copy-btn:hover { background:var(--navy-2); }
+                    .body-box { background:#fafafa; border:1px solid var(--border); border-radius:6px; padding:14px 16px; font-size:13px; color:var(--text); white-space:pre-wrap; line-height:1.7; min-height:300px; position:relative; font-family:inherit; }
+                    .copy-btn-body { position:absolute; right:10px; top:10px; }
+                    .email-meta { display:flex; gap:16px; font-size:12px; color:var(--text-faint); }
+                    .placeholder-state { color:var(--text-faint); font-style:italic; text-align:center; padding:40px 20px; }
+                    .placeholder-state svg { display:block; margin:0 auto 12px; opacity:.25; }
+
+                    .variant-tabs { display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap; }
+                    .variant-tab { padding:5px 12px; border:1px solid var(--border); border-radius:100px; font-size:12px; font-weight:600; cursor:pointer; background:var(--bg); color:var(--text-muted); }
+                    .variant-tab.active { background:var(--navy); color:white; border-color:var(--navy); }
+
+                    .template-quick { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-bottom:20px; }
+                    .tq-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px; cursor:pointer; transition:all .15s; }
+                    .tq-card:hover { border-color:var(--navy-2); background:#f0f6ff; }
+                    .tq-card .tq-name { font-weight:700; font-size:13px; color:var(--navy); margin-bottom:4px; }
+                    .tq-card .tq-desc { font-size:11px; color:var(--text-faint); }
+                    .tq-card .tq-badge { display:inline-block; font-size:10px; font-weight:700; padding:2px 8px; border-radius:100px; margin-top:6px; }
+                </style>
+
+                <!-- QUICK TEMPLATES -->
+                <div class="card" style="margin-bottom:20px">
+                    <div class="card-head"><h3>Acces Rapid — Scenarii Frecvente</h3><span class="meta">Click pentru a pre-completa generatorul</span></div>
+                    <div class="card-body">
+                        <div class="template-quick" id="quick-templates"></div>
+                    </div>
                 </div>
+
+                <!-- GENERATOR + PREVIEW -->
+                <div class="email-gen-wrap">
+                    <!-- Config -->
+                    <div class="gen-config">
+                        <h4>⚙ Configurare Email</h4>
+
+                        <div class="gen-field">
+                            <label class="gen-label">Segment Target</label>
+                            <select class="gen-select" id="eg-segment">
+                                <option value="cfr">CFR SA — Operator Național Feroviar</option>
+                                <option value="stb">STB / Metrorex — Transit Urban</option>
+                                <option value="regional">Operator Regional / Privat</option>
+                                <option value="oem">Producător OEM / Atelier Refurbishing</option>
+                                <option value="eu">Operator Feroviar EU (international)</option>
+                            </select>
+                        </div>
+
+                        <div class="gen-field">
+                            <label class="gen-label">Obiectiv Campanie</label>
+                            <select class="gen-select" id="eg-goal">
+                                <option value="cold">Cold Outreach — prima contact</option>
+                                <option value="followup">Follow-up la contact anterior</option>
+                                <option value="proposal">Propunere Ofertă Comercială</option>
+                                <option value="refurb">Proiect Refurbishing Specific</option>
+                                <option value="urgent">Înlocuire Urgentă</option>
+                                <option value="maintenance">Contract Mentenanță Flotă</option>
+                            </select>
+                        </div>
+
+                        <div class="gen-field">
+                            <label class="gen-label">Persoana de Contact (tip)</label>
+                            <select class="gen-select" id="eg-contact-type">
+                                <option value="procurement">Manager Achiziții / Procurement</option>
+                                <option value="technical">Director Tehnic / Inginer Șef</option>
+                                <option value="gm">Director General / CEO</option>
+                                <option value="maintenance">Șef Atelier / Mentenanță</option>
+                            </select>
+                        </div>
+
+                        <div class="gen-field">
+                            <label class="gen-label">Limbă</label>
+                            <select class="gen-select" id="eg-lang">
+                                <option value="ro">Română</option>
+                                <option value="en">English</option>
+                            </select>
+                        </div>
+
+                        <div class="gen-field">
+                            <label class="gen-label">Ton</label>
+                            <select class="gen-select" id="eg-tone">
+                                <option value="formal">Formal / Protocolar</option>
+                                <option value="semi">Semi-formal / Direct</option>
+                                <option value="tech">Tehnic / Spec-focused</option>
+                            </select>
+                        </div>
+
+                        <div class="gen-field">
+                            <label class="gen-label">Nume Contact (opțional)</label>
+                            <input class="gen-input" id="eg-name" type="text" placeholder="ex. Dl. Ionescu / Mr. Smith">
+                        </div>
+
+                        <div class="gen-field">
+                            <label class="gen-label">Companie / Proiect (opțional)</label>
+                            <input class="gen-input" id="eg-company" type="text" placeholder="ex. CFR SA, STB, Operator X">
+                        </div>
+
+                        <div class="gen-field">
+                            <label class="gen-label">Context suplimentar (opțional)</label>
+                            <textarea class="gen-textarea" id="eg-context" placeholder="ex. Au anunțat licitație pentru 30 unități Desiro, am mai vorbit luna trecută..."></textarea>
+                        </div>
+
+                        <button class="btn btn-primary gen-btn" onclick="generateEmail()">
+                            ✉ Generează Email
+                        </button>
+                    </div>
+
+                    <!-- Output -->
+                    <div class="email-output" id="email-output">
+                        <div class="placeholder-state">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <div>Selectează opțiunile și apasă <strong>Generează Email</strong></div>
+                            <div style="margin-top:6px;font-size:12px">Sau folosește un scenariu rapid din secțiunea de mai sus</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CAMPAIGN TRACKING -->
+                <div class="card">
+                    <div class="card-head"><h3>Campanii Active</h3><span class="meta">Status outreach curent</span></div>
+                    <div class="card-body" style="padding:0">
+                        <div class="campaign-grid" id="campaign-grid" style="padding:16px;margin-bottom:0"></div>
+                    </div>
+                </div>
+
             </section>
 
             <!-- ============================================================
@@ -1891,9 +2028,536 @@ function generateQuote(){
 }
 
 /* ============================================================
-   TAB 4 — CAMPAIGNS
+   TAB 4 — CAMPAIGNS + EMAIL GENERATOR
    ============================================================ */
+
+const QUICK_TEMPLATES = [
+    { name:'CFR Cold Outreach',   desc:'Prima abordare operator național',     seg:'cfr',      goal:'cold',      lang:'ro', tone:'formal',  contact:'procurement', badge:'Tier-1', badgeColor:'var(--navy)' },
+    { name:'STB Follow-up',       desc:'Revenire la contact anterior',          seg:'stb',      goal:'followup',  lang:'ro', tone:'semi',    contact:'technical',   badge:'Urban',  badgeColor:'var(--blue)' },
+    { name:'OEM Supply EN',       desc:'Producători — ofertă volum EN',         seg:'oem',      goal:'proposal',  lang:'en', tone:'tech',    contact:'procurement', badge:'B2B',    badgeColor:'var(--green)' },
+    { name:'Refurbishing Urgent', desc:'Atelier refurbishing — înlocuire urgentă', seg:'oem',   goal:'urgent',    lang:'ro', tone:'semi',    contact:'maintenance', badge:'Urgent', badgeColor:'var(--red)' },
+    { name:'EU Operator EN',      desc:'Operator internațional — cold',         seg:'eu',       goal:'cold',      lang:'en', tone:'formal',  contact:'gm',          badge:'Export', badgeColor:'var(--gold)' },
+    { name:'Contract Mentenanță', desc:'Propunere contract anual flotă',        seg:'cfr',      goal:'maintenance',lang:'ro',tone:'formal',  contact:'gm',          badge:'LTV',    badgeColor:'var(--green)' },
+];
+
+const EMAIL_TEMPLATES = {
+    ro: {
+        cfr: {
+            cold: {
+                procurement: {
+                    formal: {
+                        subject: (n,c) => `Geam frontal certificat AFER pentru flota CFR — producător unic din România${c?' | '+c:''}`,
+                        body: (n,c,ctx) => `Stimată${n?' doamnă/domn '+n:''},
+
+Vă contactăm din partea VAGOTECH by Glas Expert, singurul producător de sticlă feroviară omologat și autorizat AFER din România.
+
+Prin prezenta, dorim să vă informăm că putem furniza geam frontal și lateral certificat pentru flota CFR, cu livrare în 4–6 săptămâni — de 2–3 ori mai rapid față de furnizorii din Europa de Vest.
+
+**Ce oferim:**
+• Geam frontal pentru cabina mecanicului — laminat, termoîntărit, certificat AFER
+• Geam lateral & ușă pentru vagoane de pasageri
+• Geam interior și partiții
+• Documentație tecnică completă pentru omologare
+
+**Avantajele VAGOTECH:**
+✓ Singurul producător omologat AFER din România — zero risc de conformitate
+✓ Livrare 4–6 săptămâni (față de 12–18 săptămâni la importuri)
+✓ Producție locală = 15–20% economie față de furnizori occidentali
+✓ 25+ ani experiență | Top 20 producători din Europa
+
+${ctx ? 'Context suplimentar: '+ctx+'\n\n' : ''}Suntem disponibili pentru o întâlnire tehnică sau o discuție telefonică la momentul cel mai convenabil pentru dumneavoastră.
+
+Cu respect,
+Echipa VAGOTECH by Glas Expert
+office@xglass.eu | xglass.eu
+Popești-Leordeni, Șos. Olteniței, România`
+                    },
+                    semi: {
+                        subject: (n,c) => `VAGOTECH — sticlă feroviară certificată AFER, livrare 4–6 săptămâni`,
+                        body: (n,c,ctx) => `Bună ziua${n?' '+n:''},
+
+Sunt de la VAGOTECH by Glas Expert — producem geam frontal și lateral pentru material rulant feroviar, certificat AFER, cu livrare din România în 4–6 săptămâni.
+
+Scurt: suntem singurul producător omologat AFER din țară, cu prețuri competitive față de importurile din Germania sau Elveția.
+
+${ctx ? ctx+'\n\n' : ''}Aveți disponibilitate pentru 15 minute să discutăm nevoile pentru flota${c?' '+c:''}?
+
+Mulțumesc,
+VAGOTECH by Glas Expert
+office@xglass.eu`
+                    }
+                },
+                technical: {
+                    formal: {
+                        subject: (n,c) => `Specificații tehnice geam frontal AFER — VAGOTECH pentru flota CFR`,
+                        body: (n,c,ctx) => `Stimată${n?' doamnă/domn '+n:''},
+
+Vă adresăm această propunere din postura de producător specializat în sticlă feroviară certificată AFER, cu experiență de 25+ ani în industria sticlei arhitecturale și tehnice.
+
+**Specificații tehnice disponibile:**
+• Geam frontal laminat (EVA/PVB, 2-strat sau 3-strat)
+• Geam frontal curbat cu rezistență electrică pentru dezgivraj
+• Rezistență la impact certificată conform standarde feroviare europene
+• Opțional: strat antireflex, tratament UV, fonoabsorbție suplimentară
+
+Toate produsele sunt fabricate conform standardelor obligatorii feroviare europene și omologate AFER — documentația completă disponibilă la cerere.
+
+${ctx ? 'Context: '+ctx+'\n\n' : ''}Ne-ar face plăcere să vă prezentăm datasheets complete și să discutăm specificul flotei${c?' '+c:''}.
+
+Cu stimă,
+VAGOTECH by Glas Expert
+office@xglass.eu | xglass.eu`
+                    },
+                    tech: {
+                        subject: (n,c) => `Spec sheet: geam frontal laminat AFER — dimensiuni, stratigrafie, certificare`,
+                        body: (n,c,ctx) => `Bună ziua${n?' '+n:''},
+
+VAGOTECH produce geam frontal feroviar laminat certificat AFER. Principalele specificații:
+
+GEAM FRONTAL STANDARD:
+- Structură: 2× float glass + interlayer PVB/EVA
+- Grosime totală: 8–14mm (la cerere)
+- Curbură: plat sau curbat simplu/dublu
+- Dezgivraj electric: opțional (rezistențe integrate)
+- Certificare: AFER + standarde feroviare europene
+- Termen livrare: 4–6 săptămâni de la comandă fermă
+
+GEAM LATERAL & UȘĂ:
+- Laminat sau temperat (la specificație)
+- Rezistență la impact certificată
+- Montaj înecat sau cu profil
+
+${ctx ? 'Context: '+ctx+'\n\n' : ''}Pot trimite fișa tehnică completă și o ofertă de preț pentru${c?' '+c+' specificații':' specificațiile voastre'}. Ce dimensiuni și cantități sunt în discuție?
+
+VAGOTECH by Glas Expert
+office@xglass.eu`
+                    }
+                },
+                gm: {
+                    formal: {
+                        subject: (n,c) => `Parteneriat strategic sticlă feroviară AFER — VAGOTECH by Glas Expert`,
+                        body: (n,c,ctx) => `Stimate${n?' domn/doamnă '+n:''},
+
+VAGOTECH by Glas Expert este singurul producător de sticlă feroviară omologat AFER din România și unul dintre primii 20 din Europa.
+
+Vă propunem un parteneriat strategic pentru furnizarea sticlei feroviare pentru întreaga flotă${c?' '+c:''}, cu avantaje clare față de furnizorii actuali:
+
+→ Certitudine de aprovizionare: stoc dedicat, livrare 4–6 săptămâni
+→ Economie de cost: 15–20% față de importuri din Europa de Vest
+→ Reducere risc operațional: producător local, reacție rapidă la urgențe
+→ Documentație conformă 100%: omologare AFER completă
+
+${ctx ? ctx+'\n\n' : ''}Propun o întâlnire de 30 de minute pentru a prezenta cum putem structura un contract cadru care să reducă costurile și riscurile operaționale.
+
+Cu deosebit respect,
+VAGOTECH by Glas Expert
+office@xglass.eu | xglass.eu`
+                    }
+                },
+                maintenance: {
+                    semi: {
+                        subject: (n,c) => `Geam frontal de înlocuire disponibil rapid — VAGOTECH AFER`,
+                        body: (n,c,ctx) => `Bună ziua${n?' '+n:''},
+
+Dacă atelierul gestionează înlocuiri de sticlă feroviară, VAGOTECH poate fi furnizorul vostru local certificat AFER — livrare în 4–6 săptămâni, documentație completă inclusă.
+
+Ce producem: geam frontal cabina mecanicului, geam lateral & ușă, interior și partiții — pentru locomotive, EMU, DMU, tramvaie.
+
+${ctx ? ctx+'\n\n' : ''}Merită o discuție de 10 minute?
+
+VAGOTECH by Glas Expert
+office@xglass.eu`
+                    }
+                }
+            },
+            followup: {
+                procurement: {
+                    formal: {
+                        subject: (n,c) => `Revenire — VAGOTECH geam feroviar AFER${c?' | '+c:''}`,
+                        body: (n,c,ctx) => `Stimată${n?' doamnă/domn '+n:''},
+
+Revin la contactul anterior din dorința de a oferi informații suplimentare privind soluțiile noastre de sticlă feroviară certificată AFER.
+
+Înțeleg că deciziile de achiziții în domeniu implică un proces riguros de evaluare. Suntem pregătiți să furnizăm:
+• Mostre tehnice și fișe de material
+• Referințe de la operatori care utilizează deja produsele noastre
+• Ofertă personalizată bazată pe specificațiile flotei
+
+${ctx ? ctx+'\n\n' : ''}Vă rugăm să ne comunicați dacă există o perioadă mai potrivită sau orice informație suplimentară pe care v-ar putea ajuta în procesul de evaluare.
+
+Cu stimă,
+VAGOTECH by Glas Expert
+office@xglass.eu`
+                    },
+                    semi: {
+                        subject: (n,c) => `Revenire VAGOTECH — ați putut analiza propunerea noastră?`,
+                        body: (n,c,ctx) => `Bună ziua${n?' '+n:''},
+
+Revin după contactul anterior — am vrut să verific dacă ați putut analiza propunerea VAGOTECH.
+
+${ctx ? ctx+'\n\n' : ''}Dacă e nevoie de informații suplimentare (specificații tehnice, referințe, ofertă detaliată), sunt disponibil oricând.
+
+Mulțumesc,
+VAGOTECH by Glas Expert
+office@xglass.eu`
+                    }
+                }
+            },
+            maintenance: {
+                gm: {
+                    formal: {
+                        subject: (n,c) => `Propunere contract mentenanță sticlă feroviară — VAGOTECH AFER`,
+                        body: (n,c,ctx) => `Stimate${n?' domn/doamnă '+n:''},
+
+Vă propunem un contract de mentenanță pentru sticlăria întregii flote${c?' '+c:''}, cu beneficii clare față de abordarea reactivă actuală:
+
+**Contract Parteneriat Flotă VAGOTECH:**
+• Inspecție periodică + raport tehnic trimestrial
+• Stoc dedicat de geamuri critice (frontal, lateral)
+• Intervenție reactivă garantată ≤ 48 ore
+• Prețuri fixate pe durata contractului (3–5 ani)
+• Economie estimată: 15–20% față de înlocuiri reactive ad-hoc
+
+Investiție: €80.000–€150.000/an pentru flotă de 10–30 vehicule (vs. costuri neplanificate mult mai mari în caz de imobilizare).
+
+${ctx ? ctx+'\n\n' : ''}Putem face o analiză a flotei și să vă prezentăm un ROI concret pentru contractul de mentenanță. Disponibilitate pentru o prezentare de 45 de minute?
+
+Cu deosebit respect,
+VAGOTECH by Glas Expert
+office@xglass.eu`
+                    }
+                }
+            }
+        },
+        stb: {
+            cold: {
+                technical: {
+                    semi: {
+                        subject: (n,c) => `Sticlă feroviară certificată pentru tramvaie și metro — VAGOTECH AFER`,
+                        body: (n,c,ctx) => `Bună ziua${n?' '+n:''},
+
+VAGOTECH by Glas Expert produce sticlă feroviară certificată AFER pentru tramvaie, metro și alte vehicule de transport urban — geam frontal, lateral și de ușă, cu livrare din România în 4–6 săptămâni.
+
+Suntem singurul producător omologat AFER din țară, cu producție la Popești-Leordeni — ideal pentru proiectele de modernizare ale parcului${c?' '+c:''}.
+
+${ctx ? ctx+'\n\n' : ''}Ar fi util o discuție despre nevoile de înlocuire sau modernizare? Pot trimite specificații și prețuri orientative.
+
+VAGOTECH by Glas Expert | office@xglass.eu`
+                    }
+                },
+                procurement: {
+                    formal: {
+                        subject: (n,c) => `VAGOTECH — furnizor local certificat AFER pentru parcul${c?' '+c:''} de tramvaie și metro`,
+                        body: (n,c,ctx) => `Stimată${n?' doamnă/domn '+n:''},
+
+Vă adresăm această propunere în calitate de producător local de sticlă feroviară certificată AFER, cu capacitate de furnizare pentru întregul parc de vehicule al${c?' '+c+'-ului':' operatorului'}.
+
+Avantajele colaborării cu VAGOTECH:
+• Producție în România — livrare 4–6 săptămâni, fără taxe vamale sau riscuri de lanț de aprovizionare
+• Prețuri cu 15–20% sub importurile din Europa de Vest
+• Certificare AFER completă — documentație fără surprize la recepție
+• Posibilitate de contract cadru cu stoc dedicat și priorități clare
+
+${ctx ? ctx+'\n\n' : ''}Suntem disponibili pentru o întâlnire tehnică sau o prezentare la sediul dumneavoastră.
+
+Cu stimă,
+VAGOTECH by Glas Expert
+office@xglass.eu | xglass.eu`
+                    }
+                }
+            }
+        },
+        oem: {
+            urgent: {
+                maintenance: {
+                    semi: {
+                        subject: (n,c) => `Geam frontal feroviar — livrare urgentă disponibilă | VAGOTECH AFER`,
+                        body: (n,c,ctx) => `Bună ziua${n?' '+n:''},
+
+Dacă aveți nevoie urgentă de geam frontal sau lateral pentru material rulant, VAGOTECH poate livra în cel mai scurt termen posibil — cu documentație AFER completă.
+
+Ce avem disponibil rapid:
+• Geam frontal standard (plat, laminat) — 4–5 săptămâni
+• Geam lateral & ușă — 3–4 săptămâni
+• Geam frontal curbat — 5–6 săptămâni (dimensiuni standard)
+
+${ctx ? 'Situația voastră: '+ctx+'\n\n' : ''}Trimiteți-ne dimensiunile și specificațiile și vă răspundem cu disponibilitate și preț în 24 de ore.
+
+VAGOTECH by Glas Expert
+office@xglass.eu | Tel: +40 XXX XXX XXX`
+                    }
+                }
+            },
+            proposal: {
+                procurement: {
+                    tech: {
+                        subject: (n,c) => `Ofertă furnizare geam feroviar AFER — volume OEM${c?' | '+c:''}`,
+                        body: (n,c,ctx) => `Bună ziua${n?' '+n:''},
+
+Anexez mai jos o propunere de furnizare pentru sticlă feroviară certificată AFER, ca bază pentru o discuție despre colaborarea noastră.
+
+PREȚURI ORIENTATIVE (EXW Popești-Leordeni):
+• Geam frontal standard: €820–1.100/buc
+• Geam frontal curbat: €1.200–1.800/buc
+• Geam frontal cu dezgivraj: €1.600–2.400/buc
+• Geam lateral fix: €280–420/buc
+• Geam ușă: €500–850/buc
+• Reduceri volum: –8% (11–50 buc), –15% (51–150 buc), –20% (150+ buc)
+
+Toate prețurile includ documentație AFER. Termen livrare: 4–6 săptămâni.
+
+${ctx ? ctx+'\n\n' : ''}Putem discuta dimensiunile exacte și un contract cadru pentru volume recurente?
+
+VAGOTECH by Glas Expert
+office@xglass.eu`
+                    }
+                }
+            }
+        }
+    },
+    en: {
+        cfr: {
+            cold: {
+                procurement: {
+                    formal: {
+                        subject: (n,c) => `AFER-certified railway glass for${c?' '+c:' CFR'} fleet — Romania's only approved manufacturer`,
+                        body: (n,c,ctx) => `Dear${n?' '+n:''},
+
+I am writing on behalf of VAGOTECH by Glas Expert, Romania's only AFER-certified railway glass manufacturer and a Top 20 producer in Europe.
+
+We specialize in certified front glass (driver cab), side & door glass, and interior partitions for rolling stock — with 4–6 week delivery from our facility in Popești-Leordeni, Romania.
+
+**Why VAGOTECH:**
+• AFER certification — full documentation included, zero compliance risk
+• 4–6 week delivery vs. 12–18 weeks from Western European suppliers
+• 15–20% cost advantage over German and Swiss suppliers
+• 25+ years of engineering experience
+
+${ctx ? 'Additional context: '+ctx+'\n\n' : ''}I would welcome a brief call to explore how we can support${c?' '+c+\"'s fleet\":'your fleet'} supply needs.
+
+Best regards,
+VAGOTECH by Glas Expert
+office@xglass.eu | xglass.eu
+Popești-Leordeni, Romania`
+                    },
+                    tech: {
+                        subject: (n,c) => `Technical spec: AFER-certified laminated front glass — VAGOTECH${c?' for '+c:''}`,
+                        body: (n,c,ctx) => `Dear${n?' '+n:''},
+
+VAGOTECH manufactures AFER-certified railway glazing. Key specifications:
+
+FRONT GLASS (DRIVER CAB):
+- Construction: laminated 2-ply or 3-ply (EVA/PVB interlayer)
+- Total thickness: 8–14mm (to specification)
+- Curvature: flat, single or double curved
+- Defogging/deicing: electric heating element available
+- Certification: AFER + European railway standards
+- Lead time: 4–6 weeks from confirmed order
+
+SIDE & DOOR GLASS:
+- Laminated or toughened (to specification)
+- Certified impact resistance
+- Flush or framed installation
+
+${ctx ? 'Context: '+ctx+'\n\n' : ''}I can send full datasheets and a quote for${c?' '+c+' specifications':'your specifications'}. What dimensions and quantities are you working with?
+
+VAGOTECH by Glas Expert
+office@xglass.eu`
+                    }
+                },
+                gm: {
+                    formal: {
+                        subject: (n,c) => `Strategic partnership: AFER-certified railway glass supply — VAGOTECH by Glas Expert`,
+                        body: (n,c,ctx) => `Dear${n?' '+n:''},
+
+VAGOTECH by Glas Expert is Romania's only AFER-certified railway glass manufacturer — and one of the Top 20 in Europe, with 25+ years of precision glass manufacturing experience.
+
+We would like to propose a strategic supply partnership for${c?' '+c+\"'s\":'your'} rolling stock fleet, offering:
+
+→ Supply certainty: dedicated stock, 4–6 week delivery
+→ Cost savings: 15–20% below Western European suppliers
+→ Reduced operational risk: local manufacturer, rapid response to urgent needs
+→ Full AFER compliance: complete documentation included
+
+${ctx ? ctx+'\n\n' : ''}I would welcome a 30-minute meeting to present how a framework contract could reduce costs and supply risk for your fleet.
+
+Best regards,
+VAGOTECH by Glas Expert
+office@xglass.eu | xglass.eu`
+                    }
+                }
+            }
+        },
+        eu: {
+            cold: {
+                procurement: {
+                    formal: {
+                        subject: (n,c) => `Railway glass supply from Romania — EU-certified, 4–6 week delivery${c?' | '+c:''}`,
+                        body: (n,c,ctx) => `Dear${n?' '+n:''},
+
+I am reaching out from VAGOTECH by Glas Expert — a certified railway glass manufacturer based in Romania, with 25+ years of experience and a Top 20 position in European glass manufacturing.
+
+We supply front glass (driver cab), side & door glass, and interior partitions to rail operators and rolling stock manufacturers across Europe, with 4–6 week delivery and full regulatory documentation.
+
+**Key differentiators:**
+• EU-compliant railway glass with full certification documentation
+• 4–6 week delivery (2–3x faster than most European suppliers)
+• Competitive pricing — 15–20% below comparable Western European suppliers
+• Production in Romania (EU member) — no customs friction within EU
+
+${ctx ? 'Additional context: '+ctx+'\n\n' : ''}I would be happy to send a product catalogue, datasheets, and a pricing proposal for${c?' '+c:'your specific requirements'}.
+
+Kind regards,
+VAGOTECH by Glas Expert
+office@xglass.eu | xglass.eu
+Popești-Leordeni, Romania`
+                    },
+                    semi: {
+                        subject: (n,c) => `VAGOTECH — EU-certified railway glass, made in Romania, fast delivery`,
+                        body: (n,c,ctx) => `Hi${n?' '+n:''},
+
+Quick introduction: VAGOTECH by Glas Expert manufactures certified railway glass in Romania — front glass, side/door glass, and interior partitions — with 4–6 week lead times across the EU.
+
+We're a Top 20 European glass producer with 25+ years of experience. Our clients include major rail operators and OEM manufacturers.
+
+${ctx ? ctx+'\n\n' : ''}Worth a quick call to see if there's a fit for${c?' '+c:'your operations'}?
+
+Best,
+VAGOTECH by Glas Expert
+office@xglass.eu`
+                    }
+                },
+                gm: {
+                    formal: {
+                        subject: (n,c) => `Partnership opportunity: certified railway glass from Europe's Top 20 manufacturer`,
+                        body: (n,c,ctx) => `Dear${n?' '+n:''},
+
+VAGOTECH by Glas Expert is one of Europe's Top 20 glass manufacturers, with 25+ years of experience and certified production for the railway sector.
+
+We are actively expanding our partnerships with European rail operators and rolling stock manufacturers, offering:
+• Certified railway glazing (front glass, side/door, interior)
+• Full regulatory documentation for EU markets
+• 4–6 week delivery from Romania
+• Framework contracts with volume pricing and supply guarantees
+
+${ctx ? ctx+'\n\n' : ''}I would welcome the opportunity to introduce VAGOTECH and explore a potential supply partnership.
+
+Sincerely,
+VAGOTECH by Glas Expert
+office@xglass.eu | xglass.eu`
+                    }
+                }
+            }
+        },
+        oem: {
+            proposal: {
+                procurement: {
+                    tech: {
+                        subject: (n,c) => `OEM railway glass supply proposal — VAGOTECH AFER certified${c?' | '+c:''}`,
+                        body: (n,c,ctx) => `Dear${n?' '+n:''},
+
+Please find below a supply proposal for certified railway glazing components:
+
+INDICATIVE PRICING (EXW Popești-Leordeni, Romania):
+• Standard front glass (flat, laminated): €820–1,100/unit
+• Curved front glass: €1,200–1,800/unit
+• Front glass with defogging element: €1,600–2,400/unit
+• Fixed side window: €280–420/unit
+• Door glass: €500–850/unit
+• Volume discounts: –8% (11–50 units), –15% (51–150), –20% (150+)
+
+All prices include AFER certification documentation. Lead time: 4–6 weeks.
+
+${ctx ? ctx+'\n\n' : ''}Happy to discuss exact dimensions and a framework agreement for recurring volumes.
+
+VAGOTECH by Glas Expert
+office@xglass.eu`
+                    }
+                }
+            }
+        }
+    }
+};
+
+function getEmailTemplate(seg, goal, lang, tone, contactType, name, company, ctx) {
+    const dict = EMAIL_TEMPLATES[lang];
+    const segD = dict?.[seg] || dict?.['cfr'] || dict?.['eu'];
+    const goalD = segD?.[goal] || segD?.['cold'];
+    const ctD = goalD?.[contactType] || goalD?.['procurement'] || goalD?.[Object.keys(goalD||{})[0]];
+    const toneD = ctD?.[tone] || ctD?.['formal'] || ctD?.[Object.keys(ctD||{})[0]];
+    if (!toneD) return null;
+    return { subject: toneD.subject(name, company), body: toneD.body(name, company, ctx) };
+}
+
+function generateEmail() {
+    const seg = $('eg-segment').value;
+    const goal = $('eg-goal').value;
+    const lang = $('eg-lang').value;
+    const tone = $('eg-tone').value;
+    const contactType = $('eg-contact-type').value;
+    const name = $('eg-name').value.trim();
+    const company = $('eg-company').value.trim();
+    const ctx = $('eg-context').value.trim();
+
+    const result = getEmailTemplate(seg, goal, lang, tone, contactType, name, company, ctx);
+
+    if (!result) {
+        $('email-output').innerHTML = `<div class="placeholder-state" style="color:var(--red)">Combinație nesupportată. Încearcă o altă configurație.</div>`;
+        return;
+    }
+
+    $('email-output').innerHTML = `
+        <h4>✉ Email Generat</h4>
+
+        <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--text-muted);text-transform:uppercase;margin-bottom:6px">Subiect Email</div>
+            <div class="subject-box">
+                <span id="gen-subject">${esc(result.subject)}</span>
+                <button class="copy-btn" onclick="copyText('gen-subject','Subiect copiat!')">Copiază</button>
+            </div>
+        </div>
+
+        <div style="position:relative">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--text-muted);text-transform:uppercase;margin-bottom:6px">Corp Email</div>
+            <div class="body-box" id="gen-body">${esc(result.body)}</div>
+            <button class="copy-btn copy-btn-body" onclick="copyText('gen-body','Email copiat!')">Copiază tot</button>
+        </div>
+
+        <div class="email-meta">
+            <span>Segement: <strong>${$('eg-segment').options[$('eg-segment').selectedIndex].text.split('—')[0].trim()}</strong></span>
+            <span>Scop: <strong>${$('eg-goal').options[$('eg-goal').selectedIndex].text.split('—')[0].trim()}</strong></span>
+            <span>Limbă: <strong>${lang.toUpperCase()}</strong></span>
+            <span>~${result.body.split(/\s+/).length} cuvinte</span>
+        </div>
+    `;
+    toast('Email generat!', 'ok');
+}
+
+function copyText(elId, msg) {
+    const el = $(elId);
+    navigator.clipboard.writeText(el.textContent || el.innerText).then(() => toast(msg || 'Copiat!', 'ok'));
+}
+
+function presetQuick(q) {
+    $('eg-segment').value = q.seg;
+    $('eg-goal').value = q.goal;
+    $('eg-lang').value = q.lang;
+    $('eg-tone').value = q.tone;
+    $('eg-contact-type').value = q.contact;
+    generateEmail();
+}
+
 function renderCampaigns(){
+    // Quick template cards
+    if ($('quick-templates')) {
+        $('quick-templates').innerHTML = QUICK_TEMPLATES.map((q, i) => `
+        <div class="tq-card" onclick='presetQuick(${JSON.stringify(q)})'>
+            <div class="tq-name">${esc(q.name)}</div>
+            <div class="tq-desc">${esc(q.desc)}</div>
+            <span class="tq-badge" style="background:${q.badgeColor}20;color:${q.badgeColor}">${q.badge} · ${q.lang.toUpperCase()}</span>
+        </div>`).join('');
+    }
+
     $('campaign-grid').innerHTML = CAMPAIGNS.map(c => {
         const openRate = c.open;
         const replyRate = ((c.reply / c.sent) * 100).toFixed(1);
@@ -1903,30 +2567,18 @@ function renderCampaigns(){
             <div class="ctitle">${esc(c.name)} <span class="badge ${statusBadge}"><span class="dot"></span>${esc(c.status)}</span></div>
             <div style="font-size:0.8rem;color:var(--text-faint);margin-top:0.2rem">${esc(c.seg)}</div>
             <div class="campaign-metrics">
-                <div class="cm"><div class="n">${c.sent}</div><div class="l">Sent</div></div>
-                <div class="cm"><div class="n">${openRate}%</div><div class="l">Open</div></div>
-                <div class="cm"><div class="n">${c.reply}</div><div class="l">Replies</div></div>
+                <div class="cm"><div class="n">${c.sent}</div><div class="l">Trimise</div></div>
+                <div class="cm"><div class="n">${openRate}%</div><div class="l">Deschise</div></div>
+                <div class="cm"><div class="n">${c.reply}</div><div class="l">Răspunsuri</div></div>
             </div>
-            <div style="font-size:0.76rem;color:var(--text-muted);display:flex;justify-content:space-between"><span>Open rate</span><span>${openRate}%</span></div>
+            <div style="font-size:0.76rem;color:var(--text-muted);display:flex;justify-content:space-between"><span>Rată deschidere</span><span>${openRate}%</span></div>
             <div class="progress"><div style="width:${openRate}%"></div></div>
             <div style="display:flex;gap:0.5rem;margin-top:1rem">
-                <button class="btn btn-ghost btn-sm" style="flex:1;justify-content:center" onclick="toast('Viewing ${esc(c.name)} report','ok')">View Report</button>
-                <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="toast('Launching ${esc(c.name)}','ok')">Launch</button>
+                <button class="btn btn-ghost btn-sm" style="flex:1;justify-content:center" onclick="toast('Raport ${esc(c.name)}','info')">Raport</button>
+                <button class="btn btn-primary btn-sm" style="flex:1;justify-content:center" onclick="toast('Campanie ${esc(c.name)} lansată','ok')">Lansează</button>
             </div>
         </div>`;
     }).join('');
-
-    $('template-list').innerHTML = TEMPLATES.map(t => `
-        <div class="template-row">
-            <div class="tinfo">
-                <div class="tname">${esc(t.name)}</div>
-                <div class="tdesc">${esc(t.desc)}</div>
-            </div>
-            <div style="display:flex;align-items:center;gap:0.85rem">
-                <span class="badge badge-gray">${t.uses} sent</span>
-                <button class="btn btn-ghost btn-sm" onclick="toast('Opening template: ${esc(t.name)}','ok')">Use</button>
-            </div>
-        </div>`).join('');
 }
 
 /* ============================================================
@@ -2238,7 +2890,7 @@ function resetOferta(){
         if(cell) cell.textContent = '—';
     });
     recalcOferta();
-    showToast('Ofertă resetată.','info');
+    toast('Ofertă resetată.','info');
 }
 
 function copyOfertaText(){
@@ -2255,7 +2907,7 @@ function copyOfertaText(){
         }
     });
     lines.push(`\nTOTAL: ${total}`);
-    navigator.clipboard.writeText(lines.join('\n')).then(() => showToast('Rezumat copiat în clipboard!','success'));
+    navigator.clipboard.writeText(lines.join('\n')).then(() => toast('Rezumat copiat în clipboard!','success'));
 }
 
 function previewOferta(){
@@ -2287,7 +2939,7 @@ function previewOferta(){
             </tr>`;
         }
     });
-    if(!rows){ showToast('Selectează cel puțin un produs!','error'); return; }
+    if(!rows){ toast('Selectează cel puțin un produs!','error'); return; }
 
     const discVal = subtotal * parseFloat(discPct) / 100;
     const base = subtotal - discVal;
