@@ -14,6 +14,10 @@ binding = "DB"
 database_name = "glas-expert-crm"
 database_id = "c3af7e2d-326e-4f05-9b74-92fc42cd0241"
 
+# Cloudflare Workers AI (OCR scanner cărți vizită)
+[ai]
+binding = "AI"
+
 # Environment Variables
 [vars]
 ANALYTICS_ENABLED = "true"
