@@ -382,6 +382,10 @@
             </div>
             <div class="topbar-right">
                 <span class="badge badge-green"><span class="dot"></span>Local</span>
+                <button class="btn" onclick="openLeadForm()" style="background:#7c3aed;color:#fff;border-color:#7c3aed;gap:0.35rem">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Lead Nou
+                </button>
                 <button class="btn" onclick="openCardScanner()" style="background:#0ea5e9;color:#fff;border-color:#0ea5e9;gap:0.35rem">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><circle cx="12" cy="14" r="3"/></svg>
                     Scanează Card
@@ -1665,57 +1669,62 @@ function closeModal(){ $('modal').classList.remove('open'); $('modal-tabs').inne
 <!-- ===== SCANNER CARTE DE VIZITĂ ===== -->
 <style>
 .scan-overlay{position:fixed;inset:0;z-index:2000;background:rgba(15,23,42,0.75);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:1rem}
-.scan-dialog{background:#fff;border-radius:16px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 25px 60px rgba(0,0,0,0.3);display:flex;flex-direction:column}
-.scan-head{padding:1.1rem 1.4rem;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:0.5rem}
+.scan-dialog{background:#fff;border-radius:16px;width:100%;max-width:580px;max-height:92vh;overflow-y:auto;box-shadow:0 25px 60px rgba(0,0,0,0.3);display:flex;flex-direction:column}
+.scan-head{padding:1rem 1.3rem;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:0.5rem;position:sticky;top:0;background:#fff;z-index:2}
 .scan-head h2{font-size:1rem;font-weight:700;color:#1e293b;margin:0}
 .scan-head .scan-close{background:none;border:none;cursor:pointer;color:#94a3b8;font-size:1.4rem;line-height:1;padding:0.2rem 0.5rem;border-radius:6px}
 .scan-head .scan-close:hover{background:#f1f5f9;color:#475569}
-.scan-body{padding:1.2rem 1.4rem;flex:1}
+.scan-body{padding:1.1rem 1.3rem 1.3rem;flex:1}
 .scan-photos{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:1rem}
 .scan-slot label{display:block;font-size:0.72rem;font-weight:700;color:#64748b;letter-spacing:.06em;margin-bottom:0.4rem;text-transform:uppercase}
-.scan-preview{min-height:120px;border:2px dashed #cbd5e1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#f8fafc;overflow:hidden;position:relative}
+.scan-preview{min-height:110px;border:2px dashed #cbd5e1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#f8fafc;overflow:hidden;position:relative}
 .scan-preview img{width:100%;height:auto;display:block;border-radius:8px}
-.scan-cam-btn{background:#0ea5e9;color:#fff;border:none;border-radius:8px;padding:0.55rem 0.8rem;font-size:0.82rem;font-weight:600;cursor:pointer;text-align:center;line-height:1.3;width:calc(100% - 1rem);margin:0.5rem}
+.scan-cam-btn{background:#0ea5e9;color:#fff;border:none;border-radius:8px;padding:0.5rem 0.7rem;font-size:0.8rem;font-weight:600;cursor:pointer;text-align:center;line-height:1.3;width:calc(100% - 1rem);margin:0.5rem}
 .scan-cam-btn:hover{background:#0284c7}
 .scan-retake{position:absolute;bottom:0.3rem;right:0.3rem;background:rgba(15,23,42,0.75);color:#fff;border:none;border-radius:6px;padding:0.2rem 0.5rem;font-size:0.72rem;cursor:pointer}
-.scan-meta{display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:1rem;padding:0.7rem 0.85rem;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0}
+.scan-meta{display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.85rem;padding:0.6rem 0.85rem;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0}
 .scan-meta span{font-size:0.78rem;color:#166534}
-.scan-process-btn{width:100%;padding:0.8rem;font-size:0.95rem;font-weight:700;background:#0ea5e9;color:#fff;border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem}
+.scan-process-btn{width:100%;padding:0.75rem;font-size:0.92rem;font-weight:700;background:#0ea5e9;color:#fff;border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem}
 .scan-process-btn:disabled{opacity:.6;cursor:not-allowed}
-.scan-fields{display:flex;flex-direction:column;gap:0.65rem}
-.sf-label{font-size:0.72rem;font-weight:600;color:#64748b;display:block;margin-bottom:0.2rem}
-.sf-input{width:100%;padding:0.55rem 0.7rem;border:1.5px solid #e2e8f0;border-radius:8px;font-size:0.88rem;font-family:inherit;color:#1e293b;background:#fff;box-sizing:border-box}
+.scan-fields{display:flex;flex-direction:column;gap:0.55rem}
+.sf-label{font-size:0.72rem;font-weight:600;color:#64748b;display:block;margin-bottom:0.18rem}
+.sf-input{width:100%;padding:0.5rem 0.65rem;border:1.5px solid #e2e8f0;border-radius:8px;font-size:0.85rem;font-family:inherit;color:#1e293b;background:#fff;box-sizing:border-box}
 .sf-input:focus{outline:none;border-color:#0ea5e9;box-shadow:0 0 0 3px rgba(14,165,233,.12)}
-.sf-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem}
-.scan-roles-section{margin-top:0.5rem;padding:0.8rem;background:#fafbfc;border-radius:10px;border:1px solid #e2e8f0}
-.scan-roles-title{font-size:0.75rem;font-weight:700;color:#475569;margin-bottom:0.55rem;text-transform:uppercase;letter-spacing:.05em}
-.role-checks{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.55rem}
-.role-check-label{display:inline-flex;align-items:center;gap:0.3rem;padding:0.3rem 0.65rem;background:#fff;border:1.5px solid #e2e8f0;border-radius:20px;font-size:0.8rem;color:#475569;cursor:pointer;transition:all .15s}
+.sf-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.55rem}
+.sf-section{margin-top:0.85rem;padding:0.85rem;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0}
+.sf-section-title{font-size:0.72rem;font-weight:700;color:#475569;letter-spacing:.06em;text-transform:uppercase;margin-bottom:0.6rem;padding-bottom:0.45rem;border-bottom:1px solid #e2e8f0}
+.role-checks{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.5rem}
+.role-check-label{display:inline-flex;align-items:center;gap:0.25rem;padding:0.28rem 0.6rem;background:#fff;border:1.5px solid #e2e8f0;border-radius:20px;font-size:0.78rem;color:#475569;cursor:pointer;transition:all .15s}
 .role-check-label input{width:0;height:0;opacity:0;position:absolute}
 .role-check-label.checked{background:#eff6ff;border-color:#3b82f6;color:#1d4ed8;font-weight:600}
+.role-check-label.prod-checked{background:#f0fdf4;border-color:#22c55e;color:#15803d;font-weight:600}
 .role-add-row{display:flex;gap:0.4rem}
-.role-add-input{flex:1;padding:0.4rem 0.65rem;border:1.5px solid #e2e8f0;border-radius:20px;font-size:0.8rem;font-family:inherit}
+.role-add-input{flex:1;padding:0.38rem 0.6rem;border:1.5px solid #e2e8f0;border-radius:20px;font-size:0.78rem;font-family:inherit}
 .role-add-input:focus{outline:none;border-color:#0ea5e9}
-.role-add-btn{padding:0.4rem 0.85rem;background:#0ea5e9;color:#fff;border:none;border-radius:20px;font-size:0.85rem;font-weight:700;cursor:pointer}
+.role-add-btn{padding:0.38rem 0.8rem;background:#0ea5e9;color:#fff;border:none;border-radius:20px;font-size:0.82rem;font-weight:700;cursor:pointer}
 .scan-foot{display:flex;gap:0.6rem;padding-top:1rem;flex-wrap:wrap}
-.scan-foot .btn-vcard{flex:1;padding:0.7rem;background:#fff;color:#0ea5e9;border:2px solid #0ea5e9;border-radius:10px;font-weight:700;font-size:0.88rem;cursor:pointer}
+.scan-foot .btn-vcard{flex:1;min-width:120px;padding:0.7rem;background:#fff;color:#0ea5e9;border:2px solid #0ea5e9;border-radius:10px;font-weight:700;font-size:0.85rem;cursor:pointer}
 .scan-foot .btn-add{flex:2;padding:0.7rem;background:#d97706;color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.88rem;cursor:pointer}
 .scan-foot .btn-add:hover{background:#b45309}
+.sf-textarea{width:100%;padding:0.5rem 0.65rem;border:1.5px solid #e2e8f0;border-radius:8px;font-size:0.85rem;font-family:inherit;color:#1e293b;background:#fff;box-sizing:border-box;resize:vertical;line-height:1.5}
+.sf-textarea:focus{outline:none;border-color:#0ea5e9;box-shadow:0 0 0 3px rgba(14,165,233,.12)}
+select.sf-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2394a3b8'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0.65rem center;padding-right:2rem}
 @media(max-width:480px){
   .scan-overlay{padding:0;align-items:flex-end}
-  .scan-dialog{border-radius:16px 16px 0 0;max-height:95vh}
+  .scan-dialog{border-radius:16px 16px 0 0;max-height:96vh}
   .sf-grid{grid-template-columns:1fr}
+  .scan-photos{grid-template-columns:1fr 1fr}
 }
 </style>
 
 <div id="card-scanner-modal" class="scan-overlay" style="display:none" onclick="if(event.target===this)closeCardScanner()">
 <div class="scan-dialog">
   <div class="scan-head">
-    <h2>📷 Scanează Carte de Vizită</h2>
+    <h2 id="scan-modal-title">📷 Scanează Carte de Vizită</h2>
     <button class="scan-close" onclick="closeCardScanner()">✕</button>
   </div>
   <div class="scan-body">
-    <!-- STEP 1: captură -->
+    <!-- STEP 1: captură foto (skip în modul manual) -->
     <div id="scan-step-1">
       <div class="scan-photos">
         <div class="scan-slot">
@@ -1741,46 +1750,177 @@ function closeModal(){ $('modal').classList.remove('open'); $('modal-tabs').inne
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         Procesează OCR
       </button>
-      <button onclick="fillScannerDemo()" style="width:100%;margin-top:0.5rem;padding:0.6rem;background:#f1f5f9;color:#475569;border:1.5px dashed #cbd5e1;border-radius:10px;font-size:0.82rem;font-weight:600;cursor:pointer">
-        📝 Completează Demo (fără OCR)
+      <button onclick="_skipToForm()" style="width:100%;margin-top:0.5rem;padding:0.6rem;background:#f1f5f9;color:#475569;border:1.5px dashed #cbd5e1;border-radius:10px;font-size:0.82rem;font-weight:600;cursor:pointer">
+        ✏️ Completează manual (fără OCR)
       </button>
     </div>
-    <!-- STEP 2: rezultate -->
+
+    <!-- STEP 2: formular interviu complet -->
     <div id="scan-step-2" style="display:none">
-      <div class="scan-fields">
-        <div><label class="sf-label">Nume Persoană</label><input class="sf-input" id="sf-name" placeholder="Ion Popescu"></div>
-        <div><label class="sf-label">Funcție / Titlu</label><input class="sf-input" id="sf-title" placeholder="Director Achiziții"></div>
-        <div><label class="sf-label">Companie *</label><input class="sf-input" id="sf-company" placeholder="Mobexpert SRL"></div>
-        <div class="sf-grid">
-          <div><label class="sf-label">Telefon 1</label><input class="sf-input" id="sf-phone" placeholder="+40721..." type="tel"></div>
-          <div><label class="sf-label">Telefon 2</label><input class="sf-input" id="sf-phone2" placeholder="" type="tel"></div>
-        </div>
-        <div class="sf-grid">
-          <div><label class="sf-label">Email 1</label><input class="sf-input" id="sf-email" placeholder="contact@firma.ro" type="email"></div>
-          <div><label class="sf-label">Email 2</label><input class="sf-input" id="sf-email2" placeholder="" type="email"></div>
-        </div>
-        <div><label class="sf-label">Website</label><input class="sf-input" id="sf-website" placeholder="www.firma.ro"></div>
-        <div class="sf-grid">
-          <div><label class="sf-label">Oraș</label><input class="sf-input" id="sf-city" placeholder="București"></div>
-          <div><label class="sf-label">Țară</label><input class="sf-input" id="sf-country" placeholder="România"></div>
-        </div>
-        <div><label class="sf-label">CUI / TVA</label><input class="sf-input" id="sf-vat" placeholder="RO12345678"></div>
-        <!-- Rolul contactului -->
-        <div class="scan-roles-section">
-          <div class="scan-roles-title">Rolul Contactului</div>
-          <div class="role-checks" id="role-checks-container"></div>
-          <div class="role-add-row">
-            <input class="role-add-input" id="role-new-input" placeholder="Adaugă rol nou..." onkeydown="if(event.key==='Enter'){event.preventDefault();addScanRole()}">
-            <button class="role-add-btn" onclick="addScanRole()">+ Adaugă</button>
+
+      <!-- DATE CONTACT -->
+      <div class="sf-section">
+        <div class="sf-section-title">📇 Date Contact</div>
+        <div class="scan-fields">
+          <div><label class="sf-label">Nume Persoană</label><input class="sf-input" id="sf-name" placeholder="Ion Popescu"></div>
+          <div class="sf-grid">
+            <div><label class="sf-label">Funcție / Titlu</label><input class="sf-input" id="sf-title" placeholder="Director Achiziții"></div>
+            <div><label class="sf-label">Companie *</label><input class="sf-input" id="sf-company" placeholder="Firma SRL"></div>
+          </div>
+          <div class="sf-grid">
+            <div><label class="sf-label">Telefon 1</label><input class="sf-input" id="sf-phone" placeholder="+40721..." type="tel"></div>
+            <div><label class="sf-label">Telefon 2</label><input class="sf-input" id="sf-phone2" placeholder="" type="tel"></div>
+          </div>
+          <div class="sf-grid">
+            <div><label class="sf-label">Email 1</label><input class="sf-input" id="sf-email" placeholder="contact@firma.ro" type="email"></div>
+            <div><label class="sf-label">Email 2</label><input class="sf-input" id="sf-email2" placeholder="" type="email"></div>
+          </div>
+          <div class="sf-grid">
+            <div><label class="sf-label">Website</label><input class="sf-input" id="sf-website" placeholder="www.firma.ro"></div>
+            <div><label class="sf-label">CUI / TVA</label><input class="sf-input" id="sf-vat" placeholder="RO12345678"></div>
+          </div>
+          <div class="sf-grid">
+            <div><label class="sf-label">Oraș</label><input class="sf-input" id="sf-city" placeholder="București"></div>
+            <div><label class="sf-label">Țară</label><input class="sf-input" id="sf-country" placeholder="România"></div>
           </div>
         </div>
       </div>
+
+      <!-- ROLUL CONTACTULUI -->
+      <div class="sf-section">
+        <div class="sf-section-title">👤 Rolul Contactului</div>
+        <div class="role-checks" id="role-checks-container"></div>
+        <div class="role-add-row">
+          <input class="role-add-input" id="role-new-input" placeholder="Adaugă rol nou..." onkeydown="if(event.key==='Enter'){event.preventDefault();addScanRole()}">
+          <button class="role-add-btn" onclick="addScanRole()">+ Adaugă</button>
+        </div>
+      </div>
+
+      <!-- PRODUSE DE INTERES -->
+      <div class="sf-section">
+        <div class="sf-section-title">🪟 Produse de Interes</div>
+        <div class="role-checks" id="product-checks-container">
+          <label class="role-check-label"><input type="checkbox" value="VERSATIKA" onchange="_toggleScanProduct(this)"> VERSATIKA</label>
+          <label class="role-check-label"><input type="checkbox" value="EVOPRINT" onchange="_toggleScanProduct(this)"> EVOPRINT</label>
+          <label class="role-check-label"><input type="checkbox" value="EVOLAM" onchange="_toggleScanProduct(this)"> EVOLAM</label>
+          <label class="role-check-label"><input type="checkbox" value="EVOLAM SMART" onchange="_toggleScanProduct(this)"> EVOLAM SMART</label>
+          <label class="role-check-label"><input type="checkbox" value="EVODUR" onchange="_toggleScanProduct(this)"> EVODUR</label>
+          <label class="role-check-label"><input type="checkbox" value="EVOCLEAN" onchange="_toggleScanProduct(this)"> EVOCLEAN</label>
+        </div>
+      </div>
+
+      <!-- DETALII PROIECT -->
+      <div class="sf-section">
+        <div class="sf-section-title">🏗️ Detalii Proiect</div>
+        <div class="scan-fields">
+          <div class="sf-grid">
+            <div>
+              <label class="sf-label">Tip Proiect</label>
+              <select class="sf-input" id="sf-proj-type">
+                <option value="">— selectează —</option>
+                <option>Construcție Nouă</option>
+                <option>Renovare</option>
+                <option>Remodelare Interioară</option>
+                <option>Proiect în Planificare</option>
+              </select>
+            </div>
+            <div>
+              <label class="sf-label">Segment</label>
+              <select class="sf-input" id="sf-proj-segment">
+                <option value="">— selectează —</option>
+                <option>Commercial / Office</option>
+                <option>Hospitality / Hotel</option>
+                <option>Healthcare / Medical</option>
+                <option>Education / Institutional</option>
+                <option>Residential / Luxury</option>
+                <option>Retail</option>
+                <option>Industrial</option>
+              </select>
+            </div>
+          </div>
+          <div class="sf-grid">
+            <div><label class="sf-label">Suprafață estimată (m²)</label><input class="sf-input" id="sf-area" placeholder="ex: 500" type="number" min="0"></div>
+            <div>
+              <label class="sf-label">Orizont de timp</label>
+              <select class="sf-input" id="sf-timeline">
+                <option value="">— selectează —</option>
+                <option>Imediat (sub 3 luni)</option>
+                <option>Scurt termen (3-6 luni)</option>
+                <option>Mediu termen (6-12 luni)</option>
+                <option>Planificare (&gt;12 luni)</option>
+              </select>
+            </div>
+          </div>
+          <div><label class="sf-label">Locație / Piață</label><input class="sf-input" id="sf-proj-location" placeholder="ex: București, New York, München..."></div>
+        </div>
+      </div>
+
+      <!-- CALIFICARE LEAD -->
+      <div class="sf-section">
+        <div class="sf-section-title">🎯 Calificare Lead</div>
+        <div class="scan-fields">
+          <div class="sf-grid">
+            <div>
+              <label class="sf-label">Decide cumpărarea?</label>
+              <select class="sf-input" id="sf-decision-maker">
+                <option value="">— selectează —</option>
+                <option>Da, decident principal</option>
+                <option>Da, co-decident</option>
+                <option>Nu, recomandă</option>
+                <option>Influencer tehnic</option>
+              </select>
+            </div>
+            <div>
+              <label class="sf-label">Buget estimat</label>
+              <select class="sf-input" id="sf-budget">
+                <option value="">— selectează —</option>
+                <option>&lt; 10.000 €</option>
+                <option>10.000 – 50.000 €</option>
+                <option>50.000 – 200.000 €</option>
+                <option>&gt; 200.000 €</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="sf-label">Furnizor actual / Competitor</label>
+            <input class="sf-input" id="sf-competitor" placeholder="ex: AGC, Guardian, Saint-Gobain...">
+          </div>
+          <div>
+            <label class="sf-label">Sursă lead</label>
+            <select class="sf-input" id="sf-lead-source">
+              <option value="">— selectează —</option>
+              <option>Târg / Expoziție</option>
+              <option>Referință client</option>
+              <option>Website</option>
+              <option>LinkedIn</option>
+              <option>Email marketing</option>
+              <option>Carte de Vizită</option>
+              <option>Apel telefonic</option>
+              <option>Alt canal</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTE INTERVIU -->
+      <div class="sf-section">
+        <div class="sf-section-title">📝 Note Interviu</div>
+        <textarea class="sf-textarea" id="sf-notes" rows="3" placeholder="Observații din conversație, cerințe speciale, follow-up agreat..."></textarea>
+      </div>
+
+      <!-- MEDIA GPS -->
+      <div class="scan-meta" style="margin-top:0.85rem">
+        <span id="scan-gps-txt2">📍 —</span>
+        <span id="scan-ts-txt2">🕐 —</span>
+        <span id="scan-card-status" style="color:#0ea5e9"></span>
+      </div>
+
       <div class="scan-foot">
         <button class="btn-vcard" onclick="exportScanVCard()">📱 Export vCard</button>
         <button class="btn-add" onclick="addClientFromScan()">✓ Adaugă în CRM</button>
       </div>
-      <div style="text-align:center;margin-top:0.7rem">
-        <button onclick="document.getElementById('scan-step-1').style.display='';document.getElementById('scan-step-2').style.display='none'" style="background:none;border:none;color:#94a3b8;font-size:0.8rem;cursor:pointer">← Refă fotografii</button>
+      <div id="scan-back-btn-wrap" style="text-align:center;margin-top:0.7rem">
+        <button onclick="_showScanStep1()" style="background:none;border:none;color:#94a3b8;font-size:0.8rem;cursor:pointer">← Adaugă / refă fotografii</button>
       </div>
     </div>
   </div>
@@ -1788,36 +1928,101 @@ function closeModal(){ $('modal').classList.remove('open'); $('modal-tabs').inne
 </div>
 
 <script>
-// ===== SCANNER CARTE VIZITA =====
-const _SCAN_ROLES_KEY = 'ge-scan-roles-v1';
+// ===== SCANNER + FORMULAR INTERVIU =====
+const _SCAN_ROLES_KEY = 'ge-scan-roles-v2';
 const _SCAN_DEFAULT_ROLES = ['End User','Arhitect','Producător','Dealer','Antreprenor','Proiectant','Investitor','Designer Interior','Beneficiar Final'];
 
-let _scanState = { frontB64:null, backB64:null, lat:null, lon:null, ts:null, roles:[] };
+let _scanState = { frontB64:null, backB64:null, lat:null, lon:null, ts:null, roles:[], products:[], manualMode:false };
 
 function _getScanRoles(){
   try{ const s=localStorage.getItem(_SCAN_ROLES_KEY); return s?JSON.parse(s):_SCAN_DEFAULT_ROLES.slice(); }catch{ return _SCAN_DEFAULT_ROLES.slice(); }
 }
 function _saveScanRoles(r){ localStorage.setItem(_SCAN_ROLES_KEY,JSON.stringify(r)); }
 
+function _initScanGPS(){
+  const gps1=document.getElementById('scan-gps-txt');
+  const gps2=document.getElementById('scan-gps-txt2');
+  const ts1=document.getElementById('scan-ts-txt');
+  const ts2=document.getElementById('scan-ts-txt2');
+  _scanState.ts=new Date().toISOString();
+  const tsStr='🕐 '+new Date().toLocaleString('ro-RO');
+  if(ts1) ts1.textContent=tsStr;
+  if(ts2) ts2.textContent=tsStr;
+  if(navigator.geolocation){
+    const setGPS=txt=>{ if(gps1) gps1.textContent=txt; if(gps2) gps2.textContent=txt; };
+    setGPS('📍 Se obține locația...');
+    navigator.geolocation.getCurrentPosition(
+      p=>{
+        _scanState.lat=p.coords.latitude; _scanState.lon=p.coords.longitude;
+        setGPS('📍 '+_scanState.lat.toFixed(5)+', '+_scanState.lon.toFixed(5));
+      },
+      ()=>{ setGPS('📍 GPS indisponibil'); }
+    );
+  }
+}
+
+function _resetScanForm(){
+  ['sf-name','sf-title','sf-company','sf-phone','sf-phone2','sf-email','sf-email2',
+   'sf-website','sf-city','sf-country','sf-vat','sf-area','sf-proj-location',
+   'sf-notes','sf-competitor'].forEach(id=>{
+    const e=document.getElementById(id); if(e) e.value='';
+  });
+  ['sf-proj-type','sf-proj-segment','sf-timeline','sf-decision-maker','sf-budget','sf-lead-source'].forEach(id=>{
+    const e=document.getElementById(id); if(e) e.value='';
+  });
+  document.getElementById('sf-country').value='România';
+  // reset product checkboxes
+  _scanState.products=[];
+  document.querySelectorAll('#product-checks-container input[type=checkbox]').forEach(cb=>{
+    cb.checked=false; cb.closest('label').classList.remove('prod-checked');
+  });
+}
+
+function _showScanStep1(){
+  document.getElementById('scan-step-1').style.display='';
+  document.getElementById('scan-step-2').style.display='none';
+}
+
+function _skipToForm(){
+  document.getElementById('scan-step-1').style.display='none';
+  document.getElementById('scan-step-2').style.display='';
+  _renderScanRoles();
+  _updateCardStatus();
+}
+
+function _updateCardStatus(){
+  const el=document.getElementById('scan-card-status');
+  if(!el) return;
+  const hasFront=!!_scanState.frontB64;
+  const hasBack=!!_scanState.backB64;
+  el.textContent=hasFront?(hasBack?'📸 Față + Verso':'📸 Față scanată'):'';
+}
+
 function openCardScanner(){
-  _scanState={frontB64:null,backB64:null,lat:null,lon:null,ts:null,roles:[]};
+  _scanState={frontB64:null,backB64:null,lat:null,lon:null,ts:null,roles:[],products:[],manualMode:false};
   document.getElementById('prev-front').innerHTML='<button class="scan-cam-btn" onclick="document.getElementById(\'inp-front\').click()">📷<br>Fotografiază<br>Față</button>';
   document.getElementById('prev-back').innerHTML='<button class="scan-cam-btn" onclick="document.getElementById(\'inp-back\').click()">📷<br>Fotografiază<br>Verso</button>';
   document.getElementById('inp-front').value='';
   document.getElementById('inp-back').value='';
-  document.getElementById('scan-step-1').style.display='';
-  document.getElementById('scan-step-2').style.display='none';
+  _resetScanForm();
+  _showScanStep1();
+  document.getElementById('scan-modal-title').textContent='📷 Scanează Carte de Vizită';
   document.getElementById('card-scanner-modal').style.display='flex';
-  // GPS
-  document.getElementById('scan-gps-txt').textContent='📍 Se obține locația...';
-  _scanState.ts=new Date().toISOString();
-  document.getElementById('scan-ts-txt').textContent='🕐 '+new Date().toLocaleString('ro-RO');
-  if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(
-      p=>{_scanState.lat=p.coords.latitude;_scanState.lon=p.coords.longitude;document.getElementById('scan-gps-txt').textContent='📍 '+_scanState.lat.toFixed(5)+', '+_scanState.lon.toFixed(5);},
-      ()=>{document.getElementById('scan-gps-txt').textContent='📍 GPS indisponibil';}
-    );
-  } else { document.getElementById('scan-gps-txt').textContent='📍 GPS indisponibil'; }
+  document.getElementById('scan-back-btn-wrap').style.display='';
+  _initScanGPS();
+  _renderScanRoles();
+}
+
+function openLeadForm(){
+  _scanState={frontB64:null,backB64:null,lat:null,lon:null,ts:null,roles:[],products:[],manualMode:true};
+  _resetScanForm();
+  document.getElementById('scan-modal-title').textContent='📋 Lead Interviu Nou';
+  document.getElementById('card-scanner-modal').style.display='flex';
+  document.getElementById('scan-step-1').style.display='none';
+  document.getElementById('scan-step-2').style.display='';
+  document.getElementById('scan-back-btn-wrap').style.display='';
+  document.getElementById('sf-lead-source').value='Târg / Expoziție';
+  _initScanGPS();
   _renderScanRoles();
 }
 
@@ -1826,7 +2031,12 @@ function closeCardScanner(){ document.getElementById('card-scanner-modal').style
 function _renderScanRoles(){
   const roles=_getScanRoles();
   const c=document.getElementById('role-checks-container');
-  c.innerHTML=roles.map(r=>`<label class="role-check-label" id="rcl-${CSS.escape(r)}"><input type="checkbox" value="${r.replace(/"/g,'&quot;')}" onchange="_toggleScanRole(this)"> ${r}</label>`).join('');
+  c.innerHTML=roles.map(r=>`<label class="role-check-label"><input type="checkbox" value="${r.replace(/"/g,'&quot;')}" onchange="_toggleScanRole(this)"> ${r}</label>`).join('');
+  // re-check previously selected
+  _scanState.roles.forEach(v=>{
+    const cb=[...c.querySelectorAll('input')].find(i=>i.value===v);
+    if(cb){cb.checked=true;cb.closest('label').classList.add('checked');}
+  });
 }
 
 function _toggleScanRole(cb){
@@ -1836,6 +2046,13 @@ function _toggleScanRole(cb){
   cb.closest('label').classList.toggle('checked',cb.checked);
 }
 
+function _toggleScanProduct(cb){
+  const v=cb.value;
+  if(cb.checked){ if(!_scanState.products.includes(v)) _scanState.products.push(v); }
+  else { _scanState.products=_scanState.products.filter(x=>x!==v); }
+  cb.closest('label').classList.toggle('prod-checked',cb.checked);
+}
+
 function addScanRole(){
   const inp=document.getElementById('role-new-input');
   const v=inp.value.trim();
@@ -1843,7 +2060,6 @@ function addScanRole(){
   const roles=_getScanRoles();
   if(!roles.includes(v)){ roles.push(v); _saveScanRoles(roles); }
   _renderScanRoles();
-  // auto-check new role
   setTimeout(()=>{
     const cbs=document.querySelectorAll('#role-checks-container input[type=checkbox]');
     cbs.forEach(cb=>{ if(cb.value===v){ cb.checked=true; _toggleScanRole(cb); }});
@@ -1871,7 +2087,6 @@ function _compressImg(file, maxW, quality){
 
 async function previewScanPhoto(side, inp){
   const file=inp.files[0]; if(!file) return;
-  // High-res for OCR (1600px wide), medium for display
   const b64Full=await _compressImg(file,1600,0.92);
   const b64Disp=await _compressImg(file,600,0.8);
   if(!b64Full) return;
@@ -1886,7 +2101,7 @@ async function previewScanPhoto(side, inp){
 async function processCardOCR(){
   if(!_scanState.frontB64){ alert('Fotografiați cel puțin fața cărții de vizită!'); return; }
   const btn=document.getElementById('btn-process-scan');
-  btn.textContent='⏳ Procesează OCR... (10-20 sec)';
+  btn.innerHTML='⏳ Procesează OCR... (10-20 sec)';
   btn.disabled=true;
   try{
     const res=await fetch('/api/scan-card',{
@@ -1908,16 +2123,17 @@ async function processCardOCR(){
       document.getElementById('sf-city').value=d.city||'';
       document.getElementById('sf-country').value=d.country||'România';
       document.getElementById('sf-vat').value=d.vatCode||'';
+      document.getElementById('sf-lead-source').value='Carte de Vizită';
     } else {
-      alert('OCR nu a putut extrage date. Completați manual câmpurile.');
+      alert('OCR nu a putut extrage date. Verificați că foto e clară sau completați manual.');
     }
   } catch(e){
     alert('Eroare conexiune OCR. Completați manual câmpurile.');
   }
-  document.getElementById('scan-step-1').style.display='none';
-  document.getElementById('scan-step-2').style.display='';
-  _renderScanRoles();
-  btn.textContent='Procesează OCR'; btn.disabled=false;
+  _skipToForm();
+  _updateCardStatus();
+  btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Procesează OCR';
+  btn.disabled=false;
 }
 
 function exportScanVCard(){
@@ -1926,7 +2142,10 @@ function exportScanVCard(){
   const ph=g('sf-phone'), ph2=g('sf-phone2');
   const em=g('sf-email'), web=g('sf-website');
   const city=g('sf-city'), country=g('sf-country');
-  const note='Glas Expert CRM | '+new Date().toLocaleDateString('ro-RO')+(_scanState.lat?' | GPS: '+_scanState.lat.toFixed(5)+','+_scanState.lon.toFixed(5):'');
+  const noteParts=['Glas Expert CRM', new Date().toLocaleDateString('ro-RO')];
+  if(_scanState.lat) noteParts.push('GPS: '+_scanState.lat.toFixed(5)+','+_scanState.lon.toFixed(5));
+  if(_scanState.products.length) noteParts.push('Produse: '+_scanState.products.join(', '));
+  if(g('sf-notes')) noteParts.push(g('sf-notes'));
   const lines=[
     'BEGIN:VCARD','VERSION:3.0',
     'FN:'+(name||co),
@@ -1937,7 +2156,7 @@ function exportScanVCard(){
     em?'EMAIL;TYPE=INTERNET:'+em:null,
     web?'URL:'+(web.startsWith('http')?web:'https://'+web):null,
     (city||country)?'ADR:;;'+city+';;;; '+country:null,
-    'NOTE:'+note,
+    'NOTE:'+noteParts.join(' | '),
     'END:VCARD'
   ].filter(Boolean).join('\r\n');
   const blob=new Blob([lines],{type:'text/vcard;charset=utf-8'});
@@ -1948,8 +2167,6 @@ function exportScanVCard(){
 }
 
 function fillScannerDemo(){
-  document.getElementById('scan-step-1').style.display='none';
-  document.getElementById('scan-step-2').style.display='';
   document.getElementById('sf-name').value='Alexandru Ionescu';
   document.getElementById('sf-title').value='Director Achiziții';
   document.getElementById('sf-company').value='Construct Design SRL';
@@ -1961,14 +2178,41 @@ function fillScannerDemo(){
   document.getElementById('sf-city').value='București';
   document.getElementById('sf-country').value='România';
   document.getElementById('sf-vat').value='RO12345678';
+  document.getElementById('sf-proj-type').value='Construcție Nouă';
+  document.getElementById('sf-proj-segment').value='Commercial / Office';
+  document.getElementById('sf-area').value='800';
+  document.getElementById('sf-timeline').value='Scurt termen (3-6 luni)';
+  document.getElementById('sf-proj-location').value='București, Sector 1';
+  document.getElementById('sf-decision-maker').value='Da, decident principal';
+  document.getElementById('sf-budget').value='50.000 – 200.000 €';
+  document.getElementById('sf-lead-source').value='Târg / Expoziție';
+  document.getElementById('sf-notes').value='Interesat de sisteme ușă VERSATIKA pentru birouri noi. Follow-up agreeat în 2 săptămâni.';
+  // check VERSATIKA + EVOPRINT
+  ['VERSATIKA','EVOPRINT'].forEach(p=>{
+    const cb=document.querySelector(`#product-checks-container input[value="${p}"]`);
+    if(cb&&!cb.checked){cb.checked=true;_toggleScanProduct(cb);}
+  });
   _renderScanRoles();
 }
 
 function addClientFromScan(){
   const g=id=>document.getElementById(id).value.trim();
   const company=g('sf-company')||g('sf-name');
-  if(!company){ alert('Introduceți cel puțin numele companiei!'); return; }
-  // Save card photos to D1 in background
+  if(!company){ alert('Introduceți cel puțin numele companiei sau persoana de contact!'); return; }
+  const interviewData={
+    name:g('sf-name'),title:g('sf-title'),company,
+    phone:g('sf-phone'),phone2:g('sf-phone2'),
+    email:g('sf-email'),email2:g('sf-email2'),
+    website:g('sf-website'),city:g('sf-city'),country:g('sf-country'),vatCode:g('sf-vat'),
+    roles:_scanState.roles,products:_scanState.products,
+    projType:g('sf-proj-type'),segment:g('sf-proj-segment'),
+    area:g('sf-area'),timeline:g('sf-timeline'),location:g('sf-proj-location'),
+    decisionMaker:g('sf-decision-maker'),budget:g('sf-budget'),
+    competitor:g('sf-competitor'),source:g('sf-lead-source'),
+    notes:g('sf-notes'),
+    gps:_scanState.lat?{lat:_scanState.lat,lon:_scanState.lon}:null,
+    scannedAt:_scanState.ts
+  };
   fetch('/api/save-card',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
@@ -1976,27 +2220,31 @@ function addClientFromScan(){
       company, cod:'',
       frontImage: _scanState.frontB64 ? 'data:image/jpeg;base64,'+_scanState.frontB64 : null,
       backImage: _scanState.backB64 ? 'data:image/jpeg;base64,'+_scanState.backB64 : null,
-      ocrData: JSON.stringify({name:g('sf-name'),title:g('sf-title'),company,phone:g('sf-phone'),phone2:g('sf-phone2'),email:g('sf-email'),email2:g('sf-email2'),website:g('sf-website'),city:g('sf-city'),country:g('sf-country'),vatCode:g('sf-vat'),roles:_scanState.roles}),
+      ocrData: JSON.stringify(interviewData),
       lat:_scanState.lat, lon:_scanState.lon, scannedAt:_scanState.ts
     })
   }).catch(()=>{});
-  // Pre-fill client form
   closeCardScanner();
   openAddClient();
   setTimeout(()=>{
-    const s=id=>{ const e=document.getElementById(id); return e; };
-    const setV=(id,v)=>{ const e=s(id); if(e&&v) e.value=v; };
+    const setV=(id,v)=>{ const e=document.getElementById(id); if(e&&v) e.value=v; };
     setV('lf-company',company);
     setV('lf-country',g('sf-country')||'România');
     setV('lf-city',g('sf-city'));
     setV('lf-vat',g('sf-vat'));
     setV('lf-contact',g('sf-name'));
-    setV('lf-role',(_scanState.roles.length?_scanState.roles.join(', '):'')+(g('sf-title')?(' / '+g('sf-title')):''));
+    const roleStr=[..._scanState.roles,g('sf-title')].filter(Boolean).join(' / ');
+    setV('lf-role',roleStr);
     setV('lf-email',g('sf-email'));
     setV('lf-phone',g('sf-phone'));
-    // Set source to "Carte Vizită"
     const src=document.getElementById('lf-source');
-    if(src){ for(let o of src.options){ if(o.value.toLowerCase().includes('vizit')||o.value.toLowerCase().includes('card')){src.value=o.value;break;} } }
+    if(src){
+      const sv=g('sf-lead-source');
+      for(let o of src.options){
+        if(sv&&o.value.toLowerCase()===sv.toLowerCase()){src.value=o.value;break;}
+        if(!sv&&(o.value.toLowerCase().includes('vizit')||o.value.toLowerCase().includes('card'))){src.value=o.value;break;}
+      }
+    }
     if(typeof updateAliasPreview==='function') updateAliasPreview();
   },350);
 }
