@@ -1,6 +1,4 @@
 // Cloudflare Workers AI — OCR cărți de vizită (față + verso)
-// Model: llama-3.2-11b-vision-instruct (calitate maximă, motor intern Cloudflare)
-
 const EXTRACT_PROMPT = `You are a precise business card OCR system. Carefully read every character on this business card image.
 Extract ALL information and return ONLY a valid JSON object with these exact fields:
 {
@@ -25,32 +23,43 @@ RULES:
 - Do NOT add markdown code blocks`;
 
 async function runVision(ai, imageBytes, prompt) {
-  // Try llama-3.2-11b-vision first (best quality)
+  const imgArr = [...imageBytes];
+  const errors = [];
+
+  // Format 1: llama-3.2-11b-vision with messages + separate image (Cloudflare standard)
   try {
     const r = await ai.run('@cf/meta/llama-3.2-11b-vision-instruct', {
-      messages: [{
-        role: 'user',
-        content: [
-          { type: 'image', image: [...imageBytes] },
-          { type: 'text', text: prompt }
-        ]
-      }],
-      max_tokens: 600
+      messages: [{ role: 'user', content: prompt }],
+      image: imgArr,
+      max_tokens: 768
     });
-    return r.response || '';
-  } catch (_) {}
+    const text = r.response || r.result?.response || '';
+    if (text.trim()) return { text, model: 'llama-3.2-11b-v1' };
+  } catch (e) { errors.push('llama-v1: ' + e.message); }
 
-  // Fallback to llava-1.5-7b
+  // Format 2: llama-3.2-11b-vision with prompt + image (alternative format)
   try {
-    const r = await ai.run('@cf/llava-1.5-7b-hf', {
-      image: [...imageBytes],
+    const r = await ai.run('@cf/meta/llama-3.2-11b-vision-instruct', {
       prompt,
-      max_tokens: 600
+      image: imgArr,
+      max_tokens: 768
     });
-    return r.description || r.response || '';
-  } catch (_) {}
+    const text = r.response || r.description || '';
+    if (text.trim()) return { text, model: 'llama-3.2-11b-v2' };
+  } catch (e) { errors.push('llama-v2: ' + e.message); }
 
-  return '';
+  // Format 3: llava-1.5-7b fallback
+  try {
+    const r = await ai.run('@cf/llava-hf/llava-1.5-7b-hf', {
+      image: imgArr,
+      prompt,
+      max_tokens: 768
+    });
+    const text = r.description || r.response || '';
+    if (text.trim()) return { text, model: 'llava-1.5-7b' };
+  } catch (e) { errors.push('llava: ' + e.message); }
+
+  return { text: '', model: null, errors };
 }
 
 function b64ToBytes(b64) {
@@ -63,7 +72,6 @@ function b64ToBytes(b64) {
 
 function parseJSON(text) {
   if (!text) return {};
-  // Strip markdown fences if model added them
   const cleaned = text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
   const match = cleaned.match(/\{[\s\S]*\}/);
   if (!match) return {};
@@ -78,7 +86,6 @@ function mergeData(front, back) {
     const bv = (back[k] || '').trim();
     out[k] = fv || bv;
   }
-  // If back has phone2 and front has only phone, promote back's phone to phone2
   if (out.phone && !out.phone2 && (back.phone || '').trim() && back.phone !== front.phone) {
     out.phone2 = (back.phone || '').trim();
   }
@@ -87,7 +94,7 @@ function mergeData(front, back) {
 
 export async function onRequestPost(context) {
   if (!context.env.AI) {
-    return Response.json({ success: false, error: 'AI binding not configured in wrangler.toml' }, { status: 500 });
+    return Response.json({ success: false, error: 'AI binding missing — adaugă binding AI în Cloudflare Dashboard' }, { status: 500 });
   }
 
   let body;
@@ -99,26 +106,37 @@ export async function onRequestPost(context) {
   if (!front) return Response.json({ success: false, error: 'No front image provided' }, { status: 400 });
 
   const frontBytes = b64ToBytes(front);
-  const frontText = await runVision(context.env.AI, frontBytes, EXTRACT_PROMPT);
-  const frontData = parseJSON(frontText);
+  const frontResult = await runVision(context.env.AI, frontBytes, EXTRACT_PROMPT);
+
+  if (!frontResult.text.trim()) {
+    return Response.json({
+      success: false,
+      error: 'AI nu a putut citi imaginea',
+      debug: frontResult.errors || []
+    });
+  }
+
+  const frontData = parseJSON(frontResult.text);
 
   let backData = {};
   if (back) {
     const backBytes = b64ToBytes(back);
     const backPrompt = `You are a business card OCR system. This is the BACK of a business card.
-Extract any additional contact information not already on the front.
-Return ONLY a JSON with fields: name, title, company, phone, phone2, email, email2, website, address, city, country, vatCode.
+Extract any additional contact information. Return ONLY a JSON with fields: name, title, company, phone, phone2, email, email2, website, address, city, country, vatCode.
 Empty string for any field not found. JSON only, no markdown.`;
-    const backText = await runVision(context.env.AI, backBytes, backPrompt);
-    backData = parseJSON(backText);
+    const backResult = await runVision(context.env.AI, backBytes, backPrompt);
+    backData = parseJSON(backResult.text);
   }
 
   const merged = mergeData(frontData, backData);
+  const hasData = !!(merged.name || merged.company || merged.phone || merged.email);
 
   return Response.json({
     success: true,
+    hasData,
     data: merged,
-    raw: { front: frontText, back: '' }
+    model: frontResult.model,
+    raw: frontResult.text
   }, { headers: { 'Access-Control-Allow-Origin': '*' } });
 }
 
