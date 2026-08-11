@@ -1741,6 +1741,9 @@ function closeModal(){ $('modal').classList.remove('open'); $('modal-tabs').inne
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         Procesează OCR
       </button>
+      <button onclick="fillScannerDemo()" style="width:100%;margin-top:0.5rem;padding:0.6rem;background:#f1f5f9;color:#475569;border:1.5px dashed #cbd5e1;border-radius:10px;font-size:0.82rem;font-weight:600;cursor:pointer">
+        📝 Completează Demo (fără OCR)
+      </button>
     </div>
     <!-- STEP 2: rezultate -->
     <div id="scan-step-2" style="display:none">
@@ -1942,6 +1945,23 @@ function exportScanVCard(){
   a.href=URL.createObjectURL(blob);
   a.download=(name||co||'contact').replace(/[^a-z0-9\s]/gi,'_')+'.vcf';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
+function fillScannerDemo(){
+  document.getElementById('scan-step-1').style.display='none';
+  document.getElementById('scan-step-2').style.display='';
+  document.getElementById('sf-name').value='Alexandru Ionescu';
+  document.getElementById('sf-title').value='Director Achiziții';
+  document.getElementById('sf-company').value='Construct Design SRL';
+  document.getElementById('sf-phone').value='+40721 234 567';
+  document.getElementById('sf-phone2').value='+40 21 345 6789';
+  document.getElementById('sf-email').value='alex.ionescu@constructdesign.ro';
+  document.getElementById('sf-email2').value='office@constructdesign.ro';
+  document.getElementById('sf-website').value='www.constructdesign.ro';
+  document.getElementById('sf-city').value='București';
+  document.getElementById('sf-country').value='România';
+  document.getElementById('sf-vat').value='RO12345678';
+  _renderScanRoles();
 }
 
 function addClientFromScan(){
